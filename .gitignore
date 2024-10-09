@@ -1,6 +1,9 @@
 build*
 .idea
 libopencv*
+.vscode
+.idea
+*.log
 
 # Prerequisites
 *.d
