@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(opencv_dart_library VERSION 1.0.0 LANGUAGES C CXX)
-set(LIBRARY_NAME "opencv_dart")
+project(opencv_c_library VERSION 1.0.0 LANGUAGES C CXX)
+set(LIBRARY_NAME "opencv_c")
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -23,7 +23,9 @@ option(DARTCV_WORLD "Include all modules" OFF)
 option(BUILD_WITH_STATIC_CRT "Build with static CRT" ON)
 option(DARTCV_DISABLE_DOWNLOAD_OPENCV "Download opencv sdk from opencv.full" OFF)
 
-set(OPENCV_VERSION "4.10.0+9")
+if(NOT OPENCV_VERSION)
+  set(OPENCV_VERSION "4.10.0+9")
+endif()
 
 # Avoid warning about DOWNLOAD_EXTRACT_TIMESTAMP in CMake 3.24:
 if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")

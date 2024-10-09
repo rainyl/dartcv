@@ -23,9 +23,9 @@ elseif(IOS)
   )
 endif()
 
-###############################################################################
+# ##############################################################################
 # prepare files
-###############################################################################
+# ##############################################################################
 
 # dartcv_core includes core, calib3d, features2d, imgcodecs, imgproc, photo, stitching, video
 set(_cpp_files
@@ -117,9 +117,9 @@ foreach(_cpp_file IN LISTS _cpp_files)
   list(APPEND _header_files ${_header_file})
 endforeach()
 
-###############################################################################
+# ##############################################################################
 # Add library
-###############################################################################
+# ##############################################################################
 
 # provide include dir for other libs that depend on this one
 set(dartcv_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
@@ -130,9 +130,9 @@ target_include_directories(dartcv SYSTEM PUBLIC
   ${OPENCV_DART_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
 )
-message(STATUS "Added library: dartcv ${_header_files}")
+message(STATUS "Added library: dartcv")
 set_target_properties(dartcv PROPERTIES
-  PUBLIC_HEADER "${_header_files}"
+  # PUBLIC_HEADER "${_header_files}"
   OUTPUT_NAME dartcv
   CXX_VISIBILITY_PRESET default
   C_VISIBILITY_PRESET default
@@ -156,3 +156,19 @@ if(WIN32)
 endif(WIN32)
 
 target_compile_definitions(dartcv PUBLIC DART_SHARED_LIB)
+
+target_sources(dartcv PUBLIC ${_header_files})
+
+install(DIRECTORY .
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+  COMPONENT header_files
+  FILES_MATCHING
+    PATTERN "*.h"
+    PATTERN "t.h" EXCLUDE
+    PATTERN "test" EXCLUDE
+    PATTERN "world" EXCLUDE
+)
+install(TARGETS dartcv
+  DESTINATION ${CMAKE_INSTALL_PREFIX}
+)
+install(FILES ${FFMPEG_LIB_PATHS} DESTINATION ${CMAKE_INSTALL_PREFIX})
