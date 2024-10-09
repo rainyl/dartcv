@@ -20,8 +20,9 @@ Pod::Spec.new do |s|
   # builds of apps using this FFI plugin. Podspec does not support relative
   # paths, so Classes contains a forwarder C file that relatively imports
   # `../src/*` so that the C sources can be shared among all target platforms.
-  s.source = { :path => '.' }
-  s.preserve_paths = 'dartcv/**', 'libopencv/**'
+  # s.source = { :path => '.' }
+  s.source = { :git => 'https://github.com/rainyl/dartcv.git', :tag => 'main' }
+  s.preserve_paths = 'dartcv/**'
   # s.source_files = 'dartcv/**/*.h'
   s.libraries = 'c++'
   s.requires_arc = false
