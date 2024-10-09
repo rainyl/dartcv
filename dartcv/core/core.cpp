@@ -1,13 +1,11 @@
 #include "core.h"
-#include "core/types.h"
 #include "lut.hpp"
-#include "opencv2/core/cvdef.h"
 #include "vec.hpp"
 
 #include <cassert>
 #include <cstddef>
 #include <cstdlib>
-#include <string.h>
+#include <cstring>
 #include <vector>
 
 CvStatus *RotatedRect_Points(RotatedRect rect, VecPoint2f *pts) {
@@ -23,7 +21,7 @@ CvStatus *RotatedRect_Points(RotatedRect rect, VecPoint2f *pts) {
   END_WRAP
 }
 
-CvStatus *RotatedRect_BoundingRect(RotatedRect rect, Rect *rval) {
+CvStatus *RotatedRect_BoundingRect(RotatedRect rect, CvRect *rval) {
   BEGIN_WRAP
   auto r = cv::RotatedRect(
       cv::Point2f(rect.center.x, rect.center.y),
@@ -35,7 +33,7 @@ CvStatus *RotatedRect_BoundingRect(RotatedRect rect, Rect *rval) {
   END_WRAP
 }
 
-CvStatus *RotatedRect_BoundingRect2f(RotatedRect rect, Rect2f *rval) {
+CvStatus *RotatedRect_BoundingRect2f(RotatedRect rect, CvRect2f *rval) {
   BEGIN_WRAP
   auto r = cv::RotatedRect(
       cv::Point2f(rect.center.x, rect.center.y),
@@ -251,7 +249,7 @@ CvStatus *Mat_AdjustROI(Mat m, int dtop, int dbottom, int dleft, int dright, Mat
   END_WRAP
 }
 
-CvStatus *Mat_LocateROI(Mat m, Size *wholeSize, Point *ofs) {
+CvStatus *Mat_LocateROI(Mat m, CvSize *wholeSize, CvPoint *ofs) {
   BEGIN_WRAP
   cv::Size sz;
   cv::Point pt;
@@ -322,7 +320,7 @@ CvStatus *Mat_ToVecChar(Mat m, VecChar *rval) {
   }
   END_WRAP
 }
-CvStatus *Mat_Region(Mat m, Rect r, Mat *rval) {
+CvStatus *Mat_Region(Mat m, CvRect r, Mat *rval) {
   BEGIN_WRAP
   *rval = {new cv::Mat(*m.ptr, cv::Rect(r.x, r.y, r.width, r.height))};
   END_WRAP
@@ -1100,7 +1098,7 @@ CvStatus *Mat_CartToPolar(Mat x, Mat y, Mat magnitude, Mat angle, bool angleInDe
   END_WRAP
 }
 
-CvStatus *Mat_CheckRange(Mat m, bool quiet, Point *pos, double minVal, double maxVal, bool *rval) {
+CvStatus *Mat_CheckRange(Mat m, bool quiet, CvPoint *pos, double minVal, double maxVal, bool *rval) {
   BEGIN_WRAP
   cv::Point pos1;
   *rval = cv::checkRange(*m.ptr, quiet, &pos1, minVal, maxVal);
@@ -1313,7 +1311,7 @@ CvStatus *Mat_MinMaxIdx(Mat m, double *minVal, double *maxVal, int *minIdx, int 
   END_WRAP
 }
 
-CvStatus *Mat_MinMaxLoc(Mat m, double *minVal, double *maxVal, Point *minLoc, Point *maxLoc) {
+CvStatus *Mat_MinMaxLoc(Mat m, double *minVal, double *maxVal, CvPoint *minLoc, CvPoint *maxLoc) {
   BEGIN_WRAP
   cv::Point cMinLoc, cMaxLoc;
   cv::minMaxLoc(*m.ptr, minVal, maxVal, &cMinLoc, &cMaxLoc);

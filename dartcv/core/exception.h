@@ -9,7 +9,7 @@
 #include "core.h"
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
 extern "C"
 {
 #endif

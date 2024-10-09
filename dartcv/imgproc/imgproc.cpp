@@ -7,8 +7,7 @@
 */
 
 #include "imgproc.h"
-#include "core/types.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 #include <vector>
 
 CvStatus *ArcLength(VecPoint curve, bool is_closed, double *rval) {
@@ -77,13 +76,13 @@ CvStatus *BilateralFilter(Mat src, Mat dst, int d, double sc, double ss) {
   cv::bilateralFilter(*src.ptr, *dst.ptr, d, sc, ss);
   END_WRAP
 }
-CvStatus *Blur(Mat src, Mat dst, Size ps) {
+CvStatus *Blur(Mat src, Mat dst, CvSize ps) {
   BEGIN_WRAP
   cv::blur(*src.ptr, *dst.ptr, cv::Size(ps.width, ps.height));
   END_WRAP
 }
 CvStatus *
-BoxFilter(Mat src, Mat dst, int ddepth, Size ps, Point anchor, bool normalize, int borderType) {
+BoxFilter(Mat src, Mat dst, int ddepth, CvSize ps, CvPoint anchor, bool normalize, int borderType) {
   BEGIN_WRAP
   cv::boxFilter(
       *src.ptr,
@@ -97,7 +96,7 @@ BoxFilter(Mat src, Mat dst, int ddepth, Size ps, Point anchor, bool normalize, i
   END_WRAP
 }
 CvStatus *
-SqrBoxFilter(Mat src, Mat dst, int ddepth, Size ps, Point anchor, bool normalize, int borderType) {
+SqrBoxFilter(Mat src, Mat dst, int ddepth, CvSize ps, CvPoint anchor, bool normalize, int borderType) {
   BEGIN_WRAP
   cv::sqrBoxFilter(*src.ptr, *dst.ptr, ddepth, cv::Size(ps.width, ps.height));
   END_WRAP
@@ -108,7 +107,7 @@ CvStatus *Dilate(Mat src, Mat dst, Mat kernel) {
   END_WRAP
 }
 CvStatus *DilateWithParams(
-    Mat src, Mat dst, Mat kernel, Point anchor, int iterations, int borderType, Scalar borderValue
+    Mat src, Mat dst, Mat kernel, CvPoint anchor, int iterations, int borderType, Scalar borderValue
 ) {
   BEGIN_WRAP
   cv::dilate(
@@ -134,7 +133,7 @@ CvStatus *Erode(Mat src, Mat dst, Mat kernel) {
   END_WRAP
 }
 CvStatus *ErodeWithParams(
-    Mat src, Mat dst, Mat kernel, Point anchor, int iterations, int borderType, Scalar borderValue
+    Mat src, Mat dst, Mat kernel, CvPoint anchor, int iterations, int borderType, Scalar borderValue
 ) {
   BEGIN_WRAP
   cv::erode(
@@ -163,17 +162,17 @@ CvStatus *Moments(Mat src, bool binaryImage, Moment *rval) {
   };
   END_WRAP
 }
-CvStatus *PyrDown(Mat src, Mat dst, Size dstsize, int borderType) {
+CvStatus *PyrDown(Mat src, Mat dst, CvSize dstsize, int borderType) {
   BEGIN_WRAP
   cv::pyrDown(*src.ptr, *dst.ptr, cv::Size(dstsize.width, dstsize.height), borderType);
   END_WRAP
 }
-CvStatus *PyrUp(Mat src, Mat dst, Size dstsize, int borderType) {
+CvStatus *PyrUp(Mat src, Mat dst, CvSize dstsize, int borderType) {
   BEGIN_WRAP
   cv::pyrUp(*src.ptr, *dst.ptr, cv::Size(dstsize.width, dstsize.height), borderType);
   END_WRAP
 }
-CvStatus *BoundingRect(VecPoint pts, Rect *rval) {
+CvStatus *BoundingRect(VecPoint pts, CvRect *rval) {
   BEGIN_WRAP
   auto _points = vecpoint_c2cpp(pts);
   cv::Rect r = cv::boundingRect(_points);
@@ -215,7 +214,7 @@ CvStatus *FitEllipse(VecPoint pts, RotatedRect *rval) {
   *rval = {{r.center.x, r.center.y}, {r.size.width, r.size.height}, r.angle};
   END_WRAP
 }
-CvStatus *MinEnclosingCircle(VecPoint pts, Point2f *center, float *radius) {
+CvStatus *MinEnclosingCircle(VecPoint pts, CvPoint2f *center, float *radius) {
   BEGIN_WRAP
   cv::Point2f c;
   float r;
@@ -233,7 +232,7 @@ CvStatus *FindContours(Mat src, Mat hierarchy, int mode, int method, VecVecPoint
   *rval = vecvecpoint_cpp2c(contours);
   END_WRAP
 }
-CvStatus *PointPolygonTest(VecPoint pts, Point2f pt, bool measureDist, double *rval) {
+CvStatus *PointPolygonTest(VecPoint pts, CvPoint2f pt, bool measureDist, double *rval) {
   BEGIN_WRAP
   auto _points = vecpoint_c2cpp(pts);
   double d = cv::pointPolygonTest(_points, cv::Point2f(pt.x, pt.y), measureDist);
@@ -263,7 +262,7 @@ CvStatus *ConnectedComponentsWithStats(
   END_WRAP
 }
 
-CvStatus *GaussianBlur(Mat src, Mat dst, Size ps, double sX, double sY, int bt) {
+CvStatus *GaussianBlur(Mat src, Mat dst, CvSize ps, double sX, double sY, int bt) {
   BEGIN_WRAP
   cv::GaussianBlur(*src.ptr, *dst.ptr, cv::Size(ps.width, ps.height), sX, sY, bt);
   END_WRAP
@@ -285,7 +284,7 @@ Scharr(Mat src, Mat dst, int dDepth, int dx, int dy, double scale, double delta,
   cv::Scharr(*src.ptr, *dst.ptr, dDepth, dx, dy, scale, delta, borderType);
   END_WRAP
 }
-CvStatus *GetStructuringElement(int shape, Size ksize, Mat *rval) {
+CvStatus *GetStructuringElement(int shape, CvSize ksize, Mat *rval) {
   BEGIN_WRAP
   *rval = {new cv::Mat(cv::getStructuringElement(shape, cv::Size(ksize.width, ksize.height)))};
   END_WRAP
@@ -306,7 +305,7 @@ CvStatus *MorphologyExWithParams(
     Mat dst,
     int op,
     Mat kernel,
-    Point pt,
+    CvPoint pt,
     int iterations,
     int borderType,
     Scalar borderValue
@@ -330,7 +329,7 @@ CvStatus *Canny(Mat src, Mat edges, double t1, double t2, int apertureSize, bool
   END_WRAP
 }
 CvStatus *
-CornerSubPix(Mat img, VecPoint2f corners, Size winSize, Size zeroZone, TermCriteria criteria) {
+CornerSubPix(Mat img, VecPoint2f corners, CvSize winSize, CvSize zeroZone, TermCriteria criteria) {
   BEGIN_WRAP
   auto size = cv::Size(winSize.width, winSize.height);
   auto zone = cv::Size(zeroZone.width, zeroZone.height);
@@ -389,7 +388,7 @@ CvStatus *GoodFeaturesToTrackWithGradient(
   END_WRAP
 }
 CvStatus *
-GrabCut(Mat img, Mat mask, Rect rect, Mat bgdModel, Mat fgdModel, int iterCount, int mode) {
+GrabCut(Mat img, Mat mask, CvRect rect, Mat bgdModel, Mat fgdModel, int iterCount, int mode) {
   BEGIN_WRAP
   cv::grabCut(
       *img.ptr,
@@ -504,8 +503,8 @@ CvStatus *AdaptiveThreshold(
 
 CvStatus *ArrowedLine(
     Mat img,
-    Point pt1,
-    Point pt2,
+    CvPoint pt1,
+    CvPoint pt2,
     Scalar color,
     int thickness,
     int line_type,
@@ -525,7 +524,7 @@ CvStatus *ArrowedLine(
   );
   END_WRAP
 }
-CvStatus *Circle(Mat img, Point center, int radius, Scalar color, int thickness) {
+CvStatus *Circle(Mat img, CvPoint center, int radius, Scalar color, int thickness) {
   BEGIN_WRAP
   cv::circle(
       *img.ptr,
@@ -537,7 +536,7 @@ CvStatus *Circle(Mat img, Point center, int radius, Scalar color, int thickness)
   END_WRAP
 }
 CvStatus *CircleWithParams(
-    Mat img, Point center, int radius, Scalar color, int thickness, int lineType, int shift
+    Mat img, CvPoint center, int radius, Scalar color, int thickness, int lineType, int shift
 ) {
   BEGIN_WRAP
   cv::circle(
@@ -553,8 +552,8 @@ CvStatus *CircleWithParams(
 }
 CvStatus *Ellipse(
     Mat img,
-    Point center,
-    Point axes,
+    CvPoint center,
+    CvPoint axes,
     double angle,
     double startAngle,
     double endAngle,
@@ -576,8 +575,8 @@ CvStatus *Ellipse(
 }
 CvStatus *EllipseWithParams(
     Mat img,
-    Point center,
-    Point axes,
+    CvPoint center,
+    CvPoint axes,
     double angle,
     double startAngle,
     double endAngle,
@@ -602,7 +601,7 @@ CvStatus *EllipseWithParams(
   END_WRAP
 }
 CvStatus *
-Line(Mat img, Point pt1, Point pt2, Scalar color, int thickness, int lineType, int shift) {
+Line(Mat img, CvPoint pt1, CvPoint pt2, Scalar color, int thickness, int lineType, int shift) {
   BEGIN_WRAP
   cv::line(
       *img.ptr,
@@ -615,7 +614,7 @@ Line(Mat img, Point pt1, Point pt2, Scalar color, int thickness, int lineType, i
   );
   END_WRAP
 }
-CvStatus *Rectangle(Mat img, Rect rect, Scalar color, int thickness) {
+CvStatus *Rectangle(Mat img, CvRect rect, Scalar color, int thickness) {
   BEGIN_WRAP
   cv::rectangle(
       *img.ptr,
@@ -626,7 +625,7 @@ CvStatus *Rectangle(Mat img, Rect rect, Scalar color, int thickness) {
   END_WRAP
 }
 CvStatus *
-RectangleWithParams(Mat img, Rect rect, Scalar color, int thickness, int lineType, int shift) {
+RectangleWithParams(Mat img, CvRect rect, Scalar color, int thickness, int lineType, int shift) {
   BEGIN_WRAP
   cv::rectangle(
       *img.ptr,
@@ -645,7 +644,7 @@ CvStatus *FillPoly(Mat img, VecVecPoint points, Scalar color) {
   END_WRAP
 }
 CvStatus *FillPolyWithParams(
-    Mat img, VecVecPoint points, Scalar color, int lineType, int shift, Point offset
+    Mat img, VecVecPoint points, Scalar color, int lineType, int shift, CvPoint offset
 ) {
   BEGIN_WRAP
   auto _points = vecvecpoint_c2cpp(points);
@@ -672,7 +671,7 @@ CvStatus *Polylines(Mat img, VecVecPoint points, bool isClosed, Scalar color, in
   END_WRAP
 }
 CvStatus *GetTextSizeWithBaseline(
-    const char *text, int fontFace, double fontScale, int thickness, int *baseline, Size *rval
+    const char *text, int fontFace, double fontScale, int thickness, int *baseline, CvSize *rval
 ) {
   BEGIN_WRAP
   cv::Size r = cv::getTextSize(text, fontFace, fontScale, thickness, baseline);
@@ -682,7 +681,7 @@ CvStatus *GetTextSizeWithBaseline(
 CvStatus *PutText(
     Mat img,
     const char *text,
-    Point org,
+    CvPoint org,
     int fontFace,
     double fontScale,
     Scalar color,
@@ -703,7 +702,7 @@ CvStatus *PutText(
 CvStatus *PutTextWithParams(
     Mat img,
     const char *text,
-    Point org,
+    CvPoint org,
     int fontFace,
     double fontScale,
     Scalar color,
@@ -725,12 +724,12 @@ CvStatus *PutTextWithParams(
   );
   END_WRAP
 }
-CvStatus *Resize(Mat src, Mat dst, Size sz, double fx, double fy, int interp) {
+CvStatus *Resize(Mat src, Mat dst, CvSize sz, double fx, double fy, int interp) {
   BEGIN_WRAP
   cv::resize(*src.ptr, *dst.ptr, cv::Size(sz.width, sz.height), fx, fy, interp);
   END_WRAP
 }
-CvStatus *GetRectSubPix(Mat src, Size patchSize, Point2f center, Mat dst) {
+CvStatus *GetRectSubPix(Mat src, CvSize patchSize, CvPoint2f center, Mat dst) {
   BEGIN_WRAP
   cv::getRectSubPix(
       *src.ptr,
@@ -740,19 +739,19 @@ CvStatus *GetRectSubPix(Mat src, Size patchSize, Point2f center, Mat dst) {
   );
   END_WRAP
 }
-CvStatus *GetRotationMatrix2D(Point2f center, double angle, double scale, Mat *rval) {
+CvStatus *GetRotationMatrix2D(CvPoint2f center, double angle, double scale, Mat *rval) {
   BEGIN_WRAP
   auto mat = cv::getRotationMatrix2D(cv::Point2f(center.x, center.y), angle, scale);
   *rval = {new cv::Mat(mat)};
   END_WRAP
 }
-CvStatus *WarpAffine(Mat src, Mat dst, Mat rot_mat, Size dsize) {
+CvStatus *WarpAffine(Mat src, Mat dst, Mat rot_mat, CvSize dsize) {
   BEGIN_WRAP
   cv::warpAffine(*src.ptr, *dst.ptr, *rot_mat.ptr, cv::Size(dsize.width, dsize.height));
   END_WRAP
 }
 CvStatus *WarpAffineWithParams(
-    Mat src, Mat dst, Mat rot_mat, Size dsize, int flags, int borderMode, Scalar borderValue
+    Mat src, Mat dst, Mat rot_mat, CvSize dsize, int flags, int borderMode, Scalar borderValue
 ) {
   BEGIN_WRAP
   cv::warpAffine(
@@ -766,13 +765,13 @@ CvStatus *WarpAffineWithParams(
   );
   END_WRAP
 }
-CvStatus *WarpPerspective(Mat src, Mat dst, Mat m, Size dsize) {
+CvStatus *WarpPerspective(Mat src, Mat dst, Mat m, CvSize dsize) {
   BEGIN_WRAP
   cv::warpPerspective(*src.ptr, *dst.ptr, *m.ptr, cv::Size(dsize.width, dsize.height));
   END_WRAP
 }
 CvStatus *WarpPerspectiveWithParams(
-    Mat src, Mat dst, Mat rot_mat, Size dsize, int flags, int borderMode, Scalar borderValue
+    Mat src, Mat dst, Mat rot_mat, CvSize dsize, int flags, int borderMode, Scalar borderValue
 ) {
   BEGIN_WRAP
   cv::warpPerspective(
@@ -852,7 +851,7 @@ CvStatus *DrawContoursWithParams(
     int lineType,
     Mat hierarchy,
     int maxLevel,
-    Point offset
+    CvPoint offset
 ) {
   BEGIN_WRAP
   auto _contours = vecvecpoint_c2cpp(contours);
@@ -904,7 +903,7 @@ Remap(Mat src, Mat dst, Mat map1, Mat map2, int interpolation, int borderMode, S
   END_WRAP
 }
 CvStatus *
-Filter2D(Mat src, Mat dst, int ddepth, Mat kernel, Point anchor, double delta, int borderType) {
+Filter2D(Mat src, Mat dst, int ddepth, Mat kernel, CvPoint anchor, double delta, int borderType) {
   BEGIN_WRAP
   cv::filter2D(
       *src.ptr, *dst.ptr, ddepth, *kernel.ptr, cv::Point(anchor.x, anchor.y), delta, borderType
@@ -917,7 +916,7 @@ CvStatus *SepFilter2D(
     int ddepth,
     Mat kernelX,
     Mat kernelY,
-    Point anchor,
+    CvPoint anchor,
     double delta,
     int borderType
 ) {
@@ -934,7 +933,7 @@ CvStatus *SepFilter2D(
   );
   END_WRAP
 }
-CvStatus *LogPolar(Mat src, Mat dst, Point2f center, double m, int flags) {
+CvStatus *LogPolar(Mat src, Mat dst, CvPoint2f center, double m, int flags) {
   BEGIN_WRAP
   cv::logPolar(*src.ptr, *dst.ptr, cv::Point2f(center.x, center.y), m, flags);
   END_WRAP
@@ -945,7 +944,7 @@ CvStatus *FitLine(VecPoint pts, Mat line, int distType, double param, double rep
   cv::fitLine(_pts, *line.ptr, distType, param, reps, aeps);
   END_WRAP
 }
-CvStatus *LinearPolar(Mat src, Mat dst, Point2f center, double maxRadius, int flags) {
+CvStatus *LinearPolar(Mat src, Mat dst, CvPoint2f center, double maxRadius, int flags) {
   BEGIN_WRAP
   cv::linearPolar(*src.ptr, *dst.ptr, cv::Point2f(center.x, center.y), maxRadius, flags);
   END_WRAP
@@ -958,7 +957,7 @@ MatchShapes(VecPoint contour1, VecPoint contour2, int method, double parameter, 
   *rval = cv::matchShapes(_contour1, _contour2, method, parameter);
   END_WRAP
 }
-CvStatus *ClipLine(Rect imgRect, Point pt1, Point pt2, bool *rval) {
+CvStatus *ClipLine(CvRect imgRect, CvPoint pt1, CvPoint pt2, bool *rval) {
   BEGIN_WRAP
   auto sz = cv::Rect(imgRect.x, imgRect.y, imgRect.width, imgRect.height);
   cv::Point p1(pt1.x, pt1.y);
@@ -972,7 +971,7 @@ CvStatus *CLAHE_Create(CLAHE *rval) {
   *rval = {new cv::Ptr<cv::CLAHE>(cv::createCLAHE())};
   END_WRAP
 }
-CvStatus *CLAHE_CreateWithParams(double clipLimit, Size tileGridSize, CLAHE *rval) {
+CvStatus *CLAHE_CreateWithParams(double clipLimit, CvSize tileGridSize, CLAHE *rval) {
   BEGIN_WRAP
   *rval = {new cv::Ptr<cv::CLAHE>(
       cv::createCLAHE(clipLimit, cv::Size(tileGridSize.width, tileGridSize.height))
@@ -1002,13 +1001,13 @@ CvStatus *CLAHE_SetClipLimit(CLAHE c, double clipLimit) {
   BEGIN_WRAP(*c.ptr)->setClipLimit(clipLimit);
   END_WRAP
 }
-CvStatus *CLAHE_GetTilesGridSize(CLAHE c, Size *rval) {
+CvStatus *CLAHE_GetTilesGridSize(CLAHE c, CvSize *rval) {
   BEGIN_WRAP
   auto sz = (*c.ptr)->getTilesGridSize();
   *rval = {sz.width, sz.height};
   END_WRAP
 }
-CvStatus *CLAHE_SetTilesGridSize(CLAHE c, Size size) {
+CvStatus *CLAHE_SetTilesGridSize(CLAHE c, CvSize size) {
   BEGIN_WRAP(*c.ptr)->setTilesGridSize(cv::Size(size.width, size.height));
   END_WRAP
 }
@@ -1018,28 +1017,28 @@ CvStatus *Subdiv2D_NewEmpty(Subdiv2D *rval) {
   *rval = {new cv::Subdiv2D()};
   END_WRAP
 }
-CvStatus *Subdiv2D_NewWithRect(Rect rect, Subdiv2D *rval) {
+CvStatus *Subdiv2D_NewWithRect(CvRect rect, Subdiv2D *rval) {
   BEGIN_WRAP
   *rval = {new cv::Subdiv2D(cv::Rect(rect.x, rect.y, rect.width, rect.height))};
   END_WRAP
 }
 void Subdiv2D_Close(Subdiv2DPtr self) { CVD_FREE(self); }
 
-CvStatus *Subdiv2D_EdgeDst(Subdiv2D self, int edge, Point2f *dstpt, int *rval) {
+CvStatus *Subdiv2D_EdgeDst(Subdiv2D self, int edge, CvPoint2f *dstpt, int *rval) {
   BEGIN_WRAP
   auto p = cv::Point2f();
   *rval = self.ptr->edgeDst(edge, &p);
   *dstpt = {p.x, p.y};
   END_WRAP
 }
-CvStatus *Subdiv2D_EdgeOrg(Subdiv2D self, int edge, Point2f *orgpt, int *rval) {
+CvStatus *Subdiv2D_EdgeOrg(Subdiv2D self, int edge, CvPoint2f *orgpt, int *rval) {
   BEGIN_WRAP
   auto p = cv::Point2f();
   *rval = self.ptr->edgeOrg(edge, &p);
   *orgpt = {p.x, p.y};
   END_WRAP
 }
-CvStatus *Subdiv2D_FindNearest(Subdiv2D self, Point2f pt, Point2f *nearestPt, int *rval) {
+CvStatus *Subdiv2D_FindNearest(Subdiv2D self, CvPoint2f pt, CvPoint2f *nearestPt, int *rval) {
   BEGIN_WRAP
   auto p = cv::Point2f();
   *rval = self.ptr->findNearest(cv::Point2f(pt.x, pt.y), &p);
@@ -1082,7 +1081,7 @@ CvStatus *Subdiv2D_GetTriangleList(Subdiv2D self, Vec6f **rval, size_t *size) {
   *rval = rv;
   END_WRAP
 }
-CvStatus *Subdiv2D_GetVertex(Subdiv2D self, int vertex, int *firstEdge, Point2f *rval) {
+CvStatus *Subdiv2D_GetVertex(Subdiv2D self, int vertex, int *firstEdge, CvPoint2f *rval) {
   BEGIN_WRAP
   auto p = self.ptr->getVertex(vertex, firstEdge);
   *rval = {p.x, p.y};
@@ -1100,12 +1099,12 @@ CvStatus *Subdiv2D_GetVoronoiFacetList(
   *facetCenters = vecpoint2f_cpp2c(vfc);
   END_WRAP;
 }
-CvStatus *Subdiv2D_InitDelaunay(Subdiv2D self, Rect rect) {
+CvStatus *Subdiv2D_InitDelaunay(Subdiv2D self, CvRect rect) {
   BEGIN_WRAP
   self.ptr->initDelaunay(cv::Rect(rect.x, rect.y, rect.width, rect.height));
   END_WRAP
 }
-CvStatus *Subdiv2D_Insert(Subdiv2D self, Point2f pt, int *rval) {
+CvStatus *Subdiv2D_Insert(Subdiv2D self, CvPoint2f pt, int *rval) {
   BEGIN_WRAP
   *rval = self.ptr->insert(cv::Point2f(pt.x, pt.y));
   END_WRAP
@@ -1116,7 +1115,7 @@ CvStatus *Subdiv2D_InsertVec(Subdiv2D self, VecPoint2f ptvec) {
   self.ptr->insert(_ptvec);
   END_WRAP
 }
-CvStatus *Subdiv2D_Locate(Subdiv2D self, Point2f pt, int *edge, int *vertex, int *rval) {
+CvStatus *Subdiv2D_Locate(Subdiv2D self, CvPoint2f pt, int *edge, int *vertex, int *rval) {
   BEGIN_WRAP
   *rval = self.ptr->locate(cv::Point2f(pt.x, pt.y), *edge, *vertex);
   END_WRAP
@@ -1142,7 +1141,7 @@ CvStatus *InvertAffineTransform(Mat src, Mat dst) {
   cv::invertAffineTransform(*src.ptr, *dst.ptr);
   END_WRAP
 }
-CvStatus *PhaseCorrelate(Mat src1, Mat src2, Mat window, double *response, Point2f *rval) {
+CvStatus *PhaseCorrelate(Mat src1, Mat src2, Mat window, double *response, CvPoint2f *rval) {
   BEGIN_WRAP
   auto p = cv::phaseCorrelate(*src1.ptr, *src2.ptr, *window.ptr, response);
   // TODO: add Point2d
@@ -1194,9 +1193,9 @@ CvStatus *Mat_AccumulatedWeightedWithMask(Mat src, Mat dst, double alpha, Mat ma
 CvStatus *FloodFill(
     Mat src,
     Mat mask,
-    Point seedPoint,
+    CvPoint seedPoint,
     Scalar newVal,
-    Rect *rect,
+    CvRect *rect,
     Scalar loDiff,
     Scalar upDiff,
     int flags,

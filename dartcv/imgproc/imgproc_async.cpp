@@ -1,9 +1,5 @@
 #include "imgproc_async.h"
-#include "core/types.h"
-#include "core/vec.hpp"
-#include "opencv2/core/mat.hpp"
-#include "opencv2/core/matx.hpp"
-#include <opencv2/imgproc.hpp>
+#include "dartcv/core/vec.hpp"
 #include <vector>
 
 CvStatus *ArcLength_Async(VecPoint curve, bool is_closed, CVD_OUT CvCallback_1 callback) {
@@ -30,7 +26,7 @@ CvStatus *BilateralFilter_Async(Mat src, int d, double sc, double ss, CvCallback
   END_WRAP
 }
 
-CvStatus *Blur_Async(Mat src, Size ps, CvCallback_1 callback) {
+CvStatus *Blur_Async(Mat src, CvSize ps, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::blur(*src.ptr, dst, cv::Size(ps.width, ps.height));
@@ -38,7 +34,7 @@ CvStatus *Blur_Async(Mat src, Size ps, CvCallback_1 callback) {
   END_WRAP
 }
 
-CvStatus *BoxFilter_Async(Mat src, int ddepth, Size ps, CvCallback_1 callback) {
+CvStatus *BoxFilter_Async(Mat src, int ddepth, CvSize ps, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::boxFilter(*src.ptr, dst, ddepth, cv::Size(ps.width, ps.height));
@@ -106,7 +102,7 @@ CvStatus *ConvexityDefects_Async(VecPoint points, Mat hull, CvCallback_1 callbac
   END_WRAP
 }
 
-CvStatus *SqBoxFilter_Async(Mat src, int ddepth, Size ps, CvCallback_1 callback) {
+CvStatus *SqBoxFilter_Async(Mat src, int ddepth, CvSize ps, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::sqrBoxFilter(*src.ptr, dst, ddepth, cv::Size(ps.width, ps.height));
@@ -125,7 +121,7 @@ CvStatus *Dilate_Async(Mat src, Mat kernel, CvCallback_1 callback) {
 CvStatus *DilateWithParams_Async(
     Mat src,
     Mat kernel,
-    Point anchor,
+    CvPoint anchor,
     int iterations,
     int borderType,
     Scalar borderValue,
@@ -160,7 +156,7 @@ CvStatus *DistanceTransform_Async(
 CvStatus *FloodFill_Async(
     Mat src,
     Mat mask,
-    Point seedPoint,
+    CvPoint seedPoint,
     Scalar newVal,
     Scalar loDiff,
     Scalar upDiff,
@@ -175,7 +171,7 @@ CvStatus *FloodFill_Async(
   auto _upDiff = cv::Scalar(upDiff.val1, upDiff.val2, upDiff.val3, upDiff.val4);
   int rval =
       cv::floodFill(*src.ptr, *mask.ptr, _seedPoint, _newVal, &_rect, _loDiff, _upDiff, flags);
-  callback(new int(rval), new Rect{_rect.x, _rect.y, _rect.width, _rect.height});
+  callback(new int(rval), new CvRect{_rect.x, _rect.y, _rect.width, _rect.height});
   END_WRAP
 }
 
@@ -198,7 +194,7 @@ CvStatus *Erode_Async(Mat src, Mat kernel, CvCallback_1 callback) {
 CvStatus *ErodeWithParams_Async(
     Mat src,
     Mat kernel,
-    Point anchor,
+    CvPoint anchor,
     int iterations,
     int borderType,
     Scalar borderValue,
@@ -238,7 +234,7 @@ CvStatus *Moments_Async(Mat src, bool binaryImage, CvCallback_1 callback) {
   END_WRAP
 }
 
-CvStatus *PyrDown_Async(Mat src, Size dstsize, int borderType, CvCallback_1 callback) {
+CvStatus *PyrDown_Async(Mat src, CvSize dstsize, int borderType, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::pyrDown(*src.ptr, dst, cv::Size(dstsize.width, dstsize.height), borderType);
@@ -246,7 +242,7 @@ CvStatus *PyrDown_Async(Mat src, Size dstsize, int borderType, CvCallback_1 call
   END_WRAP
 }
 
-CvStatus *PyrUp_Async(Mat src, Size dstsize, int borderType, CvCallback_1 callback) {
+CvStatus *PyrUp_Async(Mat src, CvSize dstsize, int borderType, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::pyrUp(*src.ptr, dst, cv::Size(dstsize.width, dstsize.height), borderType);
@@ -258,7 +254,7 @@ CvStatus *BoundingRect_Async(VecPoint pts, CvCallback_1 callback) {
   BEGIN_WRAP
   auto _points = vecpoint_c2cpp(pts);
   cv::Rect r = cv::boundingRect(_points);
-  callback(new Rect{r.x, r.y, r.width, r.height});
+  callback(new CvRect{r.x, r.y, r.width, r.height});
   END_WRAP
 }
 
@@ -306,7 +302,7 @@ CvStatus *MinEnclosingCircle_Async(VecPoint pts, CvCallback_2 callback) {
   float r;
   auto _points = vecpoint_c2cpp(pts);
   cv::minEnclosingCircle(_points, c, r);
-  callback(new Point2f{c.y, c.x}, new float(r));
+  callback(new CvPoint2f{c.y, c.x}, new float(r));
   END_WRAP
 }
 
@@ -321,7 +317,7 @@ CvStatus *FindContours_Async(Mat src, int mode, int method, CvCallback_2 callbac
 }
 
 CvStatus *
-PointPolygonTest_Async(VecPoint pts, Point2f pt, bool measureDist, CvCallback_1 callback) {
+PointPolygonTest_Async(VecPoint pts, CvPoint2f pt, bool measureDist, CvCallback_1 callback) {
   BEGIN_WRAP
   auto _points = vecpoint_c2cpp(pts);
   callback(new double(cv::pointPolygonTest(_points, cv::Point2f(pt.x, pt.y), measureDist)));
@@ -356,7 +352,7 @@ CvStatus *ConnectedComponentsWithStats_Async(
 }
 
 CvStatus *
-GaussianBlur_Async(Mat src, Size ps, double sX, double sY, int bt, CVD_OUT CvCallback_1 callback) {
+GaussianBlur_Async(Mat src, CvSize ps, double sX, double sY, int bt, CVD_OUT CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::GaussianBlur(*src.ptr, dst, cv::Size(ps.width, ps.height), sX, sY, bt);
@@ -403,7 +399,7 @@ CvStatus *Scharr_Async(
   END_WRAP
 }
 
-CvStatus *GetStructuringElement_Async(int shape, Size ksize, Point anchor, CvCallback_1 callback) {
+CvStatus *GetStructuringElement_Async(int shape, CvSize ksize, CvPoint anchor, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat element = cv::getStructuringElement(
       shape, cv::Size(ksize.width, ksize.height), cv::Point(anchor.x, anchor.y)
@@ -431,7 +427,7 @@ CvStatus *MorphologyExWithParams_Async(
     Mat src,
     int op,
     Mat kernel,
-    Point pt,
+    CvPoint pt,
     int iterations,
     int borderType,
     Scalar borderValue,
@@ -468,8 +464,8 @@ CvStatus *Canny_Async(
 CvStatus *CornerSubPix_Async(
     Mat img,
     VecPoint2f corners,
-    Size winSize,
-    Size zeroZone,
+    CvSize winSize,
+    CvSize zeroZone,
     TermCriteria criteria,
     CvCallback_0 callback
 ) {
@@ -537,7 +533,7 @@ CvStatus *GoodFeaturesToTrackWithGradient_Async(
 CvStatus *GrabCut_Async(
     Mat img,
     Mat mask,
-    Rect rect,
+    CvRect rect,
     Mat bgdModel,
     Mat fgdModel,
     int iterCount,
@@ -692,8 +688,8 @@ CvStatus *AdaptiveThreshold_Async(
 
 CvStatus *ArrowedLine_Async(
     Mat img,
-    Point pt1,
-    Point pt2,
+    CvPoint pt1,
+    CvPoint pt2,
     Scalar color,
     int thickness,
     int line_type,
@@ -717,7 +713,7 @@ CvStatus *ArrowedLine_Async(
 }
 
 CvStatus *Circle_Async(
-    Mat img, Point center, int radius, Scalar color, int thickness, CvCallback_0 callback
+    Mat img, CvPoint center, int radius, Scalar color, int thickness, CvCallback_0 callback
 ) {
   BEGIN_WRAP
   cv::circle(
@@ -733,7 +729,7 @@ CvStatus *Circle_Async(
 
 CvStatus *CircleWithParams_Async(
     Mat img,
-    Point center,
+    CvPoint center,
     int radius,
     Scalar color,
     int thickness,
@@ -757,8 +753,8 @@ CvStatus *CircleWithParams_Async(
 
 CvStatus *Ellipse_Async(
     Mat img,
-    Point center,
-    Point axes,
+    CvPoint center,
+    CvPoint axes,
     double angle,
     double startAngle,
     double endAngle,
@@ -783,8 +779,8 @@ CvStatus *Ellipse_Async(
 
 CvStatus *EllipseWithParams_Async(
     Mat img,
-    Point center,
-    Point axes,
+    CvPoint center,
+    CvPoint axes,
     double angle,
     double startAngle,
     double endAngle,
@@ -813,8 +809,8 @@ CvStatus *EllipseWithParams_Async(
 
 CvStatus *Line_Async(
     Mat img,
-    Point pt1,
-    Point pt2,
+    CvPoint pt1,
+    CvPoint pt2,
     Scalar color,
     int thickness,
     int lineType,
@@ -835,7 +831,7 @@ CvStatus *Line_Async(
   END_WRAP
 }
 
-CvStatus *Rectangle_Async(Mat img, Rect rect, Scalar color, int thickness, CvCallback_0 callback) {
+CvStatus *Rectangle_Async(Mat img, CvRect rect, Scalar color, int thickness, CvCallback_0 callback) {
   BEGIN_WRAP
   cv::rectangle(
       *img.ptr,
@@ -848,7 +844,8 @@ CvStatus *Rectangle_Async(Mat img, Rect rect, Scalar color, int thickness, CvCal
 }
 
 CvStatus *RectangleWithParams_Async(
-    Mat img, Rect rect, Scalar color, int thickness, int lineType, int shift, CvCallback_0 callback
+    Mat img,
+    CvRect rect, Scalar color, int thickness, int lineType, int shift, CvCallback_0 callback
 ) {
   BEGIN_WRAP
   cv::rectangle(
@@ -877,7 +874,7 @@ CvStatus *FillPolyWithParams_Async(
     Scalar color,
     int lineType,
     int shift,
-    Point offset,
+    CvPoint offset,
     CvCallback_0 callback
 ) {
   BEGIN_WRAP
@@ -916,14 +913,14 @@ CvStatus *GetTextSizeWithBaseline_Async(
   BEGIN_WRAP
   int baseline;
   cv::Size r = cv::getTextSize(text, fontFace, fontScale, thickness, &baseline);
-  callback(new Size{r.width, r.height}, new int(baseline));
+  callback(new CvSize{r.width, r.height}, new int(baseline));
   END_WRAP
 }
 
 CvStatus *PutText_Async(
     Mat img,
     const char *text,
-    Point org,
+    CvPoint org,
     int fontFace,
     double fontScale,
     Scalar color,
@@ -947,7 +944,7 @@ CvStatus *PutText_Async(
 CvStatus *PutTextWithParams_Async(
     Mat img,
     const char *text,
-    Point org,
+    CvPoint org,
     int fontFace,
     double fontScale,
     Scalar color,
@@ -972,7 +969,7 @@ CvStatus *PutTextWithParams_Async(
   END_WRAP
 }
 
-CvStatus *Resize_Async(Mat src, Size sz, double fx, double fy, int interp, CvCallback_1 callback) {
+CvStatus *Resize_Async(Mat src, CvSize sz, double fx, double fy, int interp, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::resize(*src.ptr, dst, cv::Size(sz.width, sz.height), fx, fy, interp);
@@ -980,7 +977,7 @@ CvStatus *Resize_Async(Mat src, Size sz, double fx, double fy, int interp, CvCal
   END_WRAP
 }
 
-CvStatus *GetRectSubPix_Async(Mat src, Size patchSize, Point2f center, CvCallback_1 callback) {
+CvStatus *GetRectSubPix_Async(Mat src, CvSize patchSize, CvPoint2f center, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::getRectSubPix(
@@ -991,14 +988,14 @@ CvStatus *GetRectSubPix_Async(Mat src, Size patchSize, Point2f center, CvCallbac
 }
 
 CvStatus *
-GetRotationMatrix2D_Async(Point2f center, double angle, double scale, CvCallback_1 callback) {
+GetRotationMatrix2D_Async(CvPoint2f center, double angle, double scale, CvCallback_1 callback) {
   BEGIN_WRAP
   auto mat = cv::getRotationMatrix2D(cv::Point2f(center.x, center.y), angle, scale);
   callback(new Mat{new cv::Mat(mat)});
   END_WRAP
 }
 
-CvStatus *WarpAffine_Async(Mat src, Mat rot_mat, Size dsize, CvCallback_1 callback) {
+CvStatus *WarpAffine_Async(Mat src, Mat rot_mat, CvSize dsize, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::warpAffine(*src.ptr, dst, *rot_mat.ptr, cv::Size(dsize.width, dsize.height));
@@ -1009,7 +1006,7 @@ CvStatus *WarpAffine_Async(Mat src, Mat rot_mat, Size dsize, CvCallback_1 callba
 CvStatus *WarpAffineWithParams_Async(
     Mat src,
     Mat rot_mat,
-    Size dsize,
+    CvSize dsize,
     int flags,
     int borderMode,
     Scalar borderValue,
@@ -1030,7 +1027,7 @@ CvStatus *WarpAffineWithParams_Async(
   END_WRAP
 }
 
-CvStatus *WarpPerspective_Async(Mat src, Mat m, Size dsize, CvCallback_1 callback) {
+CvStatus *WarpPerspective_Async(Mat src, Mat m, CvSize dsize, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::warpPerspective(*src.ptr, dst, *m.ptr, cv::Size(dsize.width, dsize.height));
@@ -1041,7 +1038,7 @@ CvStatus *WarpPerspective_Async(Mat src, Mat m, Size dsize, CvCallback_1 callbac
 CvStatus *WarpPerspectiveWithParams_Async(
     Mat src,
     Mat rot_mat,
-    Size dsize,
+    CvSize dsize,
     int flags,
     int borderMode,
     Scalar borderValue,
@@ -1145,7 +1142,7 @@ CvStatus *DrawContoursWithParams_Async(
     int lineType,
     Mat hierarchy,
     int maxLevel,
-    Point offset,
+    CvPoint offset,
     CvCallback_0 callback
 ) {
   BEGIN_WRAP
@@ -1220,7 +1217,7 @@ CvStatus *Filter2D_Async(
     Mat src,
     int ddepth,
     Mat kernel,
-    Point anchor,
+    CvPoint anchor,
     double delta,
     int borderType,
     CvCallback_1 callback
@@ -1239,7 +1236,7 @@ CvStatus *SepFilter2D_Async(
     int ddepth,
     Mat kernelX,
     Mat kernelY,
-    Point anchor,
+    CvPoint anchor,
     double delta,
     int borderType,
     CvCallback_1 callback
@@ -1260,7 +1257,7 @@ CvStatus *SepFilter2D_Async(
   END_WRAP
 }
 
-CvStatus *LogPolar_Async(Mat src, Point2f center, double m, int flags, CvCallback_1 callback) {
+CvStatus *LogPolar_Async(Mat src, CvPoint2f center, double m, int flags, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::logPolar(*src.ptr, dst, cv::Point2f(center.x, center.y), m, flags);
@@ -1280,7 +1277,7 @@ CvStatus *FitLine_Async(
 }
 
 CvStatus *
-LinearPolar_Async(Mat src, Point2f center, double maxRadius, int flags, CvCallback_1 callback) {
+LinearPolar_Async(Mat src, CvPoint2f center, double maxRadius, int flags, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::linearPolar(*src.ptr, dst, cv::Point2f(center.x, center.y), maxRadius, flags);
@@ -1299,7 +1296,7 @@ CvStatus *MatchShapes_Async(
   END_WRAP
 }
 
-CvStatus *ClipLine_Async(Rect imgRect, Point pt1, Point pt2, CvCallback_1 callback) {
+CvStatus *ClipLine_Async(CvRect imgRect, CvPoint pt1, CvPoint pt2, CvCallback_1 callback) {
   BEGIN_WRAP
   auto sz = cv::Rect(imgRect.x, imgRect.y, imgRect.width, imgRect.height);
   cv::Point p1(pt1.x, pt1.y);
@@ -1315,7 +1312,7 @@ CvStatus *CLAHE_Create_Async(CvCallback_1 callback) {
   END_WRAP
 }
 
-CvStatus *CLAHE_CreateWithParams_Async(double clipLimit, Size tileGridSize, CvCallback_1 callback) {
+CvStatus *CLAHE_CreateWithParams_Async(double clipLimit, CvSize tileGridSize, CvCallback_1 callback) {
   BEGIN_WRAP
   callback(new CLAHE{new cv::Ptr<cv::CLAHE>(
       cv::createCLAHE(clipLimit, cv::Size(tileGridSize.width, tileGridSize.height))
@@ -1358,11 +1355,11 @@ CvStatus *CLAHE_SetClipLimit_Async(CLAHE self, double clipLimit, CvCallback_0 ca
 CvStatus *CLAHE_GetTilesGridSize_Async(CLAHE self, CvCallback_1 callback) {
   BEGIN_WRAP
   auto sz = (*self.ptr)->getTilesGridSize();
-  callback(new Size{sz.width, sz.height});
+  callback(new CvSize{sz.width, sz.height});
   END_WRAP
 }
 
-CvStatus *CLAHE_SetTilesGridSize_Async(CLAHE self, Size size, CvCallback_0 callback) {
+CvStatus *CLAHE_SetTilesGridSize_Async(CLAHE self, CvSize size, CvCallback_0 callback) {
   BEGIN_WRAP(*self.ptr)->setTilesGridSize(cv::Size(size.width, size.height));
   callback();
   END_WRAP
@@ -1374,7 +1371,7 @@ CvStatus *Subdiv2D_NewEmpty_Async(CvCallback_1 callback) {
   END_WRAP
 }
 
-CvStatus *Subdiv2D_NewWithRect_Async(Rect rect, CvCallback_1 callback) {
+CvStatus *Subdiv2D_NewWithRect_Async(CvRect rect, CvCallback_1 callback) {
   BEGIN_WRAP
   callback(new Subdiv2D{new cv::Subdiv2D(cv::Rect(rect.x, rect.y, rect.width, rect.height))});
   END_WRAP
@@ -1389,7 +1386,7 @@ CvStatus *Subdiv2D_EdgeDst_Async(Subdiv2D self, int edge, CvCallback_2 callback)
   BEGIN_WRAP
   auto p = cv::Point2f();
   auto rval = self.ptr->edgeDst(edge, &p);
-  callback(new int(rval), new Point2f{p.x, p.y});
+  callback(new int(rval), new CvPoint2f{p.x, p.y});
   END_WRAP
 }
 
@@ -1397,15 +1394,15 @@ CvStatus *Subdiv2D_EdgeOrg_Async(Subdiv2D self, int edge, CvCallback_2 callback)
   BEGIN_WRAP
   auto p = cv::Point2f();
   auto rval = self.ptr->edgeOrg(edge, &p);
-  callback(new int(rval), new Point2f{p.x, p.y});
+  callback(new int(rval), new CvPoint2f{p.x, p.y});
   END_WRAP
 }
 
-CvStatus *Subdiv2D_FindNearest_Async(Subdiv2D self, Point2f pt, CvCallback_2 callback) {
+CvStatus *Subdiv2D_FindNearest_Async(Subdiv2D self, CvPoint2f pt, CvCallback_2 callback) {
   BEGIN_WRAP
   auto p = cv::Point2f();
   int rval = self.ptr->findNearest(cv::Point2f(pt.x, pt.y), &p);
-  callback(new int(rval), new Point2f{p.x, p.y});
+  callback(new int(rval), new CvPoint2f{p.x, p.y});
   END_WRAP
 }
 
@@ -1444,7 +1441,7 @@ CvStatus *Subdiv2D_GetVertex_Async(Subdiv2D self, int vertex, CvCallback_2 callb
   BEGIN_WRAP
   int firstEdge;
   cv::Point2f p = self.ptr->getVertex(vertex, &firstEdge);
-  callback(new Point2f{p.x, p.y}, new int(firstEdge));
+  callback(new CvPoint2f{p.x, p.y}, new int(firstEdge));
   END_WRAP
 }
 
@@ -1458,14 +1455,14 @@ CvStatus *Subdiv2D_GetVoronoiFacetList_Async(Subdiv2D self, VecI32 idx, CvCallba
   END_WRAP;
 }
 
-CvStatus *Subdiv2D_InitDelaunay_Async(Subdiv2D self, Rect rect, CvCallback_0 callback) {
+CvStatus *Subdiv2D_InitDelaunay_Async(Subdiv2D self, CvRect rect, CvCallback_0 callback) {
   BEGIN_WRAP
   self.ptr->initDelaunay(cv::Rect(rect.x, rect.y, rect.width, rect.height));
   callback();
   END_WRAP
 }
 
-CvStatus *Subdiv2D_Insert_Async(Subdiv2D self, Point2f pt, CvCallback_1 callback) {
+CvStatus *Subdiv2D_Insert_Async(Subdiv2D self, CvPoint2f pt, CvCallback_1 callback) {
   BEGIN_WRAP
   int rval = self.ptr->insert(cv::Point2f(pt.x, pt.y));
   callback(new int(rval));
@@ -1480,7 +1477,7 @@ CvStatus *Subdiv2D_InsertVec_Async(Subdiv2D self, VecPoint2f ptvec, CvCallback_0
   END_WRAP
 }
 
-CvStatus *Subdiv2D_Locate_Async(Subdiv2D self, Point2f pt, CvCallback_3 callback) {
+CvStatus *Subdiv2D_Locate_Async(Subdiv2D self, CvPoint2f pt, CvCallback_3 callback) {
   BEGIN_WRAP
   int edge;
   int vertex;
@@ -1523,7 +1520,7 @@ CvStatus *PhaseCorrelate_Async(Mat src1, Mat src2, Mat window, CvCallback_2 call
   double response;
   auto p = cv::phaseCorrelate(*src1.ptr, *src2.ptr, *window.ptr, &response);
   // TODO: add Point2d
-  callback(new Point2f{static_cast<float>(p.x), static_cast<float>(p.y)}, new double(response));
+  callback(new CvPoint2f{static_cast<float>(p.x), static_cast<float>(p.y)}, new double(response));
   END_WRAP
 }
 

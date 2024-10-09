@@ -7,8 +7,7 @@
 */
 
 #include "video.h"
-#include "core/vec.hpp"
-#include <vector>
+#include "dartcv/core/vec.hpp"
 
 CvStatus *BackgroundSubtractorMOG2_Create(BackgroundSubtractorMOG2 *rval) {
   BEGIN_WRAP
@@ -82,7 +81,7 @@ CvStatus *CalcOpticalFlowPyrLKWithParams(
     VecPoint2f *nextPts,
     VecUChar *status,
     VecF32 *err,
-    Size winSize,
+    CvSize winSize,
     int maxLevel,
     TermCriteria criteria,
     int flags,
@@ -165,13 +164,13 @@ CvStatus *FindTransformECC(
   END_WRAP
 }
 
-CvStatus *TrackerMIL_Init(TrackerMIL self, Mat image, Rect bbox) {
+CvStatus *TrackerMIL_Init(TrackerMIL self, Mat image, CvRect bbox) {
   BEGIN_WRAP
   auto rect = cv::Rect(bbox.x, bbox.y, bbox.width, bbox.height);
   (*self.ptr)->init(*image.ptr, rect);
   END_WRAP
 }
-CvStatus *TrackerMIL_Update(TrackerMIL self, Mat image, Rect *boundingBox, bool *rval) {
+CvStatus *TrackerMIL_Update(TrackerMIL self, Mat image, CvRect *boundingBox, bool *rval) {
   BEGIN_WRAP
   cv::Rect bb;
   *rval = (*self.ptr)->update(*image.ptr, bb);

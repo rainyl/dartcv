@@ -1,7 +1,6 @@
 /* Created by Abdelaziz Mahdy. Licensed: Apache 2.0 license. Copyright (c) 2024 Abdelaziz Mahdy. */
 #include "photo_async.h"
-#include "core/types.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 
 // Asynchronous functions for ColorChange
 CvStatus *ColorChange_Async(
@@ -16,7 +15,7 @@ CvStatus *ColorChange_Async(
 
 // Asynchronous functions for SeamlessClone
 CvStatus *
-SeamlessClone_Async(Mat src, Mat dst, Mat mask, Point p, int flags, CvCallback_1 callback) {
+SeamlessClone_Async(Mat src, Mat dst, Mat mask, CvPoint p, int flags, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat _blend;
   cv::seamlessClone(*src.ptr, *dst.ptr, *mask.ptr, cv::Point(p.x, p.y), _blend, flags);

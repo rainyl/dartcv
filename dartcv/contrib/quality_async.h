@@ -6,11 +6,11 @@
 #ifndef CVD_QUALITY_ASYNC_H
 #define CVD_QUALITY_ASYNC_H
 
-#include "core/types.h"
+#include "dartcv/core.h"
 #include "quality.h"
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
+#include <opencv2/quality.hpp>
 extern "C" {
 #endif
 

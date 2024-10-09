@@ -24,13 +24,11 @@ elseif(IOS)
 endif()
 
 set(_cpp_files
-  "asyncarray.cpp"
-  "dnn_async.cpp"
+        "dnn_async.cpp"
   "dnn.cpp"
 )
 set(_header_files
-  "asyncarray.h"
-  "dnn_async.h"
+        "dnn_async.h"
   "dnn.h"
 )
 

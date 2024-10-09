@@ -2,11 +2,9 @@
 #ifndef CVD_PHOTO_ASYNC_H_
 #define CVD_PHOTO_ASYNC_H_
 
-#include "core/types.h"
 #include "photo.h"
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
 extern "C"
 {
 #endif
@@ -15,7 +13,7 @@ extern "C"
     CvStatus *ColorChange_Async(Mat src, Mat mask, float red_mul, float green_mul, float blue_mul, CvCallback_1 callback);
 
     // Asynchronous functions for SeamlessClone
-    CvStatus *SeamlessClone_Async(Mat src, Mat dst, Mat mask, Point p, int flags, CvCallback_1 callback);
+    CvStatus *SeamlessClone_Async(Mat src, Mat dst, Mat mask, CvPoint p, int flags, CvCallback_1 callback);
 
     // Asynchronous functions for IlluminationChange
     CvStatus *IlluminationChange_Async(Mat src, Mat mask, float alpha, float beta, CvCallback_1 callback);

@@ -7,8 +7,7 @@
 */
 
 #include "objdetect.h"
-#include "core/vec.hpp"
-#include <vector>
+#include "dartcv/core/vec.hpp"
 
 // CascadeClassifier
 CvStatus *CascadeClassifier_New(CascadeClassifier *rval) {
@@ -42,8 +41,8 @@ CvStatus *CascadeClassifier_DetectMultiScaleWithParams(
     double scale,
     int minNeighbors,
     int flags,
-    Size minSize,
-    Size maxSize
+    CvSize minSize,
+    CvSize maxSize
 ) {
   BEGIN_WRAP
   std::vector<cv::Rect> rects;
@@ -62,8 +61,8 @@ CvStatus *CascadeClassifier_DetectMultiScale2(
     double scaleFactor,
     int minNeighbors,
     int flags,
-    Size minSize,
-    Size maxSize
+    CvSize minSize,
+    CvSize maxSize
 ) {
   BEGIN_WRAP
   std::vector<cv::Rect> rects;
@@ -87,8 +86,8 @@ CvStatus *CascadeClassifier_DetectMultiScale3(
     double scaleFactor,
     int minNeighbors,
     int flags,
-    Size minSize,
-    Size maxSize,
+    CvSize minSize,
+    CvSize maxSize,
     bool outputRejectLevels
 ) {
   BEGIN_WRAP
@@ -124,7 +123,7 @@ CvStatus *CascadeClassifier_getFeatureType(CascadeClassifier self, int *rval) {
   *rval = self.ptr->getFeatureType();
   END_WRAP
 }
-CvStatus *CascadeClassifier_getOriginalWindowSize(CascadeClassifier self, Size *rval) {
+CvStatus *CascadeClassifier_getOriginalWindowSize(CascadeClassifier self, CvSize *rval) {
   BEGIN_WRAP
   auto sz = self.ptr->getOriginalWindowSize();
   *rval = {sz.width, sz.height};
@@ -159,8 +158,8 @@ CvStatus *HOGDescriptor_Detect(
     VecPoint *foundLocations,
     VecF64 *weights,
     double hitThresh,
-    Size winStride,
-    Size padding,
+    CvSize winStride,
+    CvSize padding,
     VecPoint *searchLocations
 ) {
   BEGIN_WRAP
@@ -186,8 +185,8 @@ CvStatus *HOGDescriptor_Detect2(
     Mat img,
     VecPoint *foundLocations,
     double hitThresh,
-    Size winStride,
-    Size padding,
+    CvSize winStride,
+    CvSize padding,
     VecPoint *searchLocations
 ) {
   BEGIN_WRAP
@@ -216,8 +215,8 @@ CvStatus *HOGDescriptor_DetectMultiScaleWithParams(
     HOGDescriptor self,
     Mat img,
     double hitThresh,
-    Size winStride,
-    Size padding,
+    CvSize winStride,
+    CvSize padding,
     double scale,
     double finalThreshold,
     bool useMeanshiftGrouping,
@@ -247,8 +246,8 @@ CvStatus *HOGDescriptor_Compute(
     HOGDescriptor self,
     Mat img,
     VecF32 *descriptors,
-    Size winStride,
-    Size padding,
+    CvSize winStride,
+    CvSize padding,
     VecPoint *locations
 ) {
   BEGIN_WRAP
@@ -266,7 +265,7 @@ CvStatus *HOGDescriptor_Compute(
   END_WRAP
 }
 CvStatus *HOGDescriptor_computeGradient(
-    HOGDescriptor self, Mat img, Mat grad, Mat angleOfs, Size paddingTL, Size paddingBR
+    HOGDescriptor self, Mat img, Mat grad, Mat angleOfs, CvSize paddingTL, CvSize paddingBR
 ) {
   BEGIN_WRAP
   self.ptr->computeGradient(
@@ -290,15 +289,15 @@ CvStatus *HOGDescriptor_computeGradient(
 // }
 // CvStatus *HOGDescriptor_detectROI(HOGDescriptor self, Mat img, VecPoint *locations, VecPoint
 // *foundLocations,
-//                                  VecF64 *confidences, double hitThreshold, Size winStride,
-//                                  Size padding)
+//                                  VecF64 *confidences, double hitThreshold, CvSize winStride,
+//                                  CvSize padding)
 // {
 //   BEGIN_WRAP
 //   auto _locations = vecpoint_cpp2c();
 //   auto _foundLocations = vecpoint_cpp2c();
 //   auto _confidences = vecdouble_cpp2c();
 //   self.ptr->detectROI(*img.ptr, *_locations, *_foundLocations, *_confidences, hitThreshold,
-//                       cv::Size(winStride.width, winStride.height), cv::Size(padding.width,
+//                       cv::CvSize(winStride.width, winStride.height), cv::CvSize(padding.width,
 //                       padding.height));
 //   *locations = {_locations};
 //   *foundLocations = {_foundLocations};
@@ -455,7 +454,7 @@ CvStatus *QRCodeDetector_setUseAlignmentMarkers(QRCodeDetector self, bool useAli
 CvStatus *FaceDetectorYN_New(
     const char *model,
     const char *config,
-    Size input_size,
+    CvSize input_size,
     float score_threshold,
     float nms_threshold,
     int top_k,
@@ -481,7 +480,7 @@ CvStatus *FaceDetectorYN_NewFromBuffer(
     const char *framework,
     VecUChar buffer,
     VecUChar buffer_config,
-    Size input_size,
+    CvSize input_size,
     float score_threshold,
     float nms_threshold,
     int top_k,
@@ -519,12 +518,12 @@ CvStatus *FaceDetectorYN_Detect(FaceDetectorYN self, Mat img, Mat *faces) {
   END_WRAP
 }
 
-CvStatus *FaceDetectorYN_SetInputSize(FaceDetectorYN self, Size input_size) {
+CvStatus *FaceDetectorYN_SetInputSize(FaceDetectorYN self, CvSize input_size) {
   BEGIN_WRAP(*self.ptr)->setInputSize(cv::Size(input_size.width, input_size.height));
   END_WRAP
 }
 
-CvStatus *FaceDetectorYN_GetInputSize(FaceDetectorYN self, Size *input_size) {
+CvStatus *FaceDetectorYN_GetInputSize(FaceDetectorYN self, CvSize *input_size) {
   BEGIN_WRAP
   cv::Size sz = (*self.ptr)->getInputSize();
   *input_size = {sz.width, sz.height};

@@ -5,16 +5,15 @@
     Modified by Rainyl.
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
-#pragma once
 #ifndef _OPENCV3_ARUCO_H_
 #define _OPENCV3_ARUCO_H_
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
+#include <opencv2/aruco.hpp>
 extern "C" {
 #endif
 
-#include "core/core.h"
+#include "dartcv/core.h"
 
 #ifdef __cplusplus
 CVD_TYPEDEF(cv::aruco::Dictionary, ArucoDictionary);

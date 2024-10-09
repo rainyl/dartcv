@@ -1,6 +1,5 @@
 #include "img_hash_async.h"
-#include "core/types.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 
 // Asynchronous functions for Image Hashing
 

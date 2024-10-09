@@ -9,24 +9,30 @@
 #ifndef _OPENCV3_DNN_H_
 #define _OPENCV3_DNN_H_
 
-#include <stdbool.h>
 
 #ifdef __cplusplus
 #include <opencv2/dnn.hpp>
-#include <opencv2/opencv.hpp>
 extern "C" {
 #endif
 
 #include "core/core.h"
+#include <stdbool.h>
 
 #ifdef __cplusplus
 namespace cv_dnn = cv::dnn::dnn4_v20240521;
 CVD_TYPEDEF(cv_dnn::Net, Net);
 CVD_TYPEDEF(cv::Ptr<cv_dnn::Layer>, Layer);
+CVD_TYPEDEF(cv::AsyncArray, AsyncArray);
 #else
 CVD_TYPEDEF(void, Net);
 CVD_TYPEDEF(void, Layer);
+CVD_TYPEDEF(void, AsyncArray);
 #endif
+
+CvStatus *AsyncArray_New(AsyncArray *rval);
+CvStatus *AsyncArray_Get(AsyncArray async_out, Mat out);
+CvStatus *Net_forwardAsync(Net net, const char *outputName, AsyncArray *rval);
+void      AsyncArray_Close(AsyncArrayPtr a);
 
 CvStatus *Net_Create(CVD_OUT Net *rval);
 CvStatus *Net_FromNet(Net net, CVD_OUT Net *rval);
@@ -43,9 +49,11 @@ CvStatus *Net_ReadNetFromONNX(const char *model, CVD_OUT Net *rval);
 CvStatus *Net_ReadNetFromONNXBytes(VecUChar model, CVD_OUT Net *rval);
 void      Net_Close(NetPtr net);
 
-CvStatus *Net_BlobFromImage(Mat image, CVD_OUT Mat blob, double scalefactor, Size size, Scalar mean,
+CvStatus *Net_BlobFromImage(Mat image, CVD_OUT Mat blob, double scalefactor,
+    CvSize size, Scalar mean,
                             bool swapRB, bool crop, int ddepth);
-CvStatus *Net_BlobFromImages(VecMat images, CVD_OUT Mat blob, double scalefactor, Size size, Scalar mean,
+CvStatus *Net_BlobFromImages(VecMat images, CVD_OUT Mat blob, double scalefactor,
+    CvSize size, Scalar mean,
                              bool swapRB, bool crop, int ddepth);
 CvStatus *Net_ImagesFromBlob(Mat blob, CVD_OUT VecMat *rval);
 CvStatus *Net_Empty(Net net, CVD_OUT bool *rval);

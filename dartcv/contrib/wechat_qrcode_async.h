@@ -1,5 +1,3 @@
-#pragma once
-#include "core/types.h"
 #include "wechat_qrcode.h"
 
 #ifdef __cplusplus

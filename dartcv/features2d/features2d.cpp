@@ -7,7 +7,7 @@
 */
 
 #include "features2d.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 #include "utils.hpp"
 
 #include <iostream>

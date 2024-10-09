@@ -1,5 +1,4 @@
 #include "gapi.h"
-#include "core/types.h"
 
 CvStatus *gapi_GMat_New_Empty(GMat *rval)
 {

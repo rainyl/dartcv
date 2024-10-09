@@ -6,7 +6,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 #include "highgui.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 
 // Window
 CvStatus *Window_New(const char *winname, int flags) {

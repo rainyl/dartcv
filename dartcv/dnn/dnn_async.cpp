@@ -1,6 +1,5 @@
 #include "dnn_async.h"
-#include "core/types.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 
 // Asynchronous functions for Net
 CvStatus *Net_Create_Async(CvCallback_1 callback) {
@@ -106,7 +105,7 @@ void Net_Close_Async(NetPtr net, CvCallback_0 callback) {
 CvStatus *Net_BlobFromImage_Async(
     Mat image,
     double scalefactor,
-    Size size,
+    CvSize size,
     Scalar mean,
     bool swapRB,
     bool crop,
@@ -125,7 +124,7 @@ CvStatus *Net_BlobFromImage_Async(
 CvStatus *Net_BlobFromImages_Async(
     VecMat images,
     double scalefactor,
-    Size size,
+    CvSize size,
     Scalar mean,
     bool swapRB,
     bool crop,

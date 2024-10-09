@@ -7,7 +7,7 @@
 */
 
 #include "photo.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 
 CvStatus *ColorChange(Mat src, Mat mask, Mat dst, float red_mul, float green_mul, float blue_mul) {
   BEGIN_WRAP
@@ -15,7 +15,7 @@ CvStatus *ColorChange(Mat src, Mat mask, Mat dst, float red_mul, float green_mul
   END_WRAP
 }
 
-CvStatus *SeamlessClone(Mat src, Mat dst, Mat mask, Point p, Mat blend, int flags) {
+CvStatus *SeamlessClone(Mat src, Mat dst, Mat mask, CvPoint p, Mat blend, int flags) {
   BEGIN_WRAP
   cv::seamlessClone(*src.ptr, *dst.ptr, *mask.ptr, cv::Point(p.x, p.y), *blend.ptr, flags);
   END_WRAP

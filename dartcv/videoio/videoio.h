@@ -10,11 +10,11 @@
 #define _OPENCV3_VIDEOIO_H_
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
+#include <opencv2/videoio.hpp>
 extern "C" {
 #endif
 
-#include "core/core.h"
+#include "dartcv/core.h"
 
 #ifdef __cplusplus
 CVD_TYPEDEF(cv::VideoCapture, VideoCapture);

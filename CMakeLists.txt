@@ -21,7 +21,7 @@ option(DARTCV_WITH_STITCHING "Include stitching module of opencv" ON)
 option(DARTCV_WITH_VIDEO "Include video module of opencv" ON)
 option(DARTCV_WITH_VIDEOIO "Include objdetect module of opencv" OFF)
 option(DARTCV_WITH_GAPI "Include gapi of opencv" OFF) # TODO: not finished
-option(DARTCV_WORLD "Include all modules" OFF)
+option(DARTCV_WORLD "Include all modules" OFF) # world means build all modules
 
 option(BUILD_WITH_STATIC_CRT "Build with static CRT" ON)
 option(DARTCV_DISABLE_DOWNLOAD_OPENCV "Download opencv sdk from opencv.full" OFF)

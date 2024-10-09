@@ -6,11 +6,10 @@
 #ifndef OPENCV_DART_LIBRARY_STITCHING_H
 #define OPENCV_DART_LIBRARY_STITCHING_H
 
-#include "core/core.h"
-#include "core/exception.h"
+#include "dartcv/core.h"
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
+#include <opencv2/stitching.hpp>
 extern "C" {
 #endif
 

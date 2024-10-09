@@ -1,6 +1,5 @@
 #include "aruco_async.h"
-#include "core/types.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 
 // Asynchronous functions for ArucoDetectorParameters
 CvStatus *ArucoDetectorParameters_Create_Async(CvCallback_1 callback) {

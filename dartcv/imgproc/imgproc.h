@@ -9,11 +9,11 @@
 #ifndef _OPENCV3_IMGPROC_H_
 #define _OPENCV3_IMGPROC_H_
 
-#include "core/core.h"
+#include "dartcv/core.h"
 #include <stdbool.h>
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
+#include <opencv2/imgproc.hpp>
 extern "C" {
 #endif
 
@@ -31,40 +31,40 @@ CVD_TYPEDEF(void, Subdiv2D);
 CvStatus *BilateralFilter(Mat src, Mat dst, int d, double sc, double ss);
 
 // Blurs an image using the normalized box filter.
-// void cv::blur (InputArray src, OutputArray dst, Size ksize, Point anchor=Point(-1,-1), int borderType=BORDER_DEFAULT)
-CvStatus *Blur(Mat src, Mat dst, Size ps);
+// void cv::blur (InputArray src, OutputArray dst, CvSize ksize, CvPoint anchor=CvPoint(-1,-1), int borderType=BORDER_DEFAULT)
+CvStatus *Blur(Mat src, Mat dst, CvSize ps);
 
 // Blurs an image using the box filter.
-// void cv::boxFilter (InputArray src, OutputArray dst, int ddepth, Size ksize, Point anchor=Point(-1,-1), bool normalize=true, int borderType=BORDER_DEFAULT)
+// void cv::boxFilter (InputArray src, OutputArray dst, int ddepth, CvSize ksize, CvPoint anchor=CvPoint(-1,-1), bool normalize=true, int borderType=BORDER_DEFAULT)
 CvStatus *
-BoxFilter(Mat src, Mat dst, int ddepth, Size ps, Point anchor, bool normalize, int borderType);
+BoxFilter(Mat src, Mat dst, int ddepth, CvSize ps, CvPoint anchor, bool normalize, int borderType);
 
 // TODO
 // Constructs the Gaussian pyramid for an image.
 // void cv::buildPyramid (InputArray src, OutputArrayOfArrays dst, int maxlevel, int borderType=BORDER_DEFAULT)
 
 // Dilates an image by using a specific structuring element.
-// void cv::dilate (InputArray src, OutputArray dst, InputArray kernel, Point anchor=Point(-1,-1), int iterations=1, int borderType=BORDER_CONSTANT, const Scalar &borderValue=morphologyDefaultBorderValue())
+// void cv::dilate (InputArray src, OutputArray dst, InputArray kernel, CvPoint anchor=CvPoint(-1,-1), int iterations=1, int borderType=BORDER_CONSTANT, const Scalar &borderValue=morphologyDefaultBorderValue())
 CvStatus *Dilate(Mat src, Mat dst, Mat kernel);
 CvStatus *DilateWithParams(
-    Mat src, Mat dst, Mat kernel, Point anchor, int iterations, int borderType, Scalar borderValue
+    Mat src, Mat dst, Mat kernel, CvPoint anchor, int iterations, int borderType, Scalar borderValue
 );
 
 // Erodes an image by using a specific structuring element.
-// void cv::erode (InputArray src, OutputArray dst, InputArray kernel, Point anchor=Point(-1,-1), int iterations=1, int borderType=BORDER_CONSTANT, const Scalar &borderValue=morphologyDefaultBorderValue())
+// void cv::erode (InputArray src, OutputArray dst, InputArray kernel, CvPoint anchor=CvPoint(-1,-1), int iterations=1, int borderType=BORDER_CONSTANT, const Scalar &borderValue=morphologyDefaultBorderValue())
 CvStatus *Erode(Mat src, Mat dst, Mat kernel);
 CvStatus *ErodeWithParams(
-    Mat src, Mat dst, Mat kernel, Point anchor, int iterations, int borderType, Scalar borderValue
+    Mat src, Mat dst, Mat kernel, CvPoint anchor, int iterations, int borderType, Scalar borderValue
 );
 
 // Convolves an image with the kernel.
-// void cv::filter2D (InputArray src, OutputArray dst, int ddepth, InputArray kernel, Point anchor=Point(-1,-1), double delta=0, int borderType=BORDER_DEFAULT)
+// void cv::filter2D (InputArray src, OutputArray dst, int ddepth, InputArray kernel, CvPoint anchor=CvPoint(-1,-1), double delta=0, int borderType=BORDER_DEFAULT)
 CvStatus *
-Filter2D(Mat src, Mat dst, int ddepth, Mat kernel, Point anchor, double delta, int borderType);
+Filter2D(Mat src, Mat dst, int ddepth, Mat kernel, CvPoint anchor, double delta, int borderType);
 
 // Blurs an image using a Gaussian filter.
-// void cv::GaussianBlur (InputArray src, OutputArray dst, Size ksize, double sigmaX, double sigmaY=0, int borderType=BORDER_DEFAULT, AlgorithmHint hint=cv::ALGO_HINT_DEFAULT)
-CvStatus *GaussianBlur(Mat src, Mat dst, Size ps, double sX, double sY, int bt);
+// void cv::GaussianBlur (InputArray src, OutputArray dst, CvSize ksize, double sigmaX, double sigmaY=0, int borderType=BORDER_DEFAULT, AlgorithmHint hint=cv::ALGO_HINT_DEFAULT)
+CvStatus *GaussianBlur(Mat src, Mat dst, CvSize ps, double sX, double sY, int bt);
 
 // TODO
 // Returns filter coefficients for computing spatial image derivatives.
@@ -72,15 +72,15 @@ CvStatus *GaussianBlur(Mat src, Mat dst, Size ps, double sX, double sY, int bt);
 
 // TODO
 // Returns Gabor filter coefficients.
-// Mat cv::getGaborKernel (Size ksize, double sigma, double theta, double lambd, double gamma, double psi=CV_PI *0.5, int ktype=CV_64F)
+// Mat cv::getGaborKernel (CvSize ksize, double sigma, double theta, double lambd, double gamma, double psi=CV_PI *0.5, int ktype=CV_64F)
 
 // Returns Gaussian filter coefficients.
 // Mat cv::getGaussianKernel (int ksize, double sigma, int ktype=CV_64F)
 CvStatus *GetGaussianKernel(int ksize, double sigma, int ktype, Mat *rval);
 
 // Returns a structuring element of the specified size and shape for morphological operations.
-// Mat cv::getStructuringElement (int shape, Size ksize, Point anchor=Point(-1,-1))
-CvStatus *GetStructuringElement(int shape, Size ksize, Mat *rval);
+// Mat cv::getStructuringElement (int shape, CvSize ksize, CvPoint anchor=CvPoint(-1,-1))
+CvStatus *GetStructuringElement(int shape, CvSize ksize, Mat *rval);
 
 // Calculates the Laplacian of an image.
 // void cv::Laplacian (InputArray src, OutputArray dst, int ddepth, int ksize=1, double scale=1, double delta=0, int borderType=BORDER_DEFAULT)
@@ -96,30 +96,30 @@ CvStatus *MedianBlur(Mat src, Mat dst, int ksize);
 CvStatus *MorphologyDefaultBorderValue(Scalar *rval);
 
 // Performs advanced morphological transformations.
-// void cv::morphologyEx (InputArray src, OutputArray dst, int op, InputArray kernel, Point anchor=Point(-1,-1), int iterations=1, int borderType=BORDER_CONSTANT, const Scalar &borderValue=morphologyDefaultBorderValue())
+// void cv::morphologyEx (InputArray src, OutputArray dst, int op, InputArray kernel, CvPoint anchor=CvPoint(-1,-1), int iterations=1, int borderType=BORDER_CONSTANT, const Scalar &borderValue=morphologyDefaultBorderValue())
 CvStatus *MorphologyEx(Mat src, Mat dst, int op, Mat kernel);
 CvStatus *MorphologyExWithParams(
     Mat src,
     Mat dst,
     int op,
     Mat kernel,
-    Point pt,
+    CvPoint pt,
     int iterations,
     int borderType,
     Scalar borderValue
 );
 
 // Blurs an image and downsamples it.
-// void cv::pyrDown (InputArray src, OutputArray dst, const Size &dstsize=Size(), int borderType=BORDER_DEFAULT)
-CvStatus *PyrDown(Mat src, Mat dst, Size dstsize, int borderType);
+// void cv::pyrDown (InputArray src, OutputArray dst, const CvSize &dstsize=CvSize(), int borderType=BORDER_DEFAULT)
+CvStatus *PyrDown(Mat src, Mat dst, CvSize dstsize, int borderType);
 
 // TODO
 // Performs initial step of meanshift segmentation of an image.
 // void cv::pyrMeanShiftFiltering (InputArray src, OutputArray dst, double sp, double sr, int maxLevel=1, TermCriteria termcrit=TermCriteria(TermCriteria::MAX_ITER+TermCriteria::EPS, 5, 1))
 
 // Upsamples an image and then blurs it.
-// void cv::pyrUp (InputArray src, OutputArray dst, const Size &dstsize=Size(), int borderType=BORDER_DEFAULT)
-CvStatus *PyrUp(Mat src, Mat dst, Size dstsize, int borderType);
+// void cv::pyrUp (InputArray src, OutputArray dst, const CvSize &dstsize=CvSize(), int borderType=BORDER_DEFAULT)
+CvStatus *PyrUp(Mat src, Mat dst, CvSize dstsize, int borderType);
 
 // Calculates the first x- or y- image derivative using Scharr operator.
 // void cv::Scharr (InputArray src, OutputArray dst, int ddepth, int dx, int dy, double scale=1, double delta=0, int borderType=BORDER_DEFAULT)
@@ -127,14 +127,14 @@ CvStatus *
 Scharr(Mat src, Mat dst, int dDepth, int dx, int dy, double scale, double delta, int borderType);
 
 // Applies a separable linear filter to an image.
-// void cv::sepFilter2D (InputArray src, OutputArray dst, int ddepth, InputArray kernelX, InputArray kernelY, Point anchor=Point(-1,-1), double delta=0, int borderType=BORDER_DEFAULT)
+// void cv::sepFilter2D (InputArray src, OutputArray dst, int ddepth, InputArray kernelX, InputArray kernelY, CvPoint anchor=CvPoint(-1,-1), double delta=0, int borderType=BORDER_DEFAULT)
 CvStatus *SepFilter2D(
     Mat src,
     Mat dst,
     int ddepth,
     Mat kernelX,
     Mat kernelY,
-    Point anchor,
+    CvPoint anchor,
     double delta,
     int borderType
 );
@@ -158,13 +158,13 @@ CvStatus *Sobel(
 CvStatus *SpatialGradient(Mat src, Mat dx, Mat dy, int ksize, int borderType);
 
 // Calculates the normalized sum of squares of the pixel values overlapping the filter.
-// void cv::sqrBoxFilter (InputArray src, OutputArray dst, int ddepth, Size ksize, Point anchor=Point(-1, -1), bool normalize=true, int borderType=BORDER_DEFAULT)
+// void cv::sqrBoxFilter (InputArray src, OutputArray dst, int ddepth, CvSize ksize, CvPoint anchor=CvPoint(-1, -1), bool normalize=true, int borderType=BORDER_DEFAULT)
 CvStatus *
-SqrBoxFilter(Mat src, Mat dst, int ddepth, Size ps, Point anchor, bool normalize, int borderType);
+SqrBoxFilter(Mat src, Mat dst, int ddepth, CvSize ps, CvPoint anchor, bool normalize, int borderType);
 
 // TODO
 // Blurs an image using the stackBlur.
-// void cv::stackBlur (InputArray src, OutputArray dst, Size ksize)
+// void cv::stackBlur (InputArray src, OutputArray dst, CvSize ksize)
 
 // SECTION - Geometric Image Transformations
 
@@ -173,37 +173,37 @@ SqrBoxFilter(Mat src, Mat dst, int ddepth, Size ps, Point anchor, bool normalize
 // void cv::convertMaps (InputArray map1, InputArray map2, OutputArray dstmap1, OutputArray dstmap2, int dstmap1type, bool nninterpolation=false)
 
 // Calculates an affine transform from three pairs of the corresponding points.
-// Mat cv::getAffineTransform (const Point2f src[], const Point2f dst[])
+// Mat cv::getAffineTransform (const CvPoint2f src[], const CvPoint2f dst[])
 // Mat cv::getAffineTransform (InputArray src, InputArray dst)
 CvStatus *GetAffineTransform(VecPoint src, VecPoint dst, Mat *rval);
 CvStatus *GetAffineTransform2f(VecPoint2f src, VecPoint2f dst, Mat *rval);
 
 
 // Calculates a perspective transform from four pairs of the corresponding points.
-// Mat cv::getPerspectiveTransform (const Point2f src[], const Point2f dst[], int solveMethod=DECOMP_LU)
+// Mat cv::getPerspectiveTransform (const CvPoint2f src[], const CvPoint2f dst[], int solveMethod=DECOMP_LU)
 // Mat cv::getPerspectiveTransform (InputArray src, InputArray dst, int solveMethod=DECOMP_LU)
 CvStatus *GetPerspectiveTransform(VecPoint src, VecPoint dst, Mat *rval, int solveMethod);
 CvStatus *GetPerspectiveTransform2f(VecPoint2f src, VecPoint2f dst, Mat *rval, int solveMethod);
 
 // Retrieves a pixel rectangle from an image with sub-pixel accuracy.
-// void cv::getRectSubPix (InputArray image, Size patchSize, Point2f center, OutputArray patch, int patchType=-1)
-CvStatus *GetRectSubPix(Mat src, Size patchSize, Point2f center, Mat dst);
+// void cv::getRectSubPix (InputArray image, CvSize patchSize, CvPoint2f center, OutputArray patch, int patchType=-1)
+CvStatus *GetRectSubPix(Mat src, CvSize patchSize, CvPoint2f center, Mat dst);
 
 // Calculates an affine matrix of 2D rotation.
-// Mat cv::getRotationMatrix2D (Point2f center, double angle, double scale)
-CvStatus *GetRotationMatrix2D(Point2f center, double angle, double scale, Mat *rval);
+// Mat cv::getRotationMatrix2D (CvPoint2f center, double angle, double scale)
+CvStatus *GetRotationMatrix2D(CvPoint2f center, double angle, double scale, Mat *rval);
 
 // Inverts an affine transformation.
 // void cv::invertAffineTransform (InputArray M, OutputArray iM)
 CvStatus *InvertAffineTransform(Mat src, Mat dst);
 
 // Remaps an image to polar coordinates space.
-// void cv::linearPolar (InputArray src, OutputArray dst, Point2f center, double maxRadius, int flags)
-CvStatus *LinearPolar(Mat src, Mat dst, Point2f center, double maxRadius, int flags);
+// void cv::linearPolar (InputArray src, OutputArray dst, CvPoint2f center, double maxRadius, int flags)
+CvStatus *LinearPolar(Mat src, Mat dst, CvPoint2f center, double maxRadius, int flags);
 
 // Remaps an image to semilog-polar coordinates space.
-// void cv::logPolar (InputArray src, OutputArray dst, Point2f center, double M, int flags)
-CvStatus *LogPolar(Mat src, Mat dst, Point2f center, double m, int flags);
+// void cv::logPolar (InputArray src, OutputArray dst, CvPoint2f center, double M, int flags)
+CvStatus *LogPolar(Mat src, Mat dst, CvPoint2f center, double m, int flags);
 
 // Applies a generic geometrical transformation to an image.
 // void cv::remap (InputArray src, OutputArray dst, InputArray map1, InputArray map2, int interpolation, int borderMode=BORDER_CONSTANT, const Scalar &borderValue=Scalar())
@@ -211,25 +211,25 @@ CvStatus *
 Remap(Mat src, Mat dst, Mat map1, Mat map2, int interpolation, int borderMode, Scalar borderValue);
 
 // Resizes an image.
-// void cv::resize (InputArray src, OutputArray dst, Size dsize, double fx=0, double fy=0, int interpolation=INTER_LINEAR)
-CvStatus *Resize(Mat src, Mat dst, Size sz, double fx, double fy, int interp);
+// void cv::resize (InputArray src, OutputArray dst, CvSize dsize, double fx=0, double fy=0, int interpolation=INTER_LINEAR)
+CvStatus *Resize(Mat src, Mat dst, CvSize sz, double fx, double fy, int interp);
 
 // Applies an affine transformation to an image.
-// void cv::warpAffine (InputArray src, OutputArray dst, InputArray M, Size dsize, int flags=INTER_LINEAR, int borderMode=BORDER_CONSTANT, const Scalar &borderValue=Scalar())
-CvStatus *WarpAffine(Mat src, Mat dst, Mat rot_mat, Size dsize);
+// void cv::warpAffine (InputArray src, OutputArray dst, InputArray M, CvSize dsize, int flags=INTER_LINEAR, int borderMode=BORDER_CONSTANT, const Scalar &borderValue=Scalar())
+CvStatus *WarpAffine(Mat src, Mat dst, Mat rot_mat, CvSize dsize);
 CvStatus *WarpAffineWithParams(
-    Mat src, Mat dst, Mat rot_mat, Size dsize, int flags, int borderMode, Scalar borderValue
+    Mat src, Mat dst, Mat rot_mat, CvSize dsize, int flags, int borderMode, Scalar borderValue
 );
 // Applies a perspective transformation to an image.
-// void cv::warpPerspective (InputArray src, OutputArray dst, InputArray M, Size dsize, int flags=INTER_LINEAR, int borderMode=BORDER_CONSTANT, const Scalar &borderValue=Scalar())
-CvStatus *WarpPerspective(Mat src, Mat dst, Mat m, Size dsize);
+// void cv::warpPerspective (InputArray src, OutputArray dst, InputArray M, CvSize dsize, int flags=INTER_LINEAR, int borderMode=BORDER_CONSTANT, const Scalar &borderValue=Scalar())
+CvStatus *WarpPerspective(Mat src, Mat dst, Mat m, CvSize dsize);
 CvStatus *WarpPerspectiveWithParams(
-    Mat src, Mat dst, Mat rot_mat, Size dsize, int flags, int borderMode, Scalar borderValue
+    Mat src, Mat dst, Mat rot_mat, CvSize dsize, int flags, int borderMode, Scalar borderValue
 );
 
 // TODO
 // Remaps an image to polar or semilog-polar coordinates space.
-// void cv::warpPolar (InputArray src, OutputArray dst, Size dsize, Point2f center, double maxRadius, int flags)
+// void cv::warpPolar (InputArray src, OutputArray dst, CvSize dsize, CvPoint2f center, double maxRadius, int flags)
 
 // SECTION - Miscellaneous Image Transformations
 // Applies an adaptive threshold to an array.
@@ -248,9 +248,11 @@ CvStatus *
 DistanceTransform(Mat src, Mat dst, Mat labels, int distanceType, int maskSize, int labelType);
 
 // Fills a connected component with the given color.
-// int cv::floodFill (InputOutputArray image, InputOutputArray mask, Point seedPoint, Scalar newVal, Rect *rect=0, Scalar loDiff=Scalar(), Scalar upDiff=Scalar(), int flags=4)
-// int cv::floodFill (InputOutputArray image, Point seedPoint, Scalar newVal, Rect *rect=0, Scalar loDiff=Scalar(), Scalar upDiff=Scalar(), int flags=4)
-CvStatus * FloodFill(Mat src, Mat mask, Point seedPoint, Scalar newVal, Rect *rect, Scalar loDiff, Scalar upDiff, int flags, int *rval);
+// int cv::floodFill (InputOutputArray image, InputOutputArray mask, CvPoint seedPoint, Scalar newVal, CvRect *rect=0, Scalar loDiff=Scalar(), Scalar upDiff=Scalar(), int flags=4)
+// int cv::floodFill (InputOutputArray image, CvPoint seedPoint, Scalar newVal, CvRect *rect=0, Scalar loDiff=Scalar(), Scalar upDiff=Scalar(), int flags=4)
+CvStatus * FloodFill(Mat src, Mat mask,
+    CvPoint seedPoint, Scalar newVal,
+    CvRect *rect, Scalar loDiff, Scalar upDiff, int flags, int *rval);
 
 // Calculates the integral of an image.
 // void cv::integral (InputArray src, OutputArray sum, int sdepth=-1)
@@ -265,11 +267,11 @@ CvStatus *Threshold(Mat src, Mat dst, double thresh, double maxvalue, int typ, d
 // SECTION - Drawing Functions
 
 // Draws an arrow segment pointing from the first point to the second one.
-// void cv::arrowedLine (InputOutputArray img, Point pt1, Point pt2, const Scalar &color, int thickness=1, int line_type=8, int shift=0, double tipLength=0.1)
+// void cv::arrowedLine (InputOutputArray img, CvPoint pt1, CvPoint pt2, const Scalar &color, int thickness=1, int line_type=8, int shift=0, double tipLength=0.1)
 CvStatus *ArrowedLine(
     Mat img,
-    Point pt1,
-    Point pt2,
+    CvPoint pt1,
+    CvPoint pt2,
     Scalar color,
     int thickness,
     int line_type,
@@ -278,20 +280,20 @@ CvStatus *ArrowedLine(
 );
 
 // Draws a circle.
-// void cv::circle (InputOutputArray img, Point center, int radius, const Scalar &color, int thickness=1, int lineType=LINE_8, int shift=0)
-CvStatus *Circle(Mat img, Point center, int radius, Scalar color, int thickness);
+// void cv::circle (InputOutputArray img, CvPoint center, int radius, const Scalar &color, int thickness=1, int lineType=LINE_8, int shift=0)
+CvStatus *Circle(Mat img, CvPoint center, int radius, Scalar color, int thickness);
 CvStatus *CircleWithParams(
-    Mat img, Point center, int radius, Scalar color, int thickness, int lineType, int shift
+    Mat img, CvPoint center, int radius, Scalar color, int thickness, int lineType, int shift
 );
 
 // Clips the line against the image rectangle.
-// bool cv::clipLine (Rect imgRect, Point &pt1, Point &pt2)
-// bool cv::clipLine (Size imgSize, Point &pt1, Point &pt2)
+// bool cv::clipLine (CvRect imgRect, CvPoint &pt1, CvPoint &pt2)
+// bool cv::clipLine (CvSize imgSize, CvPoint &pt1, CvPoint &pt2)
 // bool cv::clipLine (Size2l imgSize, Point2l &pt1, Point2l &pt2)
-CvStatus *ClipLine(Rect imgRect, Point pt1, Point pt2, bool *rval);
+CvStatus *ClipLine(CvRect imgRect, CvPoint pt1, CvPoint pt2, bool *rval);
 
 // Draws contours outlines or filled contours.
-// void cv::drawContours (InputOutputArray image, InputArrayOfArrays contours, int contourIdx, const Scalar &color, int thickness=1, int lineType=LINE_8, InputArray hierarchy=noArray(), int maxLevel=INT_MAX, Point offset=Point())
+// void cv::drawContours (InputOutputArray image, InputArrayOfArrays contours, int contourIdx, const Scalar &color, int thickness=1, int lineType=LINE_8, InputArray hierarchy=noArray(), int maxLevel=INT_MAX, CvPoint offset=CvPoint())
 CvStatus *DrawContours(Mat src, VecVecPoint contours, int contourIdx, Scalar color, int thickness);
 CvStatus *DrawContoursWithParams(
     Mat src,
@@ -302,20 +304,20 @@ CvStatus *DrawContoursWithParams(
     int lineType,
     Mat hierarchy,
     int maxLevel,
-    Point offset
+    CvPoint offset
 );
 
 // Draws a marker on a predefined position in an image.
-// void cv::drawMarker (InputOutputArray img, Point position, const Scalar &color, int markerType=MARKER_CROSS, int markerSize=20, int thickness=1, int line_type=8)
+// void cv::drawMarker (InputOutputArray img, CvPoint position, const Scalar &color, int markerType=MARKER_CROSS, int markerSize=20, int thickness=1, int line_type=8)
 
 
 // Draws a simple or thick elliptic arc or fills an ellipse sector.
-// void cv::ellipse (InputOutputArray img, Point center, Size axes, double angle, double startAngle, double endAngle, const Scalar &color, int thickness=1, int lineType=LINE_8, int shift=0)
+// void cv::ellipse (InputOutputArray img, CvPoint center, CvSize axes, double angle, double startAngle, double endAngle, const Scalar &color, int thickness=1, int lineType=LINE_8, int shift=0)
 // void cv::ellipse (InputOutputArray img, const RotatedRect &box, const Scalar &color, int thickness=1, int lineType=LINE_8)
 CvStatus *Ellipse(
     Mat img,
-    Point center,
-    Point axes,
+    CvPoint center,
+    CvPoint axes,
     double angle,
     double startAngle,
     double endAngle,
@@ -324,8 +326,8 @@ CvStatus *Ellipse(
 );
 CvStatus *EllipseWithParams(
     Mat img,
-    Point center,
-    Point axes,
+    CvPoint center,
+    CvPoint axes,
     double angle,
     double startAngle,
     double endAngle,
@@ -336,46 +338,46 @@ CvStatus *EllipseWithParams(
 );
 
 // Approximates an elliptic arc with a polyline.
-// void cv::ellipse2Poly (Point center, Size axes, int angle, int arcStart, int arcEnd, int delta, std::vector< Point > &pts)
+// void cv::ellipse2Poly (CvPoint center, CvSize axes, int angle, int arcStart, int arcEnd, int delta, std::vector< CvPoint > &pts)
 // void cv::ellipse2Poly (Point2d center, Size2d axes, int angle, int arcStart, int arcEnd, int delta, std::vector< Point2d > &pts)
 
 
 // Fills a convex polygon.
 // void cv::fillConvexPoly (InputOutputArray img, InputArray points, const Scalar &color, int lineType=LINE_8, int shift=0)
-// void cv::fillConvexPoly (InputOutputArray img, const Point *pts, int npts, const Scalar &color, int lineType=LINE_8, int shift=0)
+// void cv::fillConvexPoly (InputOutputArray img, const CvPoint *pts, int npts, const Scalar &color, int lineType=LINE_8, int shift=0)
 
 // Fills the area bounded by one or more polygons.
-// void cv::fillPoly (InputOutputArray img, const Point **pts, const int *npts, int ncontours, const Scalar &color, int lineType=LINE_8, int shift=0, Point offset=Point())
-// void cv::fillPoly (InputOutputArray img, InputArrayOfArrays pts, const Scalar &color, int lineType=LINE_8, int shift=0, Point offset=Point())
+// void cv::fillPoly (InputOutputArray img, const CvPoint **pts, const int *npts, int ncontours, const Scalar &color, int lineType=LINE_8, int shift=0, CvPoint offset=CvPoint())
+// void cv::fillPoly (InputOutputArray img, InputArrayOfArrays pts, const Scalar &color, int lineType=LINE_8, int shift=0, CvPoint offset=CvPoint())
 CvStatus *FillPoly(Mat img, VecVecPoint points, Scalar color);
 CvStatus *FillPolyWithParams(
-    Mat img, VecVecPoint points, Scalar color, int lineType, int shift, Point offset
+    Mat img, VecVecPoint points, Scalar color, int lineType, int shift, CvPoint offset
 );
 
 // Calculates the font-specific size to use to achieve a given height in pixels.
 // double cv::getFontScaleFromHeight (const int fontFace, const int pixelHeight, const int thickness=1)
 
 // Calculates the width and height of a text string.
-// Size cv::getTextSize (const String &text, int fontFace, double fontScale, int thickness, int *baseLine)
+// CvSize cv::getTextSize (const String &text, int fontFace, double fontScale, int thickness, int *baseLine)
 CvStatus *GetTextSizeWithBaseline(
-    const char *text, int fontFace, double fontScale, int thickness, int *baseline, Size *rval
+    const char *text, int fontFace, double fontScale, int thickness, int *baseline, CvSize *rval
 );
 
 // Draws a line segment connecting two points.
-// void cv::line (InputOutputArray img, Point pt1, Point pt2, const Scalar &color, int thickness=1, int lineType=LINE_8, int shift=0)
-CvStatus *Line(Mat img, Point pt1, Point pt2, Scalar color, int thickness, int lineType, int shift);
+// void cv::line (InputOutputArray img, CvPoint pt1, CvPoint pt2, const Scalar &color, int thickness=1, int lineType=LINE_8, int shift=0)
+CvStatus *Line(Mat img, CvPoint pt1, CvPoint pt2, Scalar color, int thickness, int lineType, int shift);
 
 // Draws several polygonal curves.
-// void cv::polylines (InputOutputArray img, const Point *const *pts, const int *npts, int ncontours, bool isClosed, const Scalar &color, int thickness=1, int lineType=LINE_8, int shift=0)
+// void cv::polylines (InputOutputArray img, const CvPoint *const *pts, const int *npts, int ncontours, bool isClosed, const Scalar &color, int thickness=1, int lineType=LINE_8, int shift=0)
 // void cv::polylines (InputOutputArray img, InputArrayOfArrays pts, bool isClosed, const Scalar &color, int thickness=1, int lineType=LINE_8, int shift=0)
 CvStatus *Polylines(Mat img, VecVecPoint points, bool isClosed, Scalar color, int thickness);
 
 // Draws a text string.
-// void cv::putText (InputOutputArray img, const String &text, Point org, int fontFace, double fontScale, Scalar color, int thickness=1, int lineType=LINE_8, bool bottomLeftOrigin=false)
+// void cv::putText (InputOutputArray img, const String &text, CvPoint org, int fontFace, double fontScale, Scalar color, int thickness=1, int lineType=LINE_8, bool bottomLeftOrigin=false)
 CvStatus *PutText(
     Mat img,
     const char *text,
-    Point org,
+    CvPoint org,
     int fontFace,
     double fontScale,
     Scalar color,
@@ -384,7 +386,7 @@ CvStatus *PutText(
 CvStatus *PutTextWithParams(
     Mat img,
     const char *text,
-    Point org,
+    CvPoint org,
     int fontFace,
     double fontScale,
     Scalar color,
@@ -394,11 +396,11 @@ CvStatus *PutTextWithParams(
 );
 
 // Draws a simple, thick, or filled up-right rectangle.
-// void cv::rectangle (InputOutputArray img, Point pt1, Point pt2, const Scalar &color, int thickness=1, int lineType=LINE_8, int shift=0)
-// void cv::rectangle (InputOutputArray img, Rect rec, const Scalar &color, int thickness=1, int lineType=LINE_8, int shift=0)
-CvStatus *Rectangle(Mat img, Rect rect, Scalar color, int thickness);
+// void cv::rectangle (InputOutputArray img, CvPoint pt1, CvPoint pt2, const Scalar &color, int thickness=1, int lineType=LINE_8, int shift=0)
+// void cv::rectangle (InputOutputArray img, CvRect rec, const Scalar &color, int thickness=1, int lineType=LINE_8, int shift=0)
+CvStatus *Rectangle(Mat img, CvRect rect, Scalar color, int thickness);
 CvStatus *
-RectangleWithParams(Mat img, Rect rect, Scalar color, int thickness, int lineType, int shift);
+RectangleWithParams(Mat img, CvRect rect, Scalar color, int thickness, int lineType, int shift);
 
 // SECTION - Color Space Conversions
 // Converts an image from one color space to another.
@@ -422,23 +424,23 @@ CvStatus *ApplyColorMap(Mat src, Mat dst, int colormap);
 
 // SECTION - Planar Subdivision
 CvStatus *Subdiv2D_NewEmpty(Subdiv2D *rval);
-CvStatus *Subdiv2D_NewWithRect(Rect rect, Subdiv2D *rval);
+CvStatus *Subdiv2D_NewWithRect(CvRect rect, Subdiv2D *rval);
 void Subdiv2D_Close(Subdiv2DPtr self);
-CvStatus *Subdiv2D_EdgeDst(Subdiv2D self, int edge, Point2f *dstpt, int *rval);
-CvStatus *Subdiv2D_EdgeOrg(Subdiv2D self, int edge, Point2f *orgpt, int *rval);
-CvStatus *Subdiv2D_FindNearest(Subdiv2D self, Point2f pt, Point2f *nearestPt, int *rval);
+CvStatus *Subdiv2D_EdgeDst(Subdiv2D self, int edge, CvPoint2f *dstpt, int *rval);
+CvStatus *Subdiv2D_EdgeOrg(Subdiv2D self, int edge, CvPoint2f *orgpt, int *rval);
+CvStatus *Subdiv2D_FindNearest(Subdiv2D self, CvPoint2f pt, CvPoint2f *nearestPt, int *rval);
 CvStatus *Subdiv2D_GetEdge(Subdiv2D self, int edge, int nextEdgeType, int *rval);
 CvStatus *Subdiv2D_GetEdgeList(Subdiv2D self, Vec4f **rval, size_t *size);
 CvStatus *Subdiv2D_GetLeadingEdgeList(Subdiv2D self, VecI32 *leadingEdgeList);
 CvStatus *Subdiv2D_GetTriangleList(Subdiv2D self, Vec6f **rval, size_t *size);
-CvStatus *Subdiv2D_GetVertex(Subdiv2D self, int vertex, int *firstEdge, Point2f *rval);
+CvStatus *Subdiv2D_GetVertex(Subdiv2D self, int vertex, int *firstEdge, CvPoint2f *rval);
 CvStatus *Subdiv2D_GetVoronoiFacetList(
     Subdiv2D self, VecI32 idx, VecVecPoint2f *facetList, VecPoint2f *facetCenters
 );
-CvStatus *Subdiv2D_InitDelaunay(Subdiv2D self, Rect rect);
-CvStatus *Subdiv2D_Insert(Subdiv2D self, Point2f pt, int *rval);
+CvStatus *Subdiv2D_InitDelaunay(Subdiv2D self, CvRect rect);
+CvStatus *Subdiv2D_Insert(Subdiv2D self, CvPoint2f pt, int *rval);
 CvStatus *Subdiv2D_InsertVec(Subdiv2D self, VecPoint2f ptvec);
-CvStatus *Subdiv2D_Locate(Subdiv2D self, Point2f pt, int *edge, int *vertex, int *rval);
+CvStatus *Subdiv2D_Locate(Subdiv2D self, CvPoint2f pt, int *edge, int *vertex, int *rval);
 CvStatus *Subdiv2D_NextEdge(Subdiv2D self, int edge, int *rval);
 CvStatus *Subdiv2D_RotateEdge(Subdiv2D self, int edge, int rotate, int *rval);
 CvStatus *Subdiv2D_SymEdge(Subdiv2D self, int edge, int *rval);
@@ -465,17 +467,17 @@ CalcHist(VecMat mats, VecI32 chans, Mat mask, CVD_OUT Mat hist, VecI32 sz, VecF3
 CvStatus *CompareHist(Mat hist1, Mat hist2, int method, CVD_OUT double *rval);
 
 // Creates a smart pointer to a cv::CLAHE class and initializes it.
-// Ptr< CLAHE > cv::createCLAHE (double clipLimit=40.0, Size tileGridSize=Size(8, 8))
+// Ptr< CLAHE > cv::createCLAHE (double clipLimit=40.0, CvSize tileGridSize=CvSize(8, 8))
 
 CvStatus *CLAHE_Create(CLAHE *rval);
-CvStatus *CLAHE_CreateWithParams(double clipLimit, Size tileGridSize, CLAHE *rval);
+CvStatus *CLAHE_CreateWithParams(double clipLimit, CvSize tileGridSize, CLAHE *rval);
 void CLAHE_Close(CLAHEPtr c);
 CvStatus *CLAHE_Apply(CLAHE c, Mat src, Mat dst);
 CvStatus *CLAHE_CollectGarbage(CLAHE c);
 CvStatus *CLAHE_GetClipLimit(CLAHE c, double *rval);
 CvStatus *CLAHE_SetClipLimit(CLAHE c, double clipLimit);
-CvStatus *CLAHE_GetTilesGridSize(CLAHE c, Size *rval);
-CvStatus *CLAHE_SetTilesGridSize(CLAHE c, Size size);
+CvStatus *CLAHE_GetTilesGridSize(CLAHE c, CvSize *rval);
+CvStatus *CLAHE_SetTilesGridSize(CLAHE c, CvSize size);
 
 // Computes the "minimal work" distance between two weighted point configurations.
 // float cv::EMD (InputArray signature1, InputArray signature2, int distType, InputArray cost=noArray(), float *lowerBound=0, OutputArray flow=noArray())
@@ -499,8 +501,8 @@ CvStatus *ApproxPolyDP(VecPoint curve, double epsilon, bool closed, CVD_OUT VecP
 CvStatus *ArcLength(VecPoint curve, bool is_closed, CVD_OUT double *rval);
 
 // Calculates the up-right bounding rectangle of a point set or non-zero pixels of gray-scale image.
-// Rect cv::boundingRect (InputArray array)
-CvStatus *BoundingRect(VecPoint pts, Rect *rval);
+// CvRect cv::boundingRect (InputArray array)
+CvStatus *BoundingRect(VecPoint pts, CvRect *rval);
 
 // Finds the four vertices of a rotated rect. Useful to draw the rotated rectangle.
 // void cv::boxPoints (RotatedRect box, OutputArray points)
@@ -545,8 +547,8 @@ CvStatus *ConvexityDefects(VecPoint points, Mat hull, Mat result);
 // Ptr< GeneralizedHoughGuil > cv::createGeneralizedHoughGuil ()
 
 // Finds contours in a binary image.
-// void cv::findContours (InputArray image, OutputArrayOfArrays contours, int mode, int method, Point offset=Point())
-// void cv::findContours (InputArray image, OutputArrayOfArrays contours, OutputArray hierarchy, int mode, int method, Point offset=Point())
+// void cv::findContours (InputArray image, OutputArrayOfArrays contours, int mode, int method, CvPoint offset=CvPoint())
+// void cv::findContours (InputArray image, OutputArrayOfArrays contours, OutputArray hierarchy, int mode, int method, CvPoint offset=CvPoint())
 CvStatus *FindContours(Mat src, Mat hierarchy, int mode, int method, VecVecPoint *rval);
 
 // Find contours using link runs algorithm.
@@ -587,8 +589,8 @@ MatchShapes(VecPoint contour1, VecPoint contour2, int method, double parameter, 
 CvStatus *MinAreaRect(VecPoint pts, RotatedRect *rval);
 
 // Finds a circle of the minimum area enclosing a 2D point set.
-// void cv::minEnclosingCircle (InputArray points, Point2f &center, float &radius)
-CvStatus *MinEnclosingCircle(VecPoint pts, Point2f *center, float *radius);
+// void cv::minEnclosingCircle (InputArray points, CvPoint2f &center, float &radius)
+CvStatus *MinEnclosingCircle(VecPoint pts, CvPoint2f *center, float *radius);
 
 // Finds a triangle of minimum area enclosing a 2D point set and returns its area.
 // double cv::minEnclosingTriangle (InputArray points, OutputArray triangle)
@@ -598,8 +600,8 @@ CvStatus *MinEnclosingCircle(VecPoint pts, Point2f *center, float *radius);
 CvStatus *Moments(Mat src, bool binaryImage, Moment *rval);
 
 // Performs a point-in-contour test.
-// double cv::pointPolygonTest (InputArray contour, Point2f pt, bool measureDist)
-CvStatus *PointPolygonTest(VecPoint pts, Point2f pt, bool measureDist, double *rval);
+// double cv::pointPolygonTest (InputArray contour, CvPoint2f pt, bool measureDist)
+CvStatus *PointPolygonTest(VecPoint pts, CvPoint2f pt, bool measureDist, double *rval);
 
 // Finds out if there is any intersection between two rotated rectangles.
 // int cv::rotatedRectangleIntersection (const RotatedRect &rect1, const RotatedRect &rect2, OutputArray intersectingRegion)
@@ -626,14 +628,14 @@ CvStatus *Mat_AccumulatedWeighted(Mat src, Mat dst, double alpha);
 CvStatus *Mat_AccumulatedWeightedWithMask(Mat src, Mat dst, double alpha, Mat mask);
 
 // This function computes a Hanning window coefficients in two dimensions.
-// void cv::createHanningWindow (OutputArray dst, Size winSize, int type)
+// void cv::createHanningWindow (OutputArray dst, CvSize winSize, int type)
 
 // Performs the per-element division of the first Fourier spectrum by the second Fourier spectrum.
 // void cv::divSpectrums (InputArray a, InputArray b, OutputArray c, int flags, bool conjB=false)
 
 // The function is used to detect translational shifts that occur between two images.
 // Point2d cv::phaseCorrelate (InputArray src1, InputArray src2, InputArray window=noArray(), double *response=0)
-CvStatus *PhaseCorrelate(Mat src1, Mat src2, Mat window, double *response, Point2f *rval);
+CvStatus *PhaseCorrelate(Mat src1, Mat src2, Mat window, double *response, CvPoint2f *rval);
 
 // SECTION - Feature Detection
 // Finds edges in an image using the Canny algorithm [48] .
@@ -651,9 +653,9 @@ CvStatus *Canny(Mat src, Mat edges, double t1, double t2, int apertureSize, bool
 // void cv::cornerMinEigenVal (InputArray src, OutputArray dst, int blockSize, int ksize=3, int borderType=BORDER_DEFAULT)
 
 // Refines the corner locations.
-// void cv::cornerSubPix (InputArray image, InputOutputArray corners, Size winSize, Size zeroZone, TermCriteria criteria)
+// void cv::cornerSubPix (InputArray image, InputOutputArray corners, CvSize winSize, CvSize zeroZone, TermCriteria criteria)
 CvStatus *
-CornerSubPix(Mat img, VecPoint2f corners, Size winSize, Size zeroZone, TermCriteria criteria);
+CornerSubPix(Mat img, VecPoint2f corners, CvSize winSize, CvSize zeroZone, TermCriteria criteria);
 
 // Creates a smart pointer to a LineSegmentDetector object and initializes it.
 // Ptr< LineSegmentDetector > cv::createLineSegmentDetector (int refine=LSD_REFINE_STD, double scale=0.8, double sigma_scale=0.6, double quant=2.0, double ang_th=22.5, double log_eps=0, double density_th=0.7, int n_bins=1024)
@@ -754,9 +756,9 @@ CvStatus *MatchTemplate(Mat image, Mat templ, Mat result, int method, Mat mask);
 
 // SECTION - Image Segmentation
 // Runs the GrabCut algorithm.
-// void cv::grabCut (InputArray img, InputOutputArray mask, Rect rect, InputOutputArray bgdModel, InputOutputArray fgdModel, int iterCount, int mode=GC_EVAL)
+// void cv::grabCut (InputArray img, InputOutputArray mask, CvRect rect, InputOutputArray bgdModel, InputOutputArray fgdModel, int iterCount, int mode=GC_EVAL)
 CvStatus *
-GrabCut(Mat img, Mat mask, Rect rect, Mat bgdModel, Mat fgdModel, int iterCount, int mode);
+GrabCut(Mat img, Mat mask, CvRect rect, Mat bgdModel, Mat fgdModel, int iterCount, int mode);
 
 // Performs a marker-based image segmentation using the watershed algorithm.
 // void cv::watershed (InputArray image, InputOutputArray markers)

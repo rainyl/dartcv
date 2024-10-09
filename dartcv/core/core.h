@@ -16,8 +16,8 @@ extern "C" {
 #endif
 
 CvStatus *RotatedRect_Points(RotatedRect rect, VecPoint2f *pts);
-CvStatus *RotatedRect_BoundingRect(RotatedRect rect, Rect *rval);
-CvStatus *RotatedRect_BoundingRect2f(RotatedRect rect, Rect2f *rval);
+CvStatus *RotatedRect_BoundingRect(RotatedRect rect, CvRect *rval);
+CvStatus *RotatedRect_BoundingRect2f(RotatedRect rect, CvRect2f *rval);
 // CvStatus *noArray(InputOutputArray *rval);
 
 // internal use
@@ -90,7 +90,7 @@ uchar *Mat_Data(Mat m);
 // CvStatus *Mat_DataPtr(Mat m, uchar **data, int *length);
 
 CvStatus *Mat_AdjustROI(Mat m, int dtop, int dbottom, int dleft, int dright, Mat *rval);
-CvStatus *Mat_LocateROI(Mat m, Size *wholeSize, Point *ofs);
+CvStatus *Mat_LocateROI(Mat m, CvSize *wholeSize, CvPoint *ofs);
 CvStatus *Mat_Clone(Mat m, Mat *rval);
 CvStatus *Mat_Col(Mat m, int x, Mat *rval);
 CvStatus *Mat_Row(Mat m, int y, Mat *rval);
@@ -100,7 +100,7 @@ CvStatus *Mat_ConvertTo(Mat m, Mat dst, int type);
 CvStatus *Mat_ConvertToWithParams(Mat m, Mat dst, int type, float alpha, float beta);
 CvStatus *Mat_ToVecUChar(Mat m, VecUChar *rval);
 CvStatus *Mat_ToVecChar(Mat m, VecChar *rval);
-CvStatus *Mat_Region(Mat m, Rect r, Mat *rval);
+CvStatus *Mat_Region(Mat m, CvRect r, Mat *rval);
 CvStatus *Mat_Reshape(Mat m, int cn, int rows, Mat *rval);
 CvStatus *Mat_ReshapeByVec(Mat m, int cn, VecI32 newshape, Mat *rval);
 CvStatus *Mat_PatchNaNs(Mat m, double val);
@@ -274,7 +274,7 @@ CvStatus *Mat_BatchDistance(
 CvStatus *Mat_BorderInterpolate(int p, int len, int borderType, int *rval);
 CvStatus *Mat_CalcCovarMatrix(Mat samples, Mat covar, Mat mean, int flags, int ctype);
 CvStatus *Mat_CartToPolar(Mat x, Mat y, Mat magnitude, Mat angle, bool angleInDegrees);
-CvStatus *Mat_CheckRange(Mat m, bool quiet, Point *pos, double minVal, double maxVal, bool *rval);
+CvStatus *Mat_CheckRange(Mat m, bool quiet, CvPoint *pos, double minVal, double maxVal, bool *rval);
 CvStatus *Mat_CompleteSymm(Mat m, bool lowerToUpper);
 CvStatus *Mat_ConvertScaleAbs(Mat src, Mat dst, double alpha, double beta);
 CvStatus *Mat_CopyMakeBorder(
@@ -310,7 +310,7 @@ CvStatus *Mat_MeanStdDevWithMask(Mat src, Scalar *dstMean, Scalar *dstStdDev, Ma
 CvStatus *Mat_Merge(VecMat mats, Mat *dst);
 CvStatus *Mat_Min(Mat src1, Mat src2, Mat dst);
 CvStatus *Mat_MinMaxIdx(Mat m, double *minVal, double *maxVal, int *minIdx, int *maxIdx);
-CvStatus *Mat_MinMaxLoc(Mat m, double *minVal, double *maxVal, Point *minLoc, Point *maxLoc);
+CvStatus *Mat_MinMaxLoc(Mat m, double *minVal, double *maxVal, CvPoint *minLoc, CvPoint *maxLoc);
 CvStatus *Mat_MixChannels(VecMat src, VecMat dst, VecI32 fromTo);
 CvStatus *Mat_MulSpectrums(Mat a, Mat b, Mat c, int flags, bool conjB);
 CvStatus *Mat_Multiply(Mat src1, Mat src2, Mat dst, double scale, int dtype);

@@ -6,7 +6,6 @@
 #ifndef CVD_VIDEO_ASYNC_H_
 #define CVD_VIDEO_ASYNC_H_
 
-#include "core/types.h"
 #include "video.h"
 
 #ifdef __cplusplus
@@ -34,7 +33,7 @@ CvStatus *CalcOpticalFlowPyrLK_Async(
     Mat nextImg,
     VecPoint2f prevPts,
     VecPoint2f *nextPts,
-    Size winSize,
+    CvSize winSize,
     int maxLevel,
     TermCriteria criteria,
     int flags,
@@ -66,7 +65,7 @@ CvStatus *FindTransformECC_Async(
     CvCallback_1 callback
 );
 
-CvStatus *TrackerMIL_Init_Async(TrackerMIL self, Mat image, Rect bbox, CvCallback_0 callback);
+CvStatus *TrackerMIL_Init_Async(TrackerMIL self, Mat image, CvRect bbox, CvCallback_0 callback);
 CvStatus *TrackerMIL_Update_Async(TrackerMIL self, Mat image, CvCallback_2 callback);
 CvStatus *TrackerMIL_Create_Async(CvCallback_1 callback);
 // void TrackerMIL_Close_Async(TrackerMILPtr self);

@@ -7,92 +7,92 @@
 inline std::vector<cv::Point> vecpoint_c2cpp(VecPoint v) {
   std::vector<cv::Point> rv(v.length);
   for (int i = 0; i < v.length; i++) {
-    Point p = v.ptr[i];
+    CvPoint p = v.ptr[i];
     rv[i] = cv::Point(p.x, p.y);
   }
   return rv;
 }
 
 inline VecPoint vecpoint_cpp2c(std::vector<cv::Point> v) {
-  Point *ptr = new Point[v.size()];
-  for (int i = 0; i < v.size(); i++) { ptr[i] = Point{v[i].x, v[i].y}; }
+  CvPoint *ptr = new CvPoint[v.size()];
+  for (int i = 0; i < v.size(); i++) { ptr[i] = CvPoint{v[i].x, v[i].y}; }
   return VecPoint{.ptr = ptr, .length = v.size()};
 }
 
 inline VecPoint *vecpoint_cpp2c_p(std::vector<cv::Point> v) {
-  Point *ptr = new Point[v.size()];
-  for (int i = 0; i < v.size(); i++) { ptr[i] = Point{v[i].x, v[i].y}; }
+  CvPoint *ptr = new CvPoint[v.size()];
+  for (int i = 0; i < v.size(); i++) { ptr[i] = CvPoint{v[i].x, v[i].y}; }
   return new VecPoint{.ptr = ptr, .length = v.size()};
 }
 
 inline std::vector<cv::Point2f> vecpoint2f_c2cpp(VecPoint2f v) {
   std::vector<cv::Point2f> rv(v.length);
   for (int i = 0; i < v.length; i++) {
-    Point2f p = v.ptr[i];
+    CvPoint2f p = v.ptr[i];
     rv[i] = cv::Point2f(p.x, p.y);
   }
   return rv;
 }
 
 inline VecPoint2f vecpoint2f_cpp2c(std::vector<cv::Point2f> v) {
-  Point2f *ptr = new Point2f[v.size()];
-  for (int i = 0; i < v.size(); i++) { ptr[i] = Point2f{v[i].x, v[i].y}; }
+  CvPoint2f *ptr = new CvPoint2f[v.size()];
+  for (int i = 0; i < v.size(); i++) { ptr[i] = CvPoint2f{v[i].x, v[i].y}; }
   return VecPoint2f{.ptr = ptr, .length = v.size()};
 }
 
 inline void vecpoint2f_cpp2c(std::vector<cv::Point2f> v, VecPoint2f *vv) {
   if (vv->length != v.size()) {
-    vv->ptr = (Point2f *)realloc(vv->ptr, v.size() * sizeof(Point2f));
+    vv->ptr = (CvPoint2f *)realloc(vv->ptr, v.size() * sizeof(CvPoint2f));
     vv->length = v.size();
   }
-  for (int i = 0; i < v.size(); i++) { vv->ptr[i] = Point2f{v[i].x, v[i].y}; }
+  for (int i = 0; i < v.size(); i++) { vv->ptr[i] = CvPoint2f{v[i].x, v[i].y}; }
 }
 
 inline VecPoint2f *vecpoint2f_cpp2c_p(std::vector<cv::Point2f> v) {
-  Point2f *ptr = new Point2f[v.size()];
-  for (int i = 0; i < v.size(); i++) { ptr[i] = Point2f{v[i].x, v[i].y}; }
+  CvPoint2f *ptr = new CvPoint2f[v.size()];
+  for (int i = 0; i < v.size(); i++) { ptr[i] = CvPoint2f{v[i].x, v[i].y}; }
   return new VecPoint2f{.ptr = ptr, .length = v.size()};
 }
 
 inline std::vector<cv::Point3f> vecpoint3f_c2cpp(VecPoint3f v) {
   std::vector<cv::Point3f> rv(v.length);
   for (int i = 0; i < v.length; i++) {
-    Point3f p = v.ptr[i];
+    CvPoint3f p = v.ptr[i];
     rv[i] = cv::Point3f(p.x, p.y, p.z);
   }
   return rv;
 }
 
 inline VecPoint3f vecpoint3f_cpp2c(std::vector<cv::Point3f> v) {
-  Point3f *ptr = new Point3f[v.size()];
-  for (int i = 0; i < v.size(); i++) { ptr[i] = Point3f{v[i].x, v[i].y, v[i].z}; }
+  CvPoint3f *ptr = new CvPoint3f[v.size()];
+  for (int i = 0; i < v.size(); i++) { ptr[i] = CvPoint3f{v[i].x, v[i].y, v[i].z}; }
   return VecPoint3f{.ptr = ptr, .length = v.size()};
 }
 
 inline VecPoint3f *vecpoint3f_cpp2c_p(std::vector<cv::Point3f> v) {
-  Point3f *ptr = new Point3f[v.size()];
-  for (int i = 0; i < v.size(); i++) { ptr[i] = Point3f{v[i].x, v[i].y, v[i].z}; }
+  CvPoint3f *ptr = new CvPoint3f[v.size()];
+  for (int i = 0; i < v.size(); i++) { ptr[i] = CvPoint3f{v[i].x, v[i].y, v[i].z}; }
   return new VecPoint3f{.ptr = ptr, .length = v.size()};
 }
 
 inline std::vector<cv::Point3i> vecpoint3i_c2cpp(VecPoint3i v) {
   std::vector<cv::Point3i> rv(v.length);
   for (int i = 0; i < v.length; i++) {
-    Point3i p = v.ptr[i];
+    CvPoint3i p = v.ptr[i];
     rv[i] = cv::Point3i(p.x, p.y, p.z);
   }
   return rv;
 }
 
 inline VecPoint3i vecpoint3i_cpp2c(std::vector<cv::Point3i> v) {
-  Point3i *ptr = new Point3i[v.size()];
-  for (int i = 0; i < v.size(); i++) { ptr[i] = Point3i{v[i].x, v[i].y, v[i].z}; }
+  CvPoint3i *ptr = new CvPoint3i[v.size()];
+  for (int i = 0; i < v.size(); i++) { ptr[i] = CvPoint3i{v[i].x, v[i].y, v[i].z}; }
   return VecPoint3i{.ptr = ptr, .length = v.size()};
 }
 
 inline VecPoint3i *vecpoint3i_cpp2c_p(std::vector<cv::Point3i> v) {
-  Point3i *ptr = new Point3i[v.size()];
-  for (int i = 0; i < v.size(); i++) { ptr[i] = Point3i{v[i].x, v[i].y, v[i].z}; }
+  CvPoint3i *ptr = new CvPoint3i[v.size()];
+  for (int i = 0; i < v.size(); i++) { ptr[i] = CvPoint3i{v[i].x, v[i].y, v[i].z}; }
   return new VecPoint3i{.ptr = ptr, .length = v.size()};
 }
 
@@ -386,27 +386,27 @@ inline VecF64 *vecdouble_cpp2c_p(std::vector<double> v) {
 inline std::vector<cv::Rect> vecrect_c2cpp(VecRect v) {
   std::vector<cv::Rect> rv(v.length);
   for (int i = 0; i < v.length; i++) {
-    Rect p = v.ptr[i];
+    CvRect p = v.ptr[i];
     rv[i] = cv::Rect(p.x, p.y, p.width, p.height);
   }
   return rv;
 }
 inline VecRect vecrect_cpp2c(std::vector<cv::Rect> v) {
-  Rect *ptr = (Rect *)calloc(v.size(), sizeof(Rect));
+  CvRect *ptr = (CvRect *)calloc(v.size(), sizeof(CvRect));
   for (int i = 0; i < v.size(); i++) { ptr[i] = {v[i].x, v[i].y, v[i].width, v[i].height}; }
   return VecRect{.ptr = ptr, .length = v.size()};
 }
 
 inline void vecrect_cpp2c(std::vector<cv::Rect> v, VecRect *vv) {
   if (vv->length != v.size()) {
-    vv->ptr = (Rect *)realloc(vv->ptr, v.size() * sizeof(Rect));
+    vv->ptr = (CvRect *)realloc(vv->ptr, v.size() * sizeof(CvRect));
     vv->length = v.size();
   }
   for (int i = 0; i < v.size(); i++) { vv->ptr[i] = {v[i].x, v[i].y, v[i].width, v[i].height}; }
 }
 
 inline VecRect *vecrect_cpp2c_p(std::vector<cv::Rect> v) {
-  Rect *ptr = new Rect[v.size()];
+  CvRect *ptr = new CvRect[v.size()];
   for (int i = 0; i < v.size(); i++) { ptr[i] = {v[i].x, v[i].y, v[i].width, v[i].height}; }
   return new VecRect{.ptr = ptr, .length = v.size()};
 }

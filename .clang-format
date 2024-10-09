@@ -17,7 +17,7 @@ AllowShortLoopsOnASingleLine: true
 BinPackArguments: false
 BinPackParameters: false
 BreakBeforeBraces: Attach
-ColumnLimit: 100
+ColumnLimit: 110
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 ConstructorInitializerIndentWidth: 2
 IndentWidth: 2

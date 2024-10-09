@@ -6,10 +6,9 @@
 #ifndef CVD_QUALITY_H
 #define CVD_QUALITY_H
 
-#include "core/types.h"
+#include "dartcv/core.h"
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
 #include <opencv2/quality.hpp>
 extern "C" {
 #endif

@@ -6,10 +6,9 @@
 #ifndef WECHAT_QRCODE_H
 #define WECHAT_QRCODE_H
 
-#include "core/core.h"
+#include "dartcv/core.h"
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
 #include <opencv2/wechat_qrcode.hpp>
 extern "C" {
 #endif

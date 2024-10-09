@@ -7,7 +7,7 @@
 */
 
 #include "calib3d.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 
 CvStatus *Fisheye_UndistortImage(Mat distorted, Mat undistorted, Mat k, Mat d) {
   BEGIN_WRAP
@@ -16,7 +16,7 @@ CvStatus *Fisheye_UndistortImage(Mat distorted, Mat undistorted, Mat k, Mat d) {
 }
 
 CvStatus *Fisheye_UndistortImageWithParams(
-    Mat distorted, Mat *undistorted, Mat k, Mat d, Mat knew, Size size
+    Mat distorted, Mat *undistorted, Mat k, Mat d, Mat knew, CvSize size
 ) {
   BEGIN_WRAP
   cv::Size sz(size.width, size.height);
@@ -33,7 +33,7 @@ CvStatus *Fisheye_UndistortPoints(Mat distorted, Mat undistorted, Mat k, Mat d, 
 }
 
 CvStatus *Fisheye_EstimateNewCameraMatrixForUndistortRectify(
-    Mat k, Mat d, Size imgSize, Mat r, Mat p, double balance, Size newSize, double fovScale
+    Mat k, Mat d, CvSize imgSize, Mat r, Mat p, double balance, CvSize newSize, double fovScale
 ) {
   BEGIN_WRAP
   cv::Size newSz(newSize.width, newSize.height);
@@ -49,7 +49,7 @@ CvStatus *InitUndistortRectifyMap(
     Mat distCoeffs,
     Mat r,
     Mat newCameraMatrix,
-    Size size,
+    CvSize size,
     int m1type,
     Mat *map1,
     Mat *map2
@@ -68,10 +68,10 @@ CvStatus *InitUndistortRectifyMap(
 CvStatus *GetOptimalNewCameraMatrixWithParams(
     Mat cameraMatrix,
     Mat distCoeffs,
-    Size size,
+    CvSize size,
     double alpha,
-    Size newImgSize,
-    Rect *validPixROI,
+    CvSize newImgSize,
+    CvRect *validPixROI,
     bool centerPrincipalPoint,
     Mat *rval
 ) {
@@ -93,7 +93,7 @@ CvStatus *GetOptimalNewCameraMatrixWithParams(
 CvStatus *CalibrateCamera(
     VecVecPoint3f objectPoints,
     VecVecPoint2f imagePoints,
-    Size imageSize,
+    CvSize imageSize,
     Mat cameraMatrix,
     Mat distCoeffs,
     Mat rvecs,
@@ -134,14 +134,14 @@ UndistortPoints(Mat distorted, Mat undistorted, Mat k, Mat d, Mat r, Mat p, Term
   END_WRAP
 }
 
-CvStatus *FindChessboardCorners(Mat image, Size patternSize, Mat corners, int flags, bool *rval) {
+CvStatus *FindChessboardCorners(Mat image, CvSize patternSize, Mat corners, int flags, bool *rval) {
   BEGIN_WRAP
   cv::Size sz(patternSize.width, patternSize.height);
   *rval = cv::findChessboardCorners(*image.ptr, sz, *corners.ptr, flags);
   END_WRAP
 }
 
-CvStatus *FindChessboardCornersSB(Mat image, Size patternSize, Mat corners, int flags, bool *rval) {
+CvStatus *FindChessboardCornersSB(Mat image, CvSize patternSize, Mat corners, int flags, bool *rval) {
   BEGIN_WRAP
   cv::Size sz(patternSize.width, patternSize.height);
   *rval = cv::findChessboardCornersSB(*image.ptr, sz, *corners.ptr, flags);
@@ -149,7 +149,7 @@ CvStatus *FindChessboardCornersSB(Mat image, Size patternSize, Mat corners, int 
 }
 
 CvStatus *FindChessboardCornersSBWithMeta(
-    Mat image, Size patternSize, Mat corners, int flags, Mat meta, bool *rval
+    Mat image, CvSize patternSize, Mat corners, int flags, Mat meta, bool *rval
 ) {
   BEGIN_WRAP
   cv::Size sz(patternSize.width, patternSize.height);
@@ -157,7 +157,7 @@ CvStatus *FindChessboardCornersSBWithMeta(
   END_WRAP
 }
 
-CvStatus *DrawChessboardCorners(Mat image, Size patternSize, Mat corners, bool patternWasFound) {
+CvStatus *DrawChessboardCorners(Mat image, CvSize patternSize, Mat corners, bool patternWasFound) {
   BEGIN_WRAP
   cv::Size sz(patternSize.width, patternSize.height);
   cv::drawChessboardCorners(*image.ptr, sz, *corners.ptr, patternWasFound);

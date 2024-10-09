@@ -6,11 +6,11 @@
 #ifndef CVD_IMGCODECS_ASYNC_H_
 #define CVD_IMGCODECS_ASYNC_H_
 
-#include "core/types.h"
+#include "dartcv/core.h"
 #include <stdbool.h>
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
+#include <opencv2/imgcodecs.hpp>
 extern "C" {
 #endif
 

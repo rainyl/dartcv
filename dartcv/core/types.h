@@ -124,60 +124,60 @@ CVD_TYPEDEF(void, InputOutputArray);
 CVD_TYPEDEF(void, RNG);
 #endif
 
-// Wrapper for an individual cv::cvPoint
-typedef struct Point {
+// Wrapper for an individual cv::CvPoint
+typedef struct CvPoint {
   int x;
   int y;
-} Point;
+} CvPoint;
 
-// Wrapper for an individual cv::Point2f
-typedef struct Point2f {
+// Wrapper for an individual cv::CvPoint2f
+typedef struct CvPoint2f {
   float x;
   float y;
-} Point2f;
+} CvPoint2f;
 
-typedef struct Point3f {
+typedef struct CvPoint3f {
   float x;
   float y;
   float z;
-} Point3f;
+} CvPoint3f;
 
-typedef struct Point3i {
+typedef struct CvPoint3i {
   int x;
   int y;
   int z;
-} Point3i;
+} CvPoint3i;
 
 // Wrapper for an individual cv::cvRect
-typedef struct Rect {
+typedef struct CvRect {
   int x;
   int y;
   int width;
   int height;
 } Rect;
 
-typedef struct Rect2f {
+typedef struct CvRect2f {
   float x;
   float y;
   float width;
   float height;
-} Rect2f;
+} CvRect2f;
 
 // Wrapper for an individual cv::cvSize
-typedef struct Size {
+typedef struct CvSize {
   int width;
   int height;
 } Size;
 
-typedef struct Size2f {
+typedef struct CvSize2f {
   float width;
   float height;
-} Size2f;
+} CvSize2f;
 
 // Wrapper for an individual cv::RotatedRect
 typedef struct RotatedRect {
-  Point2f center;
-  Size2f size;
+  CvPoint2f center;
+  CvSize2f size;
   double angle;
 } RotatedRect;
 
@@ -434,15 +434,15 @@ CVD_TYPEDEF_VEC(double_t, VecF64);
 CVD_TYPEDEF_VEC(uint16_t, VecF16);
 CVD_TYPEDEF_VEC(VecChar, VecVecChar);
 CVD_TYPEDEF_VEC(Mat, VecMat);
-CVD_TYPEDEF_VEC(Point, VecPoint);
-CVD_TYPEDEF_VEC(Point2f, VecPoint2f);
-CVD_TYPEDEF_VEC(Point3f, VecPoint3f);
-CVD_TYPEDEF_VEC(Point3i, VecPoint3i);
+CVD_TYPEDEF_VEC(CvPoint, VecPoint);
+CVD_TYPEDEF_VEC(CvPoint2f, VecPoint2f);
+CVD_TYPEDEF_VEC(CvPoint3f, VecPoint3f);
+CVD_TYPEDEF_VEC(CvPoint3i, VecPoint3i);
 CVD_TYPEDEF_VEC(VecPoint, VecVecPoint);
 CVD_TYPEDEF_VEC(VecPoint2f, VecVecPoint2f);
 CVD_TYPEDEF_VEC(VecPoint3f, VecVecPoint3f);
 CVD_TYPEDEF_VEC(VecPoint3i, VecVecPoint3i);
-CVD_TYPEDEF_VEC(Rect, VecRect);
+CVD_TYPEDEF_VEC(CvRect, VecRect);
 CVD_TYPEDEF_VEC(RotatedRect, VecRotatedRect);
 CVD_TYPEDEF_VEC(KeyPoint, VecKeyPoint);
 CVD_TYPEDEF_VEC(DMatch, VecDMatch);

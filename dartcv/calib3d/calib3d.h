@@ -11,21 +11,17 @@
 
 #ifdef __cplusplus
 #include <opencv2/calib3d.hpp>
-#include <opencv2/opencv.hpp>
-
 extern "C" {
 #endif
-
-#include "core/core.h"
+#include "dartcv/core.h"
 #include <stddef.h>
 // Calib
 CvStatus *Fisheye_UndistortImage(Mat distorted, Mat undistorted, Mat k, Mat d);
-CvStatus *Fisheye_UndistortImageWithParams(
-    Mat distorted, Mat *undistorted, Mat k, Mat d, Mat knew, Size size
-);
+CvStatus *
+Fisheye_UndistortImageWithParams(Mat distorted, Mat *undistorted, Mat k, Mat d, Mat knew, CvSize size);
 CvStatus *Fisheye_UndistortPoints(Mat distorted, Mat undistorted, Mat k, Mat d, Mat R, Mat P);
 CvStatus *Fisheye_EstimateNewCameraMatrixForUndistortRectify(
-    Mat k, Mat d, Size imgSize, Mat r, Mat p, double balance, Size newSize, double fovScale
+    Mat k, Mat d, CvSize imgSize, Mat r, Mat p, double balance, CvSize newSize, double fovScale
 );
 
 CvStatus *InitUndistortRectifyMap(
@@ -33,7 +29,7 @@ CvStatus *InitUndistortRectifyMap(
     Mat distCoeffs,
     Mat r,
     Mat newCameraMatrix,
-    Size size,
+    CvSize size,
     int m1type,
     Mat *map1,
     Mat *map2
@@ -41,17 +37,17 @@ CvStatus *InitUndistortRectifyMap(
 CvStatus *GetOptimalNewCameraMatrixWithParams(
     Mat cameraMatrix,
     Mat distCoeffs,
-    Size size,
+    CvSize size,
     double alpha,
-    Size newImgSize,
-    Rect *validPixROI,
+    CvSize newImgSize,
+    CvRect *validPixROI,
     bool centerPrincipalPoint,
     Mat *rval
 );
 CvStatus *CalibrateCamera(
     VecVecPoint3f objectPoints,
     VecVecPoint2f imagePoints,
-    Size imageSize,
+    CvSize imageSize,
     Mat cameraMatrix,
     Mat distCoeffs,
     Mat rvecs,
@@ -61,14 +57,12 @@ CvStatus *CalibrateCamera(
     double *rval
 );
 CvStatus *Undistort(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, Mat newCameraMatrix);
+CvStatus *UndistortPoints(Mat distorted, Mat undistorted, Mat k, Mat d, Mat r, Mat p, TermCriteria criteria);
+CvStatus *FindChessboardCorners(Mat image, CvSize patternSize, Mat corners, int flags, bool *rval);
+CvStatus *FindChessboardCornersSB(Mat image, CvSize patternSize, Mat corners, int flags, bool *rval);
 CvStatus *
-UndistortPoints(Mat distorted, Mat undistorted, Mat k, Mat d, Mat r, Mat p, TermCriteria criteria);
-CvStatus *FindChessboardCorners(Mat image, Size patternSize, Mat corners, int flags, bool *rval);
-CvStatus *FindChessboardCornersSB(Mat image, Size patternSize, Mat corners, int flags, bool *rval);
-CvStatus *FindChessboardCornersSBWithMeta(
-    Mat image, Size patternSize, Mat corners, int flags, Mat meta, bool *rval
-);
-CvStatus *DrawChessboardCorners(Mat image, Size patternSize, Mat corners, bool patternWasFound);
+FindChessboardCornersSBWithMeta(Mat image, CvSize patternSize, Mat corners, int flags, Mat meta, bool *rval);
+CvStatus *DrawChessboardCorners(Mat image, CvSize patternSize, Mat corners, bool patternWasFound);
 CvStatus *EstimateAffinePartial2D(VecPoint2f from, VecPoint2f to, Mat *rval);
 CvStatus *EstimateAffinePartial2DWithParams(
     VecPoint2f from,

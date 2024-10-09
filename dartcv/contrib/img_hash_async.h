@@ -1,5 +1,3 @@
-#pragma once
-#include "core/types.h"
 #include "img_hash.h"
 
 #ifdef __cplusplus

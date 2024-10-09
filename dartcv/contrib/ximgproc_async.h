@@ -5,10 +5,8 @@
 #ifndef CVD_XIMGPROC_ASYNC_H
 #define CVD_XIMGPROC_ASYNC_H
 
-#include "../core/types.h"
 #include "ximgproc.h"
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
 #include <opencv2/ximgproc.hpp>
 extern "C" {
 #endif
@@ -95,15 +93,16 @@ ximgproc_EdgeDrawing_getSegmentIndicesOfLines_Async(EdgeDrawing self, CvCallback
 CvStatus *ximgproc_EdgeDrawing_getSegments_Async(EdgeDrawing self, CvCallback_1 callback);
 
 // Binary morphology on run-length encoded image
-CvStatus *ximgproc_rl_createRLEImage_Async(const VecPoint3i runs, Size size, CvCallback_1 callback);
-CvStatus *ximgproc_rl_dilate_Async(Mat rlSrc, Mat rlKernel, Point anchor, CvCallback_1 callback);
+CvStatus *ximgproc_rl_createRLEImage_Async(const VecPoint3i runs, CvSize size, CvCallback_1 callback);
+CvStatus *ximgproc_rl_dilate_Async(Mat rlSrc, Mat rlKernel, CvPoint anchor, CvCallback_1 callback);
 CvStatus *ximgproc_rl_erode_Async(
-    Mat rlSrc, Mat rlKernel, bool bBoundaryOn, Point anchor, CvCallback_1 callback
+    Mat rlSrc, Mat rlKernel, bool bBoundaryOn, CvPoint anchor, CvCallback_1 callback
 );
-CvStatus *ximgproc_rl_getStructuringElement_Async(int shape, Size ksize, CvCallback_1 callback);
+CvStatus *ximgproc_rl_getStructuringElement_Async(int shape, CvSize ksize, CvCallback_1 callback);
 CvStatus *ximgproc_rl_isRLMorphologyPossible_Async(Mat rlStructuringElement, CvCallback_1 callback);
 CvStatus *ximgproc_rl_morphologyEx_Async(
-    Mat rlSrc, int op, Mat rlKernel, bool bBoundaryOnForErosion, Point anchor, CvCallback_1 callback
+    Mat rlSrc, int op, Mat rlKernel, bool bBoundaryOnForErosion,
+    CvPoint anchor, CvCallback_1 callback
 );
 CvStatus *ximgproc_rl_paint_Async(Mat image, Mat rlSrc, const Scalar value, CvCallback_0 callback);
 CvStatus *ximgproc_rl_threshold_Async(Mat src, double thresh, int type, CvCallback_1 callback);

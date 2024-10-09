@@ -6,7 +6,7 @@
 #ifndef CVD_ASYNC_CORE_H
 #define CVD_ASYNC_CORE_H
 
-#include "core/types.h"
+#include "core.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -45,7 +45,7 @@ CvStatus *Mat_ConvertToWithParams_Async(
 );                                                               // Mat dst
 CvStatus *Mat_ToVecUChar_Async(Mat self, CvCallback_1 callback); // VecUChar *rval
 CvStatus *Mat_ToVecChar_Async(Mat self, CvCallback_1 callback);  // VecChar *rval
-CvStatus *Mat_Region_Async(Mat self, Rect r, CvCallback_1 callback);
+CvStatus *Mat_Region_Async(Mat self, CvRect r, CvCallback_1 callback);
 CvStatus *Mat_Reshape_Async(Mat self, int cn, int rows, CvCallback_1 callback);
 #pragma endregion
 
@@ -238,7 +238,7 @@ CvStatus *core_CartToPolar_Async(
 ); // Mat magnitude, Mat angle
 CvStatus *core_CheckRange_Async(
     Mat self, bool quiet, double minVal, double maxVal, CvCallback_2 callback
-); // bool *rval, Point *pos
+); // bool *rval, CvPoint *pos
 CvStatus *core_CompleteSymm_Async(Mat self, bool lowerToUpper, CvCallback_0 callback);
 CvStatus *core_ConvertScaleAbs_Async(Mat src, double alpha, double beta, CvCallback_1 callback);
 CvStatus *core_CopyMakeBorder_Async(
@@ -304,7 +304,7 @@ CvStatus *core_MinMaxIdx_Async(
 CvStatus *core_MinMaxIdx_Mask_Async(Mat self, Mat mask, CvCallback_4 callback);
 CvStatus *core_MinMaxLoc_Async(
     Mat self, CvCallback_4 callback
-); // double *minVal, double *maxVal, Point *minLoc, Point *maxLoc
+); // double *minVal, double *maxVal, CvPoint *minLoc, CvPoint *maxLoc
 CvStatus *core_MinMaxLoc_Mask_Async(Mat self, Mat mask, CvCallback_4 callback);
 CvStatus *core_MixChannels_Async(VecMat src, VecMat dst, VecI32 fromTo, CvCallback_0 callback);
 CvStatus *core_MulSpectrums_Async(Mat a, Mat b, int flags, bool conjB, CvCallback_1 callback);

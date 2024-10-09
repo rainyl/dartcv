@@ -9,10 +9,9 @@
 #ifndef _OPENCV3_VIDEO_H_
 #define _OPENCV3_VIDEO_H_
 
-#include "core/core.h"
+#include "dartcv/core.h"
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
 #include <opencv2/video.hpp>
 extern "C" {
 #endif
@@ -57,7 +56,7 @@ CvStatus *CalcOpticalFlowPyrLKWithParams(
     VecPoint2f *nextPts,
     VecUChar *status,
     VecF32 *err,
-    Size winSize,
+    CvSize winSize,
     int maxLevel,
     TermCriteria criteria,
     int flags,
@@ -87,8 +86,8 @@ CvStatus *FindTransformECC(
     double *rval
 );
 
-CvStatus *TrackerMIL_Init(TrackerMIL self, Mat image, Rect bbox);
-CvStatus *TrackerMIL_Update(TrackerMIL self, Mat image, Rect *boundingBox, bool *rval);
+CvStatus *TrackerMIL_Init(TrackerMIL self, Mat image, CvRect bbox);
+CvStatus *TrackerMIL_Update(TrackerMIL self, Mat image, CvRect *boundingBox, bool *rval);
 CvStatus *TrackerMIL_Create(TrackerMIL *rval);
 void TrackerMIL_Close(TrackerMILPtr self);
 

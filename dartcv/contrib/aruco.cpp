@@ -6,7 +6,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 #include "aruco.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 
 CvStatus *ArucoDetectorParameters_Create(ArucoDetectorParameters *rval) {
   BEGIN_WRAP

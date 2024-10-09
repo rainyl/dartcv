@@ -1,6 +1,5 @@
 #include "wechat_qrcode.h"
-#include "core/core.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 #include <vector>
 
 CvStatus *WeChatQRCode_New(WeChatQRCode *qrcode)

@@ -5,10 +5,8 @@
 #ifndef CVD_XIMGPROC_H
 #define CVD_XIMGPROC_H
 
-#include "../core/core.h"
-#include "core/types.h"
+#include "dartcv/core.h"
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
 #include <opencv2/ximgproc.hpp>
 extern "C" {
 #endif
@@ -164,13 +162,13 @@ CvStatus *ximgproc_EdgeDrawing_setParams(EdgeDrawing self, EdgeDrawingParams par
 CvStatus *ximgproc_EdgeDrawing_getParams(EdgeDrawing self, EdgeDrawingParams *params);
 
 // Binary morphology on run-length encoded image
-CvStatus *ximgproc_rl_createRLEImage(const VecPoint3i runs, Mat *res, Size size);
-CvStatus *ximgproc_rl_dilate(Mat rlSrc, Mat *rlDest, Mat rlKernel, Point anchor);
-CvStatus *ximgproc_rl_erode(Mat rlSrc, Mat *rlDest, Mat rlKernel, bool bBoundaryOn, Point anchor);
-CvStatus *ximgproc_rl_getStructuringElement(int shape, Size ksize, Mat *rval);
+CvStatus *ximgproc_rl_createRLEImage(const VecPoint3i runs, Mat *res, CvSize size);
+CvStatus *ximgproc_rl_dilate(Mat rlSrc, Mat *rlDest, Mat rlKernel, CvPoint anchor);
+CvStatus *ximgproc_rl_erode(Mat rlSrc, Mat *rlDest, Mat rlKernel, bool bBoundaryOn, CvPoint anchor);
+CvStatus *ximgproc_rl_getStructuringElement(int shape, CvSize ksize, Mat *rval);
 CvStatus *ximgproc_rl_isRLMorphologyPossible(Mat rlStructuringElement, bool *rval);
 CvStatus *ximgproc_rl_morphologyEx(
-    Mat rlSrc, Mat *rlDest, int op, Mat rlKernel, bool bBoundaryOnForErosion, Point anchor
+    Mat rlSrc, Mat *rlDest, int op, Mat rlKernel, bool bBoundaryOnForErosion, CvPoint anchor
 );
 CvStatus *ximgproc_rl_paint(Mat image, Mat rlSrc, const Scalar value);
 CvStatus *ximgproc_rl_threshold(Mat src, Mat *rlDest, double thresh, int type);

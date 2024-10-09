@@ -3,11 +3,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 rainyl.
 */
 #include "ximgproc_async.h"
-#include "core/types.h"
-#include "core/vec.hpp"
-#include "opencv2/core/types.hpp"
-#include "opencv2/ximgproc.hpp"
-#include "opencv2/ximgproc/structured_edge_detection.hpp"
+#include "dartcv/core/vec.hpp"
 
 CvStatus *ximgproc_anisotropicDiffusion_Async(
     Mat src, float alpha, float K, int niters, CvCallback_1 callback
@@ -220,7 +216,7 @@ CvStatus *ximgproc_EdgeDrawing_getSegments_Async(EdgeDrawing self, CvCallback_1 
 
 // Binary morphology on run-length encoded image
 CvStatus *
-ximgproc_rl_createRLEImage_Async(const VecPoint3i runs, Size size, CvCallback_1 callback) {
+ximgproc_rl_createRLEImage_Async(const VecPoint3i runs, CvSize size, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   auto _runs = vecpoint3i_c2cpp(runs);
@@ -228,7 +224,7 @@ ximgproc_rl_createRLEImage_Async(const VecPoint3i runs, Size size, CvCallback_1 
   callback(new Mat{new cv::Mat(dst)});
   END_WRAP
 }
-CvStatus *ximgproc_rl_dilate_Async(Mat rlSrc, Mat rlKernel, Point anchor, CvCallback_1 callback) {
+CvStatus *ximgproc_rl_dilate_Async(Mat rlSrc, Mat rlKernel, CvPoint anchor, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::ximgproc::rl::dilate(*rlSrc.ptr, dst, *rlKernel.ptr, cv::Point(anchor.x, anchor.y));
@@ -236,7 +232,7 @@ CvStatus *ximgproc_rl_dilate_Async(Mat rlSrc, Mat rlKernel, Point anchor, CvCall
   END_WRAP
 }
 CvStatus *ximgproc_rl_erode_Async(
-    Mat rlSrc, Mat rlKernel, bool bBoundaryOn, Point anchor, CvCallback_1 callback
+    Mat rlSrc, Mat rlKernel, bool bBoundaryOn, CvPoint anchor, CvCallback_1 callback
 ) {
   BEGIN_WRAP
   cv::Mat dst;
@@ -246,7 +242,7 @@ CvStatus *ximgproc_rl_erode_Async(
   callback(new Mat{new cv::Mat(dst)});
   END_WRAP
 }
-CvStatus *ximgproc_rl_getStructuringElement_Async(int shape, Size ksize, CvCallback_1 callback) {
+CvStatus *ximgproc_rl_getStructuringElement_Async(int shape, CvSize ksize, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Mat dst = cv::ximgproc::rl::getStructuringElement(shape, cv::Size(ksize.width, ksize.height));
   callback(new Mat{new cv::Mat(dst)});
@@ -259,7 +255,8 @@ ximgproc_rl_isRLMorphologyPossible_Async(Mat rlStructuringElement, CvCallback_1 
   END_WRAP
 }
 CvStatus *ximgproc_rl_morphologyEx_Async(
-    Mat rlSrc, int op, Mat rlKernel, bool bBoundaryOnForErosion, Point anchor, CvCallback_1 callback
+    Mat rlSrc, int op, Mat rlKernel, bool bBoundaryOnForErosion,
+    CvPoint anchor, CvCallback_1 callback
 ) {
   BEGIN_WRAP
   cv::Mat dst;

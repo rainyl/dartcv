@@ -1,10 +1,6 @@
 #include "core_async.h"
-#include "core/types.h"
 #include "lut.hpp"
 #include "vec.hpp"
-
-#include "opencv2/core.hpp"
-#include "opencv2/core/types.hpp"
 
 #pragma region Mat_Constructors
 CvStatus *Mat_New_Async(CvCallback_1 callback) {
@@ -160,7 +156,7 @@ CvStatus *Mat_ToVecChar_Async(Mat self, CvCallback_1 callback) {
   END_WRAP
 }
 
-CvStatus *Mat_Region_Async(Mat self, Rect r, CvCallback_1 callback) {
+CvStatus *Mat_Region_Async(Mat self, CvRect r, CvCallback_1 callback) {
   BEGIN_WRAP
   callback(new Mat{new cv::Mat(*self.ptr, cv::Rect(r.x, r.y, r.width, r.height))});
   END_WRAP
@@ -350,7 +346,7 @@ core_CheckRange_Async(Mat self, bool quiet, double minVal, double maxVal, CvCall
   BEGIN_WRAP
   cv::Point point;
   bool rval = cv::checkRange(*self.ptr, quiet, &point, minVal, maxVal);
-  callback(new bool(rval), new Point{point.x, point.y});
+  callback(new bool(rval), new CvPoint{point.x, point.y});
   END_WRAP
 }
 
@@ -692,8 +688,8 @@ CvStatus *core_MinMaxLoc_Async(Mat self, CvCallback_4 callback) {
   callback(
       new double(minVal),
       new double(maxVal),
-      new Point{minLoc.x, minLoc.y},
-      new Point{maxLoc.x, maxLoc.y}
+      new CvPoint{minLoc.x, minLoc.y},
+      new CvPoint{maxLoc.x, maxLoc.y}
   );
   END_WRAP
 }
@@ -706,8 +702,8 @@ CvStatus *core_MinMaxLoc_Mask_Async(Mat self, Mat mask, CvCallback_4 callback) {
   callback(
       new double(minVal),
       new double(maxVal),
-      new Point{minLoc.x, minLoc.y},
-      new Point{maxLoc.x, maxLoc.y}
+      new CvPoint{minLoc.x, minLoc.y},
+      new CvPoint{maxLoc.x, maxLoc.y}
   );
   END_WRAP
 }

@@ -10,11 +10,11 @@
 #define _OPENCV3_HIGHGUI_H_
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
+#include <opencv2/highgui.hpp>
 extern "C" {
 #endif
 
-#include "core/core.h"
+#include "dartcv/core.h"
 
 // Window
 CvStatus *Window_New(const char *winname, int flags);

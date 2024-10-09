@@ -8,10 +8,9 @@
 #ifndef OCV_DART_IMG_HASH_H
 #define OCV_DART_IMG_HASH_H
 
-#include "../core/core.h"
+#include "dartcv/core.h"
 #ifdef __cplusplus
 #include <opencv2/img_hash.hpp>
-#include <opencv2/opencv.hpp>
 extern "C" {
 #endif
 

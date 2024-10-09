@@ -1,6 +1,5 @@
 #include "objdetect_async.h"
-#include "core/types.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 #include <cstdlib>
 
 // Asynchronous functions for CascadeClassifier
@@ -39,8 +38,8 @@ CvStatus *CascadeClassifier_DetectMultiScaleWithParams_Async(
     double scale,
     int minNeighbors,
     int flags,
-    Size minSize,
-    Size maxSize,
+    CvSize minSize,
+    CvSize maxSize,
     CvCallback_1 callback
 ) {
   BEGIN_WRAP
@@ -58,8 +57,8 @@ CvStatus *CascadeClassifier_DetectMultiScale2_Async(
     double scaleFactor,
     int minNeighbors,
     int flags,
-    Size minSize,
-    Size maxSize,
+    CvSize minSize,
+    CvSize maxSize,
     CvCallback_2 callback
 ) {
   BEGIN_WRAP
@@ -80,8 +79,8 @@ CvStatus *CascadeClassifier_DetectMultiScale3_Async(
     double scaleFactor,
     int minNeighbors,
     int flags,
-    Size minSize,
-    Size maxSize,
+    CvSize minSize,
+    CvSize maxSize,
     bool outputRejectLevels,
     CvCallback_3 callback
 ) {
@@ -129,7 +128,7 @@ CvStatus *
 CascadeClassifier_getOriginalWindowSize_Async(CascadeClassifier self, CvCallback_1 callback) {
   BEGIN_WRAP
   auto sz = self.ptr->getOriginalWindowSize();
-  callback(new Size{sz.width, sz.height});
+  callback(new CvSize{sz.width, sz.height});
   END_WRAP
 }
 
@@ -165,8 +164,8 @@ CvStatus *HOGDescriptor_Detect_Async(
     HOGDescriptor self,
     Mat img,
     double hitThresh,
-    Size winStride,
-    Size padding,
+    CvSize winStride,
+    CvSize padding,
     CvCallback_3 callback
 ) {
   BEGIN_WRAP
@@ -194,8 +193,8 @@ CvStatus *HOGDescriptor_Detect2_Async(
     HOGDescriptor self,
     Mat img,
     double hitThresh,
-    Size winStride,
-    Size padding,
+    CvSize winStride,
+    CvSize padding,
     CvCallback_2 callback
 ) {
   BEGIN_WRAP
@@ -227,8 +226,8 @@ CvStatus *HOGDescriptor_DetectMultiScaleWithParams_Async(
     HOGDescriptor self,
     Mat img,
     double hitThresh,
-    Size winStride,
-    Size padding,
+    CvSize winStride,
+    CvSize padding,
     double scale,
     double finalThreshold,
     bool useMeanshiftGrouping,
@@ -246,7 +245,7 @@ CvStatus *HOGDescriptor_DetectMultiScaleWithParams_Async(
 }
 
 CvStatus *HOGDescriptor_Compute_Async(
-    HOGDescriptor self, Mat img, Size winStride, Size padding, CvCallback_2 callback
+    HOGDescriptor self, Mat img, CvSize winStride, CvSize padding, CvCallback_2 callback
 ) {
   BEGIN_WRAP
   std::vector<float> _descriptors;
@@ -267,8 +266,8 @@ CvStatus *HOGDescriptor_computeGradient_Async(
     Mat img,
     Mat grad,
     Mat angleOfs,
-    Size paddingTL,
-    Size paddingBR,
+    CvSize paddingTL,
+    CvSize paddingBR,
     CvCallback_0 callback
 ) {
   BEGIN_WRAP
@@ -476,7 +475,7 @@ CvStatus *QRCodeDetector_setUseAlignmentMarkers_Async(
 CvStatus *FaceDetectorYN_New_Async(
     const char *model,
     const char *config,
-    Size input_size,
+    CvSize input_size,
     float score_threshold,
     float nms_threshold,
     int top_k,
@@ -502,7 +501,7 @@ CvStatus *FaceDetectorYN_NewFromBuffer_Async(
     const char *framework,
     VecUChar buffer,
     VecUChar buffer_config,
-    Size input_size,
+    CvSize input_size,
     float score_threshold,
     float nms_threshold,
     int top_k,
@@ -536,7 +535,7 @@ CvStatus *FaceDetectorYN_Detect_Async(FaceDetectorYN self, Mat img, CvCallback_1
 }
 
 CvStatus *
-FaceDetectorYN_SetInputSize_Async(FaceDetectorYN self, Size input_size, CvCallback_0 callback) {
+FaceDetectorYN_SetInputSize_Async(FaceDetectorYN self, CvSize input_size, CvCallback_0 callback) {
   BEGIN_WRAP(*self.ptr)->setInputSize(cv::Size(input_size.width, input_size.height));
   callback();
   END_WRAP
@@ -545,7 +544,7 @@ FaceDetectorYN_SetInputSize_Async(FaceDetectorYN self, Size input_size, CvCallba
 CvStatus *FaceDetectorYN_GetInputSize_Async(FaceDetectorYN self, CvCallback_1 callback) {
   BEGIN_WRAP
   cv::Size sz = (*self.ptr)->getInputSize();
-  callback(new Size{sz.width, sz.height});
+  callback(new CvSize{sz.width, sz.height});
   END_WRAP
 }
 

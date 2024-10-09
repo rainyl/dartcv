@@ -4,8 +4,7 @@
 */
 
 #include "video_async.h"
-#include "core/vec.hpp"
-#include <vector>
+#include "dartcv/core/vec.hpp"
 
 CvStatus *BackgroundSubtractorMOG2_Create_Async(CvCallback_1 callback) {
   BEGIN_WRAP
@@ -75,7 +74,7 @@ CvStatus *CalcOpticalFlowPyrLK_Async(
     Mat nextImg,
     VecPoint2f prevPts,
     VecPoint2f *nextPts,
-    Size winSize,
+    CvSize winSize,
     int maxLevel,
     TermCriteria criteria,
     int flags,
@@ -160,7 +159,7 @@ CvStatus *FindTransformECC_Async(
   END_WRAP
 }
 
-CvStatus *TrackerMIL_Init_Async(TrackerMIL self, Mat image, Rect bbox, CvCallback_0 callback) {
+CvStatus *TrackerMIL_Init_Async(TrackerMIL self, Mat image, CvRect bbox, CvCallback_0 callback) {
   BEGIN_WRAP
   auto rect = cv::Rect(bbox.x, bbox.y, bbox.width, bbox.height);
   (*self.ptr)->init(*image.ptr, rect);
@@ -171,7 +170,7 @@ CvStatus *TrackerMIL_Update_Async(TrackerMIL self, Mat image, CvCallback_2 callb
   BEGIN_WRAP
   cv::Rect bb;
   bool rval = (*self.ptr)->update(*image.ptr, bb);
-  callback(new bool(rval), new Rect{bb.x, bb.y, bb.width, bb.height});
+  callback(new bool(rval), new CvRect{bb.x, bb.y, bb.width, bb.height});
   END_WRAP
 }
 

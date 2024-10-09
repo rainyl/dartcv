@@ -9,14 +9,13 @@
 #ifndef _OPENCV3_IMGCODECS_H_
 #define _OPENCV3_IMGCODECS_H_
 
-#include <stdbool.h>
-
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
+#include <opencv2/imgcodecs.hpp>
 extern "C" {
 #endif
 
-#include "core/core.h"
+#include "dartcv/core.h"
+#include <stdbool.h>
 
 CvStatus *Image_IMRead(const char *filename, int flags, CVD_OUT Mat *rval);
 CvStatus *Image_IMWrite(const char *filename, Mat img, CVD_OUT bool *rval);

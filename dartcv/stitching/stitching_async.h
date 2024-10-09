@@ -2,11 +2,9 @@
 #ifndef OPENCV_DART_LIBRARY_STITCHING_ASYNC_H
 #define OPENCV_DART_LIBRARY_STITCHING_ASYNC_H
 
-#include "core/types.h"
 #include "stitching.h"
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
 extern "C" {
 #endif
 

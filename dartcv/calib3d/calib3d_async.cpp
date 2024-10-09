@@ -1,7 +1,5 @@
 #include "calib3d_async.h"
-#include "core/types.h"
-#include "core/vec.hpp"
-#include <opencv2/calib3d.hpp>
+#include "dartcv/core/vec.hpp"
 
 CvStatus *fisheye_undistortImage_Async(Mat distorted, Mat k, Mat d, CVD_OUT CvCallback_1 callback) {
   BEGIN_WRAP
@@ -12,7 +10,7 @@ CvStatus *fisheye_undistortImage_Async(Mat distorted, Mat k, Mat d, CVD_OUT CvCa
 }
 
 CvStatus *fisheye_undistortImageWithParams_Async(
-    Mat distorted, Mat k, Mat d, Mat knew, Size size, CVD_OUT CvCallback_1 callback
+    Mat distorted, Mat k, Mat d, Mat knew, CvSize size, CVD_OUT CvCallback_1 callback
 ) {
   BEGIN_WRAP
   cv::Mat dst;
@@ -36,10 +34,10 @@ CvStatus *fisheye_undistortPoints_Async(
 CvStatus *fisheye_estimateNewCameraMatrixForUndistortRectify_Async(
     Mat k,
     Mat d,
-    Size imgSize,
+    CvSize imgSize,
     Mat r,
     double balance,
-    Size newSize,
+    CvSize newSize,
     double fovScale,
     CVD_OUT CvCallback_1 callback
 ) {
@@ -63,7 +61,7 @@ CvStatus *fisheye_estimateNewCameraMatrixForUndistortRectify_Async(
 CvStatus *calibrateCamera_Async(
     VecVecPoint3f objectPoints,
     VecVecPoint2f imagePoints,
-    Size imageSize,
+    CvSize imageSize,
     Mat cameraMatrix,
     Mat distCoeffs,
     int flag,
@@ -91,7 +89,7 @@ CvStatus *calibrateCamera_Async(
   END_WRAP
 }
 CvStatus *drawChessboardCorners_Async(
-    Mat image, Size patternSize, bool patternWasFound, CVD_OUT CvCallback_0 callback
+    Mat image, CvSize patternSize, bool patternWasFound, CVD_OUT CvCallback_0 callback
 ) {
   BEGIN_WRAP
   cv::Mat dst;
@@ -160,7 +158,7 @@ CvStatus *estimateAffine2DWithParams_Async(
   END_WRAP
 }
 CvStatus *
-findChessboardCorners_Async(Mat image, Size patternSize, int flags, CvCallback_2 callback) {
+findChessboardCorners_Async(Mat image, CvSize patternSize, int flags, CvCallback_2 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::Mat dst2;
@@ -171,7 +169,7 @@ findChessboardCorners_Async(Mat image, Size patternSize, int flags, CvCallback_2
   END_WRAP
 }
 CvStatus *
-findChessboardCornersSB_Async(Mat image, Size patternSize, int flags, CvCallback_2 callback) {
+findChessboardCornersSB_Async(Mat image, CvSize patternSize, int flags, CvCallback_2 callback) {
   BEGIN_WRAP
   cv::Mat dst;
   cv::Mat dst2;
@@ -182,7 +180,7 @@ findChessboardCornersSB_Async(Mat image, Size patternSize, int flags, CvCallback
   END_WRAP
 }
 CvStatus *findChessboardCornersSBWithMeta_Async(
-    Mat image, Size patternSize, int flags, CVD_OUT CvCallback_3 callback
+    Mat image, CvSize patternSize, int flags, CVD_OUT CvCallback_3 callback
 ) {
   BEGIN_WRAP
   cv::Mat dst;
@@ -196,9 +194,9 @@ CvStatus *findChessboardCornersSBWithMeta_Async(
 CvStatus *getOptimalNewCameraMatrix_Async(
     Mat cameraMatrix,
     Mat distCoeffs,
-    Size size,
+    CvSize size,
     double alpha,
-    Size newImgSize,
+    CvSize newImgSize,
     bool centerPrincipalPoint,
     CVD_OUT CvCallback_2 callback
 ) {
@@ -213,7 +211,7 @@ CvStatus *getOptimalNewCameraMatrix_Async(
       &dst,
       centerPrincipalPoint
   );
-  callback(new Mat{new cv::Mat(rval)}, new Rect{dst.x, dst.y, dst.width, dst.height});
+  callback(new Mat{new cv::Mat(rval)}, new CvRect{dst.x, dst.y, dst.width, dst.height});
   END_WRAP
 }
 CvStatus *initUndistortRectifyMap_Async(
@@ -221,7 +219,7 @@ CvStatus *initUndistortRectifyMap_Async(
     Mat distCoeffs,
     Mat r,
     Mat newCameraMatrix,
-    Size size,
+    CvSize size,
     int m1type,
     CVD_OUT CvCallback_2 callback
 ) {

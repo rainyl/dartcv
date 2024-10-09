@@ -2,8 +2,7 @@
 #include "features2d_async.h"
 #include "utils.hpp"
 
-#include "core/types.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 
 // Asynchronous functions for AKAZE
 CvStatus *AKAZE_Create_Async(CvCallback_1 callback) {

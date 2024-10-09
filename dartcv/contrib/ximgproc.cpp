@@ -1,6 +1,5 @@
 #include "ximgproc.h"
-#include "core/types.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 
 CvStatus *
 ximgproc_anisotropicDiffusion(Mat src, CVD_OUT Mat *dst, float alpha, float K, int niters) {
@@ -333,7 +332,7 @@ CvStatus *ximgproc_EdgeDrawing_getParams(EdgeDrawing self, EdgeDrawingParams *pa
 }
 
 // Binary morphology on run-length encoded image
-CvStatus *ximgproc_rl_createRLEImage(const VecPoint3i runs, Mat *res, Size size) {
+CvStatus *ximgproc_rl_createRLEImage(const VecPoint3i runs, Mat *res, CvSize size) {
   BEGIN_WRAP
   cv::Mat _res;
   auto _runs = vecpoint3i_c2cpp(runs);
@@ -341,14 +340,14 @@ CvStatus *ximgproc_rl_createRLEImage(const VecPoint3i runs, Mat *res, Size size)
   *res = {new cv::Mat(_res)};
   END_WRAP
 }
-CvStatus *ximgproc_rl_dilate(Mat rlSrc, Mat *rlDest, Mat rlKernel, Point anchor) {
+CvStatus *ximgproc_rl_dilate(Mat rlSrc, Mat *rlDest, Mat rlKernel, CvPoint anchor) {
   BEGIN_WRAP
   cv::Mat _rlDest;
   cv::ximgproc::rl::dilate(*rlSrc.ptr, _rlDest, *rlKernel.ptr, cv::Point(anchor.x, anchor.y));
   *rlDest = {new cv::Mat(_rlDest)};
   END_WRAP
 }
-CvStatus *ximgproc_rl_erode(Mat rlSrc, Mat *rlDest, Mat rlKernel, bool bBoundaryOn, Point anchor) {
+CvStatus *ximgproc_rl_erode(Mat rlSrc, Mat *rlDest, Mat rlKernel, bool bBoundaryOn, CvPoint anchor) {
   BEGIN_WRAP
   cv::Mat _rlDest;
   cv::ximgproc::rl::erode(
@@ -357,7 +356,7 @@ CvStatus *ximgproc_rl_erode(Mat rlSrc, Mat *rlDest, Mat rlKernel, bool bBoundary
   *rlDest = {new cv::Mat(_rlDest)};
   END_WRAP
 }
-CvStatus *ximgproc_rl_getStructuringElement(int shape, Size ksize, Mat *rval) {
+CvStatus *ximgproc_rl_getStructuringElement(int shape, CvSize ksize, Mat *rval) {
   BEGIN_WRAP
   cv::Mat _rval =
       cv::ximgproc::rl::getStructuringElement(shape, cv::Size(ksize.width, ksize.height));
@@ -370,7 +369,7 @@ CvStatus *ximgproc_rl_isRLMorphologyPossible(Mat rlStructuringElement, bool *rva
   END_WRAP
 }
 CvStatus *ximgproc_rl_morphologyEx(
-    Mat rlSrc, Mat *rlDest, int op, Mat rlKernel, bool bBoundaryOnForErosion, Point anchor
+    Mat rlSrc, Mat *rlDest, int op, Mat rlKernel, bool bBoundaryOnForErosion, CvPoint anchor
 ) {
   BEGIN_WRAP
   cv::Mat _rlDest;

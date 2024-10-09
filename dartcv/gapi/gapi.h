@@ -6,18 +6,11 @@
 #ifndef OPENCV_DART_GAPI_H
 #define OPENCV_DART_GAPI_H
 
-#include "core/core.h"
-#include "core/types.h"
+#include "dartcv/core.h"
 
 #ifdef __cplusplus
 #include <opencv2/gapi.hpp>
 #include <opencv2/gapi/core.hpp>
-#include <opencv2/gapi/gcomputation.hpp>
-#include <opencv2/gapi/gmat.hpp>
-#include <opencv2/gapi/gopaque.hpp>
-#include <opencv2/gapi/imgproc.hpp>
-#include <opencv2/gapi/render/render_types.hpp>
-#include <vector>
 extern "C" {
 #endif
 
@@ -98,14 +91,14 @@ CvStatus *gapi_GComputation_apply_3(GComputation self, Mat in1, Mat in2,
 
 // CvStatus *VecGMat_NewFromVec(VecMat vec, VecGMat *rval);
 
-CvStatus *Prim_from_Circle(Point center, Scalar color, int lt, int radius, int shift, int thick, Prim *rval);
-CvStatus *Prim_from_FText(char *text, int text_len, Point org, int fh, Scalar color, Prim *rval);
-CvStatus *Prim_from_Image(Point org, Mat img, Mat alpha, Prim *rval);
-CvStatus *Prim_from_Line(Scalar color, int lt, Point pt1, Point pt2, int shift, int thick, Prim *rval);
+CvStatus *Prim_from_Circle(CvPoint center, Scalar color, int lt, int radius, int shift, int thick, Prim *rval);
+CvStatus *Prim_from_FText(char *text, int text_len, CvPoint org, int fh, Scalar color, Prim *rval);
+CvStatus *Prim_from_Image(CvPoint org, Mat img, Mat alpha, Prim *rval);
+CvStatus *Prim_from_Line(Scalar color, int lt, CvPoint pt1, CvPoint pt2, int shift, int thick, Prim *rval);
 CvStatus *Prim_from_Mosaic(int cellSz, int decim, Rect mos, Prim *rval);
 CvStatus *Prim_from_Poly(VecPoint points, Scalar color, int thick, int lt, int shift, Prim *rval);
 CvStatus *Prim_from_Rect(Scalar color, int lt, Rect rect, int shift, int thick, Prim *rval);
-CvStatus *Prim_from_Text(bool bottom_left_origin, Scalar color, int ff, double fs, int lt, Point org,
+CvStatus *Prim_from_Text(bool bottom_left_origin, Scalar color, int ff, double fs, int lt, CvPoint org,
                          char *text, int text_len, int thick, Prim *rval);
 
 CvStatus *VecPrim_New(VecPrim *rval);
@@ -153,27 +146,27 @@ CvStatus *gapi_subRC(GScalar c, GMat src, int ddepth, GMat *rval);
 // https://docs.opencv.org/4.10.0/da/dc5/group__gapi__filters.html
 CvStatus *gapi_bilateralFilter(const GMat src, int d, double sigmaColor, double sigmaSpace, int borderType,
                                GMat *rval);
-CvStatus *gapi_blur(const GMat src, const Size ksize, const Point anchor, int borderType,
+CvStatus *gapi_blur(const GMat src, const Size ksize, const CvPoint anchor, int borderType,
                     const Scalar borderValue, GMat *rval);
-CvStatus *gapi_boxFilter(const GMat src, int dtype, const Size ksize, const Point anchor, bool normalize,
+CvStatus *gapi_boxFilter(const GMat src, int dtype, const Size ksize, const CvPoint anchor, bool normalize,
                          int borderType, const Scalar borderValue, GMat *rval);
-CvStatus *gapi_dilate(const GMat src, const Mat kernel, const Point anchor, int iterations, int borderType,
+CvStatus *gapi_dilate(const GMat src, const Mat kernel, const CvPoint anchor, int iterations, int borderType,
                       const Scalar borderValue, GMat *rval);
 CvStatus *gapi_dilate3x3(const GMat src, int iterations, int borderType, const Scalar borderValue,
                          GMat *rval);
-CvStatus *gapi_erode(const GMat src, const Mat kernel, const Point anchor, int iterations, int borderType,
+CvStatus *gapi_erode(const GMat src, const Mat kernel, const CvPoint anchor, int iterations, int borderType,
                      const Scalar borderValue, GMat *rval);
 CvStatus *gapi_erode3x3(const GMat src, int iterations, int borderType, const Scalar borderValue, GMat *rval);
-CvStatus *gapi_filter2D(const GMat src, int ddepth, const Mat kernel, const Point anchor, const Scalar delta,
+CvStatus *gapi_filter2D(const GMat src, int ddepth, const Mat kernel, const CvPoint anchor, const Scalar delta,
                         int borderType, const Scalar borderValue, GMat *rval);
 CvStatus *gapi_gaussianBlur(const GMat src, const Size ksize, double sigmaX, double sigmaY, int borderType,
                             const Scalar borderValue, GMat *rval);
 CvStatus *gapi_Laplacian(const GMat src, int ddepth, int ksize, double scale, double delta, int borderType,
                          GMat *rval);
 CvStatus *gapi_medianBlur(const GMat src, int ksize, GMat *rval);
-CvStatus *gapi_morphologyEx(const GMat src, const int op, const Mat kernel, const Point anchor,
+CvStatus *gapi_morphologyEx(const GMat src, const int op, const Mat kernel, const CvPoint anchor,
                             const int iterations, const int borderType, const Scalar borderValue, GMat *rval);
-CvStatus *gapi_sepFilter(const GMat src, int ddepth, const Mat kernelX, const Mat kernelY, const Point anchor,
+CvStatus *gapi_sepFilter(const GMat src, int ddepth, const Mat kernelX, const Mat kernelY, const CvPoint anchor,
                          const Scalar delta, int borderType, const Scalar borderValue, GMat *rval);
 CvStatus *gapi_Sobel(const GMat src, int ddepth, int dx, int dy, int ksize, double scale, double delta,
                      int borderType, const Scalar borderValue, GMat *rval);

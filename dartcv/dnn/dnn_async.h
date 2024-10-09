@@ -26,8 +26,10 @@ CvStatus *Net_ReadNetFromTorch_Async(const char *model, bool isBinary, bool eval
 CvStatus *Net_ReadNetFromONNX_Async(const char *model, CvCallback_1 callback);
 CvStatus *Net_ReadNetFromONNXBytes_Async(VecUChar model, CvCallback_1 callback);
 void Net_Close_Async(NetPtr net, CvCallback_0 callback);
-CvStatus *Net_BlobFromImage_Async(Mat image, double scalefactor, Size size, Scalar mean, bool swapRB, bool crop, int ddepth, CvCallback_1 callback);
-CvStatus *Net_BlobFromImages_Async(VecMat images, double scalefactor, Size size, Scalar mean, bool swapRB, bool crop, int ddepth, CvCallback_1 callback);
+CvStatus *Net_BlobFromImage_Async(Mat image, double scalefactor,
+    CvSize size, Scalar mean, bool swapRB, bool crop, int ddepth, CvCallback_1 callback);
+CvStatus *Net_BlobFromImages_Async(VecMat images, double scalefactor,
+    CvSize size, Scalar mean, bool swapRB, bool crop, int ddepth, CvCallback_1 callback);
 CvStatus *Net_ImagesFromBlob_Async(Mat blob, CvCallback_1 callback);
 CvStatus *Net_Empty_Async(Net net, CvCallback_1 callback);
 CvStatus *Net_Dump_Async(Net net, CvCallback_1 callback);

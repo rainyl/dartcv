@@ -2,12 +2,11 @@
 #ifndef CVD_FEATURES2D_ASYNC_H_
 #define CVD_FEATURES2D_ASYNC_H_
 
-#include "core/types.h"
 #include "features2d.h"
 #include <stdbool.h>
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
+#include <opencv2/features2d.hpp>
 extern "C" {
 #endif
 

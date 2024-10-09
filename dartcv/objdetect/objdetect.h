@@ -11,11 +11,11 @@
 
 #include <stdbool.h>
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
+#include <opencv2/objdetect.hpp>
 extern "C" {
 #endif
 
-#include "core/core.h"
+#include "dartcv/core.h"
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -42,17 +42,21 @@ CvStatus *CascadeClassifier_Load(CascadeClassifier self, const char *name, int *
 CvStatus *CascadeClassifier_DetectMultiScale(CascadeClassifier self, Mat img, VecRect *rval);
 CvStatus *CascadeClassifier_DetectMultiScaleWithParams(CascadeClassifier self, Mat img, VecRect *objects,
                                                        double scale, int minNeighbors, int flags,
-                                                       Size minSize, Size maxSize);
+    CvSize minSize,
+    CvSize maxSize);
 CvStatus *CascadeClassifier_DetectMultiScale2(CascadeClassifier self, Mat img, VecRect *objects,
                                               VecI32 *numDetections, double scaleFactor, int minNeighbors,
-                                              int flags, Size minSize, Size maxSize);
+                                              int flags,
+    CvSize minSize,
+    CvSize maxSize);
 CvStatus *CascadeClassifier_DetectMultiScale3(CascadeClassifier self, Mat img, VecRect *objects,
                                               VecI32 *rejectLevels, VecF64 *levelWeights,
-                                              double scaleFactor, int minNeighbors, int flags, Size minSize,
-                                              Size maxSize, bool outputRejectLevels);
+                                              double scaleFactor, int minNeighbors, int flags,
+    CvSize minSize,
+    CvSize maxSize, bool outputRejectLevels);
 CvStatus *CascadeClassifier_Empty(CascadeClassifier self, bool *rval);
 CvStatus *CascadeClassifier_getFeatureType(CascadeClassifier self, int *rval);
-CvStatus *CascadeClassifier_getOriginalWindowSize(CascadeClassifier self, Size *rval);
+CvStatus *CascadeClassifier_getOriginalWindowSize(CascadeClassifier self, CvSize *rval);
 CvStatus *CascadeClassifier_isOldFormatCascade(CascadeClassifier self, bool *rval);
 
 // HOGDescriptor
@@ -67,26 +71,30 @@ CvStatus *HOGDescriptor_NewFromFile(char *filename, HOGDescriptor *rval);
 void      HOGDescriptor_Close(HOGDescriptorPtr self);
 CvStatus *HOGDescriptor_Load(HOGDescriptor self, char *name, bool *rval);
 CvStatus *HOGDescriptor_Detect(HOGDescriptor self, Mat img, VecPoint *foundLocations, VecF64 *weights,
-                               double hitThresh, Size winStride, Size padding, VecPoint *searchLocations);
+                               double hitThresh,
+    CvSize winStride,
+    CvSize padding, VecPoint *searchLocations);
 CvStatus *HOGDescriptor_Detect2(HOGDescriptor self, Mat img, VecPoint *foundLocations, double hitThresh,
-                                Size winStride, Size padding, VecPoint *searchLocations);
+    CvSize winStride,
+    CvSize padding, VecPoint *searchLocations);
 CvStatus *HOGDescriptor_DetectMultiScale(HOGDescriptor self, Mat img, VecRect *rval);
 CvStatus *HOGDescriptor_DetectMultiScaleWithParams(HOGDescriptor self, Mat img, double hitThresh,
-                                                   Size winStride, Size padding, double scale,
+    CvSize winStride,
+    CvSize padding, double scale,
                                                    double finalThreshold, bool useMeanshiftGrouping,
                                                    VecRect *rval);
 CvStatus *HOG_GetDefaultPeopleDetector(VecF32 *rval);
 CvStatus *HOGDescriptor_SetSVMDetector(HOGDescriptor self, VecF32 det);
-CvStatus *HOGDescriptor_Compute(HOGDescriptor self, Mat img, VecF32 *descriptors, Size winStride,
-                                Size padding, VecPoint *locations);
-CvStatus *HOGDescriptor_computeGradient(HOGDescriptor self, Mat img, Mat grad, Mat angleOfs, Size paddingTL,
-                                        Size paddingBR);
+CvStatus *HOGDescriptor_Compute(HOGDescriptor self, Mat img, VecF32 *descriptors,
+    CvSize winStride,
+    CvSize padding, VecPoint *locations);
+CvStatus *HOGDescriptor_computeGradient(HOGDescriptor self, Mat img, Mat grad, Mat angleOfs, CvSize paddingTL, CvSize paddingBR);
 // CvStatus *HOGDescriptor_detectMultiScaleROI(HOGDescriptor self, Mat img, VecRect *foundLocations,
 //                                            DetectionROI *locations, int *lenLocations, double hitThreshold,
 //                                            int groupThreshold);
 // CvStatus *HOGDescriptor_detectROI(HOGDescriptor self, Mat img, VecPoint *locations, VecPoint
 // *foundLocations,
-//                                  VecF64 *confidences, double hitThreshold, Size winStride, Size
+//                                  VecF64 *confidences, double hitThreshold, CvSize winStride, CvSize
 //                                  padding);
 CvStatus *HOGDescriptor_getDaimlerPeopleDetector(VecF32 *rval);
 CvStatus *HOGDescriptor_getDescriptorSize(HOGDescriptor self, size_t *rval);
@@ -115,19 +123,20 @@ CvStatus *QRCodeDetector_setEpsY(QRCodeDetector self, double epsY);
 CvStatus *QRCodeDetector_setUseAlignmentMarkers(QRCodeDetector self, bool useAlignmentMarkers);
 
 // FaceDetectorYN
-CvStatus *FaceDetectorYN_New(const char *model, const char *config, Size input_size, float score_threshold,
+CvStatus *FaceDetectorYN_New(const char *model, const char *config,
+    CvSize input_size, float score_threshold,
                              float nms_threshold, int top_k, int backend_id, int target_id,
                              FaceDetectorYN *rval);
 CvStatus *FaceDetectorYN_NewFromBuffer(const char *framework, VecUChar buffer, VecUChar buffer_config,
-                                       Size input_size, float score_threshold, float nms_threshold, int top_k,
+    CvSize input_size, float score_threshold, float nms_threshold, int top_k,
                                        int backend_id, int target_id, FaceDetectorYN *rval);
 void      FaceDetectorYN_Close(FaceDetectorYNPtr self);
 CvStatus *FaceDetectorYN_Detect(FaceDetectorYN self, Mat img, Mat *faces);
-CvStatus *FaceDetectorYN_SetInputSize(FaceDetectorYN self, Size input_size);
+CvStatus *FaceDetectorYN_SetInputSize(FaceDetectorYN self, CvSize input_size);
 CvStatus *FaceDetectorYN_SetScoreThreshold(FaceDetectorYN self, float score_threshold);
 CvStatus *FaceDetectorYN_SetNMSThreshold(FaceDetectorYN self, float nms_threshold);
 CvStatus *FaceDetectorYN_SetTopK(FaceDetectorYN self, int top_k);
-CvStatus *FaceDetectorYN_GetInputSize(FaceDetectorYN self, Size *input_size);
+CvStatus *FaceDetectorYN_GetInputSize(FaceDetectorYN self, CvSize *input_size);
 CvStatus *FaceDetectorYN_GetScoreThreshold(FaceDetectorYN self, float *score_threshold);
 CvStatus *FaceDetectorYN_GetNMSThreshold(FaceDetectorYN self, float *nms_threshold);
 CvStatus *FaceDetectorYN_GetTopK(FaceDetectorYN self, int *top_k);

@@ -1,5 +1,4 @@
 #include "svd_async.h"
-#include "core/types.h"
 
 CvStatus *SVD_Compute_Async(Mat src, int flags, CvCallback_3 callback) {
   BEGIN_WRAP

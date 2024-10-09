@@ -10,12 +10,11 @@
 #define _OPENCV3_PHOTO_H_
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
 #include <opencv2/photo.hpp>
 extern "C" {
 #endif
 
-#include "core/core.h"
+#include "dartcv/core.h"
 
 #ifdef __cplusplus
 /// see : https://docs.opencv.org/3.4/d7/dd6/classcv_1_1MergeMertens.html
@@ -29,7 +28,7 @@ CVD_TYPEDEF(void, AlignMTB);
 
 CvStatus *ColorChange(Mat src, Mat mask, Mat dst, float red_mul, float green_mul, float blue_mul);
 
-CvStatus *SeamlessClone(Mat src, Mat dst, Mat mask, Point p, Mat blend, int flags);
+CvStatus *SeamlessClone(Mat src, Mat dst, Mat mask, CvPoint p, Mat blend, int flags);
 
 CvStatus *IlluminationChange(Mat src, Mat mask, Mat dst, float alpha, float beta);
 

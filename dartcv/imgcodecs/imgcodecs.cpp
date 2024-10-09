@@ -7,7 +7,7 @@
 */
 
 #include "imgcodecs.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 #include <vector>
 
 CvStatus *Image_IMRead(const char *filename, int flags, Mat *rval)

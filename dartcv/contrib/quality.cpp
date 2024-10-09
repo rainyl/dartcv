@@ -1,6 +1,4 @@
 #include "quality.h"
-#include "core/types.h"
-#include "opencv2/quality/qualitybrisque.hpp"
 
 CvStatus *QualityBRISQUE_create(char *model_file, char *range_file, QualityBRISQUE *rval) {
   BEGIN_WRAP

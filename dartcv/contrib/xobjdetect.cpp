@@ -1,6 +1,5 @@
 #include "xobjdetect.h"
-#include "core/core.h"
-#include "core/vec.hpp"
+#include "dartcv/core/vec.hpp"
 
 CvStatus *WBDetector_Create(PtrWBDetector *rval) {
   BEGIN_WRAP
