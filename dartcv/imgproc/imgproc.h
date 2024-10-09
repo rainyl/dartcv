@@ -428,9 +428,9 @@ CvStatus *Subdiv2D_EdgeDst(Subdiv2D self, int edge, Point2f *dstpt, int *rval);
 CvStatus *Subdiv2D_EdgeOrg(Subdiv2D self, int edge, Point2f *orgpt, int *rval);
 CvStatus *Subdiv2D_FindNearest(Subdiv2D self, Point2f pt, Point2f *nearestPt, int *rval);
 CvStatus *Subdiv2D_GetEdge(Subdiv2D self, int edge, int nextEdgeType, int *rval);
-CvStatus *Subdiv2D_GetEdgeList(Subdiv2D self, Vec4f **rval, int *size);
+CvStatus *Subdiv2D_GetEdgeList(Subdiv2D self, Vec4f **rval, size_t *size);
 CvStatus *Subdiv2D_GetLeadingEdgeList(Subdiv2D self, VecI32 *leadingEdgeList);
-CvStatus *Subdiv2D_GetTriangleList(Subdiv2D self, Vec6f **rval, int *size);
+CvStatus *Subdiv2D_GetTriangleList(Subdiv2D self, Vec6f **rval, size_t *size);
 CvStatus *Subdiv2D_GetVertex(Subdiv2D self, int vertex, int *firstEdge, Point2f *rval);
 CvStatus *Subdiv2D_GetVoronoiFacetList(
     Subdiv2D self, VecI32 idx, VecVecPoint2f *facetList, VecPoint2f *facetCenters

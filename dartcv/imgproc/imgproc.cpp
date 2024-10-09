@@ -1051,7 +1051,7 @@ CvStatus *Subdiv2D_GetEdge(Subdiv2D self, int edge, int nextEdgeType, int *rval)
   *rval = self.ptr->getEdge(edge, nextEdgeType);
   END_WRAP
 }
-CvStatus *Subdiv2D_GetEdgeList(Subdiv2D self, Vec4f **rval, int *size) {
+CvStatus *Subdiv2D_GetEdgeList(Subdiv2D self, Vec4f **rval, size_t *size) {
   BEGIN_WRAP
   auto v = std::vector<cv::Vec4f>();
   self.ptr->getEdgeList(v);
@@ -1070,7 +1070,7 @@ CvStatus *Subdiv2D_GetLeadingEdgeList(Subdiv2D self, VecI32 *leadingEdgeList) {
   *leadingEdgeList = vecint_cpp2c(v);
   END_WRAP
 }
-CvStatus *Subdiv2D_GetTriangleList(Subdiv2D self, Vec6f **rval, int *size) {
+CvStatus *Subdiv2D_GetTriangleList(Subdiv2D self, Vec6f **rval, size_t *size) {
   BEGIN_WRAP
   auto v = std::vector<cv::Vec6f>();
   self.ptr->getTriangleList(v);
