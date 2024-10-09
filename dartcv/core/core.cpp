@@ -1442,7 +1442,6 @@ CvStatus *Mat_T(Mat x, Mat *rval) {
 CvStatus *Mat_Trace(Mat src, Scalar *rval) {
   BEGIN_WRAP
   cv::Scalar c = cv::trace(*src.ptr);
-  Scalar scal = Scalar();
   *rval = {c.val[0], c.val[1], c.val[2], c.val[3]};
   END_WRAP
 }

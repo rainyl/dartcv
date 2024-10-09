@@ -154,7 +154,7 @@ typedef struct CvRect {
   int y;
   int width;
   int height;
-} Rect;
+} CvRect;
 
 typedef struct CvRect2f {
   float x;
@@ -167,7 +167,7 @@ typedef struct CvRect2f {
 typedef struct CvSize {
   int width;
   int height;
-} Size;
+} CvSize;
 
 typedef struct CvSize2f {
   float width;
