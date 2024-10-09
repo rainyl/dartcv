@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(opencv_c_library VERSION 1.0.0 LANGUAGES C CXX)
-set(LIBRARY_NAME "opencv_c")
+project(dartcv_library VERSION 1.0.0 LANGUAGES C CXX)
+set(LIBRARY_NAME "dartcv")
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -33,6 +33,11 @@ if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
 endif()
 
 # ============ download and prepare OpenCV =========
+# Avoid warning about DOWNLOAD_EXTRACT_TIMESTAMP in CMake 3.24:
+if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
+  cmake_policy(SET CMP0135 NEW)
+endif()
+
 include(cmake/download_setup_opencv.cmake)
 
 if(LINUX OR APPLE)
@@ -55,8 +60,4 @@ message(STATUS "    libraries: ${OpenCV_LIBS}")
 message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 message(STATUS "Project version: ${PROJECT_VERSION}")
 
-if(DARTCV_WORLD)
-  add_subdirectory(src/world)
-else()
-  add_subdirectory(src)
-endif()
+add_subdirectory(dartcv)

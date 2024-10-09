@@ -1,12 +1,3 @@
-cmake_minimum_required(VERSION 3.15)
-
-project(dartcv VERSION 1.0.0 LANGUAGES C CXX)
-
-# Avoid warning about DOWNLOAD_EXTRACT_TIMESTAMP in CMake 3.24:
-if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
-  cmake_policy(SET CMP0135 NEW)
-endif()
-
 if(ANDROID)
   set(PLATFORM_LIBS ${PLATFORM_LIBS} camera2ndk mediandk -landroid)
 elseif(IOS)
@@ -55,25 +46,25 @@ set(DARTCV_DEPS opencv_core opencv_calib3d opencv_features2d opencv_imgcodecs
 )
 
 # video
-if(DARTCV_WITH_DNN)
+if(DARTCV_WITH_DNN OR DARTCV_WORLD)
   set(_cpp_files ${_cpp_files} "video/video.cpp" "video/video_async.cpp")
   set(DARTCV_DEPS ${DARTCV_DEPS} opencv_video)
 endif()
 
 # dnn
-if(DARTCV_WITH_DNN)
+if(DARTCV_WITH_DNN OR DARTCV_WORLD)
   set(_cpp_files ${_cpp_files} "dnn/dnn.cpp" "dnn/dnn_async.cpp")
   set(DARTCV_DEPS ${DARTCV_DEPS} opencv_dnn)
 endif()
 
 # objdetect
-if(DARTCV_WITH_OBJDETECT)
+if(DARTCV_WITH_OBJDETECT OR DARTCV_WORLD)
   set(_cpp_files ${_cpp_files} "objdetect/objdetect.cpp" "objdetect/objdetect_async.cpp")
   set(DARTCV_DEPS ${DARTCV_DEPS} opencv_objdetect)
 endif()
 
 # contrib
-if(DARTCV_WITH_CONTRIB)
+if(DARTCV_WITH_CONTRIB OR DARTCV_WORLD)
   set(_cpp_files ${_cpp_files}
     "contrib/aruco.cpp"
     "contrib/aruco_async.cpp"
@@ -93,19 +84,19 @@ if(DARTCV_WITH_CONTRIB)
 endif()
 
 # gapi
-if(DARTCV_WITH_GAPI)
+if(DARTCV_WITH_GAPI OR DARTCV_WORLD)
   set(_cpp_files ${_cpp_files} "gapi/gapi.cpp")
   set(DARTCV_DEPS ${DARTCV_DEPS} opencv_gapi)
 endif()
 
 # highgui
-if(DARTCV_WITH_HIGHGUI)
+if(DARTCV_WITH_HIGHGUI OR DARTCV_WORLD)
   set(_cpp_files ${_cpp_files} "highgui/highgui.cpp")
   set(DARTCV_DEPS ${DARTCV_DEPS} opencv_highgui ${FFMPEG_LIBRARIES})
 endif()
 
 # videoio
-if(DARTCV_WITH_VIDEOIO)
+if(DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
   set(_cpp_files ${_cpp_files} "videoio/videoio.cpp" "videoio/videoio_async.cpp")
   set(DARTCV_DEPS ${DARTCV_DEPS} opencv_videoio ${FFMPEG_LIBRARIES})
 endif()
@@ -124,51 +115,53 @@ endforeach()
 # provide include dir for other libs that depend on this one
 set(dartcv_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
 
-add_library(dartcv SHARED ${_cpp_files} ${_header_files})
-target_include_directories(dartcv SYSTEM PUBLIC
+add_library(${LIBRARY_NAME} SHARED ${_cpp_files} ${_header_files})
+target_include_directories(${LIBRARY_NAME} SYSTEM PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${OPENCV_DART_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
 )
-message(STATUS "Added library: dartcv")
-set_target_properties(dartcv PROPERTIES
+message(STATUS "Added library: ${LIBRARY_NAME}")
+set_target_properties(${LIBRARY_NAME} PROPERTIES
+
   # PUBLIC_HEADER "${_header_files}"
-  OUTPUT_NAME dartcv
+  OUTPUT_NAME ${LIBRARY_NAME}
   CXX_VISIBILITY_PRESET default
   C_VISIBILITY_PRESET default
   LINK_FLAGS_RELEASE -s
 )
-target_link_libraries(dartcv PRIVATE ${DARTCV_DEPS} ${PLATFORM_LIBS})
+target_link_libraries(${LIBRARY_NAME} PRIVATE ${DARTCV_DEPS} ${PLATFORM_LIBS})
 
 if(APPLE)
-  target_link_options(dartcv PRIVATE "LINKER:-ld_classic")
+  target_link_options(${LIBRARY_NAME} PRIVATE "LINKER:-ld_classic")
 endif(APPLE)
 
 if(WIN32)
-  set_target_properties(dartcv PROPERTIES
+  set_target_properties(${LIBRARY_NAME} PROPERTIES
     WINDOWS_EXPORT_ALL_SYMBOLS ON
     COMPILE_FLAGS "/EHsc"
   )
 
   if(BUILD_WITH_STATIC_CRT)
-    target_compile_options(dartcv PRIVATE "/MT")
+    target_compile_options(${LIBRARY_NAME} PRIVATE "/MT")
   endif()
 endif(WIN32)
 
-target_compile_definitions(dartcv PUBLIC DART_SHARED_LIB)
+target_compile_definitions(${LIBRARY_NAME} PUBLIC DART_SHARED_LIB)
 
-target_sources(dartcv PUBLIC ${_header_files})
-
-install(DIRECTORY .
+install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
   DESTINATION ${CMAKE_INSTALL_PREFIX}/include
   COMPONENT header_files
   FILES_MATCHING
     PATTERN "*.h"
     PATTERN "t.h" EXCLUDE
     PATTERN "test" EXCLUDE
-    PATTERN "world" EXCLUDE
 )
-install(TARGETS dartcv
-  DESTINATION ${CMAKE_INSTALL_PREFIX}
+install(TARGETS ${LIBRARY_NAME}
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+  COMPONENT target_libs
 )
-install(FILES ${FFMPEG_LIB_PATHS} DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(FILES ${FFMPEG_LIB_PATHS}
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+  COMPONENT ffmpeg_libs
+)
