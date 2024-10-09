@@ -18,7 +18,7 @@ endif()
 # prepare files
 # ##############################################################################
 
-# dartcv_core includes core, calib3d, features2d, imgcodecs, imgproc, photo, stitching, video
+# core includes core, imgcodecs
 set(_cpp_files
   "core/core_async.cpp"
   "core/core.cpp"
@@ -27,40 +27,15 @@ set(_cpp_files
   "core/svd_async.cpp"
   "core/svd.cpp"
   "core/version.cpp"
-  "calib3d/calib3d_async.cpp"
-  "calib3d/calib3d.cpp"
-  "features2d/features2d_async.cpp"
-  "features2d/features2d.cpp"
   "imgcodecs/imgcodecs_async.cpp"
   "imgcodecs/imgcodecs.cpp"
-  "imgproc/imgproc_async.cpp"
-  "imgproc/imgproc.cpp"
-  "photo/photo_async.cpp"
-  "photo/photo.cpp"
-  "stitching/stitching_async.cpp"
-  "stitching/stitching.cpp"
 )
+set(DARTCV_DEPS opencv_core opencv_imgcodecs)
 
-set(DARTCV_DEPS opencv_core opencv_calib3d opencv_features2d opencv_imgcodecs
-  opencv_imgproc opencv_photo opencv_stitching
-)
-
-# video
-if(DARTCV_WITH_DNN OR DARTCV_WORLD)
-  set(_cpp_files ${_cpp_files} "video/video.cpp" "video/video_async.cpp")
-  set(DARTCV_DEPS ${DARTCV_DEPS} opencv_video)
-endif()
-
-# dnn
-if(DARTCV_WITH_DNN OR DARTCV_WORLD)
-  set(_cpp_files ${_cpp_files} "dnn/dnn.cpp" "dnn/dnn_async.cpp")
-  set(DARTCV_DEPS ${DARTCV_DEPS} opencv_dnn)
-endif()
-
-# objdetect
-if(DARTCV_WITH_OBJDETECT OR DARTCV_WORLD)
-  set(_cpp_files ${_cpp_files} "objdetect/objdetect.cpp" "objdetect/objdetect_async.cpp")
-  set(DARTCV_DEPS ${DARTCV_DEPS} opencv_objdetect)
+# calib3d
+if(DARTCV_WITH_CALIB3D OR DARTCV_WORLD)
+  set(_cpp_files ${_cpp_files} "calib3d/calib3d_async.cpp" "calib3d/calib3d.cpp")
+  set(DARTCV_DEPS ${DARTCV_DEPS} opencv_calib3d)
 endif()
 
 # contrib
@@ -83,6 +58,18 @@ if(DARTCV_WITH_CONTRIB OR DARTCV_WORLD)
   )
 endif()
 
+# dnn
+if(DARTCV_WITH_DNN OR DARTCV_WORLD)
+  set(_cpp_files ${_cpp_files} "dnn/dnn.cpp" "dnn/dnn_async.cpp")
+  set(DARTCV_DEPS ${DARTCV_DEPS} opencv_dnn)
+endif()
+
+# features2d
+if(DARTCV_WITH_FEATURES2D OR DARTCV_WORLD)
+  set(_cpp_files ${_cpp_files} "features2d/features2d_async.cpp" "features2d/features2d.cpp")
+  set(DARTCV_DEPS ${DARTCV_DEPS} opencv_features2d)
+endif()
+
 # gapi
 if(DARTCV_WITH_GAPI OR DARTCV_WORLD)
   set(_cpp_files ${_cpp_files} "gapi/gapi.cpp")
@@ -93,6 +80,36 @@ endif()
 if(DARTCV_WITH_HIGHGUI OR DARTCV_WORLD)
   set(_cpp_files ${_cpp_files} "highgui/highgui.cpp")
   set(DARTCV_DEPS ${DARTCV_DEPS} opencv_highgui ${FFMPEG_LIBRARIES})
+endif()
+
+# imgproc
+if(DARTCV_WITH_IMGPROC OR DARTCV_WORLD)
+  set(_cpp_files ${_cpp_files} "imgproc/imgproc_async.cpp" "imgproc/imgproc.cpp")
+  set(DARTCV_DEPS ${DARTCV_DEPS} opencv_imgproc)
+endif()
+
+# video
+if(DARTCV_WITH_VIDEO OR DARTCV_WORLD)
+  set(_cpp_files ${_cpp_files} "video/video.cpp" "video/video_async.cpp")
+  set(DARTCV_DEPS ${DARTCV_DEPS} opencv_video)
+endif()
+
+# objdetect
+if(DARTCV_WITH_OBJDETECT OR DARTCV_WORLD)
+  set(_cpp_files ${_cpp_files} "objdetect/objdetect.cpp" "objdetect/objdetect_async.cpp")
+  set(DARTCV_DEPS ${DARTCV_DEPS} opencv_objdetect)
+endif()
+
+# photo
+if(DARTCV_WITH_PHOTO OR DARTCV_WORLD)
+  set(_cpp_files ${_cpp_files} "photo/photo_async.cpp" "photo/photo.cpp")
+  set(DARTCV_DEPS ${DARTCV_DEPS} opencv_photo)
+endif()
+
+# stitching
+if(DARTCV_WITH_STITCHING OR DARTCV_WORLD)
+  set(_cpp_files ${_cpp_files} "stitching/stitching_async.cpp" "stitching/stitching.cpp")
+  set(DARTCV_DEPS ${DARTCV_DEPS} opencv_stitching)
 endif()
 
 # videoio
@@ -161,7 +178,10 @@ install(TARGETS ${LIBRARY_NAME}
   DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
   COMPONENT target_libs
 )
-install(FILES ${FFMPEG_LIB_PATHS}
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-  COMPONENT ffmpeg_libs
-)
+
+if(DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
+  install(FILES ${FFMPEG_LIB_PATHS}
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+    COMPONENT ffmpeg_libs
+  )
+endif()

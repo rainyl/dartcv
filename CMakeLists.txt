@@ -7,15 +7,18 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
-option(DARTCV_WITH_CORE
-  "Include core, calib3d, features2d, imgcodecs, imgproc, photo, stitching, video models of opencv"
-  ON
-)
-option(DARTCV_WITH_DNN "Include dnn module of opencv" ON)
-option(DARTCV_WITH_OBJDETECT "Include objdetect module of opencv" ON)
-option(DARTCV_WITH_VIDEO "Include video module of opencv" ON)
-option(DARTCV_WITH_HIGHGUI "Include highgui module of opencv" OFF)
+# must include
+# option(DARTCV_WITH_CORE "Include core, imgcodecs models of opencv" ON)
+option(DARTCV_WITH_CALIB3D "Include calib3d module of opencv" ON)
 option(DARTCV_WITH_CONTRIB "Include contrib module of opencv" ON)
+option(DARTCV_WITH_DNN "Include dnn module of opencv" ON)
+option(DARTCV_WITH_FEATURES2D "Include features2d module of opencv" ON)
+option(DARTCV_WITH_HIGHGUI "Include highgui module of opencv" OFF)
+option(DARTCV_WITH_IMGPROC "Include imgproc module of opencv" ON)
+option(DARTCV_WITH_OBJDETECT "Include objdetect module of opencv" ON)
+option(DARTCV_WITH_PHOTO "Include photo module of opencv" ON)
+option(DARTCV_WITH_STITCHING "Include stitching module of opencv" ON)
+option(DARTCV_WITH_VIDEO "Include video module of opencv" ON)
 option(DARTCV_WITH_VIDEOIO "Include objdetect module of opencv" OFF)
 option(DARTCV_WITH_GAPI "Include gapi of opencv" OFF) # TODO: not finished
 option(DARTCV_WORLD "Include all modules" OFF)
@@ -25,11 +28,6 @@ option(DARTCV_DISABLE_DOWNLOAD_OPENCV "Download opencv sdk from opencv.full" OFF
 
 if(NOT OPENCV_VERSION)
   set(OPENCV_VERSION "4.10.0+9")
-endif()
-
-# Avoid warning about DOWNLOAD_EXTRACT_TIMESTAMP in CMake 3.24:
-if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
-  cmake_policy(SET CMP0135 NEW)
 endif()
 
 # ============ download and prepare OpenCV =========
@@ -51,7 +49,7 @@ if(DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
   find_package(FFMPEG REQUIRED)
 endif()
 
-set(OPENCV_DART_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(OPENCV_DART_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/dartcv)
 
 message(STATUS "OpenCV library status:")
 message(STATUS "    config: ${OpenCV_DIR}")
