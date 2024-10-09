@@ -13,7 +13,7 @@
 extern "C" {
 #endif
 
-#include "dartcv/core.h"
+#include "dartcv/core/types.h"
 
 #ifdef __cplusplus
 CVD_TYPEDEF(cv::aruco::Dictionary, ArucoDictionary);

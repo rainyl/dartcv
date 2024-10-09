@@ -6,7 +6,7 @@
 #ifndef CVD_QUALITY_H
 #define CVD_QUALITY_H
 
-#include "dartcv/core.h"
+#include "dartcv/core/types.h"
 
 #ifdef __cplusplus
 #include <opencv2/quality.hpp>

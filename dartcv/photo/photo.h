@@ -14,7 +14,7 @@
 extern "C" {
 #endif
 
-#include "dartcv/core.h"
+#include "dartcv/core/types.h"
 
 #ifdef __cplusplus
 /// see : https://docs.opencv.org/3.4/d7/dd6/classcv_1_1MergeMertens.html

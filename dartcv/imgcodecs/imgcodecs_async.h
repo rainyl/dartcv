@@ -6,7 +6,7 @@
 #ifndef CVD_IMGCODECS_ASYNC_H_
 #define CVD_IMGCODECS_ASYNC_H_
 
-#include "dartcv/core.h"
+#include "dartcv/core/types.h"
 #include <stdbool.h>
 
 #ifdef __cplusplus

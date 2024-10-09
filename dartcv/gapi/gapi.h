@@ -6,7 +6,7 @@
 #ifndef OPENCV_DART_GAPI_H
 #define OPENCV_DART_GAPI_H
 
-#include "dartcv/core.h"
+#include "dartcv/core/types.h"
 
 #ifdef __cplusplus
 #include <opencv2/gapi.hpp>
@@ -95,9 +95,9 @@ CvStatus *Prim_from_Circle(CvPoint center, Scalar color, int lt, int radius, int
 CvStatus *Prim_from_FText(char *text, int text_len, CvPoint org, int fh, Scalar color, Prim *rval);
 CvStatus *Prim_from_Image(CvPoint org, Mat img, Mat alpha, Prim *rval);
 CvStatus *Prim_from_Line(Scalar color, int lt, CvPoint pt1, CvPoint pt2, int shift, int thick, Prim *rval);
-CvStatus *Prim_from_Mosaic(int cellSz, int decim, Rect mos, Prim *rval);
+CvStatus *Prim_from_Mosaic(int cellSz, int decim, CvRect mos, Prim *rval);
 CvStatus *Prim_from_Poly(VecPoint points, Scalar color, int thick, int lt, int shift, Prim *rval);
-CvStatus *Prim_from_Rect(Scalar color, int lt, Rect rect, int shift, int thick, Prim *rval);
+CvStatus *Prim_from_Rect(Scalar color, int lt, CvRect rect, int shift, int thick, Prim *rval);
 CvStatus *Prim_from_Text(bool bottom_left_origin, Scalar color, int ff, double fs, int lt, CvPoint org,
                          char *text, int text_len, int thick, Prim *rval);
 
@@ -146,9 +146,9 @@ CvStatus *gapi_subRC(GScalar c, GMat src, int ddepth, GMat *rval);
 // https://docs.opencv.org/4.10.0/da/dc5/group__gapi__filters.html
 CvStatus *gapi_bilateralFilter(const GMat src, int d, double sigmaColor, double sigmaSpace, int borderType,
                                GMat *rval);
-CvStatus *gapi_blur(const GMat src, const Size ksize, const CvPoint anchor, int borderType,
+CvStatus *gapi_blur(const GMat src, const CvSize ksize, const CvPoint anchor, int borderType,
                     const Scalar borderValue, GMat *rval);
-CvStatus *gapi_boxFilter(const GMat src, int dtype, const Size ksize, const CvPoint anchor, bool normalize,
+CvStatus *gapi_boxFilter(const GMat src, int dtype, const CvSize ksize, const CvPoint anchor, bool normalize,
                          int borderType, const Scalar borderValue, GMat *rval);
 CvStatus *gapi_dilate(const GMat src, const Mat kernel, const CvPoint anchor, int iterations, int borderType,
                       const Scalar borderValue, GMat *rval);
@@ -159,7 +159,7 @@ CvStatus *gapi_erode(const GMat src, const Mat kernel, const CvPoint anchor, int
 CvStatus *gapi_erode3x3(const GMat src, int iterations, int borderType, const Scalar borderValue, GMat *rval);
 CvStatus *gapi_filter2D(const GMat src, int ddepth, const Mat kernel, const CvPoint anchor, const Scalar delta,
                         int borderType, const Scalar borderValue, GMat *rval);
-CvStatus *gapi_gaussianBlur(const GMat src, const Size ksize, double sigmaX, double sigmaY, int borderType,
+CvStatus *gapi_gaussianBlur(const GMat src, const CvSize ksize, double sigmaX, double sigmaY, int borderType,
                             const Scalar borderValue, GMat *rval);
 CvStatus *gapi_Laplacian(const GMat src, int ddepth, int ksize, double scale, double delta, int borderType,
                          GMat *rval);
@@ -240,7 +240,7 @@ CvStatus *gapi_concatVert(const GMat src1, const GMat src2, GMat *rval);
 CvStatus *gapi_convertTo(const GMat src, int rdepth, double alpha, double beta, GMat *rval);
 // CvStatus *gapi_copy(const GFrame in, GFrame *rval);
 CvStatus *gapi_copy_1(const GMat in, GMat *rval);
-CvStatus *gapi_crop(const GMat src, const Rect rect, GMat *rval);
+CvStatus *gapi_crop(const GMat src, const CvRect rect, GMat *rval);
 CvStatus *gapi_flip(const GMat src, int flipCode, GMat *rval);
 CvStatus *gapi_LUT(const GMat src, const Mat lut, GMat *rval);
 CvStatus *gapi_merge3(const GMat src1, const GMat src2, const GMat src3, GMat *rval);
@@ -248,13 +248,13 @@ CvStatus *gapi_merge4(const GMat src1, const GMat src2, const GMat src3, const G
 CvStatus *gapi_normalize(const GMat src, double alpha, double beta, int norm_type, int ddepth, GMat *rval);
 CvStatus *gapi_remap(const GMat src, const Mat map1, const Mat map2, int interpolation, int borderMode,
                      const Scalar borderValue, GMat *rval);
-CvStatus *gapi_resize(const GMat src, const Size dsize, double fx, double fy, int interpolation, GMat *rval);
-CvStatus *gapi_resizeP(const GMat src, const Size dsize, int interpolation, GMat *rval);
+CvStatus *gapi_resize(const GMat src, const CvSize dsize, double fx, double fy, int interpolation, GMat *rval);
+CvStatus *gapi_resizeP(const GMat src, const CvSize dsize, int interpolation, GMat *rval);
 CvStatus *gapi_split3(const GMat src, GMat *rval, GMat *rval1, GMat *rval2);
 CvStatus *gapi_split4(const GMat src, GMat *rval, GMat *rval1, GMat *rval2, GMat *rval3);
-CvStatus *gapi_warpAffine(const GMat src, const Mat M, const Size dsize, int flags, int borderMode,
+CvStatus *gapi_warpAffine(const GMat src, const Mat M, const CvSize dsize, int flags, int borderMode,
                           const Scalar borderValue, GMat *rval);
-CvStatus *gapi_warpPerspective(const GMat src, const Mat M, const Size dsize, int flags, int borderMode,
+CvStatus *gapi_warpPerspective(const GMat src, const Mat M, const CvSize dsize, int flags, int borderMode,
                                const Scalar borderValue, GMat *rval);
 
 // G-API Video processing functionality

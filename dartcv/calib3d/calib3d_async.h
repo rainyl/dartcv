@@ -6,7 +6,6 @@
 #ifndef CVD_ASYNC_CALIB3D_H
 #define CVD_ASYNC_CALIB3D_H
 
-#include "dartcv/core.h"
 #include <stddef.h>
 #include "calib3d.h"
 

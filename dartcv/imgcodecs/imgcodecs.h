@@ -14,7 +14,7 @@
 extern "C" {
 #endif
 
-#include "dartcv/core.h"
+#include "dartcv/core/types.h"
 #include <stdbool.h>
 
 CvStatus *Image_IMRead(const char *filename, int flags, CVD_OUT Mat *rval);

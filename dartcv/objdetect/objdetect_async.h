@@ -6,7 +6,6 @@
 #include <stdbool.h>
 
 #ifdef __cplusplus
-#include <opencv2/objdetect.hpp>
 extern "C" {
 #endif
 

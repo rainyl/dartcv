@@ -2,11 +2,9 @@
 #define CVD_DNN_ASYNC_H_
 
 #include "dnn.h"
-#include "core/types.h"
 #include <stdbool.h>
 
 #ifdef __cplusplus
-#include <opencv2/opencv.hpp>
 #include <opencv2/dnn.hpp>
 extern "C" {
 #endif

@@ -14,7 +14,7 @@
 extern "C" {
 #endif
 
-#include "dartcv/core.h"
+#include "dartcv/core/types.h"
 
 // Window
 CvStatus *Window_New(const char *winname, int flags);
@@ -26,7 +26,7 @@ CvStatus *Window_SetTitle(const char *winname, const char *title);
 CvStatus *Window_WaitKey(int delay, int *rval);
 CvStatus *Window_Move(const char *winname, int x, int y);
 CvStatus *Window_Resize(const char *winname, int width, int height);
-CvStatus *Window_SelectROI(const char *winname, Mat img, Rect *rval);
+CvStatus *Window_SelectROI(const char *winname, Mat img, CvRect *rval);
 CvStatus *Window_SelectROIs(const char *winname, Mat img, VecRect *rval);
 CvStatus *destroyAllWindows();
 

@@ -9,7 +9,7 @@
 #ifndef _OPENCV3_IMGPROC_H_
 #define _OPENCV3_IMGPROC_H_
 
-#include "dartcv/core.h"
+#include "dartcv/core/types.h"
 #include <stdbool.h>
 
 #ifdef __cplusplus

@@ -6,7 +6,7 @@
 #ifndef OPENCV_DART_LIBRARY_STITCHING_H
 #define OPENCV_DART_LIBRARY_STITCHING_H
 
-#include "dartcv/core.h"
+#include "dartcv/core/types.h"
 
 #ifdef __cplusplus
 #include <opencv2/stitching.hpp>

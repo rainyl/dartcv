@@ -15,7 +15,7 @@
 extern "C" {
 #endif
 
-#include "core/core.h"
+#include "dartcv/core/types.h"
 #include <stdbool.h>
 
 #ifdef __cplusplus

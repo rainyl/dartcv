@@ -13,7 +13,7 @@
 #include <opencv2/calib3d.hpp>
 extern "C" {
 #endif
-#include "dartcv/core.h"
+#include "dartcv/core/types.h"
 #include <stddef.h>
 // Calib
 CvStatus *Fisheye_UndistortImage(Mat distorted, Mat undistorted, Mat k, Mat d);

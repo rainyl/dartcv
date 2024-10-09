@@ -5,7 +5,7 @@
 #ifndef CVD_XIMGPROC_H
 #define CVD_XIMGPROC_H
 
-#include "dartcv/core.h"
+#include "dartcv/core/types.h"
 #ifdef __cplusplus
 #include <opencv2/ximgproc.hpp>
 extern "C" {

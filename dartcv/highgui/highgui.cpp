@@ -59,7 +59,7 @@ CvStatus *Window_Resize(const char *winname, int width, int height) {
   END_WRAP
 }
 
-CvStatus *Window_SelectROI(const char *winname, Mat img, Rect *rval) {
+CvStatus *Window_SelectROI(const char *winname, Mat img, CvRect *rval) {
   BEGIN_WRAP
   auto rect = cv::selectROI(winname, *img.ptr);
   *rval = {rect.x, rect.y, rect.width, rect.height};

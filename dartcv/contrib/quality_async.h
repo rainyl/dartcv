@@ -6,7 +6,7 @@
 #ifndef CVD_QUALITY_ASYNC_H
 #define CVD_QUALITY_ASYNC_H
 
-#include "dartcv/core.h"
+#include "dartcv/core/types.h"
 #include "quality.h"
 
 #ifdef __cplusplus

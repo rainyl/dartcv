@@ -5,7 +5,7 @@
 #ifndef CVD_XOBJDETECT_H
 #define CVD_XOBJDETECT_H
 
-#include "dartcv/core.h"
+#include "dartcv/core/types.h"
 #ifdef __cplusplus
 #include <opencv2/xobjdetect.hpp>
 extern "C" {

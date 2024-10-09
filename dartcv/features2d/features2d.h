@@ -13,7 +13,7 @@
 extern "C" {
 #endif
 
-#include "dartcv/core.h"
+#include "dartcv/core/types.h"
 #include <stddef.h>
 #ifdef __cplusplus
 CVD_TYPEDEF(cv::Ptr<cv::AKAZE>, AKAZE);
