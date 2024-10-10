@@ -3,8 +3,6 @@
 # Run `pod lib lint DartCvIOS.podspec` to validate before publishing.
 #
 
-pod_dir = File.dirname(__FILE__, 1)
-
 Pod::Spec.new do |s|
   s.name             = 'DartCvIOS'
   s.version          = '4.10.0+9'
@@ -23,7 +21,7 @@ Pod::Spec.new do |s|
   # s.source = { :path => '.' }
   s.source = { :git => 'https://github.com/rainyl/dartcv.git', :tag => 'main' }
   s.preserve_paths = 'dartcv/**'
-  # s.source_files = 'dartcv/**/*.h'
+  s.source_files = 'include/*.h'
   s.libraries = 'c++'
   s.requires_arc = false
 
@@ -52,8 +50,8 @@ Pod::Spec.new do |s|
   s.swift_version = '5.0'
 
   s.prepare_command = <<-CMD
-    if [ ! -f #{pod_dir}/libopencv/libopencv.a ]; then
-      if [ ! -f #{pod_dir}/libopencv.zip ]; then
+    if [ ! -f libopencv/libopencv.a ]; then
+      if [ ! -f libopencv.zip ]; then
         echo "libopencv.a and libopencv.zip not found, downloading...";
         curl -L "https://github.com/rainyl/opencv.full/releases/download/#{s.version.to_s}/libopencv-ios.zip" > libopencv.zip;
       else
@@ -66,6 +64,9 @@ Pod::Spec.new do |s|
     else
       echo "found libopencv.a, continue...";
     fi
+
+    chmod +x scripts/update_include.sh
+    ./scripts/update_include.sh
   CMD
 
   s.default_subspec = [
@@ -77,13 +78,11 @@ Pod::Spec.new do |s|
     # cocoapods doesn't support keep folder structures, so do not include *.h here
     # https://github.com/CocoaPods/CocoaPods/issues/8873
     ss.source_files = 'dartcv/{core,imgcodecs}/*.{c,cpp}'
-    ss.public_header_files = ''
     ss.vendored_libraries = 'libopencv/libopencv.a'
   end
 
   s.subspec 'calib3d' do |ss|
     ss.source_files = "dartcv/calib3d/*.{c,cpp}"
-    ss.public_header_files = ""
     ss.dependency "DartCvIOS/core"
   end
 

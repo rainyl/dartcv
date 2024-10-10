@@ -6,7 +6,7 @@
 #ifndef CVD_ASYNC__H
 #define CVD_ASYNC__H
 
-#include "dartcv/core/types.h"
+#include "types.h"
 
 // this file is a template to create more headers
 

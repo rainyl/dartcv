@@ -3,8 +3,6 @@
 # Run `pod lib lint DartCvMacOS.podspec` to validate before publishing.
 #
 
-pod_dir = File.dirname(__FILE__, 1)
-
 Pod::Spec.new do |s|
   s.name             = 'DartCvMacOS'
   s.version          = '4.10.0+9'
@@ -23,7 +21,7 @@ Pod::Spec.new do |s|
   # s.source = { :path => '.' }
   s.source = { :git => 'https://github.com/rainyl/dartcv.git', :tag => 'main' }
   s.preserve_paths = 'dartcv/**'
-  # s.source_files = 'dartcv/**/*.h'
+  s.source_files = 'include/*.h'
   s.libraries = 'c++'
   s.requires_arc = false
 
@@ -50,8 +48,8 @@ Pod::Spec.new do |s|
   s.swift_version = '5.0'
 
   s.prepare_command = <<-CMD
-    if [ ! -f #{pod_dir}/libopencv/libopencv.a ]; then
-      if [ ! -f #{pod_dir}/libopencv.zip ]; then
+    if [ ! -f libopencv/libopencv.a ]; then
+      if [ ! -f libopencv.zip ]; then
         echo "libopencv.a and libopencv.zip not found, downloading...";
         curl -L "https://github.com/rainyl/opencv.full/releases/download/#{s.version.to_s}/libopencv-macos.zip" > libopencv.zip;
       else
@@ -64,10 +62,14 @@ Pod::Spec.new do |s|
     else
       echo "found libopencv.a, continue...";
     fi
+
+    chmod +x scripts/update_include.sh
+    ./scripts/update_include.sh
   CMD
 
   s.default_subspec = [
-    "core", "calib3d", "contrib", "features2d", "imgproc",
+    "core",
+    "calib3d", "contrib", "features2d", "imgproc",
     "objdetect", "photo", "stitching", "video"
   ]
 
@@ -105,10 +107,11 @@ Pod::Spec.new do |s|
   #   ss.dependency "DartCvMacOS/core"
   # end
 
-  # s.subspec 'highgui' do |ss|
-  #   ss.source_files = 'dartcv/highgui/*.{c,cpp}'
-  #   ss.dependency "DartCvMacOS/core"
-  # end
+  s.subspec 'highgui' do |ss|
+    ss.source_files = 'dartcv/highgui/*.{c,cpp}'
+    ss.dependency "DartCvMacOS/core"
+    ss.vendored_libraries = "libopencv/ffmpeg/lib/libffmpeg.dylib"
+  end
 
   s.subspec 'imgproc' do |ss|
     ss.source_files = 'dartcv/imgproc/*.{c,cpp}'
@@ -135,8 +138,9 @@ Pod::Spec.new do |s|
     ss.dependency "DartCvMacOS/core"
   end
 
-  # s.subspec 'videoio' do |ss|
-  #   ss.source_files = 'dartcv/videoio/*.{c,cpp}'
-  #   ss.dependency "DartCvMacOS/core"
-  # end
+  s.subspec 'videoio' do |ss|
+    ss.source_files = 'dartcv/videoio/*.{c,cpp}'
+    ss.dependency "DartCvMacOS/core"
+    ss.vendored_libraries = "libopencv/ffmpeg/lib/libffmpeg.dylib"
+  end
 end
