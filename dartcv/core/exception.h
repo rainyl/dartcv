@@ -6,7 +6,7 @@
 #ifndef OPENCV_DART_LIBRARY_EXCEPTION_H
 #define OPENCV_DART_LIBRARY_EXCEPTION_H
 
-#include "core.h"
+#include "dartcv/core/core.h"
 
 #ifdef __cplusplus
 #include <opencv2/core.hpp>

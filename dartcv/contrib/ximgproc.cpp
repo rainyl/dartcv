@@ -1,4 +1,4 @@
-#include "ximgproc.h"
+#include "dartcv/contrib/ximgproc.h"
 #include "dartcv/core/vec.hpp"
 
 CvStatus *

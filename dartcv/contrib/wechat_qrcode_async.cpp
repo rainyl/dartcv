@@ -1,4 +1,4 @@
-#include "wechat_qrcode_async.h"
+#include "dartcv/contrib/wechat_qrcode_async.h"
 #include "dartcv/core/vec.hpp"
 
 CvStatus *WeChatQRCode_New_Async(CvCallback_1 callback) {

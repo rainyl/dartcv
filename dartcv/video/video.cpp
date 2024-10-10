@@ -6,7 +6,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#include "video.h"
+#include "dartcv/video/video.h"
 #include "dartcv/core/vec.hpp"
 
 CvStatus *BackgroundSubtractorMOG2_Create(BackgroundSubtractorMOG2 *rval) {

@@ -2,7 +2,7 @@
 #ifndef CVD_FEATURES2D_ASYNC_H_
 #define CVD_FEATURES2D_ASYNC_H_
 
-#include "features2d.h"
+#include "dartcv/features2d/features2d.h"
 #include <stdbool.h>
 
 #ifdef __cplusplus

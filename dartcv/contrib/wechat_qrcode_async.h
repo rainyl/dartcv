@@ -1,4 +1,4 @@
-#include "wechat_qrcode.h"
+#include "dartcv/contrib/wechat_qrcode.h"
 
 #ifdef __cplusplus
 extern "C"

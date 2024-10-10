@@ -1,7 +1,7 @@
 #ifndef CVD_FEATURES2D_UTILS_H
 #define CVD_FEATURES2D_UTILS_H
 
-#include "features2d.h"
+#include "dartcv/features2d/features2d.h"
 #include <opencv2/features2d.hpp>
 
 inline cv::SimpleBlobDetector::Params ConvertCParamsToCPPParams(SimpleBlobDetectorParams params)

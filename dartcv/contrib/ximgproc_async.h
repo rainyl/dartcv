@@ -5,7 +5,7 @@
 #ifndef CVD_XIMGPROC_ASYNC_H
 #define CVD_XIMGPROC_ASYNC_H
 
-#include "ximgproc.h"
+#include "dartcv/contrib/ximgproc.h"
 #ifdef __cplusplus
 #include <opencv2/ximgproc.hpp>
 extern "C" {

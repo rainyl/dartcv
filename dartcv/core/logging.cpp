@@ -1,5 +1,5 @@
 /* Created by Abdelaziz Mahdy. Licensed: Apache 2.0 license. Copyright (c) 2024 Abdelaziz Mahdy. */
-#include "logging.h"
+#include "dartcv/core/logging.h"
 #include <opencv2/core/utils/logger.hpp>
 
 CvStatus *setLogLevel(int logLevel) {

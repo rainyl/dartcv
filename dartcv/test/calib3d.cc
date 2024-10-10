@@ -1,5 +1,5 @@
-#include "../calib3d/calib3d.h"
-#include "../core/core.h"
+#include "dartcv/calib3d/calib3d.h"
+#include "dartcv/core/core.h"
 #include <gtest/gtest.h>
 // #include <opencv/opencv.hpp>
 #include <stdint.h>

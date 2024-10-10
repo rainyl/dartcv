@@ -1,6 +1,6 @@
-#include "core_async.h"
-#include "lut.hpp"
-#include "vec.hpp"
+#include "dartcv/core/core_async.h"
+#include "dartcv/core/lut.hpp"
+#include "dartcv/core/vec.hpp"
 
 #pragma region Mat_Constructors
 CvStatus *Mat_New_Async(CvCallback_1 callback) {

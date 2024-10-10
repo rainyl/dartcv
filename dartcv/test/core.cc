@@ -1,4 +1,4 @@
-#include "../core/core.h"
+#include "dartcv/core/core.h"
 
 #include <gtest/gtest.h>
 #include <stdint.h>

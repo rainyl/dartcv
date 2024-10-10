@@ -6,7 +6,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#include "objdetect.h"
+#include "dartcv/objdetect/objdetect.h"
 #include "dartcv/core/vec.hpp"
 
 // CascadeClassifier

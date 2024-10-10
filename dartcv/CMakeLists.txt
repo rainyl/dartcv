@@ -118,22 +118,11 @@ if (DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_videoio ${FFMPEG_LIBRARIES})
 endif ()
 
-set(_header_files
-        calib3d.h
-        contrib.h
-        core.h
-        dnn.h
-        features2d.h
-        gapi.h
-        highgui.h
-        imgcodecs.h
-        imgproc.h
-        objdetect.h
-        photo.h
-        stitching.h
-        video.h
-        videoio.h
-)
+set(_header_files)
+foreach(_cpp_file IN LISTS _cpp_files)
+    string(REGEX REPLACE "\\.cpp$" ".h" _header_file ${_cpp_file})
+    list(APPEND _header_files ${_header_file})
+endforeach()
 
 # ##############################################################################
 # Add library
@@ -145,7 +134,7 @@ set(dartcv_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
 add_library(${LIBRARY_NAME} SHARED ${_cpp_files} ${_header_files})
 target_include_directories(${LIBRARY_NAME} SYSTEM PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${OPENCV_DART_INCLUDE_DIRS}
+        ${DARTCV_INCLUDE_DIRS}
         ${OpenCV_INCLUDE_DIRS}
 )
 message(STATUS "Added library: ${LIBRARY_NAME}")

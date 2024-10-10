@@ -2,7 +2,7 @@
 #ifndef CVD_OBJDETECT_ASYNC_H_
 #define CVD_OBJDETECT_ASYNC_H_
 
-#include "objdetect.h"
+#include "dartcv/objdetect/objdetect.h"
 #include <stdbool.h>
 
 #ifdef __cplusplus

@@ -2,7 +2,7 @@
 #ifndef CVD_PHOTO_ASYNC_H_
 #define CVD_PHOTO_ASYNC_H_
 
-#include "photo.h"
+#include "dartcv/photo/photo.h"
 
 #ifdef __cplusplus
 extern "C"

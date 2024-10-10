@@ -1,4 +1,4 @@
-#include "../core/vec.h"
+#include "dartcv/core/vec.h"
 #include <gtest/gtest.h>
 #include <stdio.h>
 #include <string.h>

@@ -6,7 +6,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#include "calib3d.h"
+#include "dartcv/calib3d/calib3d.h"
 #include "dartcv/core/vec.hpp"
 
 CvStatus *Fisheye_UndistortImage(Mat distorted, Mat undistorted, Mat k, Mat d) {

@@ -6,7 +6,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#include "imgproc.h"
+#include "dartcv/imgproc/imgproc.h"
 #include "dartcv/core/vec.hpp"
 #include <vector>
 

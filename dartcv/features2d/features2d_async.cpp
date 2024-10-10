@@ -1,6 +1,6 @@
 /* Created by Abdelaziz Mahdy. Licensed: Apache 2.0 license. Copyright (c) 2024 Abdelaziz Mahdy. */
-#include "features2d_async.h"
-#include "utils.hpp"
+#include "dartcv/features2d/features2d_async.h"
+#include "dartcv/features2d/utils.hpp"
 
 #include "dartcv/core/vec.hpp"
 

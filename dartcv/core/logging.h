@@ -7,7 +7,7 @@
 extern "C" {
 #endif
 
-#include "core.h"
+#include "dartcv/core/core.h"
 
 CvStatus *setLogLevel(int logLevel);
 CvStatus *getLogLevel(int *logLevel);

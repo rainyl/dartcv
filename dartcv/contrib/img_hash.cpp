@@ -1,4 +1,4 @@
-#include "img_hash.h"
+#include "dartcv/contrib/img_hash.h"
 
 CvStatus *pHashCompute(Mat inputArr, Mat *outputArr) {
   BEGIN_WRAP

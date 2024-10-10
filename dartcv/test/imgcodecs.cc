@@ -1,5 +1,5 @@
-#include "../imgcodecs/imgcodecs.h"
-#include "../core/core.h"
+#include "dartcv/imgcodecs/imgcodecs.h"
+#include "dartcv/core/core.h"
 #include <gtest/gtest.h>
 
 // #include <opencv/opencv.hpp>

@@ -9,7 +9,7 @@
 #ifndef _OPENCV3_CORE_H_
 #define _OPENCV3_CORE_H_
 
-#include "types.h"
+#include "dartcv/core/types.h"
 
 #ifdef __cplusplus
 extern "C" {

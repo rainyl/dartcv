@@ -1,6 +1,6 @@
-#include "../imgproc/imgproc.h"
-#include "../core/core.h"
-#include "../imgcodecs/imgcodecs.h"
+#include "dartcv/imgproc/imgproc.h"
+#include "dartcv/core/core.h"
+#include "dartcv/imgcodecs/imgcodecs.h"
 #include <gtest/gtest.h>
 
 #include <stdint.h>

@@ -6,7 +6,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#include "photo.h"
+#include "dartcv/photo/photo.h"
 #include "dartcv/core/vec.hpp"
 
 CvStatus *ColorChange(Mat src, Mat mask, Mat dst, float red_mul, float green_mul, float blue_mul) {

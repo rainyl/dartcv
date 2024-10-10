@@ -1,4 +1,4 @@
-#include "aruco.h"
+#include "dartcv/contrib/aruco.h"
 
 #ifdef __cplusplus
 extern "C" {

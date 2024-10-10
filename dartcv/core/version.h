@@ -13,7 +13,7 @@
 extern "C" {
 #endif
 
-#include "core.h"
+#include "dartcv/core/core.h"
 
 CvStatus *openCVVersion(const char **rval);
 CvStatus *openCVVersion_Async(CvCallback_1 callback);

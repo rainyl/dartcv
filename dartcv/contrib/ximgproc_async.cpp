@@ -2,7 +2,7 @@
     Created by rainyl.
     Licensed: Apache 2.0 license. Copyright (c) 2024 rainyl.
 */
-#include "ximgproc_async.h"
+#include "dartcv/contrib/ximgproc_async.h"
 #include "dartcv/core/vec.hpp"
 
 CvStatus *ximgproc_anisotropicDiffusion_Async(

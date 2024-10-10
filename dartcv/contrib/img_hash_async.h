@@ -1,4 +1,4 @@
-#include "img_hash.h"
+#include "dartcv/contrib/img_hash.h"
 
 #ifdef __cplusplus
 extern "C" {

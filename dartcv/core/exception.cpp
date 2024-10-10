@@ -3,7 +3,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#include "exception.h"
+#include "dartcv/core/exception.h"
 
 int ErrorCallbackProxy(int status, const char *func_name, const char *err_msg, const char *file_name, int line, void *callback)
 {

@@ -1,5 +1,5 @@
-#include "../dnn/dnn.h"
-#include "../core/core.h"
+#include "dartcv/dnn/dnn.h"
+#include "dartcv/core/core.h"
 #include <cstdlib>
 #include <fstream>
 #include <gtest/gtest.h>

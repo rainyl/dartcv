@@ -5,7 +5,7 @@
     Modified by Rainyl.
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
-#include "highgui.h"
+#include "dartcv/highgui/highgui.h"
 #include "dartcv/core/vec.hpp"
 
 // Window

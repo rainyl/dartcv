@@ -6,7 +6,7 @@
 #ifndef CVD_VIDEOIO_ASYNC_H_
 #define CVD_VIDEOIO_ASYNC_H_
 
-#include "videoio.h"
+#include "dartcv/videoio/videoio.h"
 
 #ifdef __cplusplus
 extern "C" {

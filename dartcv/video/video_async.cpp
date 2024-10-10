@@ -3,7 +3,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#include "video_async.h"
+#include "dartcv/video/video_async.h"
 #include "dartcv/core/vec.hpp"
 
 CvStatus *BackgroundSubtractorMOG2_Create_Async(CvCallback_1 callback) {

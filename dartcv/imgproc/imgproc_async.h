@@ -6,7 +6,7 @@
 #ifndef CVD_ASYNC_IMGPROC_H
 #define CVD_ASYNC_IMGPROC_H
 
-#include "imgproc.h"
+#include "dartcv/imgproc/imgproc.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -6,9 +6,9 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#include "features2d.h"
+#include "dartcv/features2d/features2d.h"
 #include "dartcv/core/vec.hpp"
-#include "utils.hpp"
+#include "dartcv/features2d/utils.hpp"
 
 #include <iostream>
 

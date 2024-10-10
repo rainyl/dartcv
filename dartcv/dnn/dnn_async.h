@@ -1,7 +1,7 @@
 #ifndef CVD_DNN_ASYNC_H_
 #define CVD_DNN_ASYNC_H_
 
-#include "dnn.h"
+#include "dartcv/dnn/dnn.h"
 #include <stdbool.h>
 
 #ifdef __cplusplus

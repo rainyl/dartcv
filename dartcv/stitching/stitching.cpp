@@ -3,7 +3,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#include "stitching.h"
+#include "dartcv/stitching/stitching.h"
 #include "dartcv/core/vec.hpp"
 
 CvStatus *Stitcher_Create(int mode, Stitcher *rval) {

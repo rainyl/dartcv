@@ -6,7 +6,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#include "version.h"
+#include "dartcv/core/version.h"
 #include <cstring>
 
 CvStatus *openCVVersion(const char **rval) {

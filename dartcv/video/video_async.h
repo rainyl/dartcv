@@ -6,7 +6,7 @@
 #ifndef CVD_VIDEO_ASYNC_H_
 #define CVD_VIDEO_ASYNC_H_
 
-#include "video.h"
+#include "dartcv/video/video.h"
 
 #ifdef __cplusplus
 extern "C" {

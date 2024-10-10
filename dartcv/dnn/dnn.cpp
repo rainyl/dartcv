@@ -6,7 +6,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#include "dnn.h"
+#include "dartcv/dnn/dnn.h"
 #include "dartcv/core/vec.hpp"
 #include <string.h>
 #include <vector>

@@ -1,4 +1,4 @@
-#include "svd_async.h"
+#include "dartcv/core/svd_async.h"
 
 CvStatus *SVD_Compute_Async(Mat src, int flags, CvCallback_3 callback) {
   BEGIN_WRAP

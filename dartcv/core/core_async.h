@@ -6,7 +6,7 @@
 #ifndef CVD_ASYNC_CORE_H
 #define CVD_ASYNC_CORE_H
 
-#include "core.h"
+#include "dartcv/core/core.h"
 #ifdef __cplusplus
 extern "C" {
 #endif

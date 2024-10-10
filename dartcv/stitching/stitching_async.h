@@ -2,7 +2,7 @@
 #ifndef OPENCV_DART_LIBRARY_STITCHING_ASYNC_H
 #define OPENCV_DART_LIBRARY_STITCHING_ASYNC_H
 
-#include "stitching.h"
+#include "dartcv/stitching/stitching.h"
 
 #ifdef __cplusplus
 extern "C" {

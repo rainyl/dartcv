@@ -6,7 +6,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#include "videoio.h"
+#include "dartcv/videoio/videoio.h"
 
 // VideoCapture
 CvStatus *VideoCapture_New(VideoCapture *rval) {

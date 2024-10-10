@@ -1,4 +1,4 @@
-#include "aruco_async.h"
+#include "dartcv/contrib/aruco_async.h"
 #include "dartcv/core/vec.hpp"
 
 // Asynchronous functions for ArucoDetectorParameters

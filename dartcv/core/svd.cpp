@@ -6,7 +6,7 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#include "svd.h"
+#include "dartcv/core/svd.h"
 
 CvStatus *SVD_Compute(Mat src, Mat *w, Mat *u, Mat *vt, int flags) {
   BEGIN_WRAP

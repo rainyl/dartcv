@@ -1,6 +1,6 @@
-#include "core.h"
-#include "lut.hpp"
-#include "vec.hpp"
+#include "dartcv/core/core.h"
+#include "dartcv/core/lut.hpp"
+#include "dartcv/core/vec.hpp"
 
 #include <cassert>
 #include <cstddef>

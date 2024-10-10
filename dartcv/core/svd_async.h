@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-#include "types.h"
+#include "dartcv/core/types.h"
 
 CvStatus *SVD_Compute_Async(Mat src, int flags, CvCallback_3 callback);
 CvStatus *SVD_backSubst_Async(Mat w, Mat u, Mat vt, Mat rhs, CvCallback_1 callback);

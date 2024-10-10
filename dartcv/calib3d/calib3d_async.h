@@ -7,7 +7,7 @@
 #define CVD_ASYNC_CALIB3D_H
 
 #include <stddef.h>
-#include "calib3d.h"
+#include "dartcv/calib3d/calib3d.h"
 
 #ifdef __cplusplus
 extern "C" {

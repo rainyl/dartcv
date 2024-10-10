@@ -1,7 +1,7 @@
 #ifndef CVD_VEC_UTILS_H
 #define CVD_VEC_UTILS_H
 
-#include "types.h"
+#include "dartcv/core/types.h"
 #include <vector>
 
 inline std::vector<cv::Point> vecpoint_c2cpp(VecPoint v) {
