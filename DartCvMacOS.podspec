@@ -7,7 +7,7 @@ opencv_version = '4.10.0+9'
 
 Pod::Spec.new do |s|
   s.name             = 'DartCvMacOS'
-  s.version          = '4.10.0'
+  s.version          = '4.10.0+1'
   s.summary          = 'dartcv for macos'
   s.description      = <<-DESC
   OpenCV bindings for Dart.
@@ -43,7 +43,7 @@ Pod::Spec.new do |s|
     'CLANG_WARN_DOCUMENTATION_COMMENTS' => 'NO',
     'CLANG_CXX_LANGUAGE_STANDARD' => 'c++14',
     # https://wadetregaskis.com/no-platform-load-command-found-in-libxyz-a-assuming-macos/
-    'OTHER_LDFLAGS' => '-Wl,-ld_classic'
+    'OTHER_LDFLAGS' => '-Wl,-ld_classic -Wno-unused-function'
   }
   s.swift_version = '5.0'
 
@@ -111,7 +111,7 @@ Pod::Spec.new do |s|
     ss.header_mappings_dir = '.'
     ss.source_files = 'dartcv/highgui/*.{h,c,cpp}'
     ss.dependency "DartCvMacOS/core"
-    ss.vendored_libraries = "libopencv/ffmpeg/lib/libffmpeg.dylib"
+    ss.vendored_libraries = "libopencv/ffmpeg/lib/libffmpeg.6.dylib"
   end
 
   s.subspec 'imgproc' do |ss|
@@ -148,6 +148,6 @@ Pod::Spec.new do |s|
     ss.header_mappings_dir = '.'
     ss.source_files = 'dartcv/videoio/*.{h,c,cpp}'
     ss.dependency "DartCvMacOS/core"
-    ss.vendored_libraries = "libopencv/ffmpeg/lib/libffmpeg.dylib"
+    ss.vendored_libraries = "libopencv/ffmpeg/lib/libffmpeg.6.dylib"
   end
 end

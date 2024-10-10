@@ -31,7 +31,7 @@ CvStatus *BlockMeanHash_Create(int mode, BlockMeanHash *rval) {
   *rval = {new cv::Ptr<cv::img_hash::BlockMeanHash>(cv::img_hash::BlockMeanHash::create(mode))};
   END_WRAP
 }
-CvStatus *BlockMeanHash_GetMean(BlockMeanHash self, double **rval, int *length) {
+CvStatus *BlockMeanHash_GetMean(BlockMeanHash self, double **rval, size_t *length) {
   BEGIN_WRAP
   auto m = (*self.ptr)->getMean();
   *rval = m.data();

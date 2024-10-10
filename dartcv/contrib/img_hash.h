@@ -44,7 +44,7 @@ CvStatus *averageHashCompute(Mat inputArr, Mat *outputArr);
 CvStatus *averageHashCompare(Mat a, Mat b, double *rval);
 
 CvStatus *BlockMeanHash_Create(int mode, BlockMeanHash *rval);
-CvStatus *BlockMeanHash_GetMean(BlockMeanHash self, double **rval, int *length);
+CvStatus *BlockMeanHash_GetMean(BlockMeanHash self, double **rval, size_t *length);
 CvStatus *BlockMeanHash_SetMode(BlockMeanHash self, int mode);
 void BlockMeanHash_Close(BlockMeanHashPtr self);
 CvStatus *BlockMeanHash_Compute(BlockMeanHash self, Mat inputArr, Mat *outputArr);
