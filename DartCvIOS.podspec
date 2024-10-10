@@ -38,9 +38,7 @@ Pod::Spec.new do |s|
     'DEFINES_MODULE' => 'YES',
     'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64',
     'HEADER_SEARCH_PATHS' => '"$(inherited)" "${PODS_TARGET_SRCROOT}/libopencv/include/opencv4"',
-    'USER_HEADER_SEARCH_PATHS' => '"$(PODS_TARGET_SRCROOT)"'\
-        ' "$(PODS_TARGET_SRCROOT)/dartcv"',
-    'GCC_PREPROCESSOR_DEFINITIONS' => '"$(inherited)" "COCOAPODS=1"',
+    'USER_HEADER_SEARCH_PATHS' => '"$(PODS_TARGET_SRCROOT)" "$(PODS_TARGET_SRCROOT)/dartcv"',
     'CLANG_WARN_STRICT_PROTOTYPES' => 'NO',
     'CLANG_WARN_DOCUMENTATION_COMMENTS' => 'NO',
     'CLANG_CXX_LANGUAGE_STANDARD' => 'c++14',
