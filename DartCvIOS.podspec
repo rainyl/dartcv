@@ -37,11 +37,7 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
     'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64',
-    'HEADER_SEARCH_PATHS' => [
-      '"$(inherited)"',
-      '"${PODS_TARGET_SRCROOT}/libopencv/include',
-      '"${PODS_TARGET_SRCROOT}/libopencv/include/opencv4"'
-    ],
+    'HEADER_SEARCH_PATHS' => '"${PODS_TARGET_SRCROOT}/**/*',
     'USER_HEADER_SEARCH_PATHS' => [
       '"$(PODS_TARGET_SRCROOT)"',
       '"$(PODS_TARGET_SRCROOT)/dartcv"'
