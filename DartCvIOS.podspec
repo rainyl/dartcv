@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   # paths, so Classes contains a forwarder C file that relatively imports
   # `../src/*` so that the C sources can be shared among all target platforms.
   # s.source = { :path => '.' }
-  s.source = { :git => 'https://github.com/rainyl/dartcv.git', :tag => "#{s.version.to_s}" }
+  s.source = { :git => 'https://github.com/rainyl/dartcv.git', :tag => "main" }
   s.preserve_paths = 'dartcv/**'
   # s.source_files = 'include/*.h'
   s.libraries = 'c++'
@@ -37,8 +37,15 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
     'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64',
-    'HEADER_SEARCH_PATHS' => '"$(inherited)" "${PODS_TARGET_SRCROOT}/libopencv/include/opencv4"',
-    'USER_HEADER_SEARCH_PATHS' => '"$(PODS_TARGET_SRCROOT)" "$(PODS_TARGET_SRCROOT)/dartcv"',
+    'HEADER_SEARCH_PATHS' => [
+      '"$(inherited)"',
+      '"${PODS_TARGET_SRCROOT}/libopencv/include',
+      '"${PODS_TARGET_SRCROOT}/libopencv/include/opencv4"'
+    ],
+    'USER_HEADER_SEARCH_PATHS' => [
+      '"$(PODS_TARGET_SRCROOT)"',
+      '"$(PODS_TARGET_SRCROOT)/dartcv"'
+    ],
     'CLANG_WARN_STRICT_PROTOTYPES' => 'NO',
     'CLANG_WARN_DOCUMENTATION_COMMENTS' => 'NO',
     'CLANG_CXX_LANGUAGE_STANDARD' => 'c++14',
@@ -62,6 +69,8 @@ Pod::Spec.new do |s|
     else
       echo "found libopencv.a, continue...";
     fi
+
+    cp -rf libopencv/include/opencv4/opencv2 dartcv/opencv2
   CMD
 
   s.default_subspec = [
@@ -73,6 +82,7 @@ Pod::Spec.new do |s|
     ss.header_mappings_dir = '.'
     ss.source_files = 'dartcv/{core,imgcodecs}/*.{h,c,cpp}'
     ss.vendored_libraries = 'libopencv/libopencv.a'
+    ss.public_header_files = 'dartcv/opencv2/**/*.{h,hpp}'
   end
 
   s.subspec 'calib3d' do |ss|
