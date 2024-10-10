@@ -73,73 +73,73 @@ Pod::Spec.new do |s|
 
   s.subspec 'core' do |ss|
     ss.header_mappings_dir = '.'
-    ss.source_files = 'dartcv/{core,imgcodecs}/*.{c,cpp}'
+    ss.source_files = 'dartcv/{core,imgcodecs}/*.{h,c,cpp}'
     ss.vendored_libraries = 'libopencv/libopencv.a'
   end
 
   s.subspec 'calib3d' do |ss|
     ss.header_mappings_dir = '.'
-    ss.source_files = "dartcv/calib3d/*.{c,cpp}"
+    ss.source_files = "dartcv/calib3d/*.{h,c,cpp}"
     ss.dependency "DartCvIOS/core"
   end
 
   s.subspec 'contrib' do |ss|
     ss.header_mappings_dir = '.'
-    ss.source_files = 'dartcv/contrib/*.{c,cpp}'
+    ss.source_files = 'dartcv/contrib/*.{h,c,cpp}'
     ss.dependency "DartCvIOS/core"
   end
 
   s.subspec 'dnn' do |ss|
     ss.header_mappings_dir = '.'
-    ss.source_files = 'dartcv/dnn/*.{c,cpp}'
+    ss.source_files = 'dartcv/dnn/*.{h,c,cpp}'
     ss.dependency "DartCvIOS/core"
   end
 
   s.subspec 'features2d' do |ss|
     ss.header_mappings_dir = '.'
-    ss.source_files = 'dartcv/features2d/*.{c,cpp}'
+    ss.source_files = 'dartcv/features2d/*.{h,c,cpp}'
     ss.dependency "DartCvIOS/core"
   end
 
   # s.subspec 'gapi' do |ss|
   #   ss.header_mappings_dir = '.'
-  #   ss.source_files = 'dartcv/gapi/*.{c,cpp}'
+  #   ss.source_files = 'dartcv/gapi/*.{h,c,cpp}'
   #   ss.dependency "DartCvIOS/core"
   # end
 
   s.subspec 'imgproc' do |ss|
     ss.header_mappings_dir = '.'
-    ss.source_files = 'dartcv/imgproc/*.{c,cpp}'
+    ss.source_files = 'dartcv/imgproc/*.{h,c,cpp}'
     ss.dependency "DartCvIOS/core"
   end
 
   s.subspec 'objdetect' do |ss|
     ss.header_mappings_dir = '.'
-    ss.source_files = 'dartcv/objdetect/*.{c,cpp}'
+    ss.source_files = 'dartcv/objdetect/*.{h,c,cpp}'
     ss.dependency "DartCvIOS/core"
   end
 
   s.subspec 'photo' do |ss|
     ss.header_mappings_dir = '.'
-    ss.source_files = 'dartcv/photo/*.{c,cpp}'
+    ss.source_files = 'dartcv/photo/*.{h,c,cpp}'
     ss.dependency "DartCvIOS/core"
   end
 
   s.subspec 'stitching' do |ss|
     ss.header_mappings_dir = '.'
-    ss.source_files = 'dartcv/stitching/*.{c,cpp}'
+    ss.source_files = 'dartcv/stitching/*.{h,c,cpp}'
     ss.dependency "DartCvIOS/core"
   end
 
   s.subspec 'video' do |ss|
     ss.header_mappings_dir = '.'
-    ss.source_files = 'dartcv/video/*.{c,cpp}'
+    ss.source_files = 'dartcv/video/*.{h,c,cpp}'
     ss.dependency "DartCvIOS/core"
   end
 
   s.subspec 'videoio' do |ss|
     ss.header_mappings_dir = '.'
-    ss.source_files = 'dartcv/videoio/*.{c,cpp}'
+    ss.source_files = 'dartcv/videoio/*.{h,c,cpp}'
     ss.dependency "DartCvIOS/core"
   end
 end
