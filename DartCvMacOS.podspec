@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   # s.source = { :path => '.' }
   s.source = { :git => 'https://github.com/rainyl/dartcv.git', :tag => "#{s.version.to_s}" }
   s.preserve_paths = 'dartcv/**'
-  s.source_files = 'include/*.h'
+  # s.source_files = 'include/*.h'
   s.libraries = 'c++'
   s.requires_arc = false
 
@@ -37,8 +37,7 @@ Pod::Spec.new do |s|
     'DEFINES_MODULE' => 'YES',
     'HEADER_SEARCH_PATHS' => '"$(inherited)" "${PODS_TARGET_SRCROOT}/libopencv/include/opencv4"',
     'USER_HEADER_SEARCH_PATHS' => '"$(PODS_TARGET_SRCROOT)"'\
-        ' "$(PODS_TARGET_SRCROOT)/dartcv"'\
-        ' "$(PODS_TARGET_SRCROOT)/include"',
+      ' "$(PODS_TARGET_SRCROOT)/dartcv"',
     'GCC_PREPROCESSOR_DEFINITIONS' => '"$(inherited)" "COCOAPODS=1"',
     'CLANG_WARN_STRICT_PROTOTYPES' => 'NO',
     'CLANG_WARN_DOCUMENTATION_COMMENTS' => 'NO',
@@ -63,9 +62,6 @@ Pod::Spec.new do |s|
     else
       echo "found libopencv.a, continue...";
     fi
-
-    chmod +x scripts/update_include.sh
-    ./scripts/update_include.sh
   CMD
 
   s.default_subspec = [
@@ -75,72 +71,81 @@ Pod::Spec.new do |s|
   ]
 
   s.subspec 'core' do |ss|
-    # cocoapods doesn't support keep folder structures, so do not include *.h here
-    # https://github.com/CocoaPods/CocoaPods/issues/8873
-    ss.source_files = 'dartcv/{core,imgcodecs}/*.{c,cpp}'
-    ss.public_header_files = ''
+    ss.header_mappings_dir = '.'
+    ss.source_files = 'dartcv/{core,imgcodecs}/*.{h,c,cpp}'
     ss.vendored_libraries = 'libopencv/libopencv.a'
   end
 
   s.subspec 'calib3d' do |ss|
-    ss.source_files = "dartcv/calib3d/*.{c,cpp}"
-    ss.public_header_files = ""
+    ss.header_mappings_dir = '.'
+    ss.source_files = "dartcv/calib3d/*.{h,c,cpp}"
     ss.dependency "DartCvMacOS/core"
   end
 
   s.subspec 'contrib' do |ss|
-    ss.source_files = 'dartcv/contrib/*.{c,cpp}'
+    ss.header_mappings_dir = '.'
+    ss.source_files = 'dartcv/contrib/*.{h,c,cpp}'
     ss.dependency "DartCvMacOS/core"
   end
 
   s.subspec 'dnn' do |ss|
-    ss.source_files = 'dartcv/dnn/*.{c,cpp}'
+    ss.header_mappings_dir = '.'
+    ss.source_files = 'dartcv/dnn/*.{h,c,cpp}'
     ss.dependency "DartCvMacOS/core"
   end
 
   s.subspec 'features2d' do |ss|
-    ss.source_files = 'dartcv/features2d/*.{c,cpp}'
+    ss.header_mappings_dir = '.'
+    ss.source_files = 'dartcv/features2d/*.{h,c,cpp}'
     ss.dependency "DartCvMacOS/core"
   end
 
   # s.subspec 'gapi' do |ss|
-  #   ss.source_files = 'dartcv/gapi/*.{c,cpp}'
+  #   ss.header_mappings_dir = '.'
+  #   ss.source_files = 'dartcv/gapi/*.{h,c,cpp}'
   #   ss.dependency "DartCvMacOS/core"
   # end
 
   s.subspec 'highgui' do |ss|
-    ss.source_files = 'dartcv/highgui/*.{c,cpp}'
+    ss.header_mappings_dir = '.'
+    ss.source_files = 'dartcv/highgui/*.{h,c,cpp}'
     ss.dependency "DartCvMacOS/core"
     ss.vendored_libraries = "libopencv/ffmpeg/lib/libffmpeg.dylib"
   end
 
   s.subspec 'imgproc' do |ss|
-    ss.source_files = 'dartcv/imgproc/*.{c,cpp}'
+    ss.header_mappings_dir = '.'
+    ss.source_files = 'dartcv/imgproc/*.{h,c,cpp}'
     ss.dependency "DartCvMacOS/core"
   end
 
   s.subspec 'objdetect' do |ss|
-    ss.source_files = 'dartcv/objdetect/*.{c,cpp}'
+    ss.header_mappings_dir = '.'
+    ss.source_files = 'dartcv/objdetect/*.{h,c,cpp}'
     ss.dependency "DartCvMacOS/core"
   end
 
   s.subspec 'photo' do |ss|
-    ss.source_files = 'dartcv/photo/*.{c,cpp}'
+    ss.header_mappings_dir = '.'
+    ss.source_files = 'dartcv/photo/*.{h,c,cpp}'
     ss.dependency "DartCvMacOS/core"
   end
 
   s.subspec 'stitching' do |ss|
-    ss.source_files = 'dartcv/stitching/*.{c,cpp}'
+    ss.header_mappings_dir = '.'
+    ss.source_files = 'dartcv/stitching/*.{h,c,cpp}'
     ss.dependency "DartCvMacOS/core"
   end
 
   s.subspec 'video' do |ss|
-    ss.source_files = 'dartcv/video/*.{c,cpp}'
+    ss.header_mappings_dir = '.'
+    ss.source_files = 'dartcv/video/*.{h,c,cpp}'
     ss.dependency "DartCvMacOS/core"
   end
 
   s.subspec 'videoio' do |ss|
-    ss.source_files = 'dartcv/videoio/*.{c,cpp}'
+    ss.header_mappings_dir = '.'
+    ss.source_files = 'dartcv/videoio/*.{h,c,cpp}'
     ss.dependency "DartCvMacOS/core"
     ss.vendored_libraries = "libopencv/ffmpeg/lib/libffmpeg.dylib"
   end
