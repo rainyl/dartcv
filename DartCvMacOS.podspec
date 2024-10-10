@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   # `../src/*` so that the C sources can be shared among all target platforms.
   # s.source = { :path => '.' }
   s.source = { :git => 'https://github.com/rainyl/dartcv.git', :tag => "main" }
-  s.preserve_paths = 'dartcv/**'
+  s.preserve_paths = 'dartcv/**', 'libopencv/{include,lib,share}'
   # s.source_files = 'include/*.h'
   s.libraries = 'c++'
   s.requires_arc = false

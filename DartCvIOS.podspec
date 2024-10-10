@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   # `../src/*` so that the C sources can be shared among all target platforms.
   # s.source = { :path => '.' }
   s.source = { :git => 'https://github.com/rainyl/dartcv.git', :tag => "#{s.version.to_s}" }
-  s.preserve_paths = 'dartcv/**'
+  s.preserve_paths = 'dartcv/**', 'libopencv/{include,lib,share}'
   # s.source_files = 'include/*.h'
   s.libraries = 'c++'
   s.requires_arc = false
@@ -65,8 +65,6 @@ Pod::Spec.new do |s|
     else
       echo "found libopencv.a, continue...";
     fi
-
-    cp -rf libopencv/include/opencv4/opencv2 dartcv/opencv2
   CMD
 
   s.default_subspec = [
@@ -78,7 +76,6 @@ Pod::Spec.new do |s|
     ss.header_mappings_dir = '.'
     ss.source_files = 'dartcv/{core,imgcodecs}/*.{h,c,cpp}'
     ss.vendored_libraries = 'libopencv/libopencv.a'
-    ss.public_header_files = 'dartcv/opencv2/**/*.{h,hpp}'
   end
 
   s.subspec 'calib3d' do |ss|
