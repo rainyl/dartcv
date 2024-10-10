@@ -3,9 +3,11 @@
 # Run `pod lib lint DartCvMacOS.podspec` to validate before publishing.
 #
 
+opencv_version = '4.10.0+9'
+
 Pod::Spec.new do |s|
   s.name             = 'DartCvMacOS'
-  s.version          = '4.10.0+9'
+  s.version          = '4.10.0'
   s.summary          = 'dartcv for macos'
   s.description      = <<-DESC
   OpenCV bindings for Dart.
@@ -19,13 +21,13 @@ Pod::Spec.new do |s|
   # paths, so Classes contains a forwarder C file that relatively imports
   # `../src/*` so that the C sources can be shared among all target platforms.
   # s.source = { :path => '.' }
-  s.source = { :git => 'https://github.com/rainyl/dartcv.git', :tag => "main" }
+  s.source = { :git => 'https://github.com/rainyl/dartcv.git', :tag => "#{s.version.to_s}" }
   # s.preserve_paths = 'dartcv/**', 'libopencv/{include,lib,share}'
   # s.source_files = 'include/*.h'
   s.libraries = 'c++'
   s.requires_arc = false
 
-  s.osx.deployment_target = '10.15'
+  s.platform = :osx, '10.15'
   s.vendored_libraries = 'libopencv/libopencv.a'
   s.frameworks = [
     'Accelerate', 'AVFoundation', 'CoreGraphics',
@@ -49,7 +51,7 @@ Pod::Spec.new do |s|
     if [ ! -f libopencv/libopencv.a ]; then
       if [ ! -f libopencv.zip ]; then
         echo "libopencv.a and libopencv.zip not found, downloading...";
-        curl -L "https://github.com/rainyl/opencv.full/releases/download/#{s.version.to_s}/libopencv-macos.zip" > libopencv.zip;
+        curl -L "https://github.com/rainyl/opencv.full/releases/download/#{opencv_version}/libopencv-macos.zip" > libopencv.zip;
       else
         echo "found libopencv.zip";
       fi

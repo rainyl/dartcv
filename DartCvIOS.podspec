@@ -3,9 +3,11 @@
 # Run `pod lib lint DartCvIOS.podspec` to validate before publishing.
 #
 
+opencv_version = '4.10.0+9'
+
 Pod::Spec.new do |s|
   s.name             = 'DartCvIOS'
-  s.version          = '4.10.0+9'
+  s.version          = '4.10.0'
   s.summary          = 'dartcv for ios'
   s.description      = <<-DESC
   OpenCV bindings for Dart.
@@ -25,7 +27,7 @@ Pod::Spec.new do |s|
   s.libraries = 'c++'
   s.requires_arc = false
 
-  s.ios.deployment_target = '12.0'
+  s.platform = :ios, '12.0'
   s.vendored_libraries = 'libopencv/libopencv.a'
   s.frameworks = [
     'Accelerate', 'AssetsLibrary', 'AVFoundation',
@@ -54,7 +56,7 @@ Pod::Spec.new do |s|
     if [ ! -f libopencv/libopencv.a ]; then
       if [ ! -f libopencv.zip ]; then
         echo "libopencv.a and libopencv.zip not found, downloading...";
-        curl -L "https://github.com/rainyl/opencv.full/releases/download/#{s.version.to_s}/libopencv-ios.zip" > libopencv.zip;
+        curl -L "https://github.com/rainyl/opencv.full/releases/download/#{opencv_version}/libopencv-ios.zip" > libopencv.zip;
       else
         echo "found libopencv.zip";
       fi
