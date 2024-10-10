@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   # paths, so Classes contains a forwarder C file that relatively imports
   # `../src/*` so that the C sources can be shared among all target platforms.
   # s.source = { :path => '.' }
-  s.source = { :git => 'https://github.com/rainyl/dartcv.git', :tag => "main" }
+  s.source = { :git => 'https://github.com/rainyl/dartcv.git', :tag => "#{s.version.to_s}" }
   s.preserve_paths = 'dartcv/**'
   # s.source_files = 'include/*.h'
   s.libraries = 'c++'
