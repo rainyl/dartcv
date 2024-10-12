@@ -13,14 +13,16 @@ on:
       - "LICENSE"
 
 jobs:
-  windows:
+  windows-x64:
+    name: windows-x64
     strategy:
       matrix:
-        os: [windows-2019, windows-2022]
-    name: windows
-    runs-on: ${{ matrix.os }}
+        osname:
+          - {os: windows-2019, vs: vs2019}
+          - {os: windows-2022, vs: vs2022}
+    runs-on: ${{ matrix.osname.os }}
     env:
-      PACKAGE_NAME: libdartcv-windows-x64
+      PACKAGE_NAME: libdartcv-windows-x64-${{ matrix.osname.vs }}
     steps:
       - uses: actions/checkout@v4
       - name: build
@@ -39,20 +41,24 @@ jobs:
           path: build/install
           name: ${{ env.PACKAGE_NAME }}
   windows-arm64:
+    name: windows-arm64
     strategy:
       matrix:
-        os: [windows-2019, windows-2022]
-    name: windows
-    runs-on: ${{ matrix.os }}
+        osname:
+          - {os: windows-2019, vs: vs2019}
+          - {os: windows-2022, vs: vs2022}
+    runs-on: ${{ matrix.osname.os }}
     env:
-      PACKAGE_NAME: libdartcv-windows-arm64
+      PACKAGE_NAME: libdartcv-windows-arm64-${{ matrix.osname.vs }}
     steps:
       - uses: actions/checkout@v4
       - name: build
         run: |
           mkdir -Force build && cd build
           cmake -S ${{ github.workspace }} `
-            -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/cmake/winarm64.toolchain.cmake `
+            -DCMAKE_SYSTEM_NAME="Windows" `
+            -DCMAKE_SYSTEM_PROCESSOR=ARM64 `
+            -A ARM64 `
             -DCMAKE_INSTALL_PREFIX=install `
             -DCMAKE_BUILD_TYPE=Release `
             -DDARTCV_WITH_VIDEOIO=ON `

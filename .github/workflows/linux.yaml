@@ -13,8 +13,8 @@ on:
       - "LICENSE"
 
 jobs:
-  ubuntu:
-    name: ubuntu
+  linux-x64:
+    name: linux-x64
     runs-on: ubuntu-22.04
     env:
       PACKAGE_NAME: libdartcv-linux-x64
@@ -41,8 +41,8 @@ jobs:
         with:
           path: build/install
           name: ${{ env.PACKAGE_NAME }}
-  ubuntu-arm64:
-    name: ubuntu
+  linux-arm64:
+    name: linux-arm64
     runs-on: ubuntu-24.04
     env:
       PACKAGE_NAME: libdartcv-linux-arm64
