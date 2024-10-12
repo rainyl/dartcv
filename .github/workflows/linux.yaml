@@ -1,0 +1,71 @@
+name: linux
+
+on:
+  push:
+    branches: ["main"]
+    paths-ignore:
+      - "**.md"
+      - "LICENSE"
+  pull_request:
+    branches: ["main"]
+    paths-ignore:
+      - "**.md"
+      - "LICENSE"
+
+jobs:
+  linux-x64:
+    name: linux-x64
+    runs-on: ubuntu-22.04
+    env:
+      PACKAGE_NAME: libdartcv-linux-x64
+    steps:
+      - name: setup
+        run: |
+          sudo apt-get update
+
+          sudo apt-get install -y curl unzip build-essential \
+            libgtk-3-dev cmake ninja-build
+      - uses: actions/checkout@v4
+      - name: build
+        run: |
+          mkdir -p build && cd build
+          cmake -S ${{ github.workspace }} \
+            -DCMAKE_INSTALL_PREFIX=install \
+            -DDARTCV_WITH_VIDEOIO=ON \
+            -DCMAKE_BUILD_TYPE=Release
+
+          cmake --build . --config Release -j $(nproc)
+          cmake --build . --config Release --target install
+      - uses: actions/upload-artifact@v4
+        name: upload
+        with:
+          path: build/install
+          name: ${{ env.PACKAGE_NAME }}
+  linux-arm64:
+    name: linux-arm64
+    runs-on: ubuntu-24.04
+    env:
+      PACKAGE_NAME: libdartcv-linux-arm64
+    steps:
+      - name: setup
+        run: |
+          sudo apt-get update
+
+          sudo apt-get install g++-aarch64-linux-gnu
+      - uses: actions/checkout@v4
+      - name: build
+        run: |
+          mkdir -p build && cd build
+          cmake -S ${{ github.workspace }} \
+            -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/cmake/aarch64-linux-gnu.toolchain.cmake \
+            -DCMAKE_INSTALL_PREFIX=install \
+            -DDARTCV_WITH_VIDEOIO=ON \
+            -DCMAKE_BUILD_TYPE=Release
+
+          cmake --build . --config Release -j $(nproc)
+          cmake --build . --config Release --target install
+      - uses: actions/upload-artifact@v4
+        name: upload
+        with:
+          path: build/install
+          name: ${{ env.PACKAGE_NAME }}

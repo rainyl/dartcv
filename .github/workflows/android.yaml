@@ -1,0 +1,82 @@
+name: android
+
+on:
+  push:
+    branches: ["main"]
+    paths-ignore:
+      - "**.md"
+      - "LICENSE"
+  pull_request:
+    branches: ["main"]
+    paths-ignore:
+      - "**.md"
+      - "LICENSE"
+
+jobs:
+  android:
+    name: android
+    runs-on: ubuntu-24.04
+    env:
+      PACKAGE_NAME: libdartcv-android
+      COMMON_CMAKE_OPTIONS: |
+        -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_LATEST_HOME/build/cmake/android.toolchain.cmake \
+        -DANDROID_USE_LEGACY_TOOLCHAIN_FILE=False \
+        -DANDROID_PLATFORM=android-24 \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DANDROID_STL=c++_static \
+        -DANDROID_ARM_NEON=ON \
+        -DDARTCV_WITH_VIDEOIO=ON \
+    steps:
+      - uses: actions/checkout@v4
+      - name: armeabi-v7a
+        run: |
+          mkdir -p build/armeabi-v7a && cd build/armeabi-v7a
+          cmake -S ${{ github.workspace }} \
+          ${{ env.COMMON_CMAKE_OPTIONS }} \
+            -DANDROID_ABI="armeabi-v7a" \
+            -DCMAKE_INSTALL_PREFIX="install" \
+
+          cmake --build . --config Release -j $(nproc)
+          cmake --build . --config Release --target install
+      - name: arm64-v8a
+        run: |
+          mkdir -p build/arm64-v8a && cd build/arm64-v8a
+          cmake -S ${{ github.workspace }} \
+          ${{ env.COMMON_CMAKE_OPTIONS }} \
+            -DANDROID_ABI="arm64-v8a" \
+            -DCMAKE_INSTALL_PREFIX="install" \
+
+          cmake --build . --config Release -j $(nproc)
+          cmake --build . --config Release --target install
+      - name: x86_64
+        run: |
+          mkdir -p build/x86_64 && cd build/x86_64
+          cmake -S ${{ github.workspace }} \
+          ${{ env.COMMON_CMAKE_OPTIONS }} \
+            -DANDROID_ABI="x86_64" \
+            -DCMAKE_INSTALL_PREFIX="install" \
+
+          cmake --build . --config Release -j $(nproc)
+          cmake --build . --config Release --target install
+      - name: x86
+        run: |
+          mkdir -p build/x86 && cd build/x86
+          cmake -S ${{ github.workspace }} \
+          ${{ env.COMMON_CMAKE_OPTIONS }} \
+            -DANDROID_ABI="x86" \
+            -DCMAKE_INSTALL_PREFIX="install" \
+
+          cmake --build . --config Release -j $(nproc)
+          cmake --build . --config Release --target install
+      - name: package
+        run: |
+          mkdir -p ${{ env.PACKAGE_NAME }}
+          cp -rf build/armeabi-v7a/install ${{ env.PACKAGE_NAME }}/armeabi-v7a
+          cp -rf build/arm64-v8a/install ${{ env.PACKAGE_NAME }}/arm64-v8a
+          cp -rf build/x86_64/install ${{ env.PACKAGE_NAME }}/x86_64
+          cp -rf build/x86/install ${{ env.PACKAGE_NAME }}/x86
+      - uses: actions/upload-artifact@v4
+        name: upload
+        with:
+          path: ${{ env.PACKAGE_NAME }}
+          name: ${{ env.PACKAGE_NAME }}
