@@ -13,8 +13,8 @@ on:
       - "LICENSE"
 
 jobs:
-  validate-podspec:
-    name: validate-podspec
+  macos:
+    name: macos
     strategy:
       matrix:
         osname:
@@ -26,6 +26,16 @@ jobs:
       - name: macos
         run: |
           pod lib lint DartCvMacOS.podspec --allow-warnings
+  ios:
+    name: ios
+    strategy:
+      matrix:
+        osname:
+          - {os: macos-13, arch: x64, platform: MAC}
+          - {os: macos-14, arch: arm64, platform: MAC_ARM64}
+    runs-on: ${{ matrix.osname.os }}
+    steps:
+      - uses: actions/checkout@v4
       - name: ios
         run: |
           pod lib lint DartCvIOS.podspec --allow-warnings
