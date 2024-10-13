@@ -164,23 +164,3 @@ if (WIN32)
 endif (WIN32)
 
 target_compile_definitions(${LIBRARY_NAME} PUBLIC DART_SHARED_LIB)
-
-install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/include
-        COMPONENT header_files
-        FILES_MATCHING
-        PATTERN "*.h"
-        PATTERN "t.h" EXCLUDE
-        PATTERN "test" EXCLUDE
-)
-install(TARGETS ${LIBRARY_NAME}
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-        COMPONENT target_libs
-)
-
-if (DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
-    install(FILES ${FFMPEG_LIB_PATHS}
-            DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-            COMPONENT ffmpeg_libs
-    )
-endif ()

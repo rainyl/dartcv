@@ -49,13 +49,26 @@ if(DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
   find_package(FFMPEG REQUIRED)
 endif()
 
-set(DARTCV_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR})
-
-message(STATUS "OpenCV library status:")
-message(STATUS "    config: ${OpenCV_DIR}")
-message(STATUS "    version: ${OpenCV_VERSION}")
-message(STATUS "    libraries: ${OpenCV_LIBS}")
-message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
-message(STATUS "Project version: ${PROJECT_VERSION}")
+set(DARTCV_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "DARTCV_INCLUDE_DIRS")
 
 add_subdirectory(dartcv)
+
+#install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+#        DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+#        COMPONENT header_files
+#        FILES_MATCHING
+#        PATTERN "*.h"
+#        PATTERN "t.h" EXCLUDE
+#        PATTERN "test" EXCLUDE
+#)
+install(TARGETS ${LIBRARY_NAME}
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+        COMPONENT target_libs
+)
+
+if (DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
+  install(TARGETS ${FFMPEG_LIBRARIES}
+          DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+          COMPONENT ffmpeg_libs
+  )
+endif ()
