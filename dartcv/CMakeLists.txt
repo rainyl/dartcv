@@ -146,7 +146,7 @@ set_target_properties(${LIBRARY_NAME} PROPERTIES
         C_VISIBILITY_PRESET default
         LINK_FLAGS_RELEASE -s
 )
-target_link_libraries(${LIBRARY_NAME} PRIVATE ${DARTCV_DEPS} ${PLATFORM_LIBS})
+target_link_libraries(${LIBRARY_NAME} PUBLIC ${DARTCV_DEPS} ${PLATFORM_LIBS})
 
 if (APPLE)
     target_link_options(${LIBRARY_NAME} PRIVATE "LINKER:-ld_classic")
