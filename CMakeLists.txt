@@ -38,7 +38,7 @@ endif()
 
 include(cmake/download_setup_opencv.cmake)
 
-if(LINUX OR APPLE)
+if(UNIX)
   find_package(Iconv REQUIRED)
 endif()
 
