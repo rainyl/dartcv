@@ -26,28 +26,28 @@ option(DARTCV_WORLD "Include all modules" OFF) # world means build all modules
 option(BUILD_WITH_STATIC_CRT "Build with static CRT" ON)
 option(DARTCV_DISABLE_DOWNLOAD_OPENCV "Download opencv sdk from opencv.full" OFF)
 
-if(NOT OPENCV_VERSION)
-  set(OPENCV_VERSION "4.10.0+9")
-endif()
+if (NOT OPENCV_VERSION)
+    set(OPENCV_VERSION "4.10.0+9")
+endif ()
 
 # ============ download and prepare OpenCV =========
 # Avoid warning about DOWNLOAD_EXTRACT_TIMESTAMP in CMake 3.24:
-if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
-  cmake_policy(SET CMP0135 NEW)
-endif()
+if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
+    cmake_policy(SET CMP0135 NEW)
+endif ()
 
 include(cmake/download_setup_opencv.cmake)
 
-if(UNIX AND NOT ANDROID)
-  find_package(Iconv REQUIRED)
-endif()
+if (UNIX AND NOT ANDROID)
+    find_package(Iconv REQUIRED)
+endif ()
 
 # ============ download and prepare OpenCV_DIR finished ==============
 find_package(OpenCV REQUIRED)
 
-if(DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
-  find_package(FFMPEG REQUIRED)
-endif()
+if (DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
+    find_package(FFMPEG REQUIRED)
+endif ()
 
 set(DARTCV_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "DARTCV_INCLUDE_DIRS")
 
@@ -66,14 +66,9 @@ install(TARGETS ${LIBRARY_NAME}
         COMPONENT target_libs
 )
 
-
-
 if (DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
-  if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.21")
-    install(IMPORTED_RUNTIME_ARTIFACTS ${FFMPEG_LIBRARIES}
+    install(FILES ${FFMPEG_LIB_PATHS}
             DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-            COMPONENT target_libs
+            COMPONENT ffmpeg_libs
     )
-  endif ()
-  # TODO: copy, resolve symlinks
 endif ()
