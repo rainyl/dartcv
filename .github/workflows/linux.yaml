@@ -32,14 +32,26 @@ jobs:
           cmake -S ${{ github.workspace }} \
             -DCMAKE_INSTALL_PREFIX=install \
             -DDARTCV_WITH_VIDEOIO=ON \
+            -DDARTCV_ENABLE_INSTALL=ON \
             -DCMAKE_BUILD_TYPE=Release
 
-          cmake --build . --config Release -j $(nproc)
-#      - uses: actions/upload-artifact@v4
-#        name: upload
-#        with:
-#          path: build/install
-#          name: ${{ env.PACKAGE_NAME }}
+          cmake --build . --config Release -j $(nproc) --target install
+      - uses: actions/upload-artifact@v4
+        name: upload
+        with:
+          path: build/install
+          name: ${{ env.PACKAGE_NAME }}
+      - name: package
+        run: |
+          tar -C build/install -zcf ${{ env.PACKAGE_NAME }}.tar.gz .
+      - name: release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          prerelease: false
+          files: |
+            ${{ env.PACKAGE_NAME }}.tar.gz
   linux-arm64:
     name: linux-arm64
     runs-on: ubuntu-24.04
@@ -59,11 +71,23 @@ jobs:
             -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/cmake/aarch64-linux-gnu.toolchain.cmake \
             -DCMAKE_INSTALL_PREFIX=install \
             -DDARTCV_WITH_VIDEOIO=ON \
+            -DDARTCV_ENABLE_INSTALL=ON \
             -DCMAKE_BUILD_TYPE=Release
 
-          cmake --build . --config Release -j $(nproc)
-#      - uses: actions/upload-artifact@v4
-#        name: upload
-#        with:
-#          path: build/install
-#          name: ${{ env.PACKAGE_NAME }}
+          cmake --build . --config Release -j $(nproc) --target install
+      - uses: actions/upload-artifact@v4
+        name: upload
+        with:
+          path: build/install
+          name: ${{ env.PACKAGE_NAME }}
+      - name: package
+        run: |
+          tar -C build/install -zcf ${{ env.PACKAGE_NAME }}.tar.gz .
+      - name: release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          prerelease: false
+          files: |
+            ${{ env.PACKAGE_NAME }}.tar.gz

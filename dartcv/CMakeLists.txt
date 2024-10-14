@@ -118,6 +118,15 @@ if (DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_videoio ${FFMPEG_LIBRARIES})
 endif ()
 
+if (DARTCV_WITH_FFMPEG)
+    foreach (_tgt ${FFMPEG_LIBRARIES})
+        set_target_properties(${_tgt} PROPERTIES
+                BUILD_RPATH_USE_ORIGIN TRUE
+                LINK_FLAGS "-Wl,-rpath,\$ORIGIN/lib"
+        )
+    endforeach ()
+endif ()
+
 set(_header_files)
 foreach (_cpp_file IN LISTS _cpp_files)
     string(REGEX REPLACE "\\.cpp$" ".h" _header_file ${_cpp_file})
@@ -139,12 +148,9 @@ target_include_directories(${LIBRARY_NAME} SYSTEM PUBLIC
 )
 message(STATUS "Added library: ${LIBRARY_NAME}")
 set_target_properties(${LIBRARY_NAME} PROPERTIES
-
-        # PUBLIC_HEADER "${_header_files}"
         OUTPUT_NAME ${LIBRARY_NAME}
         CXX_VISIBILITY_PRESET default
         C_VISIBILITY_PRESET default
-        LINK_FLAGS_RELEASE -s
 )
 target_link_libraries(${LIBRARY_NAME} PUBLIC ${DARTCV_DEPS} ${PLATFORM_LIBS})
 

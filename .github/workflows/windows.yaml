@@ -29,17 +29,30 @@ jobs:
         run: |
           mkdir -Force build && cd build
           cmake -S ${{ github.workspace }} `
+            -DFFMPEG_USE_STATIC_LIBS=OFF `
             -DCMAKE_INSTALL_PREFIX=install `
+            -DDARTCV_ENABLE_INSTALL=ON `
             -DCMAKE_BUILD_TYPE=Release `
             -DDARTCV_WITH_VIDEOIO=ON `
             -DDARTCV_WITH_HIGHGUI=ON
 
-          cmake --build . --config Release
-#      - uses: actions/upload-artifact@v4
-#        name: upload
-#        with:
-#          path: build/install
-#          name: ${{ env.PACKAGE_NAME }}
+          cmake --build . --config Release --target install
+      - uses: actions/upload-artifact@v4
+        name: upload
+        with:
+          path: build/install
+          name: ${{ env.PACKAGE_NAME }}
+      - name: package
+        run: |
+          tar -C build/install -zcf ${{ env.PACKAGE_NAME }}.tar.gz .
+      - name: release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          prerelease: false
+          files: |
+            ${{ env.PACKAGE_NAME }}.tar.gz
   windows-arm64:
     name: windows-arm64
     strategy:
@@ -59,14 +72,27 @@ jobs:
             -DCMAKE_SYSTEM_NAME="Windows" `
             -DCMAKE_SYSTEM_PROCESSOR=ARM64 `
             -A ARM64 `
+            -DFFMPEG_USE_STATIC_LIBS=OFF `
             -DCMAKE_INSTALL_PREFIX=install `
+            -DDARTCV_ENABLE_INSTALL=ON `
             -DCMAKE_BUILD_TYPE=Release `
             -DDARTCV_WITH_VIDEOIO=ON `
             -DDARTCV_WITH_HIGHGUI=ON
 
-          cmake --build . --config Release
-#      - uses: actions/upload-artifact@v4
-#        name: upload
-#        with:
-#          path: build/install
-#          name: ${{ env.PACKAGE_NAME }}
+          cmake --build . --config Release --target install
+      - uses: actions/upload-artifact@v4
+        name: upload
+        with:
+          path: build/install
+          name: ${{ env.PACKAGE_NAME }}
+      - name: package
+        run: |
+          tar -C build/install -zcf ${{ env.PACKAGE_NAME }}.tar.gz .
+      - name: release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          prerelease: false
+          files: |
+            ${{ env.PACKAGE_NAME }}.tar.gz

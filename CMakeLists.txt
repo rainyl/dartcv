@@ -23,8 +23,16 @@ option(DARTCV_WITH_VIDEOIO "Include objdetect module of opencv" OFF)
 option(DARTCV_WITH_GAPI "Include gapi of opencv" OFF) # TODO: not finished
 option(DARTCV_WORLD "Include all modules" OFF) # world means build all modules
 
+option(DARTCV_ENABLE_INSTALL "Enable install" OFF)
+
 option(BUILD_WITH_STATIC_CRT "Build with static CRT" ON)
 option(DARTCV_DISABLE_DOWNLOAD_OPENCV "Download opencv sdk from opencv.full" OFF)
+
+if (${DARTCV_WITH_HIGHGUI} OR ${DARTCV_WITH_VIDEOIO} OR ${DARTCV_WORLD})
+    set(DARTCV_WITH_FFMPEG ON CACHE BOOL "")
+else ()
+    set(DARTCV_WITH_FFMPEG OFF CACHE BOOL "")
+endif ()
 
 if (NOT OPENCV_VERSION)
     set(OPENCV_VERSION "4.10.0+9")
@@ -53,30 +61,35 @@ set(DARTCV_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "DARTCV_INCLU
 
 add_subdirectory(dartcv)
 
-#install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-#        DESTINATION ${CMAKE_INSTALL_PREFIX}/include
-#        COMPONENT header_files
-#        FILES_MATCHING
-#        PATTERN "*.h"
-#        PATTERN "t.h" EXCLUDE
-#        PATTERN "test" EXCLUDE
-#)
-# install(TARGETS ${LIBRARY_NAME}
-#         DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-#         COMPONENT target_libs
-# )
+if (DARTCV_ENABLE_INSTALL)
+    set(ROOT_PROJECT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
-# if (DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
-#     foreach (_tgt ${FFMPEG_LIBRARIES})
-#         set_target_properties(${_tgt} PROPERTIES
-#                 LINK_FLAGS "-Wl,-rpath,\$ORIGIN/lib"
-#         )
-#     endforeach ()
-# endif ()
+    if(ANDROID)
+        message(STATUS "Installing ${FFMPEG_LIB_PATHS} to ${CMAKE_INSTALL_PREFIX}")
+        file(COPY ${FFMPEG_LIB_PATHS} DESTINATION ${CMAKE_INSTALL_PREFIX}/${ANDROID_ABI})
+    endif()
 
-# if (DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
-#     install(FILES ${FFMPEG_LIB_PATHS}
-#             DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-#             COMPONENT ffmpeg_libs
-#     )
-# endif ()
+    # install
+    install(DIRECTORY ${ROOT_PROJECT_DIR}/dartcv
+            DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+            COMPONENT header_files
+            FILES_MATCHING
+            PATTERN "*.h"
+            PATTERN "t.h" EXCLUDE
+            PATTERN "test" EXCLUDE
+            PATTERN "build" EXCLUDE
+    )
+    install(FILES "${ROOT_PROJECT_DIR}/README.md" "${ROOT_PROJECT_DIR}/LICENSE"
+            DESTINATION ${CMAKE_INSTALL_PREFIX}
+            COMPONENT asset_files
+    )
+    install(TARGETS dartcv
+            DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+            COMPONENT target_libs
+    )
+
+    install(FILES ${FFMPEG_LIB_PATHS}
+            DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+            COMPONENT ffmpeg_libs
+    )
+endif ()
