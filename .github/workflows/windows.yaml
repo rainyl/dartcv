@@ -35,11 +35,11 @@ jobs:
             -DDARTCV_WITH_HIGHGUI=ON
 
           cmake --build . --config Release
-      - uses: actions/upload-artifact@v4
-        name: upload
-        with:
-          path: build/install
-          name: ${{ env.PACKAGE_NAME }}
+#      - uses: actions/upload-artifact@v4
+#        name: upload
+#        with:
+#          path: build/install
+#          name: ${{ env.PACKAGE_NAME }}
   windows-arm64:
     name: windows-arm64
     strategy:
@@ -65,8 +65,8 @@ jobs:
             -DDARTCV_WITH_HIGHGUI=ON
 
           cmake --build . --config Release
-      - uses: actions/upload-artifact@v4
-        name: upload
-        with:
-          path: build/install
-          name: ${{ env.PACKAGE_NAME }}
+#      - uses: actions/upload-artifact@v4
+#        name: upload
+#        with:
+#          path: build/install
+#          name: ${{ env.PACKAGE_NAME }}

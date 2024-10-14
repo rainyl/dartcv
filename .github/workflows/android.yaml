@@ -64,15 +64,15 @@ jobs:
             -DCMAKE_INSTALL_PREFIX="install" \
 
           cmake --build . --config Release -j $(nproc)
-      - name: package
-        run: |
-          mkdir -p ${{ env.PACKAGE_NAME }}
-          cp -rf build/armeabi-v7a/install ${{ env.PACKAGE_NAME }}/armeabi-v7a
-          cp -rf build/arm64-v8a/install ${{ env.PACKAGE_NAME }}/arm64-v8a
-          cp -rf build/x86_64/install ${{ env.PACKAGE_NAME }}/x86_64
-          cp -rf build/x86/install ${{ env.PACKAGE_NAME }}/x86
-      - uses: actions/upload-artifact@v4
-        name: upload
-        with:
-          path: ${{ env.PACKAGE_NAME }}
-          name: ${{ env.PACKAGE_NAME }}
+#      - name: package
+#        run: |
+#          mkdir -p ${{ env.PACKAGE_NAME }}
+#          cp -rf build/armeabi-v7a/install ${{ env.PACKAGE_NAME }}/armeabi-v7a
+#          cp -rf build/arm64-v8a/install ${{ env.PACKAGE_NAME }}/arm64-v8a
+#          cp -rf build/x86_64/install ${{ env.PACKAGE_NAME }}/x86_64
+#          cp -rf build/x86/install ${{ env.PACKAGE_NAME }}/x86
+#      - uses: actions/upload-artifact@v4
+#        name: upload
+#        with:
+#          path: ${{ env.PACKAGE_NAME }}
+#          name: ${{ env.PACKAGE_NAME }}

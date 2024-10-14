@@ -35,11 +35,11 @@ jobs:
             -DCMAKE_BUILD_TYPE=Release
 
           cmake --build . --config Release -j $(nproc)
-      - uses: actions/upload-artifact@v4
-        name: upload
-        with:
-          path: build/install
-          name: ${{ env.PACKAGE_NAME }}
+#      - uses: actions/upload-artifact@v4
+#        name: upload
+#        with:
+#          path: build/install
+#          name: ${{ env.PACKAGE_NAME }}
   linux-arm64:
     name: linux-arm64
     runs-on: ubuntu-24.04
@@ -62,8 +62,8 @@ jobs:
             -DCMAKE_BUILD_TYPE=Release
 
           cmake --build . --config Release -j $(nproc)
-      - uses: actions/upload-artifact@v4
-        name: upload
-        with:
-          path: build/install
-          name: ${{ env.PACKAGE_NAME }}
+#      - uses: actions/upload-artifact@v4
+#        name: upload
+#        with:
+#          path: build/install
+#          name: ${{ env.PACKAGE_NAME }}
