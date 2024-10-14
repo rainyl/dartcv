@@ -5,7 +5,7 @@
     Modified by Rainyl.
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
-
+#pragma warning(disable: 4996)
 #include "dartcv/calib3d/calib3d.h"
 #include "dartcv/core/vec.hpp"
 

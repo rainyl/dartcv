@@ -66,9 +66,14 @@ install(TARGETS ${LIBRARY_NAME}
         COMPONENT target_libs
 )
 
+
+
 if (DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
-  install(TARGETS ${FFMPEG_LIBRARIES}
-          DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-          COMPONENT ffmpeg_libs
-  )
+  if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.21")
+    install(IMPORTED_RUNTIME_ARTIFACTS ${FFMPEG_LIBRARIES}
+            DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+            COMPONENT target_libs
+    )
+  endif ()
+  # TODO: copy, resolve symlinks
 endif ()
