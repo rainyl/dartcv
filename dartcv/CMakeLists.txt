@@ -119,10 +119,10 @@ if (DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
 endif ()
 
 set(_header_files)
-foreach(_cpp_file IN LISTS _cpp_files)
+foreach (_cpp_file IN LISTS _cpp_files)
     string(REGEX REPLACE "\\.cpp$" ".h" _header_file ${_cpp_file})
     list(APPEND _header_files ${_header_file})
-endforeach()
+endforeach ()
 
 # ##############################################################################
 # Add library

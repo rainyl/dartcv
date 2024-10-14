@@ -61,14 +61,22 @@ add_subdirectory(dartcv)
 #        PATTERN "t.h" EXCLUDE
 #        PATTERN "test" EXCLUDE
 #)
-install(TARGETS ${LIBRARY_NAME}
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-        COMPONENT target_libs
-)
+# install(TARGETS ${LIBRARY_NAME}
+#         DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+#         COMPONENT target_libs
+# )
 
-if (DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
-    install(FILES ${FFMPEG_LIB_PATHS}
-            DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-            COMPONENT ffmpeg_libs
-    )
-endif ()
+# if (DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
+#     foreach (_tgt ${FFMPEG_LIBRARIES})
+#         set_target_properties(${_tgt} PROPERTIES
+#                 LINK_FLAGS "-Wl,-rpath,\$ORIGIN/lib"
+#         )
+#     endforeach ()
+# endif ()
+
+# if (DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
+#     install(FILES ${FFMPEG_LIB_PATHS}
+#             DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+#             COMPONENT ffmpeg_libs
+#     )
+# endif ()
