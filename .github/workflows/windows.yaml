@@ -34,7 +34,7 @@ jobs:
             -DDARTCV_WITH_VIDEOIO=ON `
             -DDARTCV_WITH_HIGHGUI=ON
 
-          cmake --build . --config Release --target install
+          cmake --build . --config Release
       - uses: actions/upload-artifact@v4
         name: upload
         with:
@@ -64,7 +64,7 @@ jobs:
             -DDARTCV_WITH_VIDEOIO=ON `
             -DDARTCV_WITH_HIGHGUI=ON
 
-          cmake --build . --config Release --target install
+          cmake --build . --config Release
       - uses: actions/upload-artifact@v4
         name: upload
         with:

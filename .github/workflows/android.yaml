@@ -37,7 +37,6 @@ jobs:
             -DCMAKE_INSTALL_PREFIX="install" \
 
           cmake --build . --config Release -j $(nproc)
-          cmake --build . --config Release --target install
       - name: arm64-v8a
         run: |
           mkdir -p build/arm64-v8a && cd build/arm64-v8a
@@ -47,7 +46,6 @@ jobs:
             -DCMAKE_INSTALL_PREFIX="install" \
 
           cmake --build . --config Release -j $(nproc)
-          cmake --build . --config Release --target install
       - name: x86_64
         run: |
           mkdir -p build/x86_64 && cd build/x86_64
@@ -57,7 +55,6 @@ jobs:
             -DCMAKE_INSTALL_PREFIX="install" \
 
           cmake --build . --config Release -j $(nproc)
-          cmake --build . --config Release --target install
       - name: x86
         run: |
           mkdir -p build/x86 && cd build/x86
@@ -67,7 +64,6 @@ jobs:
             -DCMAKE_INSTALL_PREFIX="install" \
 
           cmake --build . --config Release -j $(nproc)
-          cmake --build . --config Release --target install
       - name: package
         run: |
           mkdir -p ${{ env.PACKAGE_NAME }}
