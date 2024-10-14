@@ -42,9 +42,9 @@ Net_ReadNetFromCaffe_Async(const char *prototxt, const char *caffeModel, CvCallb
 CvStatus *
 Net_ReadNetFromCaffeBytes_Async(VecUChar prototxt, VecUChar caffeModel, CvCallback_1 callback) {
   BEGIN_WRAP
-  auto _prototxt = vecuchar_c2cpp(prototxt);
-  auto _Model = vecuchar_c2cpp(caffeModel);
-  callback(new Net{new cv_dnn::Net(cv_dnn::readNetFromCaffe(_prototxt, _Model))});
+  auto proto = vecuchar_c2cpp(prototxt);
+  auto model = vecuchar_c2cpp(caffeModel);
+  callback(new Net{new cv_dnn::Net(cv_dnn::readNetFromCaffe(proto, model))});
   END_WRAP
 }
 
@@ -232,8 +232,8 @@ CvStatus *Net_GetInputDetails_Async(Net net, CvCallback_2 callback) {
 
 CvStatus *Net_GetBlobChannel_Async(Mat blob, int imgidx, int chnidx, CvCallback_1 callback) {
   BEGIN_WRAP
-  size_t w = blob.ptr->size[3];
-  size_t h = blob.ptr->size[2];
+  int w = blob.ptr->size[3];
+  int h = blob.ptr->size[2];
   callback(new Mat{new cv::Mat(h, w, CV_32F, blob.ptr->ptr<float>(imgidx, chnidx))});
   END_WRAP
 }

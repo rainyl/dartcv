@@ -46,21 +46,21 @@ CvStatus *RotatedRect_BoundingRect2f(RotatedRect rect, CvRect2f *rval) {
 }
 
 void CvStatus_Close(CvStatus *self) {
-  if (self->err != NULL) {
+  if (self->err != nullptr) {
     free(self->err);
-    self->err = NULL;
+    self->err = nullptr;
   }
-  if (self->file != NULL) {
+  if (self->file != nullptr) {
     free(self->file);
-    self->file = NULL;
+    self->file = nullptr;
   }
-  if (self->msg != NULL) {
+  if (self->msg != nullptr) {
     free(self->msg);
-    self->msg = NULL;
+    self->msg = nullptr;
   }
-  if (self->func != NULL) {
+  if (self->func != nullptr) {
     free(self->func);
-    self->func = NULL;
+    self->func = nullptr;
   }
   delete self;
 }

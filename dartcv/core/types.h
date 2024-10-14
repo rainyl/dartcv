@@ -2,7 +2,7 @@
     Created by Rainyl.
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
-
+#pragma warning(disable: 4996)
 #ifndef CVD_CORE_TYPES_H_
 #define CVD_CORE_TYPES_H_
 
@@ -178,7 +178,7 @@ typedef struct CvSize2f {
 typedef struct RotatedRect {
   CvPoint2f center;
   CvSize2f size;
-  double angle;
+  float angle;
 } RotatedRect;
 
 // Wrapper for an individual cv::cvScalar

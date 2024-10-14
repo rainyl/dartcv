@@ -234,8 +234,8 @@ CvStatus *Net_GetInputDetails(Net net, VecF32 *scales, VecI32 *zeropoints) {
 
 CvStatus *Net_GetBlobChannel(Mat blob, int imgidx, int chnidx, Mat *rval) {
   BEGIN_WRAP
-  size_t w = blob.ptr->size[3];
-  size_t h = blob.ptr->size[2];
+  int w = blob.ptr->size[3];
+  int h = blob.ptr->size[2];
   *rval = {new cv::Mat(h, w, CV_32F, blob.ptr->ptr<float>(imgidx, chnidx))};
   END_WRAP
 }
