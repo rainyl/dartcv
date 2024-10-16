@@ -34,7 +34,7 @@ set(DARTCV_DEPS opencv_core opencv_imgcodecs)
 
 # calib3d
 if (DARTCV_WITH_CALIB3D OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "calib3d/calib3d_async.cpp" "calib3d/calib3d.cpp")
+    set(_cpp_files ${_cpp_files} "calib3d/calib3d.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_calib3d)
 endif ()
 
@@ -42,7 +42,6 @@ endif ()
 if (DARTCV_WITH_CONTRIB OR DARTCV_WORLD)
     set(_cpp_files ${_cpp_files}
             "contrib/aruco.cpp"
-            "contrib/aruco_async.cpp"
             "contrib/img_hash.cpp"
             "contrib/img_hash_async.cpp"
             "contrib/quality.cpp"

@@ -25,8 +25,7 @@ endif()
 
 set(_cpp_files
   "aruco.cpp"
-  "aruco_async.cpp"
-  "img_hash.cpp"
+        "img_hash.cpp"
   "img_hash_async.cpp"
   "quality.cpp"
   "quality_async.cpp"
@@ -38,8 +37,7 @@ set(_cpp_files
 )
 set(_header_files
   "aruco.h"
-  "aruco_async.h"
-  "img_hash.h"
+        "img_hash.h"
   "img_hash_async.h"
   "quality.h"
   "quality_async.h"
