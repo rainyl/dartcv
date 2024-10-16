@@ -291,10 +291,16 @@ CvStatus* cv_aruco_arucoDetector_create(ArucoDetector* rval) {
 }
 
 CvStatus* cv_aruco_arucoDetector_create_1(
-    ArucoDictionary dictionary, ArucoDetectorParams params, ArucoDetector* rval
+    ArucoDictionary dictionary,
+    ArucoDetectorParams params,
+    ArucoDetector* rval,
+    CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    *rval = {new cv::aruco::ArucoDetector(*dictionary.ptr, *params.ptr)};
+    *rval = {new cv::aruco::ArucoDetector(CVDEREF(dictionary), CVDEREF(params))};
+    if (callback != nullptr) {
+        callback();
+    }
     END_WRAP
 }
 
