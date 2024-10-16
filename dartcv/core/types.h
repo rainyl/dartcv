@@ -99,7 +99,7 @@ extern "C" {
     delete value->ptr;    \
     value->ptr = nullptr; \
     delete value;         \
-    value = nullptr;
+    value = nullptr
 #endif
 
 #define CVDEREF(value) (*value.ptr)

@@ -29,37 +29,62 @@ CVD_TYPEDEF(void, QualitySSIM);
 
 #endif
 
-CvStatus *QualityBRISQUE_create(char *model_file, char *range_file, QualityBRISQUE *rval);
-void QualityBRISQUE_close(QualityBRISQUEPtr self);
-CvStatus *QualityBRISQUE_compute(QualityBRISQUE self, Mat img, Scalar *rval);
-CvStatus *QualityBRISQUE_compute_static(Mat img, char *model_file, char *range_file, Scalar *rval);
-CvStatus *QualityBRISQUE_computeFeatures_static(Mat img, Mat features);
+CvStatus* cv_quality_QualityBRISQUE_create(
+    const char* model_file, const char* range_file, QualityBRISQUE* rval, CvCallback_0 callback
+);
+void cv_quality_QualityBRISQUE_close(QualityBRISQUEPtr self);
+CvStatus* cv_quality_QualityBRISQUE_compute(
+    QualityBRISQUE self, Mat img, Scalar* rval, CvCallback_0 callback
+);
+CvStatus* cv_quality_QualityBRISQUE_compute_static(
+    Mat img, const char* model_file, const char* range_file, Scalar* rval, CvCallback_0 callback
+);
+CvStatus* cv_quality_QualityBRISQUE_computeFeatures_static(
+    Mat img, Mat features, CvCallback_0 callback
+);
 
-CvStatus *QualityGMSD_create(Mat ref, QualityGMSD *rval);
-void QualityGMSD_close(QualityGMSDPtr self);
-CvStatus *QualityGMSD_compute(QualityGMSD self, Mat cmp, Scalar *rval);
-CvStatus *QualityGMSD_compute_static(Mat ref, Mat cmp, Mat qualityMap, Scalar *rval);
+CvStatus* cv_quality_QualityGMSD_create(Mat ref, QualityGMSD* rval, CvCallback_0 callback);
+void cv_quality_QualityGMSD_close(QualityGMSDPtr self);
+CvStatus* cv_quality_QualityGMSD_compute(
+    QualityGMSD self, Mat cmp, Scalar* rval, CvCallback_0 callback
+);
+CvStatus* cv_quality_QualityGMSD_compute_static(
+    Mat ref, Mat cmp, Mat qualityMap, Scalar* rval, CvCallback_0 callback
+);
 
-CvStatus *QualityMSE_create(Mat ref, QualityMSE *rval);
-void QualityMSE_close(QualityMSEPtr self);
-CvStatus *QualityMSE_compute(QualityMSE self, Mat cmpImgs, Scalar *rval);
-CvStatus *QualityMSE_compute_static(Mat ref, Mat cmp, Mat qualityMap, Scalar *rval);
+CvStatus* cv_quality_QualityMSE_create(Mat ref, QualityMSE* rval, CvCallback_0 callback);
+void cv_quality_QualityMSE_close(QualityMSEPtr self);
+CvStatus* cv_quality_QualityMSE_compute(
+    QualityMSE self, Mat cmpImgs, Scalar* rval, CvCallback_0 callback
+);
+CvStatus* cv_quality_QualityMSE_compute_static(
+    Mat ref, Mat cmp, Mat qualityMap, Scalar* rval, CvCallback_0 callback
+);
 
-CvStatus *QualityPSNR_create(Mat ref, double maxPixelValue, QualityPSNR *rval);
-void QualityPSNR_close(QualityPSNRPtr self);
-CvStatus *QualityPSNR_compute(QualityPSNR self, Mat cmp, Scalar *rval);
-CvStatus *
-QualityPSNR_compute_static(Mat ref, Mat cmp, double maxPixelValue, Mat qualityMap, Scalar *rval);
-double QualityPSNR_getMaxPixelValue(QualityPSNR self);
-void QualityPSNR_setMaxPixelValue(QualityPSNR self, double maxPixelValue);
+CvStatus* cv_quality_QualityPSNR_create(
+    Mat ref, double maxPixelValue, QualityPSNR* rval, CvCallback_0 callback
+);
+void cv_quality_QualityPSNR_close(QualityPSNRPtr self);
+CvStatus* cv_quality_QualityPSNR_compute(
+    QualityPSNR self, Mat cmp, Scalar* rval, CvCallback_0 callback
+);
+CvStatus* cv_quality_QualityPSNR_compute_static(
+    Mat ref, Mat cmp, double maxPixelValue, Mat qualityMap, Scalar* rval, CvCallback_0 callback
+);
+double cv_quality_QualityPSNR_getMaxPixelValue(QualityPSNR self);
+void cv_quality_QualityPSNR_setMaxPixelValue(QualityPSNR self, double maxPixelValue);
 
-CvStatus *QualitySSIM_create(Mat ref, QualitySSIM *rval);
-void QualitySSIM_close(QualitySSIMPtr self);
-CvStatus *QualitySSIM_compute(QualitySSIM self, Mat cmp, Scalar *rval);
-CvStatus *QualitySSIM_compute_static(Mat ref, Mat cmp, Mat qualityMap, Scalar *rval);
+CvStatus* cv_quality_QualitySSIM_create(Mat ref, QualitySSIM* rval, CvCallback_0 callback);
+void cv_quality_QualitySSIM_close(QualitySSIMPtr self);
+CvStatus* cv_quality_QualitySSIM_compute(
+    QualitySSIM self, Mat cmp, Scalar* rval, CvCallback_0 callback
+);
+CvStatus* cv_quality_QualitySSIM_compute_static(
+    Mat ref, Mat cmp, Mat qualityMap, Scalar* rval, CvCallback_0 callback
+);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // CVD_QUALITY_H
+#endif  // CVD_QUALITY_H

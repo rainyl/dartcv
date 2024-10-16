@@ -43,9 +43,7 @@ if (DARTCV_WITH_CONTRIB OR DARTCV_WORLD)
     set(_cpp_files ${_cpp_files}
             "contrib/aruco.cpp"
             "contrib/img_hash.cpp"
-            "contrib/img_hash_async.cpp"
             "contrib/quality.cpp"
-            "contrib/quality_async.cpp"
             "contrib/wechat_qrcode.cpp"
             "contrib/wechat_qrcode_async.cpp"
             "contrib/ximgproc.cpp"
