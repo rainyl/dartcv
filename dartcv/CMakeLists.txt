@@ -45,9 +45,7 @@ if (DARTCV_WITH_CONTRIB OR DARTCV_WORLD)
             "contrib/img_hash.cpp"
             "contrib/quality.cpp"
             "contrib/wechat_qrcode.cpp"
-            "contrib/wechat_qrcode_async.cpp"
             "contrib/ximgproc.cpp"
-            "contrib/ximgproc_async.cpp"
             "contrib/xobjdetect.cpp"
     )
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_aruco opencv_img_hash opencv_quality

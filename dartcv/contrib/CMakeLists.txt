@@ -28,20 +28,16 @@ set(_cpp_files
         "img_hash.cpp"
         "quality.cpp"
         "wechat_qrcode.cpp"
-  "wechat_qrcode_async.cpp"
-  "ximgproc.cpp"
-  "ximgproc_async.cpp"
-  "xobjdetect.cpp"
+        "ximgproc.cpp"
+        "xobjdetect.cpp"
 )
 set(_header_files
   "aruco.h"
         "img_hash.h"
         "quality.h"
         "wechat_qrcode.h"
-  "wechat_qrcode_async.h"
-  "ximgproc.h"
-  "ximgproc_async.h"
-  "xobjdetect.h"
+        "ximgproc.h"
+        "xobjdetect.h"
 )
 
 # provide include dir for other libs that depend on this one

@@ -1,395 +1,623 @@
 #include "dartcv/contrib/ximgproc.h"
 #include "dartcv/core/vec.hpp"
 
-CvStatus *
-ximgproc_anisotropicDiffusion(Mat src, CVD_OUT Mat *dst, float alpha, float K, int niters) {
-  BEGIN_WRAP
-  cv::Mat *_dst = new cv::Mat();
-  cv::ximgproc::anisotropicDiffusion(*src.ptr, *_dst, alpha, K, niters);
-  *dst = {_dst};
-  END_WRAP
+CvStatus* cv_ximgproc_anisotropicDiffusion(
+    Mat src, CVD_OUT Mat dst, float alpha, float K, int niters, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::ximgproc::anisotropicDiffusion(CVDEREF(src), CVDEREF(dst), alpha, K, niters);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_edgePreservingFilter(Mat src, CVD_OUT Mat *dst, int d, double threshold) {
-  BEGIN_WRAP
-  cv::Mat *_dst = new cv::Mat();
-  cv::ximgproc::edgePreservingFilter(*src.ptr, *_dst, d, threshold);
-  *dst = {_dst};
-  END_WRAP
+
+CvStatus* cv_ximgproc_edgePreservingFilter(
+    Mat src, CVD_OUT Mat dst, int d, double threshold, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::ximgproc::edgePreservingFilter(CVDEREF(src), CVDEREF(dst), d, threshold);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_findEllipses(
+
+CvStatus* cv_ximgproc_findEllipses(
     Mat image,
-    CVD_OUT Mat *ellipses,
+    CVD_OUT Mat ellipses,
     float scoreThreshold,
     float reliabilityThreshold,
-    float centerDistanceThreshold
+    float centerDistanceThreshold,
+    CvCallback_0 callback
 ) {
-  BEGIN_WRAP
-  cv::Mat *_ellipses = new cv::Mat();
-  cv::ximgproc::findEllipses(
-      *image.ptr, *_ellipses, scoreThreshold, reliabilityThreshold, centerDistanceThreshold
-  );
-  *ellipses = {_ellipses};
-  END_WRAP
+    BEGIN_WRAP
+    cv::ximgproc::findEllipses(
+        CVDEREF(image),
+        CVDEREF(ellipses),
+        scoreThreshold,
+        reliabilityThreshold,
+        centerDistanceThreshold
+    );
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_niBlackThreshold(
+
+CvStatus* cv_ximgproc_niBlackThreshold(
     Mat src,
-    CVD_OUT Mat *dst,
+    CVD_OUT Mat dst,
     double maxValue,
     int type,
     int blockSize,
     double k,
     int binarizationMethod,
-    double r
+    double r,
+    CvCallback_0 callback
 ) {
-  BEGIN_WRAP
-  cv::Mat *_dst = new cv::Mat();
-  cv::ximgproc::niBlackThreshold(
-      *src.ptr, *_dst, maxValue, type, blockSize, k, binarizationMethod, r
-  );
-  *dst = {_dst};
-  END_WRAP
+    BEGIN_WRAP
+    cv::ximgproc::niBlackThreshold(
+        CVDEREF(src), CVDEREF(dst), maxValue, type, blockSize, k, binarizationMethod, r
+    );
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_PeiLinNormalization(Mat I, CVD_OUT Mat *dst) {
-  BEGIN_WRAP
-  cv::Mat *_dst = new cv::Mat();
-  cv::ximgproc::PeiLinNormalization(*I.ptr, *_dst);
-  *dst = {_dst};
-  END_WRAP
+CvStatus* cv_ximgproc_PeiLinNormalization(Mat I, CVD_OUT Mat dst, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::ximgproc::PeiLinNormalization(CVDEREF(I), CVDEREF(dst));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_thinning(Mat src, Mat *dst, int thinningType) {
-  BEGIN_WRAP
-  cv::Mat *_dst = new cv::Mat();
-  cv::ximgproc::thinning(*src.ptr, *_dst, thinningType);
-  *dst = {_dst};
-  END_WRAP
+
+CvStatus* cv_ximgproc_thinning(Mat src, Mat dst, int thinningType, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::ximgproc::thinning(CVDEREF(src), CVDEREF(dst), thinningType);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
 
 // RFFeatureGetter
-CvStatus *ximgproc_RFFeatureGetter_Create(CVD_OUT RFFeatureGetter *rval) {
-  BEGIN_WRAP
-  *rval = {new cv::Ptr<cv::ximgproc::RFFeatureGetter>(cv::ximgproc::createRFFeatureGetter())};
-  END_WRAP
+CvStatus* cv_ximgproc_RFFeatureGetter_create(CVD_OUT RFFeatureGetter* rval) {
+    BEGIN_WRAP
+    *rval = {new cv::Ptr<cv::ximgproc::RFFeatureGetter>(cv::ximgproc::createRFFeatureGetter())};
+    END_WRAP
 }
-void ximgproc_RFFeatureGetter_Close(RFFeatureGetterPtr self) {
-  self->ptr->reset();
-  CVD_FREE(self);
+
+void cv_ximgproc_RFFeatureGetter_close(RFFeatureGetterPtr self) {
+    self->ptr->reset();
+    CVD_FREE(self);
 }
-CvStatus *ximgproc_RFFeatureGetter_getFeatures(
+
+CvStatus* cv_ximgproc_RFFeatureGetter_getFeatures(
     RFFeatureGetter self,
     Mat src,
-    CVD_OUT Mat *features,
+    CVD_OUT Mat features,
     int gnrmRad,
     int gsmthRad,
     int shrink,
     int outNum,
-    int gradNum
+    int gradNum,
+    CvCallback_0 callback
 ) {
-  BEGIN_WRAP
-  cv::Mat _features;
-  (*self.ptr)->getFeatures(*src.ptr, _features, gnrmRad, gsmthRad, shrink, outNum, gradNum);
-  *features = {new cv::Mat(_features)};
-  END_WRAP
+    BEGIN_WRAP(CVDEREF(self))
+        ->getFeatures(CVDEREF(src), CVDEREF(features), gnrmRad, gsmthRad, shrink, outNum, gradNum);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_RFFeatureGetter_Clear(RFFeatureGetter self) {
-  BEGIN_WRAP(*self.ptr)->clear();
-  END_WRAP
+
+CvStatus* cv_ximgproc_RFFeatureGetter_clear(RFFeatureGetter self) {
+    BEGIN_WRAP(CVDEREF(self))->clear();
+    END_WRAP
 }
-CvStatus *ximgproc_RFFeatureGetter_Empty(RFFeatureGetter self, bool *rval) {
-  BEGIN_WRAP
-  *rval = (*self.ptr)->empty();
-  END_WRAP
+
+bool cv_ximgproc_RFFeatureGetter_empty(RFFeatureGetter self) {
+    BEGIN_WRAP
+    CVDEREF(self)->empty();
+    END_WRAP
 }
 
 // StructuredEdgeDetection
-CvStatus *
-ximgproc_StructuredEdgeDetection_Create(char *model, CVD_OUT StructuredEdgeDetection *rval) {
-  BEGIN_WRAP
-  *rval = {new cv::Ptr<cv::ximgproc::StructuredEdgeDetection>(
-      cv::ximgproc::createStructuredEdgeDetection(model)
-  )};
-  END_WRAP
-}
-CvStatus *ximgproc_StructuredEdgeDetection_Create_1(
-    char *model, RFFeatureGetter howToGetFeatures, CVD_OUT StructuredEdgeDetection *rval
+CvStatus* cv_ximgproc_StructuredEdgeDetection_create(
+    const char* model, CVD_OUT StructuredEdgeDetection* rval
 ) {
-  BEGIN_WRAP
-  *rval = {new cv::Ptr<cv::ximgproc::StructuredEdgeDetection>(
-      cv::ximgproc::createStructuredEdgeDetection(model, *howToGetFeatures.ptr)
-  )};
-  END_WRAP
+    BEGIN_WRAP
+    *rval = {new cv::Ptr<cv::ximgproc::StructuredEdgeDetection>(
+        cv::ximgproc::createStructuredEdgeDetection(model)
+    )};
+    END_WRAP
 }
-void ximgproc_StructuredEdgeDetection_Close(StructuredEdgeDetectionPtr self) {
-  self->ptr->reset();
-  CVD_FREE(self);
-}
-CvStatus *ximgproc_StructuredEdgeDetection_computeOrientation(
-    StructuredEdgeDetection self, Mat src, CVD_OUT Mat *dst
+
+CvStatus* cv_ximgproc_StructuredEdgeDetection_create_1(
+    const char* model, RFFeatureGetter howToGetFeatures, CVD_OUT StructuredEdgeDetection* rval
 ) {
-  BEGIN_WRAP
-  cv::Mat _dst;
-  (*self.ptr)->computeOrientation(*src.ptr, _dst);
-  *dst = {new cv::Mat(_dst)};
-  END_WRAP
+    BEGIN_WRAP
+    *rval = {new cv::Ptr<cv::ximgproc::StructuredEdgeDetection>(
+        cv::ximgproc::createStructuredEdgeDetection(model, CVDEREF(howToGetFeatures))
+    )};
+    END_WRAP
 }
-CvStatus *ximgproc_StructuredEdgeDetection_detectEdges(
-    StructuredEdgeDetection self, Mat src, CVD_OUT Mat *dst
+
+void cv_ximgproc_StructuredEdgeDetection_close(StructuredEdgeDetectionPtr self) {
+    self->ptr->reset();
+    CVD_FREE(self);
+}
+
+CvStatus* cv_ximgproc_StructuredEdgeDetection_computeOrientation(
+    StructuredEdgeDetection self, Mat src, CVD_OUT Mat dst, CvCallback_0 callback
 ) {
-  BEGIN_WRAP
-  cv::Mat _dst;
-  (*self.ptr)->detectEdges(*src.ptr, _dst);
-  *dst = {new cv::Mat(_dst)};
-  END_WRAP
+    BEGIN_WRAP(CVDEREF(self))->computeOrientation(CVDEREF(src), CVDEREF(dst));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_StructuredEdgeDetection_edgesNms(
+
+CvStatus* cv_ximgproc_StructuredEdgeDetection_detectEdges(
+    StructuredEdgeDetection self, Mat src, CVD_OUT Mat dst, CvCallback_0 callback
+) {
+    BEGIN_WRAP(CVDEREF(self))->detectEdges(CVDEREF(src), CVDEREF(dst));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_ximgproc_StructuredEdgeDetection_edgesNms(
     StructuredEdgeDetection self,
     Mat edge_image,
     Mat orientation_image,
-    CVD_OUT Mat *dst,
+    CVD_OUT Mat dst,
     int r,
     int s,
     float m,
-    bool isParallel
+    bool isParallel,
+    CvCallback_0 callback
 ) {
-  BEGIN_WRAP
-  cv::Mat _dst;
-  (*self.ptr)->edgesNms(*edge_image.ptr, *orientation_image.ptr, _dst, r, s, m, isParallel);
-  *dst = {new cv::Mat(_dst)};
-  END_WRAP
+    BEGIN_WRAP(CVDEREF(self))
+        ->edgesNms(
+            CVDEREF(edge_image), CVDEREF(orientation_image), CVDEREF(dst), r, s, m, isParallel
+        );
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+// Returns the step size of sliding window search.
+float cv_ximgproc_EdgeBoxes_getAlpha(EdgeBoxes self) {
+    return self.ptr->get()->getAlpha();
+}
+
+// Returns the nms threshold for object proposals.
+float cv_ximgproc_EdgeBoxes_getBeta(EdgeBoxes self) {
+    return self.ptr->get()->getBeta();
+}
+
+// Returns the cluster min magnitude.
+float cv_ximgproc_EdgeBoxes_getClusterMinMag(EdgeBoxes self) {
+    return self.ptr->get()->getClusterMinMag();
+}
+
+// Returns the edge merge threshold.
+float cv_ximgproc_EdgeBoxes_getEdgeMergeThr(EdgeBoxes self) {
+    return self.ptr->get()->getEdgeMergeThr();
+}
+
+// Returns the edge min magnitude.
+float cv_ximgproc_EdgeBoxes_getEdgeMinMag(EdgeBoxes self) {
+    return self.ptr->get()->getEdgeMinMag();
+}
+
+// Returns adaptation rate for nms threshold.
+float cv_ximgproc_EdgeBoxes_getEta(EdgeBoxes self) {
+    return self.ptr->get()->getEta();
+}
+
+// Returns the affinity sensitivity.
+float cv_ximgproc_EdgeBoxes_getGamma(EdgeBoxes self) {
+    return self.ptr->get()->getGamma();
+}
+
+// Returns the scale sensitivity.
+float cv_ximgproc_EdgeBoxes_getKappa(EdgeBoxes self) {
+    return self.ptr->get()->getKappa();
+}
+
+// Returns the max aspect ratio of boxes.
+float cv_ximgproc_EdgeBoxes_getMaxAspectRatio(EdgeBoxes self) {
+    return self.ptr->get()->getMaxAspectRatio();
+}
+
+// Returns the max number of boxes to detect.
+int cv_ximgproc_EdgeBoxes_getMaxBoxes(EdgeBoxes self) {
+    return self.ptr->get()->getMaxBoxes();
+}
+
+// Returns the minimum area of boxes.
+float cv_ximgproc_EdgeBoxes_getMinBoxArea(EdgeBoxes self) {
+    return self.ptr->get()->getMinBoxArea();
+}
+
+// Returns the min score of boxes to detect.
+float cv_ximgproc_EdgeBoxes_getMinScore(EdgeBoxes self) {
+    return self.ptr->get()->getMinScore();
+}
+
+// Sets the step size of sliding window search.
+void cv_ximgproc_EdgeBoxes_setAlpha(EdgeBoxes self, float value) {
+    self.ptr->get()->setAlpha(value);
+}
+
+// Sets the nms threshold for object proposals.
+void cv_ximgproc_EdgeBoxes_setBeta(EdgeBoxes self, float value) {
+    self.ptr->get()->setBeta(value);
+}
+
+// Sets the cluster min magnitude.
+void cv_ximgproc_EdgeBoxes_setClusterMinMag(EdgeBoxes self, float value) {
+    self.ptr->get()->setClusterMinMag(value);
+}
+
+// Sets the edge merge threshold.
+void cv_ximgproc_EdgeBoxes_setEdgeMergeThr(EdgeBoxes self, float value) {
+    self.ptr->get()->setEdgeMergeThr(value);
+}
+
+// Sets the edge min magnitude.
+void cv_ximgproc_EdgeBoxes_setEdgeMinMag(EdgeBoxes self, float value) {
+    self.ptr->get()->setEdgeMinMag(value);
+}
+
+// Sets the adaptation rate for nms threshold.
+void cv_ximgproc_EdgeBoxes_setEta(EdgeBoxes self, float value) {
+    self.ptr->get()->setEta(value);
+}
+
+// Sets the affinity sensitivity.
+void cv_ximgproc_EdgeBoxes_setGamma(EdgeBoxes self, float value) {
+    self.ptr->get()->setGamma(value);
+}
+
+// Sets the scale sensitivity.
+void cv_ximgproc_EdgeBoxes_setKappa(EdgeBoxes self, float value) {
+    self.ptr->get()->setKappa(value);
+}
+
+// Sets the max aspect ratio of boxes.
+void cv_ximgproc_EdgeBoxes_setMaxAspectRatio(EdgeBoxes self, float value) {
+    self.ptr->get()->setMaxAspectRatio(value);
+}
+
+// Sets max number of boxes to detect.
+void cv_ximgproc_EdgeBoxes_setMaxBoxes(EdgeBoxes self, int value) {
+    self.ptr->get()->setMaxBoxes(value);
+}
+
+// Sets the minimum area of boxes.
+void cv_ximgproc_EdgeBoxes_setMinBoxArea(EdgeBoxes self, float value) {
+    self.ptr->get()->setMinBoxArea(value);
+}
+
+// Sets the min score of boxes to detect.
+void cv_ximgproc_EdgeBoxes_setMinScore(EdgeBoxes self, float value) {
+    self.ptr->get()->setMinScore(value);
 }
 
 // EdgeBoxes
-CvStatus *ximgproc_EdgeBoxes_getBoundingBoxes(
+CvStatus* cv_ximgproc_EdgeBoxes_getBoundingBoxes(
     EdgeBoxes self,
     Mat edge_map,
     Mat orientation_map,
-    CVD_OUT VecRect *boxes,
-    CVD_OUT VecF32 *scores
+    CVD_OUT VecRect* boxes,
+    CVD_OUT VecF32* scores,
+    CvCallback_0 callback
 ) {
-  BEGIN_WRAP
-  std::vector<float> _scores;
-  std::vector<cv::Rect> _boxes;
-  auto _self = cv::ximgproc::createEdgeBoxes(
-      self.alpha,
-      self.beta,
-      self.eta,
-      self.minScore,
-      self.maxBoxes,
-      self.edgeMinMag,
-      self.edgeMergeThr,
-      self.clusterMinMag,
-      self.maxAspectRatio,
-      self.minBoxArea,
-      self.gamma,
-      self.kappa
-  );
-  _self->getBoundingBoxes(*edge_map.ptr, *orientation_map.ptr, _boxes, _scores);
-  *boxes = vecrect_cpp2c(_boxes);
-  *scores = vecfloat_cpp2c(_scores);
-  END_WRAP
+    BEGIN_WRAP
+    std::vector<float> _scores;
+    std::vector<cv::Rect> _boxes;
+    (CVDEREF(self))->getBoundingBoxes(CVDEREF(edge_map), CVDEREF(orientation_map), _boxes, _scores);
+    *boxes = vecrect_cpp2c(_boxes);
+    *scores = vecfloat_cpp2c(_scores);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
 
 // GraphSegmentation
-CvStatus *
-ximgproc_GraphSegmentation_Create(float sigma, float k, int min_size, GraphSegmentation *rval) {
-  BEGIN_WRAP
-  *rval = {new cv::Ptr<cv::ximgproc::segmentation::GraphSegmentation>(
-      cv::ximgproc::segmentation::createGraphSegmentation(sigma, k, min_size)
-  )};
-  END_WRAP
+CvStatus* cv_ximgproc_GraphSegmentation_create(
+    float sigma, float k, int min_size, GraphSegmentation* rval
+) {
+    BEGIN_WRAP
+    *rval = {new cv::Ptr<cv::ximgproc::segmentation::GraphSegmentation>(
+        cv::ximgproc::segmentation::createGraphSegmentation(sigma, k, min_size)
+    )};
+    END_WRAP
 }
-void ximgproc_GraphSegmentation_Close(GraphSegmentationPtr self) {
-  self->ptr->reset();
-  CVD_FREE(self);
+
+void cv_ximgproc_GraphSegmentation_close(GraphSegmentationPtr self) {
+    self->ptr->reset();
+    CVD_FREE(self);
 }
-CvStatus *ximgproc_GraphSegmentation_getK(GraphSegmentation self, float *rval) {
-  BEGIN_WRAP
-  *rval = (*self.ptr)->getK();
-  END_WRAP
+
+float cv_ximgproc_GraphSegmentation_getK(GraphSegmentation self) {
+    return (CVDEREF(self))->getK();
 }
-CvStatus *ximgproc_GraphSegmentation_getMinSize(GraphSegmentation self, int *rval) {
-  BEGIN_WRAP
-  *rval = (*self.ptr)->getMinSize();
-  END_WRAP
+
+int cv_ximgproc_GraphSegmentation_getMinSize(GraphSegmentation self) {
+    return (CVDEREF(self))->getMinSize();
 }
-CvStatus *ximgproc_GraphSegmentation_getSigma(GraphSegmentation self, double *rval) {
-  BEGIN_WRAP
-  *rval = (*self.ptr)->getSigma();
-  END_WRAP
+
+double cv_ximgproc_GraphSegmentation_getSigma(GraphSegmentation self) {
+    return (CVDEREF(self))->getSigma();
 }
-CvStatus *
-ximgproc_GraphSegmentation_processImage(GraphSegmentation self, Mat src, CVD_OUT Mat *dst) {
-  BEGIN_WRAP
-  cv::Mat _dst;
-  (*self.ptr)->processImage(*src.ptr, _dst);
-  *dst = {new cv::Mat(_dst)};
-  END_WRAP
+
+CvStatus* cv_ximgproc_GraphSegmentation_processImage(
+    GraphSegmentation self, Mat src, CVD_OUT Mat dst, CvCallback_0 callback
+) {
+    BEGIN_WRAP(CVDEREF(self))->processImage(CVDEREF(src), CVDEREF(dst));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_GraphSegmentation_setK(GraphSegmentation self, float val) {
-  BEGIN_WRAP(*self.ptr)->setK(val);
-  END_WRAP
+
+void cv_ximgproc_GraphSegmentation_setK(GraphSegmentation self, float val) {
+    (CVDEREF(self))->setK(val);
 }
-CvStatus *ximgproc_GraphSegmentation_setMinSize(GraphSegmentation self, int val) {
-  BEGIN_WRAP(*self.ptr)->setMinSize(val);
-  END_WRAP
+
+void cv_ximgproc_GraphSegmentation_setMinSize(GraphSegmentation self, int val) {
+    (CVDEREF(self))->setMinSize(val);
 }
-CvStatus *ximgproc_GraphSegmentation_setSigma(GraphSegmentation self, double val) {
-  BEGIN_WRAP(*self.ptr)->setSigma(val);
-  END_WRAP
+
+void cv_ximgproc_GraphSegmentation_setSigma(GraphSegmentation self, double val) {
+    (CVDEREF(self))->setSigma(val);
 }
 
 // EdgeDrawing
-CvStatus *ximgproc_EdgeDrawing_Create(EdgeDrawing *rval) {
-  BEGIN_WRAP
-  *rval = {new cv::Ptr<cv::ximgproc::EdgeDrawing>(cv::ximgproc::createEdgeDrawing())};
-  END_WRAP
+CvStatus* cv_ximgproc_EdgeDrawing_create(EdgeDrawing* rval) {
+    BEGIN_WRAP
+    *rval = {new cv::Ptr<cv::ximgproc::EdgeDrawing>(cv::ximgproc::createEdgeDrawing())};
+    END_WRAP
 }
-void ximgproc_EdgeDrawing_Close(EdgeDrawingPtr self) {
-  self->ptr->reset();
-  CVD_FREE(self);
+
+void cv_ximgproc_EdgeDrawing_close(EdgeDrawingPtr self) {
+    self->ptr->reset();
+    CVD_FREE(self);
 }
-CvStatus *ximgproc_EdgeDrawing_detectEdges(EdgeDrawing self, Mat src) {
-  BEGIN_WRAP(*self.ptr)->detectEdges(*src.ptr);
-  END_WRAP
+
+CvStatus* cv_ximgproc_EdgeDrawing_detectEdges(EdgeDrawing self, Mat src, CvCallback_0 callback) {
+    BEGIN_WRAP(CVDEREF(self))->detectEdges(CVDEREF(src));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_EdgeDrawing_detectEllipses(EdgeDrawing self, Mat *ellipses) {
-  BEGIN_WRAP
-  cv::Mat _ellipses;
-  (*self.ptr)->detectEllipses(_ellipses);
-  *ellipses = {new cv::Mat(_ellipses)};
-  END_WRAP
+
+CvStatus* cv_ximgproc_EdgeDrawing_detectEllipses(
+    EdgeDrawing self, Mat ellipses, CvCallback_0 callback
+) {
+    BEGIN_WRAP(CVDEREF(self))->detectEllipses(CVDEREF(ellipses));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_EdgeDrawing_detectLines(EdgeDrawing self, Mat *lines) {
-  BEGIN_WRAP
-  cv::Mat _lines;
-  (*self.ptr)->detectLines(_lines);
-  *lines = {new cv::Mat(_lines)};
-  END_WRAP
+
+CvStatus* cv_ximgproc_EdgeDrawing_detectLines(EdgeDrawing self, Mat lines, CvCallback_0 callback) {
+    BEGIN_WRAP(CVDEREF(self))->detectLines(CVDEREF(lines));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_EdgeDrawing_getEdgeImage(EdgeDrawing self, Mat *dst) {
-  BEGIN_WRAP
-  cv::Mat _dst;
-  (*self.ptr)->getEdgeImage(_dst);
-  *dst = {new cv::Mat(_dst)};
-  END_WRAP
+
+CvStatus* cv_ximgproc_EdgeDrawing_getEdgeImage(EdgeDrawing self, Mat dst, CvCallback_0 callback) {
+    BEGIN_WRAP(CVDEREF(self))->getEdgeImage(CVDEREF(dst));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_EdgeDrawing_getGradientImage(EdgeDrawing self, Mat *dst) {
-  BEGIN_WRAP
-  cv::Mat _dst;
-  (*self.ptr)->getGradientImage(_dst);
-  *dst = {new cv::Mat(_dst)};
-  END_WRAP
+
+CvStatus* cv_ximgproc_EdgeDrawing_getGradientImage(
+    EdgeDrawing self, Mat dst, CvCallback_0 callback
+) {
+    BEGIN_WRAP(CVDEREF(self))->getGradientImage(CVDEREF(dst));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_EdgeDrawing_getSegmentIndicesOfLines(EdgeDrawing self, VecI32 *rval) {
-  BEGIN_WRAP
-  std::vector<int> _rval = (*self.ptr)->getSegmentIndicesOfLines();
-  *rval = vecint_cpp2c(_rval);
-  END_WRAP
+
+CvStatus* cv_ximgproc_EdgeDrawing_getSegmentIndicesOfLines(
+    EdgeDrawing self, VecI32* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    std::vector<int> _rval = (CVDEREF(self))->getSegmentIndicesOfLines();
+    *rval = vecint_cpp2c(_rval);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_EdgeDrawing_getSegments(EdgeDrawing self, VecVecPoint *rval) {
-  BEGIN_WRAP
-  std::vector<std::vector<cv::Point>> _rval = (*self.ptr)->getSegments();
-  *rval = vecvecpoint_cpp2c(_rval);
-  END_WRAP
+
+CvStatus* cv_ximgproc_EdgeDrawing_getSegments(
+    EdgeDrawing self, VecVecPoint* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    std::vector<std::vector<cv::Point>> _rval = (CVDEREF(self))->getSegments();
+    *rval = vecvecpoint_cpp2c(_rval);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_EdgeDrawing_setParams(EdgeDrawing self, EdgeDrawingParams params) {
-  BEGIN_WRAP
-  cv::ximgproc::EdgeDrawing::Params _params;
-  _params.AnchorThresholdValue = params.AnchorThresholdValue;
-  _params.EdgeDetectionOperator = params.EdgeDetectionOperator;
-  _params.GradientThresholdValue = params.GradientThresholdValue;
-  _params.LineFitErrorThreshold = params.LineFitErrorThreshold;
-  _params.MaxDistanceBetweenTwoLines = params.MaxDistanceBetweenTwoLines;
-  _params.MaxErrorThreshold = params.MaxErrorThreshold;
-  _params.MinLineLength = params.MinLineLength;
-  _params.MinPathLength = params.MinPathLength;
-  _params.NFAValidation = params.NFAValidation;
-  _params.PFmode = params.PFmode;
-  _params.ScanInterval = params.ScanInterval;
-  _params.Sigma = params.Sigma;
-  _params.SumFlag = params.SumFlag;
-  (*self.ptr)->setParams(_params);
-  END_WRAP
+
+CvStatus* cv_ximgproc_EdgeDrawing_setParams(
+    EdgeDrawing self, EdgeDrawingParams params, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::ximgproc::EdgeDrawing::Params _params;
+    _params.AnchorThresholdValue = params.AnchorThresholdValue;
+    _params.EdgeDetectionOperator = params.EdgeDetectionOperator;
+    _params.GradientThresholdValue = params.GradientThresholdValue;
+    _params.LineFitErrorThreshold = params.LineFitErrorThreshold;
+    _params.MaxDistanceBetweenTwoLines = params.MaxDistanceBetweenTwoLines;
+    _params.MaxErrorThreshold = params.MaxErrorThreshold;
+    _params.MinLineLength = params.MinLineLength;
+    _params.MinPathLength = params.MinPathLength;
+    _params.NFAValidation = params.NFAValidation;
+    _params.PFmode = params.PFmode;
+    _params.ScanInterval = params.ScanInterval;
+    _params.Sigma = params.Sigma;
+    _params.SumFlag = params.SumFlag;
+    (CVDEREF(self))->setParams(_params);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_EdgeDrawing_getParams(EdgeDrawing self, EdgeDrawingParams *params) {
-  BEGIN_WRAP
-  cv::ximgproc::EdgeDrawing::Params _params = (*self.ptr)->params;
-  *params = {
-      _params.AnchorThresholdValue,
-      _params.EdgeDetectionOperator,
-      _params.GradientThresholdValue,
-      _params.LineFitErrorThreshold,
-      _params.MaxDistanceBetweenTwoLines,
-      _params.MaxErrorThreshold,
-      _params.MinLineLength,
-      _params.MinPathLength,
-      _params.NFAValidation,
-      _params.PFmode,
-      _params.ScanInterval,
-      _params.Sigma,
-      _params.SumFlag,
-  };
-  END_WRAP
+
+CvStatus* cv_ximgproc_EdgeDrawing_getParams(
+    EdgeDrawing self, EdgeDrawingParams* params, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::ximgproc::EdgeDrawing::Params _params = (CVDEREF(self))->params;
+    *params = {
+        _params.AnchorThresholdValue,
+        _params.EdgeDetectionOperator,
+        _params.GradientThresholdValue,
+        _params.LineFitErrorThreshold,
+        _params.MaxDistanceBetweenTwoLines,
+        _params.MaxErrorThreshold,
+        _params.MinLineLength,
+        _params.MinPathLength,
+        _params.NFAValidation,
+        _params.PFmode,
+        _params.ScanInterval,
+        _params.Sigma,
+        _params.SumFlag,
+    };
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
 
 // Binary morphology on run-length encoded image
-CvStatus *ximgproc_rl_createRLEImage(const VecPoint3i runs, Mat *res, CvSize size) {
-  BEGIN_WRAP
-  cv::Mat _res;
-  auto _runs = vecpoint3i_c2cpp(runs);
-  cv::ximgproc::rl::createRLEImage(_runs, _res, cv::Size(size.width, size.height));
-  *res = {new cv::Mat(_res)};
-  END_WRAP
-}
-CvStatus *ximgproc_rl_dilate(Mat rlSrc, Mat *rlDest, Mat rlKernel, CvPoint anchor) {
-  BEGIN_WRAP
-  cv::Mat _rlDest;
-  cv::ximgproc::rl::dilate(*rlSrc.ptr, _rlDest, *rlKernel.ptr, cv::Point(anchor.x, anchor.y));
-  *rlDest = {new cv::Mat(_rlDest)};
-  END_WRAP
-}
-CvStatus *ximgproc_rl_erode(Mat rlSrc, Mat *rlDest, Mat rlKernel, bool bBoundaryOn, CvPoint anchor) {
-  BEGIN_WRAP
-  cv::Mat _rlDest;
-  cv::ximgproc::rl::erode(
-      *rlSrc.ptr, _rlDest, *rlKernel.ptr, bBoundaryOn, cv::Point(anchor.x, anchor.y)
-  );
-  *rlDest = {new cv::Mat(_rlDest)};
-  END_WRAP
-}
-CvStatus *ximgproc_rl_getStructuringElement(int shape, CvSize ksize, Mat *rval) {
-  BEGIN_WRAP
-  cv::Mat _rval =
-      cv::ximgproc::rl::getStructuringElement(shape, cv::Size(ksize.width, ksize.height));
-  *rval = {new cv::Mat(_rval)};
-  END_WRAP
-}
-CvStatus *ximgproc_rl_isRLMorphologyPossible(Mat rlStructuringElement, bool *rval) {
-  BEGIN_WRAP
-  *rval = cv::ximgproc::rl::isRLMorphologyPossible(*rlStructuringElement.ptr);
-  END_WRAP
-}
-CvStatus *ximgproc_rl_morphologyEx(
-    Mat rlSrc, Mat *rlDest, int op, Mat rlKernel, bool bBoundaryOnForErosion, CvPoint anchor
+CvStatus* cv_ximgproc_rl_createRLEImage(
+    const VecPoint3i runs, Mat res, CvSize size, CvCallback_0 callback
 ) {
-  BEGIN_WRAP
-  cv::Mat _rlDest;
-  cv::ximgproc::rl::morphologyEx(
-      *rlSrc.ptr, _rlDest, op, *rlKernel.ptr, bBoundaryOnForErosion, cv::Point(anchor.x, anchor.y)
-  );
-  *rlDest = {new cv::Mat(_rlDest)};
-  END_WRAP
+    BEGIN_WRAP
+    auto _runs = vecpoint3i_c2cpp(runs);
+    cv::ximgproc::rl::createRLEImage(_runs, CVDEREF(res), cv::Size(size.width, size.height));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_rl_paint(Mat image, Mat rlSrc, const Scalar value) {
-  BEGIN_WRAP
-  cv::ximgproc::rl::paint(
-      *image.ptr, *rlSrc.ptr, cv::Scalar(value.val1, value.val2, value.val3, value.val4)
-  );
-  END_WRAP
+
+CvStatus* cv_ximgproc_rl_dilate(
+    Mat rlSrc, Mat rlDest, Mat rlKernel, CvPoint anchor, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::ximgproc::rl::dilate(
+        CVDEREF(rlSrc), CVDEREF(rlDest), CVDEREF(rlKernel), cv::Point(anchor.x, anchor.y)
+    );
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *ximgproc_rl_threshold(Mat src, Mat *rlDest, double thresh, int type) {
-  BEGIN_WRAP
-  cv::Mat _rlDest;
-  cv::ximgproc::rl::threshold(*src.ptr, _rlDest, thresh, type);
-  *rlDest = {new cv::Mat(_rlDest)};
-  END_WRAP
+
+CvStatus* cv_ximgproc_rl_erode(
+    Mat rlSrc, Mat rlDest, Mat rlKernel, bool bBoundaryOn, CvPoint anchor, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::ximgproc::rl::erode(
+        CVDEREF(rlSrc),
+        CVDEREF(rlDest),
+        CVDEREF(rlKernel),
+        bBoundaryOn,
+        cv::Point(anchor.x, anchor.y)
+    );
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_ximgproc_rl_getStructuringElement(
+    int shape, CvSize ksize, Mat rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::Mat _rval =
+        cv::ximgproc::rl::getStructuringElement(shape, cv::Size(ksize.width, ksize.height));
+    rval.ptr = new cv::Mat(_rval);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+bool cv_ximgproc_rl_isRLMorphologyPossible(Mat rlStructuringElement) {
+    BEGIN_WRAP
+    return cv::ximgproc::rl::isRLMorphologyPossible(CVDEREF(rlStructuringElement));
+    END_WRAP
+}
+
+CvStatus* cv_ximgproc_rl_morphologyEx(
+    Mat rlSrc,
+    Mat rlDest,
+    int op,
+    Mat rlKernel,
+    bool bBoundaryOnForErosion,
+    CvPoint anchor,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::ximgproc::rl::morphologyEx(
+        CVDEREF(rlSrc),
+        CVDEREF(rlDest),
+        op,
+        CVDEREF(rlKernel),
+        bBoundaryOnForErosion,
+        cv::Point(anchor.x, anchor.y)
+    );
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_ximgproc_rl_paint(Mat image, Mat rlSrc, const Scalar value, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::ximgproc::rl::paint(
+        CVDEREF(image), CVDEREF(rlSrc), cv::Scalar(value.val1, value.val2, value.val3, value.val4)
+    );
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_ximgproc_rl_threshold(
+    Mat src, Mat rlDest, double thresh, int type, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::ximgproc::rl::threshold(CVDEREF(src), CVDEREF(rlDest), thresh, type);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }

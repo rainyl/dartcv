@@ -14,19 +14,22 @@ extern "C" {
 #ifdef __cplusplus
 CVD_TYPEDEF(cv::Ptr<cv::xobjdetect::WBDetector>, PtrWBDetector)
 #else
-CVD_TYPEDEF(void *, PtrWBDetector)
+CVD_TYPEDEF(void*, PtrWBDetector)
 #endif
 
-CvStatus *WBDetector_Create(PtrWBDetector *rval);
-void      WBDetector_Close(PtrWBDetectorPtr self);
-CvStatus *WBDetector_Detect(PtrWBDetector *self, Mat img, CVD_OUT VecRect *bbox,
-                            CVD_OUT VecF64 *confidences);
-CvStatus *WBDetector_Train(PtrWBDetector *self, char *pos_samples, char *neg_imgs);
-CvStatus *WBDetector_Read(PtrWBDetector *self, char *filename);
-CvStatus *WBDetector_Write(PtrWBDetector *self, char *filename);
+CvStatus* cv_xobjdetect_WBDetector_create(PtrWBDetector* rval);
+void cv_xobjdetect_WBDetector_close(PtrWBDetectorPtr self);
+CvStatus* cv_xobjdetect_WBDetector_detect(
+    PtrWBDetector self, Mat img, CVD_OUT VecRect* bbox, CVD_OUT VecF64* confidences
+);
+CvStatus* cv_xobjdetect_WBDetector_train(
+    PtrWBDetector self, const char* pos_samples, const char* neg_imgs
+);
+CvStatus* cv_xobjdetect_WBDetector_read(PtrWBDetector self, const char* filename);
+CvStatus* cv_xobjdetect_WBDetector_write(PtrWBDetector self, const char* filename);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // CVD_XOBJDETECT_H
+#endif  // CVD_XOBJDETECT_H
