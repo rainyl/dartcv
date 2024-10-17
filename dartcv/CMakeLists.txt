@@ -20,11 +20,9 @@ endif ()
 
 # core includes core, imgcodecs
 set(_cpp_files
-        "core/core_async.cpp"
         "core/core.cpp"
         "core/exception.cpp"
         "core/logging.cpp"
-        "core/svd_async.cpp"
         "core/svd.cpp"
         "core/version.cpp"
         "imgcodecs/imgcodecs_async.cpp"

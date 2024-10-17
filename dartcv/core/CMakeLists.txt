@@ -24,21 +24,19 @@ elseif(IOS)
 endif()
 
 set(_cpp_files
-  "core_async.cpp"
-  "core.cpp"
+        "core.cpp"
   "exception.cpp"
   "logging.cpp"
-  "svd_async.cpp"
-  "svd.cpp"
+  "mat.cpp"
+        "svd.cpp"
   "version.cpp"
 )
 set(_header_files
-  "core_async.h"
-  "core.h"
+        "core.h"
   "exception.h"
   "logging.h"
-  "svd_async.h"
-  "svd.h"
+  "mat.h"
+        "svd.h"
   "version.h"
 )
 
