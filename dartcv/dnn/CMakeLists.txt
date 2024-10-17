@@ -24,12 +24,10 @@ elseif(IOS)
 endif()
 
 set(_cpp_files
-        "dnn_async.cpp"
-  "dnn.cpp"
+        "dnn.cpp"
 )
 set(_header_files
-        "dnn_async.h"
-  "dnn.h"
+        "dnn.h"
 )
 
 # provide include dir for other libs that depend on this one

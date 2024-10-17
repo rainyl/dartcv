@@ -53,7 +53,7 @@ endif ()
 
 # dnn
 if (DARTCV_WITH_DNN OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "dnn/dnn.cpp" "dnn/dnn_async.cpp")
+    set(_cpp_files ${_cpp_files} "dnn/dnn.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_dnn)
 endif ()
 
