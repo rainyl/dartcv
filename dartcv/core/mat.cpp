@@ -410,10 +410,10 @@ CvStatus* cv_Mat_convertTo_1(
     END_WRAP
 }
 
-CvStatus* cv_Mat_setTo(Mat self, Scalar value, CvCallback_0 callback){
+CvStatus* cv_Mat_setTo(Mat self, Scalar value, Mat mask, CvCallback_0 callback){
     BEGIN_WRAP
     cv::Scalar c_val(value.val1, value.val2, value.val3, value.val4);
-    self.ptr->setTo(c_val);
+    self.ptr->setTo(c_val, CVDEREF(mask));
     if (callback != nullptr) {
         callback();
     }
