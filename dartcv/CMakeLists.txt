@@ -100,7 +100,7 @@ endif ()
 
 # stitching
 if (DARTCV_WITH_STITCHING OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "stitching/stitching_async.cpp" "stitching/stitching.cpp")
+    set(_cpp_files ${_cpp_files} "stitching/stitching.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_stitching)
 endif ()
 
