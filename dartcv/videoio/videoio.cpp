@@ -9,159 +9,224 @@
 #include "dartcv/videoio/videoio.h"
 
 // VideoCapture
-CvStatus *VideoCapture_New(VideoCapture *rval) {
-  BEGIN_WRAP
-  *rval = {new cv::VideoCapture()};
-  END_WRAP
+CvStatus* cv_VideoCapture_create(VideoCapture* rval) {
+    BEGIN_WRAP
+    rval->ptr = new cv::VideoCapture();
+    END_WRAP
 }
-CvStatus *VideoCapture_NewFromFile(const char *filename, int apiPreference, VideoCapture *rval) {
-  BEGIN_WRAP
-  *rval = {new cv::VideoCapture(filename, apiPreference)};
-  END_WRAP
+CvStatus* cv_VideoCapture_create_1(
+    const char* filename, int apiPreference, VideoCapture* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::VideoCapture(filename, apiPreference);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *VideoCapture_NewFromIndex(int index, int apiPreference, VideoCapture *rval) {
-  BEGIN_WRAP
-  *rval = {new cv::VideoCapture(index, apiPreference)};
-  END_WRAP
+CvStatus* cv_VideoCapture_create_2(
+    int index, int apiPreference, VideoCapture* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::VideoCapture(index, apiPreference);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-void VideoCapture_Close(VideoCapturePtr self) { CVD_FREE(self); }
-
-CvStatus *VideoCapture_Open(VideoCapture self, const char *uri, bool *rval) {
-  BEGIN_WRAP
-  *rval = self.ptr->open(uri);
-  END_WRAP
-}
-CvStatus *
-VideoCapture_OpenWithAPI(VideoCapture self, const char *uri, int apiPreference, bool *rval) {
-  BEGIN_WRAP
-  *rval = self.ptr->open(uri, apiPreference);
-  END_WRAP
-}
-CvStatus *VideoCapture_OpenDevice(VideoCapture self, int device, bool *rval) {
-  BEGIN_WRAP
-  *rval = self.ptr->open(device);
-  END_WRAP
-}
-CvStatus *
-VideoCapture_OpenDeviceWithAPI(VideoCapture self, int device, int apiPreference, bool *rval) {
-  BEGIN_WRAP
-  *rval = self.ptr->open(device, apiPreference);
-  END_WRAP
-}
-CvStatus *VideoCapture_Set(VideoCapture self, int prop, double param) {
-  BEGIN_WRAP
-  self.ptr->set(prop, param);
-  END_WRAP
-}
-CvStatus *VideoCapture_Get(VideoCapture self, int prop, double *rval) {
-  BEGIN_WRAP
-  *rval = self.ptr->get(prop);
-  END_WRAP
-}
-CvStatus *VideoCapture_IsOpened(VideoCapture self, int *rval) {
-  BEGIN_WRAP
-  *rval = self.ptr->isOpened();
-  END_WRAP
-}
-CvStatus *VideoCapture_Read(VideoCapture self, Mat buf, int *rval) {
-  BEGIN_WRAP
-  *rval = self.ptr->read(*buf.ptr);
-  END_WRAP
-}
-CvStatus *VideoCapture_Release(VideoCapture self) {
-  BEGIN_WRAP
-  self.ptr->release();
-  END_WRAP
-}
-CvStatus *VideoCapture_Grab(VideoCapture self, int skip) {
-  BEGIN_WRAP
-  self.ptr->grab();
-  END_WRAP
+void cv_VideoCapture_close(VideoCapturePtr self) {
+    CVD_FREE(self);
 }
 
-CvStatus *VideoCapture_getBackendName(VideoCapture self, char **rval) {
-  BEGIN_WRAP
-  *rval = strdup(self.ptr->getBackendName().c_str());
-  END_WRAP
+CvStatus* cv_VideoCapture_open(
+    VideoCapture self, const char* uri, bool* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    *rval = self.ptr->open(uri);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+CvStatus* cv_VideoCapture_open_1(
+    VideoCapture self, const char* uri, int apiPreference, bool* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    *rval = self.ptr->open(uri, apiPreference);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+CvStatus* cv_VideoCapture_open_2(VideoCapture self, int device, bool* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    *rval = self.ptr->open(device);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+CvStatus* cv_VideoCapture_open_3(
+    VideoCapture self, int device, int apiPreference, bool* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    *rval = self.ptr->open(device, apiPreference);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+void cv_VideoCapture_set(VideoCapture self, int prop, double val) {
+    self.ptr->set(prop, val);
+}
+double cv_VideoCapture_get(VideoCapture self, int prop) {
+    return self.ptr->get(prop);
+}
+bool cv_VideoCapture_isOpened(VideoCapture self) {
+    return self.ptr->isOpened();
+}
+CvStatus* cv_VideoCapture_read(VideoCapture self, Mat buf, int* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    *rval = self.ptr->read(CVDEREF(buf));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+CvStatus* cv_VideoCapture_release(VideoCapture self) {
+    BEGIN_WRAP
+    self.ptr->release();
+    END_WRAP
+}
+CvStatus* cv_VideoCapture_grab(VideoCapture self, CvCallback_0 callback) {
+    BEGIN_WRAP
+    self.ptr->grab();
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_VideoCapture_retrieve(
+    VideoCapture self, Mat image, int flag, bool* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    *rval = self.ptr->retrieve(CVDEREF(image), flag);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+const char* cv_VideoCapture_getBackendName(VideoCapture self) {
+    return self.ptr->getBackendName().c_str();
 }
 
 // VideoWriter
-CvStatus *VideoWriter_New(VideoWriter *rval) {
-  BEGIN_WRAP
-  *rval = {new cv::VideoWriter()};
-  END_WRAP
+CvStatus* cv_VideoWriter_create(VideoWriter* rval) {
+    BEGIN_WRAP
+    rval->ptr = new cv::VideoWriter();
+    END_WRAP
 }
-CvStatus *VideoWriter_NewFromFile(
-    const char *name, int fourcc, double fps, int width, int height, bool isColor, VideoWriter *rval
+CvStatus* cv_VideoWriter_create_1(
+    const char* name,
+    int fourcc,
+    double fps,
+    int width,
+    int height,
+    bool isColor,
+    VideoWriter* rval,
+    CvCallback_0 callback
 ) {
-  BEGIN_WRAP
-  *rval = {new cv::VideoWriter(name, fourcc, fps, cv::Size(width, height), isColor)};
-  END_WRAP
+    BEGIN_WRAP
+    rval->ptr = new cv::VideoWriter(name, fourcc, fps, cv::Size(width, height), isColor);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
 
-CvStatus *VideoWriter_NewFromFile_1(
-    const char *name,
+CvStatus* cv_VideoWriter_create_2(
+    const char* name,
     int apiPreference,
     int fourcc,
     double fps,
     int width,
     int height,
     bool isColor,
-    VideoWriter *rval
+    VideoWriter* rval,
+    CvCallback_0 callback
 ) {
-  BEGIN_WRAP
-  *rval = {new cv::VideoWriter(name, apiPreference, fourcc, fps, cv::Size(width, height), isColor)};
-  END_WRAP
+    BEGIN_WRAP
+    rval->ptr =
+        new cv::VideoWriter(name, apiPreference, fourcc, fps, cv::Size(width, height), isColor);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
 
-void VideoWriter_Close(VideoWriterPtr self) { CVD_FREE(self); }
-
-CvStatus *VideoWriter_Open(
-    VideoWriter self, const char *name, int fourcc, double fps, int width, int height, bool isColor
-) {
-  BEGIN_WRAP
-  self.ptr->open(name, fourcc, fps, cv::Size(width, height), isColor);
-  END_WRAP
+void cv_VideoWriter_close(VideoWriterPtr self) {
+    CVD_FREE(self);
 }
 
-CvStatus *VideoWriter_Open_1(
+CvStatus* cv_VideoWriter_open(
     VideoWriter self,
-    const char *name,
+    const char* name,
+    int fourcc,
+    double fps,
+    int width,
+    int height,
+    bool isColor,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    self.ptr->open(name, fourcc, fps, cv::Size(width, height), isColor);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_VideoWriter_open_1(
+    VideoWriter self,
+    const char* name,
     int apiPreference,
     int fourcc,
     double fps,
     int width,
     int height,
-    bool isColor
+    bool isColor,
+    CvCallback_0 callback
 ) {
-  BEGIN_WRAP
-  self.ptr->open(name, apiPreference, fourcc, fps, cv::Size(width, height), isColor);
-  END_WRAP
+    BEGIN_WRAP
+    self.ptr->open(name, apiPreference, fourcc, fps, cv::Size(width, height), isColor);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
 
-CvStatus *VideoWriter_IsOpened(VideoWriter self, int *rval) {
-  BEGIN_WRAP
-  *rval = self.ptr->isOpened();
-  END_WRAP
+bool cv_VideoWriter_isOpened(VideoWriter self) {
+    return self.ptr->isOpened();
 }
-CvStatus *VideoWriter_Write(VideoWriter self, Mat img) {
-  BEGIN_WRAP
-  self.ptr->write(*img.ptr);
-  END_WRAP
+CvStatus* cv_VideoWriter_write(VideoWriter self, Mat img, CvCallback_0 callback) {
+    BEGIN_WRAP
+    self.ptr->write(CVDEREF(img));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
-CvStatus *VideoWriter_Release(VideoWriter self) {
-  BEGIN_WRAP
-  self.ptr->release();
-  END_WRAP
+CvStatus* cv_VideoWriter_release(VideoWriter self) {
+    BEGIN_WRAP
+    self.ptr->release();
+    END_WRAP
 }
-CvStatus *VideoWriter_Fourcc(char c1, char c2, char c3, char c4, int *rval) {
-  BEGIN_WRAP
-  *rval = cv::VideoWriter::fourcc(c1, c2, c3, c4);
-  END_WRAP
+int cv_VideoWriter_fourcc(char c1, char c2, char c3, char c4) {
+    return cv::VideoWriter::fourcc(c1, c2, c3, c4);
 }
 
-CvStatus *VideoWriter_getBackendName(VideoWriter self, char **rval) {
-  BEGIN_WRAP
-  *rval = strdup(self.ptr->getBackendName().c_str());
-  END_WRAP
+const char* cv_VideoWriter_getBackendName(VideoWriter self) {
+    return self.ptr->getBackendName().c_str();
 }

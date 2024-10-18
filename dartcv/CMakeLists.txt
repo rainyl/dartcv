@@ -106,7 +106,7 @@ endif ()
 
 # videoio
 if (DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "videoio/videoio.cpp" "videoio/videoio_async.cpp")
+    set(_cpp_files ${_cpp_files} "videoio/videoio.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_videoio ${FFMPEG_LIBRARIES})
 endif ()
 
