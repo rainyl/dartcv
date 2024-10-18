@@ -285,45 +285,45 @@ void cv_Mat_set_Vec3d(Mat self, int i0, int i1, Vec3d val);
 void cv_Mat_set_Vec4d(Mat self, int i0, int i1, Vec4d val);
 void cv_Mat_set_Vec6d(Mat self, int i0, int i1, Vec6d val);
 
-CvStatus* cv_Mat_op_add_mat(Mat self, Mat val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_sub_mat(Mat self, Mat val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_mul_mat(Mat self, Mat val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_div_mat(Mat self, Mat val, CvCallback_0 callback);
+CvStatus* cv_Mat_op_add_mat(Mat self, Mat val);
+CvStatus* cv_Mat_op_sub_mat(Mat self, Mat val);
+CvStatus* cv_Mat_op_mul_mat(Mat self, Mat val);
+CvStatus* cv_Mat_op_div_mat(Mat self, Mat val);
 
-CvStatus* cv_Mat_op_add_u8(Mat self, uint8_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_sub_u8(Mat self, uint8_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_mul_u8(Mat self, uint8_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_div_u8(Mat self, uint8_t val, CvCallback_0 callback);
+CvStatus* cv_Mat_op_add_u8(Mat self, uint8_t val);
+CvStatus* cv_Mat_op_sub_u8(Mat self, uint8_t val);
+CvStatus* cv_Mat_op_mul_u8(Mat self, uint8_t val);
+CvStatus* cv_Mat_op_div_u8(Mat self, uint8_t val);
 
-CvStatus* cv_Mat_op_add_i8(Mat self, int8_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_sub_i8(Mat self, int8_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_mul_i8(Mat self, int8_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_div_i8(Mat self, int8_t val, CvCallback_0 callback);
+CvStatus* cv_Mat_op_add_i8(Mat self, int8_t val);
+CvStatus* cv_Mat_op_sub_i8(Mat self, int8_t val);
+CvStatus* cv_Mat_op_mul_i8(Mat self, int8_t val);
+CvStatus* cv_Mat_op_div_i8(Mat self, int8_t val);
 
-CvStatus* cv_Mat_op_add_i16(Mat self, int16_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_sub_i16(Mat self, int16_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_mul_i16(Mat self, int16_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_div_i16(Mat self, int16_t val, CvCallback_0 callback);
+CvStatus* cv_Mat_op_add_i16(Mat self, int16_t val);
+CvStatus* cv_Mat_op_sub_i16(Mat self, int16_t val);
+CvStatus* cv_Mat_op_mul_i16(Mat self, int16_t val);
+CvStatus* cv_Mat_op_div_i16(Mat self, int16_t val);
 
-CvStatus* cv_Mat_op_add_u16(Mat self, uint16_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_sub_u16(Mat self, uint16_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_mul_u16(Mat self, uint16_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_div_u16(Mat self, uint16_t val, CvCallback_0 callback);
+CvStatus* cv_Mat_op_add_u16(Mat self, uint16_t val);
+CvStatus* cv_Mat_op_sub_u16(Mat self, uint16_t val);
+CvStatus* cv_Mat_op_mul_u16(Mat self, uint16_t val);
+CvStatus* cv_Mat_op_div_u16(Mat self, uint16_t val);
 
-CvStatus* cv_Mat_op_add_i32(Mat self, int32_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_sub_i32(Mat self, int32_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_mul_i32(Mat self, int32_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_div_i32(Mat self, int32_t val, CvCallback_0 callback);
+CvStatus* cv_Mat_op_add_i32(Mat self, int32_t val);
+CvStatus* cv_Mat_op_sub_i32(Mat self, int32_t val);
+CvStatus* cv_Mat_op_mul_i32(Mat self, int32_t val);
+CvStatus* cv_Mat_op_div_i32(Mat self, int32_t val);
 
-CvStatus* cv_Mat_op_add_f32(Mat self, float_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_sub_f32(Mat self, float_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_mul_f32(Mat self, float_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_div_f32(Mat self, float_t val, CvCallback_0 callback);
+CvStatus* cv_Mat_op_add_f32(Mat self, float_t val);
+CvStatus* cv_Mat_op_sub_f32(Mat self, float_t val);
+CvStatus* cv_Mat_op_mul_f32(Mat self, float_t val);
+CvStatus* cv_Mat_op_div_f32(Mat self, float_t val);
 
-CvStatus* cv_Mat_op_add_f64(Mat self, double_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_sub_f64(Mat self, double_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_mul_f64(Mat self, double_t val, CvCallback_0 callback);
-CvStatus* cv_Mat_op_div_f64(Mat self, double_t val, CvCallback_0 callback);
+CvStatus* cv_Mat_op_add_f64(Mat self, double_t val);
+CvStatus* cv_Mat_op_sub_f64(Mat self, double_t val);
+CvStatus* cv_Mat_op_mul_f64(Mat self, double_t val);
+CvStatus* cv_Mat_op_div_f64(Mat self, double_t val);
 
 /*
  * element-wise
