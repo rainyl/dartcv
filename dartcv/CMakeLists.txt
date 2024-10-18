@@ -76,7 +76,7 @@ endif ()
 
 # imgproc
 if (DARTCV_WITH_IMGPROC OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "imgproc/imgproc_async.cpp" "imgproc/imgproc.cpp")
+    set(_cpp_files ${_cpp_files} "imgproc/imgproc.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_imgproc)
 endif ()
 

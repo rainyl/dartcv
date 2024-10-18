@@ -24,12 +24,10 @@ elseif(IOS)
 endif()
 
 set(_cpp_files
-  "imgproc_async.cpp"
-  "imgproc.cpp"
+        "imgproc.cpp"
 )
 set(_header_files
-  "imgproc_async.h"
-  "imgproc.h"
+        "imgproc.h"
 )
 
 # provide include dir for other libs that depend on this one
