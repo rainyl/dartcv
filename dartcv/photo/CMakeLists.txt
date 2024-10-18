@@ -24,12 +24,10 @@ elseif(IOS)
 endif()
 
 set(_cpp_files
-  "photo_async.cpp"
-  "photo.cpp"
+        "photo.cpp"
 )
 set(_header_files
-  "photo_async.h"
-  "photo.h"
+        "photo.h"
 )
 
 # provide include dir for other libs that depend on this one

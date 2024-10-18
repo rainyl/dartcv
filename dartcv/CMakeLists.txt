@@ -94,7 +94,7 @@ endif ()
 
 # photo
 if (DARTCV_WITH_PHOTO OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "photo/photo_async.cpp" "photo/photo.cpp")
+    set(_cpp_files ${_cpp_files} "photo/photo.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_photo)
 endif ()
 
