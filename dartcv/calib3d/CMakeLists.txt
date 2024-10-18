@@ -24,12 +24,10 @@ elseif(IOS)
 endif()
 
 set(_cpp_files
-  "calib3d_async.cpp"
-  "calib3d.cpp"
+        "calib3d.cpp"
 )
 set(_header_files
-  "calib3d_async.h"
-  "calib3d.h"
+        "calib3d.h"
 )
 
 # provide include dir for other libs that depend on this one

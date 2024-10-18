@@ -5,9 +5,8 @@
     Modified by Rainyl.
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
-#pragma once
-#ifndef _OPENCV3_HIGHGUI_H_
-#define _OPENCV3_HIGHGUI_H_
+#ifndef CVD_HIGHGUI_H_
+#define CVD_HIGHGUI_H_
 
 #ifdef __cplusplus
 #include <opencv2/highgui.hpp>
@@ -16,30 +15,66 @@ extern "C" {
 
 #include "dartcv/core/types.h"
 
+typedef void (*cv_ButtonCallback)(int state, void* userdata);
+typedef void (*cv_MouseCallback)(int event, int x, int y, int flags, void* userdata);
+typedef void (*cv_OpenGlDrawCallback)(void* userdata);
+typedef void (*cv_TrackbarCallback)(int pos, void* userdata);
+
+const char* cv_currentUIFramework();
+int cv_getMouseWheelDelta(int flags);
+int cv_pollKey();
+int cv_waitKey(int delay);
+int cv_waitKeyEx(int delay);
+
 // Window
-CvStatus *Window_New(const char *winname, int flags);
-void      Window_Close(const char *winname);
-CvStatus *Window_IMShow(const char *winname, Mat mat);
-CvStatus *Window_GetProperty(const char *winname, int flag, double *rval);
-CvStatus *Window_SetProperty(const char *winname, int flag, double value);
-CvStatus *Window_SetTitle(const char *winname, const char *title);
-CvStatus *Window_WaitKey(int delay, int *rval);
-CvStatus *Window_Move(const char *winname, int x, int y);
-CvStatus *Window_Resize(const char *winname, int width, int height);
-CvStatus *Window_SelectROI(const char *winname, Mat img, CvRect *rval);
-CvStatus *Window_SelectROIs(const char *winname, Mat img, VecRect *rval);
-CvStatus *destroyAllWindows();
+CvStatus* cv_namedWindow(const char* winname, int flags);
+CvStatus* cv_destroyWindow(const char* winname);
+CvStatus* cv_destroyAllWindows();
+CvStatus* cv_imshow(const char* winname, Mat mat);
+CvStatus* cv_getWindowImageRect(const char* winname, CvRect* rval);
+CvStatus* cv_getWindowProperty(const char* winname, int flag, double* rval);
+CvStatus* cv_setMouseCallback(const char* winname, cv_MouseCallback onMouse, void* userdata);
+CvStatus* cv_setWindowProperty(const char* winname, int flag, double value);
+CvStatus* cv_setWindowTitle(const char* winname, const char* title);
+CvStatus* cv_moveWindow(const char* winname, int x, int y);
+CvStatus* cv_resizeWindow(const char* winname, int width, int height);
+CvStatus* cv_selectROI(
+    const char* winname,
+    Mat img,
+    bool showCrosshair,
+    bool fromCenter,
+    bool printNotice,
+    CvRect* rval
+);
+CvStatus* cv_selectROI_1(
+    Mat img, bool showCrosshair, bool fromCenter, bool printNotice, CvRect* rval
+);
+CvStatus* cv_selectROIs(
+    const char* winname,
+    Mat img,
+    VecRect* rval,
+    bool showCrosshair,
+    bool fromCenter,
+    bool printNotice
+);
 
 // Trackbar
-CvStatus *Trackbar_Create(const char *winname, const char *trackname, int max);
-CvStatus *Trackbar_CreateWithValue(const char *winname, const char *trackname, int *value, int max);
-CvStatus *Trackbar_GetPos(const char *winname, const char *trackname, int *rval);
-CvStatus *Trackbar_SetPos(const char *winname, const char *trackname, int pos);
-CvStatus *Trackbar_SetMin(const char *winname, const char *trackname, int pos);
-CvStatus *Trackbar_SetMax(const char *winname, const char *trackname, int pos);
+CvStatus* cv_createTrackbar(const char* winname, const char* trackname, int max);
+CvStatus* cv_createTrackbar_1(
+    const char* winname,
+    const char* trackname,
+    int* value,
+    int max,
+    cv_TrackbarCallback onChange,
+    void* userdata
+);
+CvStatus* cv_getTrackbarPos(const char* winname, const char* trackname, int* rval);
+CvStatus* cv_setTrackbarPos(const char* winname, const char* trackname, int pos);
+CvStatus* cv_setTrackbarMin(const char* winname, const char* trackname, int val);
+CvStatus* cv_setTrackbarMax(const char* winname, const char* trackname, int val);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif //_OPENCV3_HIGHGUI_H_
+#endif  //CVD_HIGHGUI_H_

@@ -24,12 +24,10 @@ elseif(IOS)
 endif()
 
 set(_cpp_files
-  "stitching_async.cpp"
-  "stitching.cpp"
+        "stitching.cpp"
 )
 set(_header_files
-  "stitching_async.h"
-  "stitching.h"
+        "stitching.h"
 )
 
 # provide include dir for other libs that depend on this one

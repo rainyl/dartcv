@@ -8,20 +8,20 @@
 
 #include "dartcv/core/svd.h"
 
-CvStatus *SVD_Compute(Mat src, Mat *w, Mat *u, Mat *vt, int flags) {
-  BEGIN_WRAP
-  cv::Mat _w, _u, _vt;
-  cv::SVD::compute(*src.ptr, _w, _u, _vt, flags);
-  *w = {new cv::Mat(_w)};
-  *u = {new cv::Mat(_u)};
-  *vt = {new cv::Mat(_vt)};
-  END_WRAP
+CvStatus* cv_SVD_Compute(Mat src, Mat w_r, Mat u_r, Mat vt_r, int flags, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::SVD::compute(*src.ptr, CVDEREF(w_r), CVDEREF(u_r), CVDEREF(vt_r), flags);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
 
-CvStatus *SVD_backSubst(Mat w, Mat u, Mat vt, Mat rhs, Mat *dst) {
-  BEGIN_WRAP
-  cv::Mat _dst;
-  cv::SVD::backSubst(*w.ptr, *u.ptr, *vt.ptr, *rhs.ptr, _dst);
-  *dst = {new cv::Mat(_dst)};
-  END_WRAP
+CvStatus* cv_SVD_backSubst(Mat w, Mat u, Mat vt, Mat rhs, Mat dst, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::SVD::backSubst(*w.ptr, *u.ptr, *vt.ptr, *rhs.ptr, CVDEREF(dst));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }

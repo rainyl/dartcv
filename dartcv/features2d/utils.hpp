@@ -4,7 +4,7 @@
 #include "dartcv/features2d/features2d.h"
 #include <opencv2/features2d.hpp>
 
-inline cv::SimpleBlobDetector::Params ConvertCParamsToCPPParams(SimpleBlobDetectorParams params)
+inline cv::SimpleBlobDetector::Params SimpleBlobDetectorParams_c2cpp(SimpleBlobDetectorParams params)
 {
   cv::SimpleBlobDetector::Params converted;
 
@@ -31,7 +31,7 @@ inline cv::SimpleBlobDetector::Params ConvertCParamsToCPPParams(SimpleBlobDetect
   return converted;
 }
 
-inline SimpleBlobDetectorParams ConvertCPPParamsToCParams(cv::SimpleBlobDetector::Params params)
+inline SimpleBlobDetectorParams SimpleBlobDetectorParams_cpp2c(cv::SimpleBlobDetector::Params params)
 {
   SimpleBlobDetectorParams converted;
 

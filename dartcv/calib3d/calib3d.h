@@ -15,36 +15,58 @@ extern "C" {
 #endif
 #include "dartcv/core/types.h"
 #include <stddef.h>
+
 // Calib
-CvStatus *Fisheye_UndistortImage(Mat distorted, Mat undistorted, Mat k, Mat d);
-CvStatus *
-Fisheye_UndistortImageWithParams(Mat distorted, Mat *undistorted, Mat k, Mat d, Mat knew, CvSize size);
-CvStatus *Fisheye_UndistortPoints(Mat distorted, Mat undistorted, Mat k, Mat d, Mat R, Mat P);
-CvStatus *Fisheye_EstimateNewCameraMatrixForUndistortRectify(
-    Mat k, Mat d, CvSize imgSize, Mat r, Mat p, double balance, CvSize newSize, double fovScale
+CvStatus* cv_fisheye_undistortImage(
+    Mat distorted, Mat undistorted, Mat k, Mat d, CvCallback_0 callback
+);
+CvStatus* cv_fisheye_undistortImage_1(
+    Mat distorted,
+    Mat undistorted,
+    Mat k,
+    Mat d,
+    Mat knew,
+    CvSize size,
+    CvCallback_0 callback
+);
+CvStatus* cv_fisheye_undistortPoints(
+    Mat distorted, Mat undistorted, Mat k, Mat d, Mat R, Mat P, CvCallback_0 callback
+);
+CvStatus* cv_fisheye_estimateNewCameraMatrixForUndistortRectify(
+    Mat k,
+    Mat d,
+    CvSize imgSize,
+    Mat r,
+    Mat p,
+    double balance,
+    CvSize newSize,
+    double fovScale,
+    CvCallback_0 callback
 );
 
-CvStatus *InitUndistortRectifyMap(
+CvStatus* cv_initUndistortRectifyMap(
     Mat cameraMatrix,
     Mat distCoeffs,
     Mat r,
     Mat newCameraMatrix,
     CvSize size,
     int m1type,
-    Mat *map1,
-    Mat *map2
+    Mat map1,
+    Mat map2,
+    CvCallback_0 callback
 );
-CvStatus *GetOptimalNewCameraMatrixWithParams(
+CvStatus* cv_getOptimalNewCameraMatrix(
     Mat cameraMatrix,
     Mat distCoeffs,
     CvSize size,
     double alpha,
     CvSize newImgSize,
-    CvRect *validPixROI,
+    CvRect* validPixROI,
     bool centerPrincipalPoint,
-    Mat *rval
+    Mat rval,
+    CvCallback_0 callback
 );
-CvStatus *CalibrateCamera(
+CvStatus* cv_calibrateCamera(
     VecVecPoint3f objectPoints,
     VecVecPoint2f imagePoints,
     CvSize imageSize,
@@ -54,17 +76,63 @@ CvStatus *CalibrateCamera(
     Mat tvecs,
     int flag,
     TermCriteria criteria,
-    double *rval
+    double* rval,
+    CvCallback_0 callback
 );
-CvStatus *Undistort(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, Mat newCameraMatrix);
-CvStatus *UndistortPoints(Mat distorted, Mat undistorted, Mat k, Mat d, Mat r, Mat p, TermCriteria criteria);
-CvStatus *FindChessboardCorners(Mat image, CvSize patternSize, Mat corners, int flags, bool *rval);
-CvStatus *FindChessboardCornersSB(Mat image, CvSize patternSize, Mat corners, int flags, bool *rval);
-CvStatus *
-FindChessboardCornersSBWithMeta(Mat image, CvSize patternSize, Mat corners, int flags, Mat meta, bool *rval);
-CvStatus *DrawChessboardCorners(Mat image, CvSize patternSize, Mat corners, bool patternWasFound);
-CvStatus *EstimateAffinePartial2D(VecPoint2f from, VecPoint2f to, Mat *rval);
-CvStatus *EstimateAffinePartial2DWithParams(
+CvStatus* cv_undistort(
+    Mat src,
+    Mat dst,
+    Mat cameraMatrix,
+    Mat distCoeffs,
+    Mat newCameraMatrix,
+    CvCallback_0 callback
+);
+CvStatus* cv_undistortPoints(
+    Mat distorted,
+    Mat undistorted,
+    Mat k,
+    Mat d,
+    Mat r,
+    Mat p,
+    TermCriteria criteria,
+    CvCallback_0 callback
+);
+CvStatus* cv_findChessboardCorners(
+    Mat image,
+    CvSize patternSize,
+    Mat corners,
+    int flags,
+    bool* rval,
+    CvCallback_0 callback
+);
+CvStatus* cv_findChessboardCornersSB(
+    Mat image,
+    CvSize patternSize,
+    Mat corners,
+    int flags,
+    bool* rval,
+    CvCallback_0 callback
+);
+CvStatus* cv_FindChessboardCornersSB_1(
+    Mat image,
+    CvSize patternSize,
+    Mat corners,
+    int flags,
+    Mat meta,
+    bool* rval,
+    CvCallback_0 callback
+);
+CvStatus* cv_drawChessboardCorners(
+    Mat image,
+    CvSize patternSize,
+    Mat corners,
+    bool patternWasFound,
+    CvCallback_0 callback
+);
+CvStatus* cv_estimateAffinePartial2D(
+    VecPoint2f from, VecPoint2f to, Mat rval, CvCallback_0 callback
+);
+CvStatus* cv_estimateAffinePartial2D_1(
     VecPoint2f from,
     VecPoint2f to,
     Mat inliers,
@@ -73,10 +141,13 @@ CvStatus *EstimateAffinePartial2DWithParams(
     size_t maxIters,
     double confidence,
     size_t refineIters,
-    Mat *rval
+    Mat rval,
+    CvCallback_0 callback
 );
-CvStatus *EstimateAffine2D(VecPoint2f from, VecPoint2f to, Mat *rval);
-CvStatus *EstimateAffine2DWithParams(
+CvStatus* cv_estimateAffine2D(
+    VecPoint2f from, VecPoint2f to, Mat rval, CvCallback_0 callback
+);
+CvStatus* cv_estimateAffine2D_1(
     VecPoint2f from,
     VecPoint2f to,
     Mat inliers,
@@ -85,9 +156,10 @@ CvStatus *EstimateAffine2DWithParams(
     size_t maxIters,
     double confidence,
     size_t refineIters,
-    Mat *rval
+    Mat rval,
+    CvCallback_0 callback
 );
-CvStatus *FindHomography(
+CvStatus* cv_findHomography(
     Mat src,
     Mat dst,
     int method,
@@ -95,10 +167,11 @@ CvStatus *FindHomography(
     Mat mask,
     const int maxIters,
     const double confidence,
-    Mat *rval
+    Mat rval,
+    CvCallback_0 callback
 );
 #ifdef __cplusplus
 }
 #endif
 
-#endif //_OPENCV3_CALIB_H
+#endif  //_OPENCV3_CALIB_H

@@ -24,12 +24,10 @@ elseif(IOS)
 endif()
 
 set(_cpp_files
-  "imgcodecs_async.cpp"
-  "imgcodecs.cpp"
+        "imgcodecs.cpp"
 )
 set(_header_files
-  "imgcodecs_async.h"
-  "imgcodecs.h"
+        "imgcodecs.h"
 )
 
 # provide include dir for other libs that depend on this one

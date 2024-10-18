@@ -24,12 +24,10 @@ elseif(IOS)
 endif()
 
 set(_cpp_files
-  "objdetect_async.cpp"
-  "objdetect.cpp"
+        "objdetect.cpp"
 )
 set(_header_files
-  "objdetect_async.h"
-  "objdetect.h"
+        "objdetect.h"
 )
 
 # provide include dir for other libs that depend on this one

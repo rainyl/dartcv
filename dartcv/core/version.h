@@ -5,8 +5,8 @@
     Modified by Rainyl.
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
-#ifndef _OPENCV3_VERSION_H_
-#define _OPENCV3_VERSION_H_
+#ifndef CVD_VERSION_H_
+#define CVD_VERSION_H_
 
 #ifdef __cplusplus
 #include <opencv2/core.hpp>
@@ -15,14 +15,11 @@ extern "C" {
 
 #include "dartcv/core/core.h"
 
-CvStatus *openCVVersion(const char **rval);
-CvStatus *openCVVersion_Async(CvCallback_1 callback);
-
-CvStatus *getBuildInfo(const char **rval);
-CvStatus *getBuildInfo_Async(CvCallback_1 callback);
+const char* getCvVersion();
+const char* getBuildInfo();
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif //_OPENCV3_VERSION_H_
+#endif  //CVD_VERSION_H_

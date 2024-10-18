@@ -31,36 +31,50 @@ CVD_TYPEDEF(void, BlockMeanHash);
 #endif
 
 enum {
-  /** use fewer block and generate 16*16/8 uchar hash value */
-  BLOCK_MEAN_HASH_MODE_0 = 0,
-  /** use block blocks(step sizes/2), generate 31*31/8 + 1 uchar hash value */
-  BLOCK_MEAN_HASH_MODE_1 = 1
+    /** use fewer block and generate 16*16/8 uchar hash value */
+    BLOCK_MEAN_HASH_MODE_0 = 0,
+    /** use block blocks(step sizes/2), generate 31*31/8 + 1 uchar hash value */
+    BLOCK_MEAN_HASH_MODE_1 = 1
 };
 
-CvStatus *pHashCompute(Mat inputArr, Mat *outputArr);
-CvStatus *pHashCompare(Mat a, Mat b, double *rval);
+CvStatus* cv_img_hash_pHash_compute(Mat inputArr, Mat outputArr, CvCallback_0 callback);
+CvStatus* cv_img_hash_pHash_compare(Mat a, Mat b, double* rval, CvCallback_0 callback);
 
-CvStatus *averageHashCompute(Mat inputArr, Mat *outputArr);
-CvStatus *averageHashCompare(Mat a, Mat b, double *rval);
+CvStatus* cv_img_hash_averageHash_compute(Mat inputArr, Mat outputArr, CvCallback_0 callback);
+CvStatus* cv_img_hash_averageHash_compare(Mat a, Mat b, double* rval, CvCallback_0 callback);
 
-CvStatus *BlockMeanHash_Create(int mode, BlockMeanHash *rval);
-CvStatus *BlockMeanHash_GetMean(BlockMeanHash self, double **rval, size_t *length);
-CvStatus *BlockMeanHash_SetMode(BlockMeanHash self, int mode);
-void BlockMeanHash_Close(BlockMeanHashPtr self);
-CvStatus *BlockMeanHash_Compute(BlockMeanHash self, Mat inputArr, Mat *outputArr);
-CvStatus *BlockMeanHash_Compare(BlockMeanHash self, Mat hashOne, Mat hashTwo, double *rval);
+CvStatus* cv_img_hash_BlockMeanHash_create(int mode, BlockMeanHash* rval, CvCallback_0 callback);
+CvStatus* cv_img_hash_BlockMeanHash_getMean(
+    BlockMeanHash self, VecF64* rval, CvCallback_0 callback
+);
+CvStatus* cv_img_hash_BlockMeanHash_setMode(BlockMeanHash self, int mode, CvCallback_0 callback);
+void cv_img_hash_BlockMeanHash_close(BlockMeanHashPtr self);
+CvStatus* cv_img_hash_BlockMeanHash_compute(
+    BlockMeanHash self, Mat inputArr, Mat outputArr, CvCallback_0 callback
+);
+CvStatus* cv_img_hash_BlockMeanHash_compare(
+    BlockMeanHash self, Mat hashOne, Mat hashTwo, double* rval, CvCallback_0 callback
+);
 
-CvStatus *colorMomentHashCompute(Mat inputArr, Mat *outputArr);
-CvStatus *colorMomentHashCompare(Mat a, Mat b, double *rval);
+CvStatus* cv_img_hash_colorMomentHash_compute(Mat inputArr, Mat outputArr, CvCallback_0 callback);
+CvStatus* cv_img_hash_colorMomentHash_compare(Mat a, Mat b, double* rval, CvCallback_0 callback);
 
-CvStatus *marrHildrethHashCompute(Mat inputArr, Mat *outputArr, float alpha, float scale);
-CvStatus *marrHildrethHashCompare(Mat a, Mat b, float alpha, float scale, double *rval);
+CvStatus* cv_img_hash_marrHildrethHash_compute(
+    Mat inputArr, Mat outputArr, float alpha, float scale, CvCallback_0 callback
+);
+CvStatus* cv_img_hash_marrHildrethHash_compare(
+    Mat a, Mat b, float alpha, float scale, double* rval, CvCallback_0 callback
+);
 
-CvStatus *radialVarianceHashCompute(Mat inputArr, Mat *outputArr, double sigma, int numOfAngleLine);
-CvStatus *radialVarianceHashCompare(Mat a, Mat b, double sigma, int numOfAngleLine, double *rval);
+CvStatus* cv_img_hash_radialVarianceHash_compute(
+    Mat inputArr, Mat outputArr, double sigma, int numOfAngleLine, CvCallback_0 callback
+);
+CvStatus* cv_img_hash_radialVarianceHash_compare(
+    Mat a, Mat b, double sigma, int numOfAngleLine, double* rval, CvCallback_0 callback
+);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // OCV_DART_IMG_HASH_H
+#endif  // OCV_DART_IMG_HASH_H

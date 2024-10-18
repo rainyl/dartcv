@@ -25,29 +25,19 @@ endif()
 
 set(_cpp_files
   "aruco.cpp"
-  "aruco_async.cpp"
-  "img_hash.cpp"
-  "img_hash_async.cpp"
-  "quality.cpp"
-  "quality_async.cpp"
-  "wechat_qrcode.cpp"
-  "wechat_qrcode_async.cpp"
-  "ximgproc.cpp"
-  "ximgproc_async.cpp"
-  "xobjdetect.cpp"
+        "img_hash.cpp"
+        "quality.cpp"
+        "wechat_qrcode.cpp"
+        "ximgproc.cpp"
+        "xobjdetect.cpp"
 )
 set(_header_files
   "aruco.h"
-  "aruco_async.h"
-  "img_hash.h"
-  "img_hash_async.h"
-  "quality.h"
-  "quality_async.h"
-  "wechat_qrcode.h"
-  "wechat_qrcode_async.h"
-  "ximgproc.h"
-  "ximgproc_async.h"
-  "xobjdetect.h"
+        "img_hash.h"
+        "quality.h"
+        "wechat_qrcode.h"
+        "ximgproc.h"
+        "xobjdetect.h"
 )
 
 # provide include dir for other libs that depend on this one

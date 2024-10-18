@@ -20,21 +20,18 @@ endif ()
 
 # core includes core, imgcodecs
 set(_cpp_files
-        "core/core_async.cpp"
         "core/core.cpp"
         "core/exception.cpp"
         "core/logging.cpp"
-        "core/svd_async.cpp"
         "core/svd.cpp"
         "core/version.cpp"
-        "imgcodecs/imgcodecs_async.cpp"
         "imgcodecs/imgcodecs.cpp"
 )
 set(DARTCV_DEPS opencv_core opencv_imgcodecs)
 
 # calib3d
 if (DARTCV_WITH_CALIB3D OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "calib3d/calib3d_async.cpp" "calib3d/calib3d.cpp")
+    set(_cpp_files ${_cpp_files} "calib3d/calib3d.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_calib3d)
 endif ()
 
@@ -42,15 +39,10 @@ endif ()
 if (DARTCV_WITH_CONTRIB OR DARTCV_WORLD)
     set(_cpp_files ${_cpp_files}
             "contrib/aruco.cpp"
-            "contrib/aruco_async.cpp"
             "contrib/img_hash.cpp"
-            "contrib/img_hash_async.cpp"
             "contrib/quality.cpp"
-            "contrib/quality_async.cpp"
             "contrib/wechat_qrcode.cpp"
-            "contrib/wechat_qrcode_async.cpp"
             "contrib/ximgproc.cpp"
-            "contrib/ximgproc_async.cpp"
             "contrib/xobjdetect.cpp"
     )
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_aruco opencv_img_hash opencv_quality
@@ -60,13 +52,13 @@ endif ()
 
 # dnn
 if (DARTCV_WITH_DNN OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "dnn/dnn.cpp" "dnn/dnn_async.cpp")
+    set(_cpp_files ${_cpp_files} "dnn/dnn.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_dnn)
 endif ()
 
 # features2d
 if (DARTCV_WITH_FEATURES2D OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "features2d/features2d_async.cpp" "features2d/features2d.cpp")
+    set(_cpp_files ${_cpp_files} "features2d/features2d.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_features2d)
 endif ()
 
@@ -84,37 +76,37 @@ endif ()
 
 # imgproc
 if (DARTCV_WITH_IMGPROC OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "imgproc/imgproc_async.cpp" "imgproc/imgproc.cpp")
+    set(_cpp_files ${_cpp_files} "imgproc/imgproc.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_imgproc)
 endif ()
 
 # video
 if (DARTCV_WITH_VIDEO OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "video/video.cpp" "video/video_async.cpp")
+    set(_cpp_files ${_cpp_files} "video/video.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_video)
 endif ()
 
 # objdetect
 if (DARTCV_WITH_OBJDETECT OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "objdetect/objdetect.cpp" "objdetect/objdetect_async.cpp")
+    set(_cpp_files ${_cpp_files} "objdetect/objdetect.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_objdetect)
 endif ()
 
 # photo
 if (DARTCV_WITH_PHOTO OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "photo/photo_async.cpp" "photo/photo.cpp")
+    set(_cpp_files ${_cpp_files} "photo/photo.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_photo)
 endif ()
 
 # stitching
 if (DARTCV_WITH_STITCHING OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "stitching/stitching_async.cpp" "stitching/stitching.cpp")
+    set(_cpp_files ${_cpp_files} "stitching/stitching.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_stitching)
 endif ()
 
 # videoio
 if (DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "videoio/videoio.cpp" "videoio/videoio_async.cpp")
+    set(_cpp_files ${_cpp_files} "videoio/videoio.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_videoio ${FFMPEG_LIBRARIES})
 endif ()
 
