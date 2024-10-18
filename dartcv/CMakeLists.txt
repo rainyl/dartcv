@@ -82,7 +82,7 @@ endif ()
 
 # video
 if (DARTCV_WITH_VIDEO OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "video/video.cpp" "video/video_async.cpp")
+    set(_cpp_files ${_cpp_files} "video/video.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_video)
 endif ()
 

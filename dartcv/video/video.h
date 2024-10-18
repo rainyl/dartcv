@@ -6,8 +6,8 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#ifndef _OPENCV3_VIDEO_H_
-#define _OPENCV3_VIDEO_H_
+#ifndef CVD_VIDEO_H_
+#define CVD_VIDEO_H_
 
 #include "dartcv/core/types.h"
 
@@ -32,37 +32,48 @@ CVD_TYPEDEF(void, TrackerGOTURN);
 CVD_TYPEDEF(void, KalmanFilter);
 #endif
 
-CvStatus *BackgroundSubtractorMOG2_Create(BackgroundSubtractorMOG2 *rval);
-CvStatus *BackgroundSubtractorMOG2_CreateWithParams(
-    int history, double varThreshold, bool detectShadows, BackgroundSubtractorMOG2 *rval
+CvStatus* cv_BackgroundSubtractorMOG2_create(BackgroundSubtractorMOG2* rval);
+CvStatus* cv_BackgroundSubtractorMOG2_create_1(
+    int history, double varThreshold, bool detectShadows, BackgroundSubtractorMOG2* rval
 );
-void BackgroundSubtractorMOG2_Close(BackgroundSubtractorMOG2Ptr self);
-CvStatus *BackgroundSubtractorMOG2_Apply(BackgroundSubtractorMOG2 self, Mat src, Mat dst);
+void cv_BackgroundSubtractorMOG2_close(BackgroundSubtractorMOG2Ptr self);
+CvStatus* cv_BackgroundSubtractorMOG2_apply(
+    BackgroundSubtractorMOG2 self, Mat src, Mat dst, CvCallback_0 callback
+);
 
-CvStatus *BackgroundSubtractorKNN_Create(BackgroundSubtractorKNN *rval);
-CvStatus *BackgroundSubtractorKNN_CreateWithParams(
-    int history, double dist2Threshold, bool detectShadows, BackgroundSubtractorKNN *rval
+CvStatus* cv_BackgroundSubtractorKNN_create(BackgroundSubtractorKNN* rval);
+CvStatus* cv_BackgroundSubtractorKNN_create_1(
+    int history, double dist2Threshold, bool detectShadows, BackgroundSubtractorKNN* rval
 );
-void BackgroundSubtractorKNN_Close(BackgroundSubtractorKNNPtr self);
-CvStatus *BackgroundSubtractorKNN_Apply(BackgroundSubtractorKNN self, Mat src, Mat dst);
+void cv_BackgroundSubtractorKNN_close(BackgroundSubtractorKNNPtr self);
+CvStatus* cv_BackgroundSubtractorKNN_apply(
+    BackgroundSubtractorKNN self, Mat src, Mat dst, CvCallback_0 callback
+);
 
-CvStatus *CalcOpticalFlowPyrLK(
-    Mat prevImg, Mat nextImg, VecPoint2f prevPts, VecPoint2f *nextPts, VecUChar *status, VecF32 *err
-);
-CvStatus *CalcOpticalFlowPyrLKWithParams(
+CvStatus* cv_calcOpticalFlowPyrLK(
     Mat prevImg,
     Mat nextImg,
     VecPoint2f prevPts,
-    VecPoint2f *nextPts,
-    VecUChar *status,
-    VecF32 *err,
+    VecPoint2f* nextPts,
+    VecUChar* status,
+    VecF32* err,
+    CvCallback_0 callback
+);
+CvStatus* cv_calcOpticalFlowPyrLK_1(
+    Mat prevImg,
+    Mat nextImg,
+    VecPoint2f prevPts,
+    VecPoint2f* nextPts,
+    VecUChar* status,
+    VecF32* err,
     CvSize winSize,
     int maxLevel,
     TermCriteria criteria,
     int flags,
-    double minEigThreshold
+    double minEigThreshold,
+    CvCallback_0 callback
 );
-CvStatus *CalcOpticalFlowFarneback(
+CvStatus* cv_calcOpticalFlowFarneback(
     Mat prevImg,
     Mat nextImg,
     Mat flow,
@@ -72,10 +83,11 @@ CvStatus *CalcOpticalFlowFarneback(
     int iterations,
     int polyN,
     double polySigma,
-    int flags
+    int flags,
+    CvCallback_0 callback
 );
 
-CvStatus *FindTransformECC(
+CvStatus* cv_findTransformECC(
     Mat templateImage,
     Mat inputImage,
     Mat warpMatrix,
@@ -83,56 +95,70 @@ CvStatus *FindTransformECC(
     TermCriteria criteria,
     Mat inputMask,
     int gaussFiltSize,
-    double *rval
+    double* rval,
+    CvCallback_0 callback
 );
 
-CvStatus *TrackerMIL_Init(TrackerMIL self, Mat image, CvRect bbox);
-CvStatus *TrackerMIL_Update(TrackerMIL self, Mat image, CvRect *boundingBox, bool *rval);
-CvStatus *TrackerMIL_Create(TrackerMIL *rval);
-void TrackerMIL_Close(TrackerMILPtr self);
-
-CvStatus *KalmanFilter_New(
-    int dynamParams, int measureParams, int controlParams, int type, KalmanFilter *rval
+CvStatus* cv_TrackerMIL_create(TrackerMIL* rval);
+CvStatus* cv_TrackerMIL_init(TrackerMIL self, Mat image, CvRect bbox, CvCallback_0 callback);
+CvStatus* cv_TrackerMIL_update(
+    TrackerMIL self, Mat image, CvRect* boundingBox, bool* rval, CvCallback_0 callback
 );
-void KalmanFilter_Close(KalmanFilterPtr self);
+void cv_TrackerMIL_close(TrackerMILPtr self);
 
-CvStatus *KalmanFilter_Init(KalmanFilter self, int dynamParams, int measureParams);
-CvStatus *KalmanFilter_InitWithParams(
-    KalmanFilter self, int dynamParams, int measureParams, int controlParams, int type
+CvStatus* cv_KalmanFilter_create(
+    int dynamParams, int measureParams, int controlParams, int type, KalmanFilter* rval
 );
-CvStatus *KalmanFilter_Predict(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_PredictWithParams(KalmanFilter self, Mat control, Mat *rval);
-CvStatus *KalmanFilter_Correct(KalmanFilter self, Mat measurement, Mat *rval);
+void cv_KalmanFilter_close(KalmanFilterPtr self);
 
-CvStatus *KalmanFilter_GetStatePre(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_GetStatePost(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_GetTransitionMatrix(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_GetControlMatrix(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_GetMeasurementMatrix(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_GetProcessNoiseCov(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_GetMeasurementNoiseCov(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_GetErrorCovPre(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_GetGain(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_GetErrorCovPost(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_GetTemp1(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_GetTemp2(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_GetTemp3(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_GetTemp4(KalmanFilter self, Mat *rval);
-CvStatus *KalmanFilter_GetTemp5(KalmanFilter self, Mat *rval);
+CvStatus* cv_KalmanFilter_init(
+    KalmanFilter self, int dynamParams, int measureParams, CvCallback_0 callback
+);
+CvStatus* cv_KalmanFilter_init_1(
+    KalmanFilter self,
+    int dynamParams,
+    int measureParams,
+    int controlParams,
+    int type,
+    CvCallback_0 callback
+);
+CvStatus* cv_KalmanFilter_predict(KalmanFilter self, Mat rval, CvCallback_0 callback);
+CvStatus* cv_KalmanFilter_predict_1(
+    KalmanFilter self, Mat control, Mat rval, CvCallback_0 callback
+);
+CvStatus* cv_KalmanFilter_correct(
+    KalmanFilter self, Mat measurement, Mat rval, CvCallback_0 callback
+);
 
-CvStatus *KalmanFilter_SetStatePre(KalmanFilter self, Mat statePre);
-CvStatus *KalmanFilter_SetStatePost(KalmanFilter self, Mat statePost);
-CvStatus *KalmanFilter_SetTransitionMatrix(KalmanFilter self, Mat transitionMatrix);
-CvStatus *KalmanFilter_SetControlMatrix(KalmanFilter self, Mat controlMatrix);
-CvStatus *KalmanFilter_SetMeasurementMatrix(KalmanFilter self, Mat measurementMatrix);
-CvStatus *KalmanFilter_SetProcessNoiseCov(KalmanFilter self, Mat processNoiseCov);
-CvStatus *KalmanFilter_SetMeasurementNoiseCov(KalmanFilter self, Mat measurementNoiseCov);
-CvStatus *KalmanFilter_SetErrorCovPre(KalmanFilter self, Mat errorCovPre);
-CvStatus *KalmanFilter_SetGain(KalmanFilter self, Mat gain);
-CvStatus *KalmanFilter_SetErrorCovPost(KalmanFilter self, Mat errorCovPost);
+CvStatus* cv_KalmanFilter_get_statePre(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_statePost(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_transitionMatrix(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_controlMatrix(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_measurementMatrix(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_processNoiseCov(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_measurementNoiseCov(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_errorCovPre(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_gain(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_errorCovPost(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_temp1(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_temp2(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_temp3(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_temp4(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_temp5(KalmanFilter self, Mat rval);
+
+CvStatus* cv_KalmanFilter_set_statePre(KalmanFilter self, Mat statePre);
+CvStatus* cv_KalmanFilter_set_statePost(KalmanFilter self, Mat statePost);
+CvStatus* cv_KalmanFilter_set_transitionMatrix(KalmanFilter self, Mat transitionMatrix);
+CvStatus* cv_KalmanFilter_set_controlMatrix(KalmanFilter self, Mat controlMatrix);
+CvStatus* cv_KalmanFilter_set_measurementMatrix(KalmanFilter self, Mat measurementMatrix);
+CvStatus* cv_KalmanFilter_set_processNoiseCov(KalmanFilter self, Mat processNoiseCov);
+CvStatus* cv_KalmanFilter_set_measurementNoiseCov(KalmanFilter self, Mat measurementNoiseCov);
+CvStatus* cv_KalmanFilter_set_errorCovPre(KalmanFilter self, Mat errorCovPre);
+CvStatus* cv_KalmanFilter_set_gain(KalmanFilter self, Mat gain);
+CvStatus* cv_KalmanFilter_set_errorCovPost(KalmanFilter self, Mat errorCovPost);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif //_OPENCV3_VIDEO_H_
+#endif  //CVD_VIDEO_H_

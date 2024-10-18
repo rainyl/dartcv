@@ -24,12 +24,10 @@ elseif(IOS)
 endif()
 
 set(_cpp_files
-  "video_async.cpp"
-  "video.cpp"
+        "video.cpp"
 )
 set(_header_files
-  "video_async.h"
-  "video.h"
+        "video.h"
 )
 
 # provide include dir for other libs that depend on this one
