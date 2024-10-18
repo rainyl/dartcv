@@ -25,7 +25,6 @@ set(_cpp_files
         "core/logging.cpp"
         "core/svd.cpp"
         "core/version.cpp"
-        "imgcodecs/imgcodecs_async.cpp"
         "imgcodecs/imgcodecs.cpp"
 )
 set(DARTCV_DEPS opencv_core opencv_imgcodecs)
