@@ -88,7 +88,7 @@ endif ()
 
 # objdetect
 if (DARTCV_WITH_OBJDETECT OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "objdetect/objdetect.cpp" "objdetect/objdetect_async.cpp")
+    set(_cpp_files ${_cpp_files} "objdetect/objdetect.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_objdetect)
 endif ()
 

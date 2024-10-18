@@ -6,8 +6,8 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#ifndef _OPENCV3_OBJDETECT_H_
-#define _OPENCV3_OBJDETECT_H_
+#ifndef CVD_OBJDETECT_H_
+#define CVD_OBJDETECT_H_
 
 #include <stdbool.h>
 #ifdef __cplusplus
@@ -30,34 +30,59 @@ CVD_TYPEDEF(cv::Ptr<cv::FaceRecognizerSF>, FaceRecognizerSF);
 CVD_TYPEDEF(void, CascadeClassifier);
 CVD_TYPEDEF(void, HOGDescriptor);
 CVD_TYPEDEF(void, QRCodeDetector);
-CVD_TYPEDEF(void *, FaceDetectorYN);
-CVD_TYPEDEF(void *, FaceRecognizerSF);
+CVD_TYPEDEF(void*, FaceDetectorYN);
+CVD_TYPEDEF(void*, FaceRecognizerSF);
 #endif
 
 // CascadeClassifier
-CvStatus *CascadeClassifier_New(CascadeClassifier *rval);
-CvStatus *CascadeClassifier_NewFromFile(char *filename, CascadeClassifier *rval);
-void      CascadeClassifier_Close(CascadeClassifierPtr self);
-CvStatus *CascadeClassifier_Load(CascadeClassifier self, const char *name, int *rval);
-CvStatus *CascadeClassifier_DetectMultiScale(CascadeClassifier self, Mat img, VecRect *rval);
-CvStatus *CascadeClassifier_DetectMultiScaleWithParams(CascadeClassifier self, Mat img, VecRect *objects,
-                                                       double scale, int minNeighbors, int flags,
+CvStatus* cv_CascadeClassifier_create(CascadeClassifier* rval);
+CvStatus* cv_CascadeClassifier_create_1(const char* filename, CascadeClassifier* rval);
+void cv_CascadeClassifier_close(CascadeClassifierPtr self);
+CvStatus* cv_CascadeClassifier_load(CascadeClassifier self, const char* name, int* rval);
+CvStatus* cv_CascadeClassifier_detectMultiScale(
+    CascadeClassifier self, Mat img, VecRect* rval, CvCallback_0 callback
+);
+CvStatus* cv_CascadeClassifier_detectMultiScale_1(
+    CascadeClassifier self,
+    Mat img,
+    VecRect* objects,
+    double scale,
+    int minNeighbors,
+    int flags,
     CvSize minSize,
-    CvSize maxSize);
-CvStatus *CascadeClassifier_DetectMultiScale2(CascadeClassifier self, Mat img, VecRect *objects,
-                                              VecI32 *numDetections, double scaleFactor, int minNeighbors,
-                                              int flags,
+    CvSize maxSize,
+    CvCallback_0 callback
+);
+CvStatus* cv_CascadeClassifier_detectMultiScale_2(
+    CascadeClassifier self,
+    Mat img,
+    VecRect* objects,
+    VecI32* numDetections,
+    double scaleFactor,
+    int minNeighbors,
+    int flags,
     CvSize minSize,
-    CvSize maxSize);
-CvStatus *CascadeClassifier_DetectMultiScale3(CascadeClassifier self, Mat img, VecRect *objects,
-                                              VecI32 *rejectLevels, VecF64 *levelWeights,
-                                              double scaleFactor, int minNeighbors, int flags,
+    CvSize maxSize,
+    CvCallback_0 callback
+);
+CvStatus* cv_CascadeClassifier_detectMultiScale_3(
+    CascadeClassifier self,
+    Mat img,
+    VecRect* objects,
+    VecI32* rejectLevels,
+    VecF64* levelWeights,
+    double scaleFactor,
+    int minNeighbors,
+    int flags,
     CvSize minSize,
-    CvSize maxSize, bool outputRejectLevels);
-CvStatus *CascadeClassifier_Empty(CascadeClassifier self, bool *rval);
-CvStatus *CascadeClassifier_getFeatureType(CascadeClassifier self, int *rval);
-CvStatus *CascadeClassifier_getOriginalWindowSize(CascadeClassifier self, CvSize *rval);
-CvStatus *CascadeClassifier_isOldFormatCascade(CascadeClassifier self, bool *rval);
+    CvSize maxSize,
+    bool outputRejectLevels,
+    CvCallback_0 callback
+);
+CvStatus* cv_CascadeClassifier_empty(CascadeClassifier self, bool* rval);
+CvStatus* cv_CascadeClassifier_getFeatureType(CascadeClassifier self, int* rval);
+CvStatus* cv_CascadeClassifier_getOriginalWindowSize(CascadeClassifier self, CvSize* rval);
+CvStatus* cv_CascadeClassifier_isOldFormatCascade(CascadeClassifier self, bool* rval);
 
 // HOGDescriptor
 // struct for detection region of interest (ROI)
@@ -66,29 +91,66 @@ CvStatus *CascadeClassifier_isOldFormatCascade(CascadeClassifier self, bool *rva
 //   VecPoint  locations;
 //   double    scale;
 // } DetectionROI;
-CvStatus *HOGDescriptor_New(HOGDescriptor *rval);
-CvStatus *HOGDescriptor_NewFromFile(char *filename, HOGDescriptor *rval);
-void      HOGDescriptor_Close(HOGDescriptorPtr self);
-CvStatus *HOGDescriptor_Load(HOGDescriptor self, char *name, bool *rval);
-CvStatus *HOGDescriptor_Detect(HOGDescriptor self, Mat img, VecPoint *foundLocations, VecF64 *weights,
-                               double hitThresh,
+CvStatus* cv_HOGDescriptor_create(HOGDescriptor* rval);
+CvStatus* cv_HOGDescriptor_create_1(const char* filename, HOGDescriptor* rval);
+void cv_HOGDescriptor_close(HOGDescriptorPtr self);
+CvStatus* cv_HOGDescriptor_load(HOGDescriptor self, const char* name, bool* rval);
+CvStatus* cv_HOGDescriptor_detect(
+    HOGDescriptor self,
+    Mat img,
+    VecPoint* foundLocations,
+    VecF64* weights,
+    double hitThresh,
     CvSize winStride,
-    CvSize padding, VecPoint *searchLocations);
-CvStatus *HOGDescriptor_Detect2(HOGDescriptor self, Mat img, VecPoint *foundLocations, double hitThresh,
+    CvSize padding,
+    VecPoint* searchLocations,
+    CvCallback_0 callback
+);
+CvStatus* cv_HOGDescriptor_detect2(
+    HOGDescriptor self,
+    Mat img,
+    VecPoint* foundLocations,
+    double hitThresh,
     CvSize winStride,
-    CvSize padding, VecPoint *searchLocations);
-CvStatus *HOGDescriptor_DetectMultiScale(HOGDescriptor self, Mat img, VecRect *rval);
-CvStatus *HOGDescriptor_DetectMultiScaleWithParams(HOGDescriptor self, Mat img, double hitThresh,
+    CvSize padding,
+    VecPoint* searchLocations,
+    CvCallback_0 callback
+);
+CvStatus* cv_HOGDescriptor_detectMultiScale(
+    HOGDescriptor self, Mat img, VecRect* rval, CvCallback_0 callback
+);
+CvStatus* cv_HOGDescriptor_detectMultiScale_1(
+    HOGDescriptor self,
+    Mat img,
+    double hitThresh,
     CvSize winStride,
-    CvSize padding, double scale,
-                                                   double finalThreshold, bool useMeanshiftGrouping,
-                                                   VecRect *rval);
-CvStatus *HOG_GetDefaultPeopleDetector(VecF32 *rval);
-CvStatus *HOGDescriptor_SetSVMDetector(HOGDescriptor self, VecF32 det);
-CvStatus *HOGDescriptor_Compute(HOGDescriptor self, Mat img, VecF32 *descriptors,
+    CvSize padding,
+    double scale,
+    double finalThreshold,
+    bool useMeanshiftGrouping,
+    VecRect* rval,
+    CvCallback_0 callback
+);
+CvStatus* cv_HOGDescriptor_getDefaultPeopleDetector(VecF32* rval, CvCallback_0 callback);
+CvStatus* cv_HOGDescriptor_setSVMDetector(HOGDescriptor self, VecF32 det);
+CvStatus* cv_HOGDescriptor_compute(
+    HOGDescriptor self,
+    Mat img,
+    VecF32* descriptors,
     CvSize winStride,
-    CvSize padding, VecPoint *locations);
-CvStatus *HOGDescriptor_computeGradient(HOGDescriptor self, Mat img, Mat grad, Mat angleOfs, CvSize paddingTL, CvSize paddingBR);
+    CvSize padding,
+    VecPoint* locations,
+    CvCallback_0 callback
+);
+CvStatus* cv_HOGDescriptor_computeGradient(
+    HOGDescriptor self,
+    Mat img,
+    Mat grad,
+    Mat angleOfs,
+    CvSize paddingTL,
+    CvSize paddingBR,
+    CvCallback_0 callback
+);
 // CvStatus *HOGDescriptor_detectMultiScaleROI(HOGDescriptor self, Mat img, VecRect *foundLocations,
 //                                            DetectionROI *locations, int *lenLocations, double hitThreshold,
 //                                            int groupThreshold);
@@ -96,62 +158,130 @@ CvStatus *HOGDescriptor_computeGradient(HOGDescriptor self, Mat img, Mat grad, M
 // *foundLocations,
 //                                  VecF64 *confidences, double hitThreshold, CvSize winStride, CvSize
 //                                  padding);
-CvStatus *HOGDescriptor_getDaimlerPeopleDetector(VecF32 *rval);
-CvStatus *HOGDescriptor_getDescriptorSize(HOGDescriptor self, size_t *rval);
-CvStatus *HOGDescriptor_getWinSigma(HOGDescriptor self, double *rval);
-CvStatus *HOGDescriptor_groupRectangles(HOGDescriptor self, VecRect *rectList, VecF64 *weights,
-                                        int groupThreshold, double eps);
-CvStatus *GroupRectangles(VecRect *rects, int groupThreshold, double eps);
+CvStatus* cv_HOGDescriptor_getDaimlerPeopleDetector(VecF32* rval, CvCallback_0 callback);
+CvStatus* cv_HOGDescriptor_getDescriptorSize(HOGDescriptor self, size_t* rval);
+CvStatus* cv_HOGDescriptor_getWinSigma(HOGDescriptor self, double* rval);
+CvStatus* cv_HOGDescriptor_groupRectangles(
+    HOGDescriptor self,
+    VecRect* rectList,
+    VecF64* weights,
+    int groupThreshold,
+    double eps,
+    CvCallback_0 callback
+);
+CvStatus* cv_groupRectangles(VecRect* rects, int groupThreshold, double eps, CvCallback_0 callback);
 
 // QRCodeDetector
-CvStatus *QRCodeDetector_New(QRCodeDetector *rval);
-void      QRCodeDetector_Close(QRCodeDetectorPtr self);
-CvStatus *QRCodeDetector_DetectAndDecode(QRCodeDetector self, Mat input, VecPoint *points,
-                                         Mat *straight_qrcode, char **rval);
-CvStatus *QRCodeDetector_Detect(QRCodeDetector self, Mat input, VecPoint *points, bool *rval);
-CvStatus *QRCodeDetector_Decode(QRCodeDetector self, Mat input, VecPoint *points, Mat straight_qrcode,
-                                char **rval);
-CvStatus *QRCodeDetector_decodeCurved(QRCodeDetector self, Mat img, VecPoint points,
-                                      CVD_OUT Mat *straight_qrcode, char **rval);
-CvStatus *QRCodeDetector_detectAndDecodeCurved(QRCodeDetector self, Mat img, VecPoint *points,
-                                               CVD_OUT Mat *straight_qrcode, char **rval);
-CvStatus *QRCodeDetector_DetectMulti(QRCodeDetector self, Mat input, VecPoint *points, bool *rval);
-CvStatus *QRCodeDetector_DetectAndDecodeMulti(QRCodeDetector self, Mat input, VecVecChar *decoded,
-                                              VecPoint *points, VecMat *straight_code, bool *rval);
-CvStatus *QRCodeDetector_setEpsX(QRCodeDetector self, double epsX);
-CvStatus *QRCodeDetector_setEpsY(QRCodeDetector self, double epsY);
-CvStatus *QRCodeDetector_setUseAlignmentMarkers(QRCodeDetector self, bool useAlignmentMarkers);
+CvStatus* cv_QRCodeDetector_create(QRCodeDetector* rval);
+void cv_QRCodeDetector_close(QRCodeDetectorPtr self);
+CvStatus* cv_QRCodeDetector_detectAndDecode(
+    QRCodeDetector self,
+    Mat input,
+    VecPoint* points,
+    Mat* straight_qrcode,
+    char** rval,
+    CvCallback_0 callback
+);
+CvStatus* cv_QRCodeDetector_detect(
+    QRCodeDetector self, Mat input, VecPoint* points, bool* rval, CvCallback_0 callback
+);
+CvStatus* cv_QRCodeDetector_decode(
+    QRCodeDetector self,
+    Mat input,
+    VecPoint* points,
+    Mat straight_qrcode,
+    char** rval,
+    CvCallback_0 callback
+);
+CvStatus* cv_QRCodeDetector_decodeCurved(
+    QRCodeDetector self,
+    Mat img,
+    VecPoint points,
+    CVD_OUT Mat* straight_qrcode,
+    char** rval,
+    CvCallback_0 callback
+);
+CvStatus* cv_QRCodeDetector_detectAndDecodeCurved(
+    QRCodeDetector self,
+    Mat img,
+    VecPoint* points,
+    CVD_OUT Mat* straight_qrcode,
+    char** rval,
+    CvCallback_0 callback
+);
+CvStatus* cv_QRCodeDetector_detectMulti(
+    QRCodeDetector self, Mat input, VecPoint* points, bool* rval, CvCallback_0 callback
+);
+CvStatus* cv_QRCodeDetector_detectAndDecodeMulti(
+    QRCodeDetector self,
+    Mat input,
+    VecVecChar* decoded,
+    VecPoint* points,
+    VecMat* straight_code,
+    bool* rval,
+    CvCallback_0 callback
+);
+CvStatus* cv_QRCodeDetector_setEpsX(QRCodeDetector self, double epsX);
+CvStatus* cv_QRCodeDetector_setEpsY(QRCodeDetector self, double epsY);
+CvStatus* cv_QRCodeDetector_setUseAlignmentMarkers(QRCodeDetector self, bool useAlignmentMarkers);
 
 // FaceDetectorYN
-CvStatus *FaceDetectorYN_New(const char *model, const char *config,
-    CvSize input_size, float score_threshold,
-                             float nms_threshold, int top_k, int backend_id, int target_id,
-                             FaceDetectorYN *rval);
-CvStatus *FaceDetectorYN_NewFromBuffer(const char *framework, VecUChar buffer, VecUChar buffer_config,
-    CvSize input_size, float score_threshold, float nms_threshold, int top_k,
-                                       int backend_id, int target_id, FaceDetectorYN *rval);
-void      FaceDetectorYN_Close(FaceDetectorYNPtr self);
-CvStatus *FaceDetectorYN_Detect(FaceDetectorYN self, Mat img, Mat *faces);
-CvStatus *FaceDetectorYN_SetInputSize(FaceDetectorYN self, CvSize input_size);
-CvStatus *FaceDetectorYN_SetScoreThreshold(FaceDetectorYN self, float score_threshold);
-CvStatus *FaceDetectorYN_SetNMSThreshold(FaceDetectorYN self, float nms_threshold);
-CvStatus *FaceDetectorYN_SetTopK(FaceDetectorYN self, int top_k);
-CvStatus *FaceDetectorYN_GetInputSize(FaceDetectorYN self, CvSize *input_size);
-CvStatus *FaceDetectorYN_GetScoreThreshold(FaceDetectorYN self, float *score_threshold);
-CvStatus *FaceDetectorYN_GetNMSThreshold(FaceDetectorYN self, float *nms_threshold);
-CvStatus *FaceDetectorYN_GetTopK(FaceDetectorYN self, int *top_k);
+CvStatus* cv_FaceDetectorYN_create(
+    const char* model,
+    const char* config,
+    CvSize input_size,
+    float score_threshold,
+    float nms_threshold,
+    int top_k,
+    int backend_id,
+    int target_id,
+    FaceDetectorYN* rval
+);
+CvStatus* cv_FaceDetectorYN_create_1(
+    const char* framework,
+    VecUChar buffer,
+    VecUChar buffer_config,
+    CvSize input_size,
+    float score_threshold,
+    float nms_threshold,
+    int top_k,
+    int backend_id,
+    int target_id,
+    FaceDetectorYN* rval
+);
+void cv_FaceDetectorYN_close(FaceDetectorYNPtr self);
+CvStatus* cv_FaceDetectorYN_detect(FaceDetectorYN self, Mat img, Mat* faces, CvCallback_0 callback);
+CvStatus* cv_FaceDetectorYN_setInputSize(FaceDetectorYN self, CvSize input_size);
+CvStatus* cv_FaceDetectorYN_setScoreThreshold(FaceDetectorYN self, float score_threshold);
+CvStatus* cv_FaceDetectorYN_setNMSThreshold(FaceDetectorYN self, float nms_threshold);
+CvStatus* cv_FaceDetectorYN_setTopK(FaceDetectorYN self, int top_k);
+CvStatus* cv_FaceDetectorYN_getInputSize(FaceDetectorYN self, CvSize* input_size);
+CvStatus* cv_FaceDetectorYN_getScoreThreshold(FaceDetectorYN self, float* score_threshold);
+CvStatus* cv_FaceDetectorYN_getNMSThreshold(FaceDetectorYN self, float* nms_threshold);
+CvStatus* cv_FaceDetectorYN_getTopK(FaceDetectorYN self, int* top_k);
 
 // FaceRecognizerSF
-CvStatus *FaceRecognizerSF_New(const char *model, const char *config, int backend_id, int target_id,
-                               FaceRecognizerSF *rval);
-void      FaceRecognizerSF_Close(FaceRecognizerSFPtr self);
-CvStatus *FaceRecognizerSF_AlignCrop(FaceRecognizerSF self, Mat src_img, Mat face_box, Mat *aligned_img);
-CvStatus *FaceRecognizerSF_Feature(FaceRecognizerSF self, Mat aligned_img, bool clone, Mat *face_feature);
-CvStatus *FaceRecognizerSF_Match(FaceRecognizerSF self, Mat face_feature1, Mat face_feature2, int dis_type,
-                                 double *distance);
+CvStatus* cv_FaceRecognizerSF_create(
+    const char* model, const char* config, int backend_id, int target_id, FaceRecognizerSF* rval
+);
+void cv_FaceRecognizerSF_close(FaceRecognizerSFPtr self);
+CvStatus* cv_FaceRecognizerSF_alignCrop(
+    FaceRecognizerSF self, Mat src_img, Mat face_box, Mat* aligned_img, CvCallback_0 callback
+);
+CvStatus* cv_FaceRecognizerSF_feature(
+    FaceRecognizerSF self, Mat aligned_img, bool clone, Mat* face_feature, CvCallback_0 callback
+);
+CvStatus* cv_FaceRecognizerSF_match(
+    FaceRecognizerSF self,
+    Mat face_feature1,
+    Mat face_feature2,
+    int dis_type,
+    double* distance,
+    CvCallback_0 callback
+);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif //_OPENCV3_OBJDETECT_H_
+#endif  //CVD_OBJDETECT_H_
