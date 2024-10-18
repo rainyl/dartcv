@@ -179,6 +179,7 @@ CvStatus* cv_Mat_convertTo(Mat self, Mat dst, int type, CvCallback_0 callback);
 CvStatus* cv_Mat_convertTo_1(
     Mat self, Mat dst, int type, float alpha, float beta, CvCallback_0 callback
 );
+CvStatus* cv_Mat_setTo(Mat self, Scalar value, CvCallback_0 callback);
 CvStatus* cv_Mat_toVecUChar(Mat self, VecUChar* rval, CvCallback_0 callback);
 CvStatus* cv_Mat_toVecChar(Mat self, VecChar* rval, CvCallback_0 callback);
 CvStatus* cv_Mat_region(Mat self, CvRect r, Mat rval, CvCallback_0 callback);

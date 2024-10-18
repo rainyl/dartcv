@@ -410,6 +410,16 @@ CvStatus* cv_Mat_convertTo_1(
     END_WRAP
 }
 
+CvStatus* cv_Mat_setTo(Mat self, Scalar value, CvCallback_0 callback){
+    BEGIN_WRAP
+    cv::Scalar c_val(value.val1, value.val2, value.val3, value.val4);
+    self.ptr->setTo(c_val);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_Mat_toVecUChar(Mat self, VecUChar* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     if (self.ptr->isContinuous()) {
