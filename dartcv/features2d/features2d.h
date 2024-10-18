@@ -5,8 +5,8 @@
     Modified by Rainyl.
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
-#ifndef _OPENCV3_FEATURES2D_H_
-#define _OPENCV3_FEATURES2D_H_
+#ifndef CVD_FEATURES2D_H_
+#define CVD_FEATURES2D_H_
 
 #ifdef __cplusplus
 #include <opencv2/features2d.hpp>
@@ -45,96 +45,143 @@ CVD_TYPEDEF(void, SIFT);
 
 // Wrapper for SimpleBlobDetectorParams aka SimpleBlobDetector::Params
 typedef struct SimpleBlobDetectorParams {
-  unsigned char blobColor;
-  bool          filterByArea;
-  bool          filterByCircularity;
-  bool          filterByColor;
-  bool          filterByConvexity;
-  bool          filterByInertia;
-  float         maxArea;
-  float         maxCircularity;
-  float         maxConvexity;
-  float         maxInertiaRatio;
-  float         maxThreshold;
-  float         minArea;
-  float         minCircularity;
-  float         minConvexity;
-  float         minDistBetweenBlobs;
-  float         minInertiaRatio;
-  size_t        minRepeatability;
-  float         minThreshold;
-  float         thresholdStep;
+    unsigned char blobColor;
+    bool filterByArea;
+    bool filterByCircularity;
+    bool filterByColor;
+    bool filterByConvexity;
+    bool filterByInertia;
+    float maxArea;
+    float maxCircularity;
+    float maxConvexity;
+    float maxInertiaRatio;
+    float maxThreshold;
+    float minArea;
+    float minCircularity;
+    float minConvexity;
+    float minDistBetweenBlobs;
+    float minInertiaRatio;
+    size_t minRepeatability;
+    float minThreshold;
+    float thresholdStep;
 } SimpleBlobDetectorParams;
 
-CvStatus *AKAZE_Create(AKAZE *rval);
-void      AKAZE_Close(AKAZEPtr a);
-CvStatus *AKAZE_Detect(AKAZE a, Mat src, VecKeyPoint *rval);
-CvStatus *AKAZE_DetectAndCompute(AKAZE a, Mat src, Mat mask, Mat desc, VecKeyPoint *rval);
+CvStatus* cv_AKAZE_create(AKAZE* rval);
+void cv_AKAZE_close(AKAZEPtr self);
+CvStatus* cv_AKAZE_detect(AKAZE self, Mat src, VecKeyPoint* rval, CvCallback_0 callback);
+CvStatus* cv_AKAZE_detectAndCompute(
+    AKAZE self, Mat src, Mat mask, Mat desc, VecKeyPoint* rval, CvCallback_0 callback
+);
 
-CvStatus *AgastFeatureDetector_Create(AgastFeatureDetector *rval);
-void      AgastFeatureDetector_Close(AgastFeatureDetectorPtr a);
-CvStatus *AgastFeatureDetector_Detect(AgastFeatureDetector a, Mat src, VecKeyPoint *rval);
+CvStatus* cv_AgastFeatureDetector_create(AgastFeatureDetector* rval);
+void cv_AgastFeatureDetector_close(AgastFeatureDetectorPtr self);
+CvStatus* cv_AgastFeatureDetector_detect(
+    AgastFeatureDetector self, Mat src, VecKeyPoint* rval, CvCallback_0 callback
+);
 
-CvStatus *BRISK_Create(BRISK *rval);
-void      BRISK_Close(BRISKPtr b);
-CvStatus *BRISK_Detect(BRISK b, Mat src, VecKeyPoint *rval);
-CvStatus *BRISK_DetectAndCompute(BRISK b, Mat src, Mat mask, Mat desc, VecKeyPoint *rval);
+CvStatus* cv_BRISK_create(BRISK* rval);
+void cv_BRISK_close(BRISKPtr self);
+CvStatus* cv_BRISK_detect(BRISK self, Mat src, VecKeyPoint* rval, CvCallback_0 callback);
+CvStatus* cv_BRISK_detectAndCompute(
+    BRISK self, Mat src, Mat mask, Mat desc, VecKeyPoint* rval, CvCallback_0 callback
+);
 
-CvStatus *FastFeatureDetector_Create(FastFeatureDetector *rval);
-CvStatus *FastFeatureDetector_CreateWithParams(int threshold, bool nonmaxSuppression, int type,
-                                               FastFeatureDetector *rval);
-void      FastFeatureDetector_Close(FastFeatureDetectorPtr f);
-CvStatus *FastFeatureDetector_Detect(FastFeatureDetector f, Mat src, VecKeyPoint *rval);
+CvStatus* cv_FastFeatureDetector_create(FastFeatureDetector* rval);
+CvStatus* cv_FastFeatureDetector_create_1(
+    int threshold, bool nonmaxSuppression, int type, FastFeatureDetector* rval
+);
+void cv_FastFeatureDetector_close(FastFeatureDetectorPtr self);
+CvStatus* cv_FastFeatureDetector_detect(
+    FastFeatureDetector self, Mat src, VecKeyPoint* rval, CvCallback_0 callback
+);
 
-CvStatus *GFTTDetector_Create(GFTTDetector *rval);
-void      GFTTDetector_Close(GFTTDetectorPtr a);
-CvStatus *GFTTDetector_Detect(GFTTDetector a, Mat src, VecKeyPoint *rval);
+CvStatus* cv_GFTTDetector_create(GFTTDetector* rval);
+void cv_GFTTDetector_close(GFTTDetectorPtr self);
+CvStatus* cv_GFTTDetector_detect(
+    GFTTDetector self, Mat src, VecKeyPoint* rval, CvCallback_0 callback
+);
 
-CvStatus *KAZE_Create(KAZE *rval);
-void      KAZE_Close(KAZEPtr a);
-CvStatus *KAZE_Detect(KAZE a, Mat src, VecKeyPoint *rval);
-CvStatus *KAZE_DetectAndCompute(KAZE a, Mat src, Mat mask, Mat desc, VecKeyPoint *rval);
+CvStatus* cv_KAZE_create(KAZE* rval);
+void cv_KAZE_close(KAZEPtr self);
+CvStatus* cv_KAZE_detect(KAZE self, Mat src, VecKeyPoint* rval, CvCallback_0 callback);
+CvStatus* cv_KAZE_detectAndCompute(
+    KAZE self, Mat src, Mat mask, Mat desc, VecKeyPoint* rval, CvCallback_0 callback
+);
 
-CvStatus *MSER_Create(MSER *rval);
-void      MSER_Close(MSERPtr a);
-CvStatus *MSER_Detect(MSER a, Mat src, VecKeyPoint *rval);
+CvStatus* cv_MSER_create(MSER* rval);
+void cv_MSER_close(MSERPtr self);
+CvStatus* cv_MSER_detect(MSER self, Mat src, VecKeyPoint* rval, CvCallback_0 callback);
 
-CvStatus *ORB_Create(ORB *rval);
-CvStatus *ORB_CreateWithParams(int nfeatures, float scaleFactor, int nlevels, int edgeThreshold,
-                               int firstLevel, int WTA_K, int scoreType, int patchSize, int fastThreshold,
-                               ORB *rval);
-void      ORB_Close(ORBPtr self);
-CvStatus *ORB_Detect(ORB self, Mat src, VecKeyPoint *rval);
-CvStatus *ORB_DetectAndCompute(ORB self, Mat src, Mat mask, Mat *desc, VecKeyPoint *rval);
+CvStatus* cv_ORB_create(ORB* rval);
+CvStatus* cv_ORB_create_1(
+    int nfeatures,
+    float scaleFactor,
+    int nlevels,
+    int edgeThreshold,
+    int firstLevel,
+    int WTA_K,
+    int scoreType,
+    int patchSize,
+    int fastThreshold,
+    ORB* rval
+);
+void cv_ORB_close(ORBPtr self);
+CvStatus* cv_ORB_detect(ORB self, Mat src, VecKeyPoint* rval, CvCallback_0 callback);
+CvStatus* cv_ORB_detectAndCompute(
+    ORB self, Mat src, Mat mask, Mat* desc, VecKeyPoint* rval, CvCallback_0 callback
+);
 
-CvStatus *SimpleBlobDetector_Create(SimpleBlobDetector *rval);
-CvStatus *SimpleBlobDetector_Create_WithParams(SimpleBlobDetectorParams params, SimpleBlobDetector *rval);
-void      SimpleBlobDetector_Close(SimpleBlobDetectorPtr b);
-CvStatus *SimpleBlobDetector_Detect(SimpleBlobDetector b, Mat src, VecKeyPoint *rval);
-CvStatus *SimpleBlobDetectorParams_Create(SimpleBlobDetectorParams *rval);
+CvStatus* cv_SimpleBlobDetector_create(SimpleBlobDetector* rval);
+CvStatus* cv_SimpleBlobDetector_create_1(SimpleBlobDetectorParams params, SimpleBlobDetector* rval);
+void cv_SimpleBlobDetector_close(SimpleBlobDetectorPtr self);
+CvStatus* cv_SimpleBlobDetector_detect(
+    SimpleBlobDetector self, Mat src, VecKeyPoint* rval, CvCallback_0 callback
+);
+CvStatus* cv_SimpleBlobDetectorParams_create(SimpleBlobDetectorParams* rval);
 
-CvStatus *BFMatcher_Create(BFMatcher *rval);
-CvStatus *BFMatcher_CreateWithParams(int normType, bool crossCheck, BFMatcher *rval);
-void      BFMatcher_Close(BFMatcherPtr b);
-CvStatus *BFMatcher_Match(BFMatcher b, Mat query, Mat train, VecDMatch *rval);
-CvStatus *BFMatcher_KnnMatch(BFMatcher b, Mat query, Mat train, int k, VecVecDMatch *rval);
+CvStatus* cv_BFMatcher_create(BFMatcher* rval);
+CvStatus* cv_BFMatcher_create_1(int normType, bool crossCheck, BFMatcher* rval);
+void cv_BFMatcher_close(BFMatcherPtr self);
+CvStatus* cv_BFMatcher_match(
+    BFMatcher self, Mat query, Mat train, VecDMatch* rval, CvCallback_0 callback
+);
+CvStatus* cv_BFMatcher_knnMatch(
+    BFMatcher self, Mat query, Mat train, int k, VecVecDMatch* rval, CvCallback_0 callback
+);
 
-CvStatus *FlannBasedMatcher_Create(FlannBasedMatcher *rval);
-void      FlannBasedMatcher_Close(FlannBasedMatcherPtr f);
-CvStatus *FlannBasedMatcher_KnnMatch(FlannBasedMatcher f, Mat query, Mat train, int k, VecVecDMatch *rval);
+CvStatus* cv_FlannBasedMatcher_create(FlannBasedMatcher* rval);
+void cv_FlannBasedMatcher_close(FlannBasedMatcherPtr self);
+CvStatus* cv_FlannBasedMatcher_knnMatch(
+    FlannBasedMatcher self, Mat query, Mat train, int k, VecVecDMatch* rval, CvCallback_0 callback
+);
 
-CvStatus *DrawKeyPoints(Mat src, VecKeyPoint kp, Mat dst, const Scalar color, int flags);
+CvStatus* cv_drawKeyPoints(
+    Mat src, VecKeyPoint kp, Mat dst, const Scalar color, int flags, CvCallback_0 callback
+);
 
-CvStatus *SIFT_Create(SIFT *rval);
-void      SIFT_Close(SIFTPtr f);
-CvStatus *SIFT_Detect(SIFT f, Mat src, VecKeyPoint *rval);
-CvStatus *SIFT_DetectAndCompute(SIFT f, Mat src, Mat mask, Mat desc, VecKeyPoint *rval);
+CvStatus* cv_SIFT_create(SIFT* rval);
+void cv_SIFT_close(SIFTPtr self);
+CvStatus* cv_SIFT_detect(SIFT self, Mat src, VecKeyPoint* rval, CvCallback_0 callback);
+CvStatus* cv_SIFT_detectAndCompute(
+    SIFT self, Mat src, Mat mask, Mat desc, VecKeyPoint* rval, CvCallback_0 callback
+);
 
-CvStatus *DrawMatches(Mat img1, VecKeyPoint kp1, Mat img2, VecKeyPoint kp2, VecDMatch matches1to2, Mat outImg,
-                      const Scalar matchesColor, const Scalar pointColor, VecChar matchesMask, int flags);
+CvStatus* cv_drawMatches(
+    Mat img1,
+    VecKeyPoint kp1,
+    Mat img2,
+    VecKeyPoint kp2,
+    VecDMatch matches1to2,
+    Mat outImg,
+    const Scalar matchesColor,
+    const Scalar pointColor,
+    VecChar matchesMask,
+    int flags,
+    CvCallback_0 callback
+);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif //_OPENCV3_FEATURES2D_H_
+#endif  //CVD_FEATURES2D_H_

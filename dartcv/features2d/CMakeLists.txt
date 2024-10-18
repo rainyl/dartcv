@@ -24,12 +24,10 @@ elseif(IOS)
 endif()
 
 set(_cpp_files
-  "features2d_async.cpp"
-  "features2d.cpp"
+        "features2d.cpp"
 )
 set(_header_files
-  "features2d_async.h"
-  "features2d.h"
+        "features2d.h"
 )
 
 # provide include dir for other libs that depend on this one

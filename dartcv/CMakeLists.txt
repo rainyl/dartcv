@@ -59,7 +59,7 @@ endif ()
 
 # features2d
 if (DARTCV_WITH_FEATURES2D OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "features2d/features2d_async.cpp" "features2d/features2d.cpp")
+    set(_cpp_files ${_cpp_files} "features2d/features2d.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_features2d)
 endif ()
 
