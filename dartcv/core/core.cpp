@@ -162,9 +162,9 @@ CvStatus* cv_bitwise_xor_1(Mat src1, Mat src2, Mat dst, Mat mask, CvCallback_0 c
     }
     END_WRAP
 }
-CvStatus* cv_compare(Mat src1, Mat src2, Mat dst, int ct, CvCallback_0 callback) {
+CvStatus* cv_compare(Mat src1, Mat src2, Mat dst, int cmpop, CvCallback_0 callback) {
     BEGIN_WRAP
-    cv::compare(CVDEREF(src1), CVDEREF(src2), CVDEREF(dst), ct);
+    cv::compare(CVDEREF(src1), CVDEREF(src2), CVDEREF(dst), cmpop);
     if (callback != nullptr) {
         callback();
     }
@@ -230,17 +230,11 @@ CvStatus* cv_cartToPolar(
     END_WRAP
 }
 CvStatus* cv_checkRange(
-    Mat self,
-    bool quiet,
-    CvPoint* pos,
-    double minVal,
-    double maxVal,
-    bool* rval,
-    CvCallback_0 callback
+    Mat a, bool quiet, CvPoint* pos, double minVal, double maxVal, bool* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
     cv::Point pos1;
-    *rval = cv::checkRange(CVDEREF(self), quiet, &pos1, minVal, maxVal);
+    *rval = cv::checkRange(CVDEREF(a), quiet, &pos1, minVal, maxVal);
     pos->x = pos1.x;
     pos->y = pos1.y;
     if (callback != nullptr) {
@@ -248,9 +242,9 @@ CvStatus* cv_checkRange(
     }
     END_WRAP
 }
-CvStatus* cv_completeSymm(Mat self, bool lowerToUpper, CvCallback_0 callback) {
+CvStatus* cv_completeSymm(Mat m, bool lowerToUpper, CvCallback_0 callback) {
     BEGIN_WRAP
-    cv::completeSymm(CVDEREF(self), lowerToUpper);
+    cv::completeSymm(CVDEREF(m), lowerToUpper);
     if (callback != nullptr) {
         callback();
     }
@@ -283,6 +277,16 @@ CvStatus* cv_copyMakeBorder(
     }
     END_WRAP
 }
+
+CvStatus* cv_copyTo(Mat src, Mat dst, Mat mask, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::copyTo(CVDEREF(src), CVDEREF(dst), CVDEREF(mask));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 int cv_countNonZero(Mat src) {
     return cv::countNonZero(CVDEREF(src));
 }
@@ -378,6 +382,16 @@ CvStatus* cv_flip(Mat src, Mat dst, int flipCode, CvCallback_0 callback) {
     }
     END_WRAP
 }
+
+CvStatus* cv_flipND(Mat src, Mat dst, int axis, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::flipND(CVDEREF(src), CVDEREF(dst), axis);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_gemm(
     Mat src1,
     Mat src2,
@@ -403,6 +417,11 @@ CvStatus* cv_getOptimalDFTSize(int vecsize, int* rval, CvCallback_0 callback) {
     }
     END_WRAP
 }
+
+bool cv_hasNonZero(Mat src) {
+    return cv::hasNonZero(CVDEREF(src));
+}
+
 CvStatus* cv_hconcat(Mat src1, Mat src2, Mat dst, CvCallback_0 callback) {
     BEGIN_WRAP
     cv::hconcat(CVDEREF(src1), CVDEREF(src2), CVDEREF(dst));
@@ -495,6 +514,26 @@ CvStatus* cv_max(Mat src1, Mat src2, Mat dst, CvCallback_0 callback) {
     }
     END_WRAP
 }
+
+CvStatus* cv_mean(Mat src, Scalar* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::Scalar mean = cv::mean(CVDEREF(src));
+    *rval = {mean.val[0], mean.val[1], mean.val[2], mean.val[3]};
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+CvStatus* cv_mean_1(Mat src, Mat mask, Scalar* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::Scalar mean = cv::mean(CVDEREF(src), CVDEREF(mask));
+    *rval = {mean.val[0], mean.val[1], mean.val[2], mean.val[3]};
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_meanStdDev(Mat src, Scalar* dstMean, Scalar* dstStdDev, CvCallback_0 callback) {
     BEGIN_WRAP
     cv::Scalar mean, sd;
@@ -537,10 +576,16 @@ CvStatus* cv_min(Mat src1, Mat src2, Mat dst, CvCallback_0 callback) {
     END_WRAP
 }
 CvStatus* cv_minMaxIdx(
-    Mat self, double* minVal, double* maxVal, int* minIdx, int* maxIdx, CvCallback_0 callback
+    Mat self,
+    double* minVal,
+    double* maxVal,
+    int* minIdx,
+    int* maxIdx,
+    Mat mask,
+    CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::minMaxIdx(CVDEREF(self), minVal, maxVal, minIdx, maxIdx);
+    cv::minMaxIdx(CVDEREF(self), minVal, maxVal, minIdx, maxIdx, CVDEREF(mask));
     if (callback != nullptr) {
         callback();
     }
@@ -552,12 +597,12 @@ CvStatus* cv_minMaxLoc(
     double* maxVal,
     CvPoint* minLoc,
     CvPoint* maxLoc,
+    Mat mask,
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
     cv::Point cMinLoc, cMaxLoc;
-    cv::minMaxLoc(CVDEREF(self), minVal, maxVal, &cMinLoc, &cMaxLoc);
-
+    cv::minMaxLoc(CVDEREF(self), minVal, maxVal, &cMinLoc, &cMaxLoc, CVDEREF(mask));
     *minLoc = {cMinLoc.x, cMinLoc.y};
     *maxLoc = {cMaxLoc.x, cMaxLoc.y};
     if (callback != nullptr) {
@@ -569,7 +614,7 @@ CvStatus* cv_mixChannels(VecMat src, VecMat dst, VecI32 fromTo, CvCallback_0 cal
     BEGIN_WRAP
     auto _src = vecmat_c2cpp(src);
     auto _dst = vecmat_c2cpp(dst);
-    std::vector<int> _fromTo(fromTo.ptr, fromTo.ptr + fromTo.length);
+    std::vector<int> _fromTo = vecint_c2cpp(fromTo);
     cv::mixChannels(_src, _dst, _fromTo);
     if (callback != nullptr) {
         callback();
@@ -592,6 +637,18 @@ CvStatus* cv_multiply(Mat src1, Mat src2, Mat dst, double scale, int dtype, CvCa
     }
     END_WRAP
 }
+
+CvStatus* cv_mulTransposed(
+    Mat src, Mat dst, bool aTa, Mat delta, double scale, int dtype, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::mulTransposed(CVDEREF(src), CVDEREF(dst), aTa, CVDEREF(delta), scale, dtype);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_normalize(
     Mat src, Mat dst, double alpha, double beta, int typ, int dtype, Mat mask, CvCallback_0 callback
 ) {
@@ -602,11 +659,69 @@ CvStatus* cv_normalize(
     }
     END_WRAP
 }
+
+CvStatus* cv_patchNaNs(Mat a, double val, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::patchNaNs(CVDEREF(a), val);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_PCABackProject(
+    Mat data, Mat mean, Mat eigenvectors, Mat result, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::PCABackProject(CVDEREF(data), CVDEREF(mean), CVDEREF(eigenvectors), CVDEREF(result));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_PCACompute_1(
+    Mat src,
+    Mat mean,
+    Mat eigenvectors,
+    Mat eigenvalues,
+    double retainedVariance,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::PCACompute(
+        CVDEREF(src), CVDEREF(mean), CVDEREF(eigenvectors), CVDEREF(eigenvalues), retainedVariance
+    );
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_PCAProject(Mat data, Mat mean, Mat eigenvectors, Mat result, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::PCAProject(CVDEREF(data), CVDEREF(mean), CVDEREF(eigenvectors), CVDEREF(result));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_perspectiveTransform(Mat src, Mat dst, Mat tm, CvCallback_0 callback) {
     BEGIN_WRAP
     cv::perspectiveTransform(CVDEREF(src), CVDEREF(dst), CVDEREF(tm));
     END_WRAP
 }
+
+CvStatus* cv_PSNR(Mat src1, Mat src2, double R, double* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    *rval = cv::PSNR(CVDEREF(src1), CVDEREF(src2), R);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_solve(Mat src1, Mat src2, Mat dst, int flags, bool* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     *rval = cv::solve(CVDEREF(src1), CVDEREF(src2), CVDEREF(dst), flags);
@@ -705,6 +820,16 @@ CvStatus* cv_split(Mat src, VecMat* rval, CvCallback_0 callback) {
     }
     END_WRAP
 }
+
+CvStatus* cv_sqrt(Mat src, Mat dst, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::sqrt(CVDEREF(src), CVDEREF(dst));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_subtract(Mat src1, Mat src2, Mat dst, Mat mask, int dtype, CvCallback_0 callback) {
     BEGIN_WRAP
     cv::subtract(CVDEREF(src1), CVDEREF(src2), CVDEREF(dst), CVDEREF(mask), dtype);
@@ -776,6 +901,24 @@ CvStatus* cv_sum(Mat src, Scalar* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     cv::Scalar c = cv::sum(CVDEREF(src));
     *rval = {c.val[0], c.val[1], c.val[2], c.val[3]};
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_SVBackSubst(Mat w, Mat u, Mat vt, Mat rhs, Mat dst, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::SVBackSubst(CVDEREF(w), CVDEREF(u), CVDEREF(vt), CVDEREF(rhs), CVDEREF(dst));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_SVDecomp(Mat w, Mat u, Mat vt, Mat d, int flags, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::SVDecomp(CVDEREF(w), CVDEREF(u), CVDEREF(vt), CVDEREF(d), flags);
     if (callback != nullptr) {
         callback();
     }
