@@ -177,19 +177,57 @@ CvStatus* cv_ximgproc_StructuredEdgeDetection_edgesNms(
     Mat orientation_image,
     CVD_OUT Mat dst,
     int r,
-    int s,
+    int s_,
     float m,
     bool isParallel,
     CvCallback_0 callback
 ) {
     BEGIN_WRAP(CVDEREF(self))
         ->edgesNms(
-            CVDEREF(edge_image), CVDEREF(orientation_image), CVDEREF(dst), r, s, m, isParallel
+            CVDEREF(edge_image), CVDEREF(orientation_image), CVDEREF(dst), r, s_, m, isParallel
         );
     if (callback != nullptr) {
         callback();
     }
     END_WRAP
+}
+
+CvStatus* cv_ximgproc_EdgeBoxes_create(
+    float alpha,
+    float beta,
+    float eta,
+    float minScore,
+    int maxBoxes,
+    float edgeMinMag,
+    float edgeMergeThr,
+    float clusterMinMag,
+    float maxAspectRatio,
+    float minBoxArea,
+    float gamma,
+    float kappa,
+    EdgeBoxes* rval
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Ptr(cv::ximgproc::createEdgeBoxes(
+        alpha,
+        beta,
+        eta,
+        minScore,
+        maxBoxes,
+        edgeMinMag,
+        edgeMergeThr,
+        clusterMinMag,
+        maxAspectRatio,
+        minBoxArea,
+        gamma,
+        kappa
+    ));
+    END_WRAP
+}
+
+void cv_ximgproc_EdgeBoxes_close(EdgeBoxesPtr self) {
+    self->ptr->reset();
+    CVD_FREE(self);
 }
 
 // Returns the step size of sliding window search.

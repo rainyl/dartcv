@@ -91,7 +91,7 @@ CvStatus* cv_ximgproc_StructuredEdgeDetection_edgesNms(
     Mat orientation_image,
     CVD_OUT Mat dst,
     int r,
-    int s,
+    int s_,
     float m,
     bool isParallel,
     CvCallback_0 callback
@@ -105,6 +105,24 @@ typedef struct Box {
     int x;
     int y;
 } Box;
+
+CvStatus* cv_ximgproc_EdgeBoxes_create(
+    float alpha,
+    float beta,
+    float eta,
+    float minScore,
+    int maxBoxes,
+    float edgeMinMag,
+    float edgeMergeThr,
+    float clusterMinMag,
+    float maxAspectRatio,
+    float minBoxArea,
+    float gamma,
+    float kappa,
+    EdgeBoxes* rval
+);
+
+void cv_ximgproc_EdgeBoxes_close(EdgeBoxesPtr self);
 
 // Returns the step size of sliding window search.
 float cv_ximgproc_EdgeBoxes_getAlpha(EdgeBoxes self);
@@ -245,7 +263,7 @@ CvStatus* cv_ximgproc_EdgeDrawing_getParams(
 
 // Binary morphology on run-length encoded image
 CvStatus* cv_ximgproc_rl_createRLEImage(
-    const VecPoint3i runs, Mat res, CvSize size, CvCallback_0 callback
+    VecPoint3i runs, Mat res, CvSize size, CvCallback_0 callback
 );
 CvStatus* cv_ximgproc_rl_dilate(
     Mat rlSrc, Mat rlDest, Mat rlKernel, CvPoint anchor, CvCallback_0 callback
@@ -266,7 +284,7 @@ CvStatus* cv_ximgproc_rl_morphologyEx(
     CvPoint anchor,
     CvCallback_0 callback
 );
-CvStatus* cv_ximgproc_rl_paint(Mat image, Mat rlSrc, const Scalar value, CvCallback_0 callback);
+CvStatus* cv_ximgproc_rl_paint(Mat image, Mat rlSrc, Scalar value, CvCallback_0 callback);
 CvStatus* cv_ximgproc_rl_threshold(
     Mat src, Mat rlDest, double thresh, int type, CvCallback_0 callback
 );

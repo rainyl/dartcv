@@ -54,24 +54,10 @@ CvStatus* cv_wechat_qrcode_WeChatQRCode_detectAndDecode(
     END_WRAP
 }
 
-CvStatus* cv_wechat_qrcode_WeChatQRCode_getScaleFactor(
-    WeChatQRCode self, float* rval, CvCallback_0 callback
-) {
-    BEGIN_WRAP
-    *rval = self.ptr->getScaleFactor();
-    if (callback != nullptr) {
-        callback();
-    }
-    END_WRAP
+float cv_wechat_qrcode_WeChatQRCode_getScaleFactor(WeChatQRCode self) {
+    return self.ptr->getScaleFactor();
 }
 
-CvStatus* cv_wechat_qrcode_WeChatQRCode_setScaleFactor(
-    WeChatQRCode self, float scale_factor, CvCallback_0 callback
-) {
-    BEGIN_WRAP
+void cv_wechat_qrcode_WeChatQRCode_setScaleFactor(WeChatQRCode self, float scale_factor) {
     self.ptr->setScaleFactor(scale_factor);
-    if (callback != nullptr) {
-        callback();
-    }
-    END_WRAP
 }
