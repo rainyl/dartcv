@@ -85,7 +85,7 @@ double cv_VideoCapture_get(VideoCapture self, int prop) {
 bool cv_VideoCapture_isOpened(VideoCapture self) {
     return self.ptr->isOpened();
 }
-CvStatus* cv_VideoCapture_read(VideoCapture self, Mat buf, int* rval, CvCallback_0 callback) {
+CvStatus* cv_VideoCapture_read(VideoCapture self, Mat buf, bool* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     *rval = self.ptr->read(CVDEREF(buf));
     if (callback != nullptr) {

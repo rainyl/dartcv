@@ -46,7 +46,7 @@ CvStatus* cv_VideoCapture_open_3(
 void cv_VideoCapture_set(VideoCapture self, int prop, double val);
 double cv_VideoCapture_get(VideoCapture self, int prop);
 bool cv_VideoCapture_isOpened(VideoCapture self);
-CvStatus* cv_VideoCapture_read(VideoCapture self, Mat buf, int* rval, CvCallback_0 callback);
+CvStatus* cv_VideoCapture_read(VideoCapture self, Mat buf, bool* rval, CvCallback_0 callback);
 CvStatus* cv_VideoCapture_release(VideoCapture self);
 CvStatus* cv_VideoCapture_grab(VideoCapture self, CvCallback_0 callback);
 // Decodes and returns the grabbed video frame.
