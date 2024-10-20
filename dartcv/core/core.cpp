@@ -786,9 +786,10 @@ CvStatus* cv_scaleAdd(Mat src1, double alpha, Mat src2, Mat dst, CvCallback_0 ca
     }
     END_WRAP
 }
-CvStatus* cv_setIdentity(Mat src, double scalar, CvCallback_0 callback) {
+CvStatus* cv_setIdentity(Mat src, Scalar scalar, CvCallback_0 callback) {
     BEGIN_WRAP
-    cv::setIdentity(CVDEREF(src), scalar);
+    cv::Scalar _s(scalar.val1, scalar.val2, scalar.val3, scalar.val4);
+    cv::setIdentity(CVDEREF(src), _s);
     if (callback != nullptr) {
         callback();
     }

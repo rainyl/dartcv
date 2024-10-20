@@ -194,7 +194,7 @@ CvStatus* cv_reduceArgMin(Mat src, Mat dst, int axis, bool lastIndex, CvCallback
 CvStatus* cv_repeat(Mat src, int nY, int nX, Mat dst, CvCallback_0 callback);
 CvStatus* cv_rotate(Mat src, Mat dst, int rotateCode, CvCallback_0 callback);
 CvStatus* cv_scaleAdd(Mat src1, double alpha, Mat src2, Mat dst, CvCallback_0 callback);
-CvStatus* cv_setIdentity(Mat src, double scalar, CvCallback_0 callback);
+CvStatus* cv_setIdentity(Mat src, Scalar scalar, CvCallback_0 callback);
 CvStatus* cv_solve(Mat src1, Mat src2, Mat dst, int flags, bool* rval, CvCallback_0 callback);
 CvStatus* cv_solveCubic(Mat coeffs, Mat roots, int* rval, CvCallback_0 callback);
 CvStatus* cv_solvePoly(Mat coeffs, Mat roots, int maxIters, double* rval, CvCallback_0 callback);
