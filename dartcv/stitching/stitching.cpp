@@ -67,7 +67,7 @@ void cv_Stitcher_set_waveCorrectKind(Stitcher self, int val) {
     (CVDEREF(self))->setWaveCorrectKind(static_cast<cv::detail::WaveCorrectKind>(val));
 }
 
-CvStatus* Stitcher_EstimateTransform(
+CvStatus* cv_Stitcher_estimateTransform(
     Stitcher self, VecMat mats, VecMat masks, int* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
@@ -84,7 +84,7 @@ CvStatus* Stitcher_EstimateTransform(
     END_WRAP
 }
 
-CvStatus* Stitcher_ComposePanorama(Stitcher self, Mat rpano, int* rval, CvCallback_0 callback) {
+CvStatus* cv_Stitcher_composePanorama(Stitcher self, Mat rpano, int* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     *rval = static_cast<int>((CVDEREF(self))->composePanorama(CVDEREF(rpano)));
     if (callback != nullptr) {
@@ -92,7 +92,7 @@ CvStatus* Stitcher_ComposePanorama(Stitcher self, Mat rpano, int* rval, CvCallba
     }
     END_WRAP
 }
-CvStatus* Stitcher_ComposePanorama_1(
+CvStatus* cv_Stitcher_composePanorama_1(
     Stitcher self, VecMat mats, Mat rpano, int* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
@@ -104,7 +104,9 @@ CvStatus* Stitcher_ComposePanorama_1(
     END_WRAP
 }
 
-CvStatus* Stitcher_Stitch(Stitcher self, VecMat mats, Mat rpano, int* rval, CvCallback_0 callback) {
+CvStatus* cv_Stitcher_stitch(
+    Stitcher self, VecMat mats, Mat rpano, int* rval, CvCallback_0 callback
+) {
     BEGIN_WRAP
     auto _mats = vecmat_c2cpp(mats);
     *rval = static_cast<int>((CVDEREF(self))->stitch(_mats, CVDEREF(rpano)));
@@ -113,7 +115,7 @@ CvStatus* Stitcher_Stitch(Stitcher self, VecMat mats, Mat rpano, int* rval, CvCa
     }
     END_WRAP
 }
-CvStatus* Stitcher_Stitch_1(
+CvStatus* cv_Stitcher_stitch_1(
     Stitcher self, VecMat mats, VecMat masks, Mat rpano, int* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
@@ -126,7 +128,7 @@ CvStatus* Stitcher_Stitch_1(
     END_WRAP
 }
 
-CvStatus* Stitcher_Component(Stitcher self, VecI32* rval, CvCallback_0 callback) {
+CvStatus* cv_Stitcher_component(Stitcher self, VecI32* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     std::vector<int> _rval = (CVDEREF(self))->component();
     *rval = vecint_cpp2c(_rval);

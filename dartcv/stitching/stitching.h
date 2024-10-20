@@ -3,8 +3,8 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#ifndef OPENCV_DART_LIBRARY_STITCHING_H
-#define OPENCV_DART_LIBRARY_STITCHING_H
+#ifndef CVD_STITCHING_H
+#define CVD_STITCHING_H
 
 #include "dartcv/core/types.h"
 
@@ -59,19 +59,27 @@ void cv_Stitcher_set_waveCorrectKind(Stitcher self, int val);
 
 #pragma region functions
 
-CvStatus* Stitcher_EstimateTransform(Stitcher self, VecMat mats, VecMat masks, int* rval, CvCallback_0 callback);
+CvStatus* cv_Stitcher_estimateTransform(
+    Stitcher self, VecMat mats, VecMat masks, int* rval, CvCallback_0 callback
+);
 
-CvStatus* Stitcher_ComposePanorama(Stitcher self, Mat rpano, int* rval, CvCallback_0 callback);
-CvStatus* Stitcher_ComposePanorama_1(Stitcher self, VecMat mats, Mat rpano, int* rval, CvCallback_0 callback);
+CvStatus* cv_Stitcher_composePanorama(Stitcher self, Mat rpano, int* rval, CvCallback_0 callback);
+CvStatus* cv_Stitcher_composePanorama_1(
+    Stitcher self, VecMat mats, Mat rpano, int* rval, CvCallback_0 callback
+);
 
-CvStatus* Stitcher_Stitch(Stitcher self, VecMat mats, Mat rpano, int* rval, CvCallback_0 callback);
-CvStatus* Stitcher_Stitch_1(Stitcher self, VecMat mats, VecMat masks, Mat rpano, int* rval, CvCallback_0 callback);
+CvStatus* cv_Stitcher_stitch(
+    Stitcher self, VecMat mats, Mat rpano, int* rval, CvCallback_0 callback
+);
+CvStatus* cv_Stitcher_stitch_1(
+    Stitcher self, VecMat mats, VecMat masks, Mat rpano, int* rval, CvCallback_0 callback
+);
 
-CvStatus* Stitcher_Component(Stitcher self, VecI32* rval, CvCallback_0 callback);
+CvStatus* cv_Stitcher_component(Stitcher self, VecI32* rval, CvCallback_0 callback);
 #pragma endregion
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // OPENCV_DART_LIBRARY_STITCHING_H
+#endif  // CVD_STITCHING_H
