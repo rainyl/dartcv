@@ -6,8 +6,8 @@
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
 
-#ifndef _OPENCV3_CALIB_H_
-#define _OPENCV3_CALIB_H_
+#ifndef CVD_CALIB_H_
+#define CVD_CALIB_H_
 
 #ifdef __cplusplus
 #include <opencv2/calib3d.hpp>
@@ -63,7 +63,7 @@ CvStatus* cv_getOptimalNewCameraMatrix(
     CvSize newImgSize,
     CvRect* validPixROI,
     bool centerPrincipalPoint,
-    Mat rval,
+    Mat* rval,
     CvCallback_0 callback
 );
 CvStatus* cv_calibrateCamera(
@@ -130,7 +130,7 @@ CvStatus* cv_drawChessboardCorners(
     CvCallback_0 callback
 );
 CvStatus* cv_estimateAffinePartial2D(
-    VecPoint2f from, VecPoint2f to, Mat rval, CvCallback_0 callback
+    VecPoint2f from, VecPoint2f to, Mat* rval, CvCallback_0 callback
 );
 CvStatus* cv_estimateAffinePartial2D_1(
     VecPoint2f from,
@@ -141,11 +141,11 @@ CvStatus* cv_estimateAffinePartial2D_1(
     size_t maxIters,
     double confidence,
     size_t refineIters,
-    Mat rval,
+    Mat* rval,
     CvCallback_0 callback
 );
 CvStatus* cv_estimateAffine2D(
-    VecPoint2f from, VecPoint2f to, Mat rval, CvCallback_0 callback
+    VecPoint2f from, VecPoint2f to, Mat* rval, CvCallback_0 callback
 );
 CvStatus* cv_estimateAffine2D_1(
     VecPoint2f from,
@@ -156,7 +156,7 @@ CvStatus* cv_estimateAffine2D_1(
     size_t maxIters,
     double confidence,
     size_t refineIters,
-    Mat rval,
+    Mat* rval,
     CvCallback_0 callback
 );
 CvStatus* cv_findHomography(
@@ -165,9 +165,9 @@ CvStatus* cv_findHomography(
     int method,
     double ransacReprojThreshold,
     Mat mask,
-    const int maxIters,
-    const double confidence,
-    Mat rval,
+    int maxIters,
+    double confidence,
+    Mat* rval,
     CvCallback_0 callback
 );
 #ifdef __cplusplus

@@ -20,11 +20,11 @@ size_t cv_imcount(const char* filename, int flags) {
     return cv::imcount(filename, flags);
 }
 
-CvStatus* cv_imdecode(VecUChar buf, int flags, Mat rval, CvCallback_0 callback) {
+CvStatus* cv_imdecode(VecUChar buf, int flags, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     auto _buf = vecuchar_c2cpp(buf);
     auto m = cv::imdecode(_buf, flags);
-    rval.ptr = new cv::Mat(m);
+    rval->ptr = new cv::Mat(m);
     if (callback != nullptr) {
         callback();
     }
@@ -62,9 +62,9 @@ CvStatus* cv_imencode_1(
     END_WRAP
 }
 
-CvStatus* cv_imread(const char* filename, int flags, Mat rval, CvCallback_0 callback) {
+CvStatus* cv_imread(const char* filename, int flags, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(cv::imread(filename, flags));
+    rval->ptr = new cv::Mat(cv::imread(filename, flags));
     if (callback != nullptr) {
         callback();
     }

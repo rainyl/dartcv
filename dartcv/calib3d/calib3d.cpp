@@ -125,7 +125,7 @@ CvStatus* cv_getOptimalNewCameraMatrix(
     CvSize newImgSize,
     CvRect* validPixROI,
     bool centerPrincipalPoint,
-    Mat rval,
+    Mat* rval,
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
@@ -147,7 +147,7 @@ CvStatus* cv_getOptimalNewCameraMatrix(
     validPixROI->y = rect.y;
     validPixROI->width = rect.width;
     validPixROI->height = rect.height;
-    rval.ptr = new cv::Mat(mat);
+    rval->ptr = new cv::Mat(mat);
     if (callback != nullptr) {
         callback();
     }
@@ -308,12 +308,12 @@ CvStatus* cv_drawChessboardCorners(
 }
 
 CvStatus* cv_estimateAffinePartial2D(
-    VecPoint2f from, VecPoint2f to, Mat rval, CvCallback_0 callback
+    VecPoint2f from, VecPoint2f to, Mat* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
     auto _from = vecpoint2f_c2cpp(from);
     auto _to = vecpoint2f_c2cpp(to);
-    rval.ptr = new cv::Mat(cv::estimateAffinePartial2D(_from, _to));
+    rval->ptr = new cv::Mat(cv::estimateAffinePartial2D(_from, _to));
     if (callback != nullptr) {
         callback();
     }
@@ -329,7 +329,7 @@ CvStatus* cv_estimateAffinePartial2D_1(
     size_t maxIters,
     double confidence,
     size_t refineIters,
-    Mat rval,
+    Mat* rval,
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
@@ -345,7 +345,7 @@ CvStatus* cv_estimateAffinePartial2D_1(
         confidence,
         refineIters
     );
-    rval.ptr = new cv::Mat(m);
+    rval->ptr = new cv::Mat(m);
     if (callback != nullptr) {
         callback();
     }
@@ -353,12 +353,12 @@ CvStatus* cv_estimateAffinePartial2D_1(
 }
 
 CvStatus* cv_estimateAffine2D(
-    VecPoint2f from, VecPoint2f to, Mat rval, CvCallback_0 callback
+    VecPoint2f from, VecPoint2f to, Mat* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
     auto _from = vecpoint2f_c2cpp(from);
     auto _to = vecpoint2f_c2cpp(to);
-    rval.ptr = new cv::Mat(cv::estimateAffine2D(_from, _to));
+    rval->ptr = new cv::Mat(cv::estimateAffine2D(_from, _to));
     if (callback != nullptr) {
         callback();
     }
@@ -374,7 +374,7 @@ CvStatus* cv_estimateAffine2D_1(
     size_t maxIters,
     double confidence,
     size_t refineIters,
-    Mat rval,
+    Mat* rval,
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
@@ -390,7 +390,7 @@ CvStatus* cv_estimateAffine2D_1(
         confidence,
         refineIters
     );
-    rval.ptr = new cv::Mat(m);
+    rval->ptr = new cv::Mat(m);
     if (callback != nullptr) {
         callback();
     }
@@ -405,7 +405,7 @@ CvStatus* cv_findHomography(
     Mat mask,
     const int maxIters,
     const double confidence,
-    Mat rval,
+    Mat* rval,
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
@@ -418,7 +418,7 @@ CvStatus* cv_findHomography(
         maxIters,
         confidence
     );
-    rval.ptr = new cv::Mat(m);
+    rval->ptr = new cv::Mat(m);
     if (callback != nullptr) {
         callback();
     }

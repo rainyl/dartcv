@@ -475,10 +475,10 @@ CvStatus* cv_GaussianBlur(
 }
 
 CvStatus* cv_getGaussianKernel(
-    int ksize, double sigma, int ktype, Mat rval, CvCallback_0 callback
+    int ksize, double sigma, int ktype, Mat* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(cv::getGaussianKernel(ksize, sigma, ktype));
+    rval->ptr = new cv::Mat(cv::getGaussianKernel(ksize, sigma, ktype));
     if (callback != nullptr) {
         callback();
     }
@@ -522,9 +522,9 @@ CvStatus* cv_Scharr(
     END_WRAP
 }
 
-CvStatus* cv_getStructuringElement(int shape, CvSize ksize, Mat rval, CvCallback_0 callback) {
+CvStatus* cv_getStructuringElement(int shape, CvSize ksize, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(cv::getStructuringElement(shape, cv::Size(ksize.width, ksize.height)));
+    rval->ptr = new cv::Mat(cv::getStructuringElement(shape, cv::Size(ksize.width, ksize.height)));
     if (callback != nullptr) {
         callback();
     }
@@ -1224,10 +1224,10 @@ CvStatus* cv_getRectSubPix(
 }
 
 CvStatus* cv_getRotationMatrix2D(
-    CvPoint2f center, double angle, double scale, Mat rval, CvCallback_0 callback
+    CvPoint2f center, double angle, double scale, Mat* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(cv::getRotationMatrix2D(cv::Point2f(center.x, center.y), angle, scale));
+    rval->ptr = new cv::Mat(cv::getRotationMatrix2D(cv::Point2f(center.x, center.y), angle, scale));
     if (callback != nullptr) {
         callback();
     }
@@ -1336,12 +1336,12 @@ CvStatus* cv_applyColorMap_1(Mat src, Mat dst, Mat colormap, CvCallback_0 callba
 }
 
 CvStatus* cv_getPerspectiveTransform(
-    VecPoint src, VecPoint dst, Mat rval, int solveMethod, CvCallback_0 callback
+    VecPoint src, VecPoint dst, Mat* rval, int solveMethod, CvCallback_0 callback
 ) {
     BEGIN_WRAP
     std::vector<cv::Point2f> src2f = vecPointToVecPoint2f(src);
     std::vector<cv::Point2f> dst2f = vecPointToVecPoint2f(dst);
-    rval.ptr = new cv::Mat(cv::getPerspectiveTransform(src2f, dst2f, solveMethod));
+    rval->ptr = new cv::Mat(cv::getPerspectiveTransform(src2f, dst2f, solveMethod));
     if (callback != nullptr) {
         callback();
     }
@@ -1349,34 +1349,34 @@ CvStatus* cv_getPerspectiveTransform(
 }
 
 CvStatus* cv_getPerspectiveTransform2f(
-    VecPoint2f src, VecPoint2f dst, Mat rval, int solveMethod, CvCallback_0 callback
+    VecPoint2f src, VecPoint2f dst, Mat* rval, int solveMethod, CvCallback_0 callback
 ) {
     BEGIN_WRAP
     auto _src = vecpoint2f_c2cpp(src);
     auto _dst = vecpoint2f_c2cpp(dst);
-    rval.ptr = new cv::Mat(cv::getPerspectiveTransform(_src, _dst, solveMethod));
+    rval->ptr = new cv::Mat(cv::getPerspectiveTransform(_src, _dst, solveMethod));
     if (callback != nullptr) {
         callback();
     }
     END_WRAP
 }
 
-CvStatus* cv_getAffineTransform(VecPoint src, VecPoint dst, Mat rval, CvCallback_0 callback) {
+CvStatus* cv_getAffineTransform(VecPoint src, VecPoint dst, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     std::vector<cv::Point2f> src2f = vecPointToVecPoint2f(src);
     std::vector<cv::Point2f> dst2f = vecPointToVecPoint2f(dst);
-    rval.ptr = new cv::Mat(cv::getAffineTransform(src2f, dst2f));
+    rval->ptr = new cv::Mat(cv::getAffineTransform(src2f, dst2f));
     if (callback != nullptr) {
         callback();
     }
     END_WRAP
 }
 
-CvStatus* cv_getAffineTransform2f(VecPoint2f src, VecPoint2f dst, Mat rval, CvCallback_0 callback) {
+CvStatus* cv_getAffineTransform2f(VecPoint2f src, VecPoint2f dst, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     auto _src = vecpoint2f_c2cpp(src);
     auto _dst = vecpoint2f_c2cpp(dst);
-    rval.ptr = new cv::Mat(cv::getAffineTransform(_src, _dst));
+    rval->ptr = new cv::Mat(cv::getAffineTransform(_src, _dst));
     if (callback != nullptr) {
         callback();
     }

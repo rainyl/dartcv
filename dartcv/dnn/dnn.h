@@ -97,7 +97,7 @@ CvStatus* cv_dnn_Net_setInput(
     Net net, Mat blob, const char* name, double scalefactor, Scalar mean, CvCallback_0 callback
 );
 CvStatus* cv_dnn_Net_forward(
-    Net net, const char* outputName, CVD_OUT Mat rval, CvCallback_0 callback
+    Net net, const char* outputName, CVD_OUT Mat* rval, CvCallback_0 callback
 );
 CvStatus* cv_dnn_Net_forwardLayers(
     Net net, CVD_OUT VecMat* outputBlobs, VecVecChar outBlobNames, CvCallback_0 callback
@@ -114,7 +114,7 @@ CvStatus* cv_dnn_Net_getInputDetails(
 );
 
 CvStatus* cv_dnn_Net_getBlobChannel(
-    Mat blob, int imgidx, int chnidx, CVD_OUT Mat rval, CvCallback_0 callback
+    Mat blob, int imgidx, int chnidx, CVD_OUT Mat* rval, CvCallback_0 callback
 );
 CvStatus* cv_dnn_Net_getBlobSize(Mat blob, VecI32* rval);
 

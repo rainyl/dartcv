@@ -263,111 +263,111 @@ CvStatus* cv_KalmanFilter_init_1(
     }
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_predict(KalmanFilter self, Mat rval, CvCallback_0 callback) {
+CvStatus* cv_KalmanFilter_predict(KalmanFilter self, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     auto result = self.ptr->predict();
-    rval.ptr = new cv::Mat(result);
+    rval->ptr = new cv::Mat(result);
     if (callback != nullptr) {
         callback();
     }
     END_WRAP
 }
 CvStatus* cv_KalmanFilter_predict_1(
-    KalmanFilter self, Mat control, Mat rval, CvCallback_0 callback
+    KalmanFilter self, Mat control, Mat* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
     auto result = self.ptr->predict(CVDEREF(control));
-    rval.ptr = new cv::Mat(result);
+    rval->ptr = new cv::Mat(result);
     if (callback != nullptr) {
         callback();
     }
     END_WRAP
 }
 CvStatus* cv_KalmanFilter_correct(
-    KalmanFilter self, Mat measurement, Mat rval, CvCallback_0 callback
+    KalmanFilter self, Mat measurement, Mat* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
     auto result = self.ptr->correct(CVDEREF(measurement));
-    rval.ptr = new cv::Mat(result);
+    rval->ptr = new cv::Mat(result);
     if (callback != nullptr) {
         callback();
     }
     END_WRAP
 }
 
-CvStatus* cv_KalmanFilter_get_statePre(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_statePre(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->statePre);
+    rval->ptr = new cv::Mat(self.ptr->statePre);
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_get_statePost(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_statePost(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->statePost);
+    rval->ptr = new cv::Mat(self.ptr->statePost);
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_get_transitionMatrix(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_transitionMatrix(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->transitionMatrix);
+    rval->ptr = new cv::Mat(self.ptr->transitionMatrix);
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_get_controlMatrix(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_controlMatrix(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->controlMatrix);
+    rval->ptr = new cv::Mat(self.ptr->controlMatrix);
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_get_measurementMatrix(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_measurementMatrix(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->measurementMatrix);
+    rval->ptr = new cv::Mat(self.ptr->measurementMatrix);
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_get_processNoiseCov(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_processNoiseCov(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->processNoiseCov);
+    rval->ptr = new cv::Mat(self.ptr->processNoiseCov);
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_get_measurementNoiseCov(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_measurementNoiseCov(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->measurementNoiseCov);
+    rval->ptr = new cv::Mat(self.ptr->measurementNoiseCov);
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_get_errorCovPre(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_errorCovPre(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->errorCovPre);
+    rval->ptr = new cv::Mat(self.ptr->errorCovPre);
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_get_gain(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_gain(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->gain);
+    rval->ptr = new cv::Mat(self.ptr->gain);
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_get_errorCovPost(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_errorCovPost(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->errorCovPost);
+    rval->ptr = new cv::Mat(self.ptr->errorCovPost);
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_get_temp1(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_temp1(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->temp1);
+    rval->ptr = new cv::Mat(self.ptr->temp1);
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_get_temp2(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_temp2(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->temp2);
+    rval->ptr = new cv::Mat(self.ptr->temp2);
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_get_temp3(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_temp3(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->temp3);
+    rval->ptr = new cv::Mat(self.ptr->temp3);
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_get_temp4(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_temp4(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->temp4);
+    rval->ptr = new cv::Mat(self.ptr->temp4);
     END_WRAP
 }
-CvStatus* cv_KalmanFilter_get_temp5(KalmanFilter self, Mat rval) {
+CvStatus* cv_KalmanFilter_get_temp5(KalmanFilter self, Mat* rval) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(self.ptr->temp5);
+    rval->ptr = new cv::Mat(self.ptr->temp5);
     END_WRAP
 }
 

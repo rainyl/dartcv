@@ -272,7 +272,7 @@ CvStatus* cv_ximgproc_rl_erode(
     Mat rlSrc, Mat rlDest, Mat rlKernel, bool bBoundaryOn, CvPoint anchor, CvCallback_0 callback
 );
 CvStatus* cv_ximgproc_rl_getStructuringElement(
-    int shape, CvSize ksize, Mat rval, CvCallback_0 callback
+    int shape, CvSize ksize, Mat* rval, CvCallback_0 callback
 );
 bool cv_ximgproc_rl_isRLMorphologyPossible(Mat rlStructuringElement);
 CvStatus* cv_ximgproc_rl_morphologyEx(

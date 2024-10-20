@@ -243,9 +243,9 @@ CvStatus* cv_dnn_Net_setInput(
     END_WRAP
 }
 
-CvStatus* cv_dnn_Net_forward(Net net, const char* outputName, Mat rval, CvCallback_0 callback) {
+CvStatus* cv_dnn_Net_forward(Net net, const char* outputName, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    rval.ptr = new cv::Mat(net.ptr->forward(outputName));
+    rval->ptr = new cv::Mat(net.ptr->forward(outputName));
     if (callback != nullptr) {
         callback();
     }
@@ -327,12 +327,12 @@ CvStatus* cv_dnn_Net_getInputDetails(
 }
 
 CvStatus* cv_dnn_Net_getBlobChannel(
-    Mat blob, int imgidx, int chnidx, Mat rval, CvCallback_0 callback
+    Mat blob, int imgidx, int chnidx, Mat* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
     int w = blob.ptr->size[3];
     int h = blob.ptr->size[2];
-    rval.ptr = new cv::Mat(h, w, CV_32F, blob.ptr->ptr<float>(imgidx, chnidx));
+    rval->ptr = new cv::Mat(h, w, CV_32F, blob.ptr->ptr<float>(imgidx, chnidx));
     if (callback != nullptr) {
         callback();
     }

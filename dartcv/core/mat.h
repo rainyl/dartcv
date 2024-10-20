@@ -165,14 +165,14 @@ uchar* cv_Mat_data(Mat self);
 // CvStatus* cv_Mat_dataPtr(Mat self, uchar **data, int *length);
 
 CvStatus* cv_Mat_adjustROI(
-    Mat self, int dtop, int dbottom, int dleft, int dright, Mat rval, CvCallback_0 callback
+    Mat self, int dtop, int dbottom, int dleft, int dright, Mat* rval, CvCallback_0 callback
 );
 CvStatus* cv_Mat_locateROI(Mat self, CvSize* wholeSize, CvPoint* ofs, CvCallback_0 callback);
-CvStatus* cv_Mat_clone(Mat self, Mat rval, CvCallback_0 callback);
-CvStatus* cv_Mat_col(Mat self, int x, Mat rval, CvCallback_0 callback);
-CvStatus* cv_Mat_row(Mat self, int y, Mat rval, CvCallback_0 callback);
-CvStatus* cv_rowRange(Mat self, int start, int end, Mat rval, CvCallback_0 callback);
-CvStatus* cv_colRange(Mat self, int start, int end, Mat rval, CvCallback_0 callback);
+CvStatus* cv_Mat_clone(Mat self, Mat* rval, CvCallback_0 callback);
+CvStatus* cv_Mat_col(Mat self, int x, Mat* rval, CvCallback_0 callback);
+CvStatus* cv_Mat_row(Mat self, int y, Mat* rval, CvCallback_0 callback);
+CvStatus* cv_rowRange(Mat self, int start, int end, Mat* rval, CvCallback_0 callback);
+CvStatus* cv_colRange(Mat self, int start, int end, Mat* rval, CvCallback_0 callback);
 CvStatus* cv_Mat_copyTo(Mat self, Mat dst, CvCallback_0 callback);
 CvStatus* cv_Mat_copyTo_1(Mat self, Mat dst, Mat mask, CvCallback_0 callback);
 CvStatus* cv_Mat_convertTo(Mat self, Mat dst, int type, CvCallback_0 callback);
@@ -182,15 +182,15 @@ CvStatus* cv_Mat_convertTo_1(
 CvStatus* cv_Mat_setTo(Mat self, Scalar value, Mat mask, CvCallback_0 callback);
 CvStatus* cv_Mat_toVecUChar(Mat self, VecUChar* rval, CvCallback_0 callback);
 CvStatus* cv_Mat_toVecChar(Mat self, VecChar* rval, CvCallback_0 callback);
-CvStatus* cv_Mat_region(Mat self, CvRect r, Mat rval, CvCallback_0 callback);
-CvStatus* cv_Mat_reshape(Mat self, int cn, int rows, Mat rval, CvCallback_0 callback);
-CvStatus* cv_Mat_reshape_1(Mat self, int cn, VecI32 newshape, Mat rval, CvCallback_0 callback);
+CvStatus* cv_Mat_region(Mat self, CvRect r, Mat* rval, CvCallback_0 callback);
+CvStatus* cv_Mat_reshape(Mat self, int cn, int rows, Mat* rval, CvCallback_0 callback);
+CvStatus* cv_Mat_reshape_1(Mat self, int cn, VecI32 newshape, Mat* rval, CvCallback_0 callback);
 CvStatus* cv_Mat_patchNaNs(Mat self, double val, CvCallback_0 callback);
 CvStatus* cv_Mat_convertFp16(Mat self, Mat rval, CvCallback_0 callback);
 CvStatus* cv_Mat_mean(Mat self, Scalar* rval, CvCallback_0 callback);
 CvStatus* cv_Mat_mean_1(Mat self, Mat mask, Scalar* rval, CvCallback_0 callback);
 CvStatus* cv_Mat_sqrt(Mat self, Mat rval, CvCallback_0 callback);
-CvStatus* cv_Mat_t(Mat self, Mat rval, CvCallback_0 callback);
+CvStatus* cv_Mat_t(Mat self, Mat* rval, CvCallback_0 callback);
 
 uchar* cv_Mat_ptr_uchar_1(Mat self, int i);
 uchar* cv_Mat_ptr_uchar_2(Mat self, int i, int j);
@@ -329,7 +329,7 @@ CvStatus* cv_Mat_op_div_f64(Mat self, double_t val);
 /*
  * element-wise
  */
-CvStatus* cv_Mat_mul(Mat self, Mat val, Mat dst, double scale);
+CvStatus* cv_Mat_mul(Mat self, Mat val, Mat* dst, double scale);
 
 #ifdef __cplusplus
 }

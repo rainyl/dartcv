@@ -21,6 +21,7 @@ endif ()
 # core includes core, imgcodecs
 set(_cpp_files
         "core/core.cpp"
+        "core/mat.cpp"
         "core/exception.cpp"
         "core/logging.cpp"
         "core/svd.cpp"

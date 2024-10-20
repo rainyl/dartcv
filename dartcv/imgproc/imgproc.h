@@ -108,11 +108,11 @@ CvStatus* cv_GaussianBlur(
 
 // Returns Gaussian filter coefficients.
 // Mat cv::getGaussianKernel (int ksize, double sigma, int ktype=CV_64F)
-CvStatus* cv_getGaussianKernel(int ksize, double sigma, int ktype, Mat rval, CvCallback_0 callback);
+CvStatus* cv_getGaussianKernel(int ksize, double sigma, int ktype, Mat* rval, CvCallback_0 callback);
 
 // Returns a structuring element of the specified size and shape for morphological operations.
 // Mat cv::getStructuringElement (int shape, CvSize ksize, CvPoint anchor=CvPoint(-1,-1))
-CvStatus* cv_getStructuringElement(int shape, CvSize ksize, Mat rval, CvCallback_0 callback);
+CvStatus* cv_getStructuringElement(int shape, CvSize ksize, Mat* rval, CvCallback_0 callback);
 
 // Calculates the cv_Laplacian of an image.
 // void cv::cv_Laplacian (InputArray src, OutputArray dst, int ddepth, int ksize=1, double scale=1, double delta=0, int borderType=BORDER_DEFAULT)
@@ -237,17 +237,17 @@ CvStatus* cv_sqrBoxFilter(
 // Calculates an affine transform from three pairs of the corresponding points.
 // Mat cv::getAffineTransform (const CvPoint2f src[], const CvPoint2f dst[])
 // Mat cv::getAffineTransform (InputArray src, InputArray dst)
-CvStatus* cv_getAffineTransform(VecPoint src, VecPoint dst, Mat rval, CvCallback_0 callback);
-CvStatus* cv_getAffineTransform2f(VecPoint2f src, VecPoint2f dst, Mat rval, CvCallback_0 callback);
+CvStatus* cv_getAffineTransform(VecPoint src, VecPoint dst, Mat* rval, CvCallback_0 callback);
+CvStatus* cv_getAffineTransform2f(VecPoint2f src, VecPoint2f dst, Mat* rval, CvCallback_0 callback);
 
 // Calculates a perspective transform from four pairs of the corresponding points.
 // Mat cv::getPerspectiveTransform (const CvPoint2f src[], const CvPoint2f dst[], int solveMethod=DECOMP_LU)
 // Mat cv::getPerspectiveTransform (InputArray src, InputArray dst, int solveMethod=DECOMP_LU)
 CvStatus* cv_getPerspectiveTransform(
-    VecPoint src, VecPoint dst, Mat rval, int solveMethod, CvCallback_0 callback
+    VecPoint src, VecPoint dst, Mat* rval, int solveMethod, CvCallback_0 callback
 );
 CvStatus* cv_getPerspectiveTransform2f(
-    VecPoint2f src, VecPoint2f dst, Mat rval, int solveMethod, CvCallback_0 callback
+    VecPoint2f src, VecPoint2f dst, Mat* rval, int solveMethod, CvCallback_0 callback
 );
 
 // Retrieves a pixel rectangle from an image with sub-pixel accuracy.
@@ -259,7 +259,7 @@ CvStatus* cv_getRectSubPix(
 // Calculates an affine matrix of 2D rotation.
 // Mat cv::getRotationMatrix2D (CvPoint2f center, double angle, double scale)
 CvStatus* cv_getRotationMatrix2D(
-    CvPoint2f center, double angle, double scale, Mat rval, CvCallback_0 callback
+    CvPoint2f center, double angle, double scale, Mat* rval, CvCallback_0 callback
 );
 
 // Inverts an affine transformation.

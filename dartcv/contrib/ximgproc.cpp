@@ -596,12 +596,12 @@ CvStatus* cv_ximgproc_rl_erode(
 }
 
 CvStatus* cv_ximgproc_rl_getStructuringElement(
-    int shape, CvSize ksize, Mat rval, CvCallback_0 callback
+    int shape, CvSize ksize, Mat* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
     cv::Mat _rval =
         cv::ximgproc::rl::getStructuringElement(shape, cv::Size(ksize.width, ksize.height));
-    rval.ptr = new cv::Mat(_rval);
+    rval->ptr = new cv::Mat(_rval);
     if (callback != nullptr) {
         callback();
     }

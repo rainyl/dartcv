@@ -122,29 +122,29 @@ CvStatus* cv_KalmanFilter_init_1(
     int type,
     CvCallback_0 callback
 );
-CvStatus* cv_KalmanFilter_predict(KalmanFilter self, Mat rval, CvCallback_0 callback);
+CvStatus* cv_KalmanFilter_predict(KalmanFilter self, Mat* rval, CvCallback_0 callback);
 CvStatus* cv_KalmanFilter_predict_1(
-    KalmanFilter self, Mat control, Mat rval, CvCallback_0 callback
+    KalmanFilter self, Mat control, Mat* rval, CvCallback_0 callback
 );
 CvStatus* cv_KalmanFilter_correct(
-    KalmanFilter self, Mat measurement, Mat rval, CvCallback_0 callback
+    KalmanFilter self, Mat measurement, Mat* rval, CvCallback_0 callback
 );
 
-CvStatus* cv_KalmanFilter_get_statePre(KalmanFilter self, Mat rval);
-CvStatus* cv_KalmanFilter_get_statePost(KalmanFilter self, Mat rval);
-CvStatus* cv_KalmanFilter_get_transitionMatrix(KalmanFilter self, Mat rval);
-CvStatus* cv_KalmanFilter_get_controlMatrix(KalmanFilter self, Mat rval);
-CvStatus* cv_KalmanFilter_get_measurementMatrix(KalmanFilter self, Mat rval);
-CvStatus* cv_KalmanFilter_get_processNoiseCov(KalmanFilter self, Mat rval);
-CvStatus* cv_KalmanFilter_get_measurementNoiseCov(KalmanFilter self, Mat rval);
-CvStatus* cv_KalmanFilter_get_errorCovPre(KalmanFilter self, Mat rval);
-CvStatus* cv_KalmanFilter_get_gain(KalmanFilter self, Mat rval);
-CvStatus* cv_KalmanFilter_get_errorCovPost(KalmanFilter self, Mat rval);
-CvStatus* cv_KalmanFilter_get_temp1(KalmanFilter self, Mat rval);
-CvStatus* cv_KalmanFilter_get_temp2(KalmanFilter self, Mat rval);
-CvStatus* cv_KalmanFilter_get_temp3(KalmanFilter self, Mat rval);
-CvStatus* cv_KalmanFilter_get_temp4(KalmanFilter self, Mat rval);
-CvStatus* cv_KalmanFilter_get_temp5(KalmanFilter self, Mat rval);
+CvStatus* cv_KalmanFilter_get_statePre(KalmanFilter self, Mat* rval);
+CvStatus* cv_KalmanFilter_get_statePost(KalmanFilter self, Mat* rval);
+CvStatus* cv_KalmanFilter_get_transitionMatrix(KalmanFilter self, Mat* rval);
+CvStatus* cv_KalmanFilter_get_controlMatrix(KalmanFilter self, Mat* rval);
+CvStatus* cv_KalmanFilter_get_measurementMatrix(KalmanFilter self, Mat* rval);
+CvStatus* cv_KalmanFilter_get_processNoiseCov(KalmanFilter self, Mat* rval);
+CvStatus* cv_KalmanFilter_get_measurementNoiseCov(KalmanFilter self, Mat* rval);
+CvStatus* cv_KalmanFilter_get_errorCovPre(KalmanFilter self, Mat* rval);
+CvStatus* cv_KalmanFilter_get_gain(KalmanFilter self, Mat* rval);
+CvStatus* cv_KalmanFilter_get_errorCovPost(KalmanFilter self, Mat* rval);
+CvStatus* cv_KalmanFilter_get_temp1(KalmanFilter self, Mat* rval);
+CvStatus* cv_KalmanFilter_get_temp2(KalmanFilter self, Mat* rval);
+CvStatus* cv_KalmanFilter_get_temp3(KalmanFilter self, Mat* rval);
+CvStatus* cv_KalmanFilter_get_temp4(KalmanFilter self, Mat* rval);
+CvStatus* cv_KalmanFilter_get_temp5(KalmanFilter self, Mat* rval);
 
 CvStatus* cv_KalmanFilter_set_statePre(KalmanFilter self, Mat statePre);
 CvStatus* cv_KalmanFilter_set_statePost(KalmanFilter self, Mat statePost);

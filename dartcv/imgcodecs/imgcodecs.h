@@ -20,7 +20,7 @@ extern "C" {
 bool cv_haveImageReader(const char* filename);
 bool cv_haveImageWriter(const char* filename);
 size_t cv_imcount(const char* filename, int flags);
-CvStatus* cv_imdecode(VecUChar buf, int flags, CVD_OUT Mat rval, CvCallback_0 callback);
+CvStatus* cv_imdecode(VecUChar buf, int flags, CVD_OUT Mat* rval, CvCallback_0 callback);
 CvStatus* cv_imencode(
     const char* fileExt,
     Mat img,
@@ -36,7 +36,7 @@ CvStatus* cv_imencode_1(
     CVD_OUT VecUChar* rval,
     CvCallback_0 callback
 );
-CvStatus* cv_imread(const char* filename, int flags, CVD_OUT Mat rval, CvCallback_0 callback);
+CvStatus* cv_imread(const char* filename, int flags, CVD_OUT Mat* rval, CvCallback_0 callback);
 CvStatus* cv_imwrite(const char* filename, Mat img, CVD_OUT bool* rval, CvCallback_0 callback);
 CvStatus* cv_imwrite_1(
     const char* filename, Mat img, VecI32 params, CVD_OUT bool* rval, CvCallback_0 callback
