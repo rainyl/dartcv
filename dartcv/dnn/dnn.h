@@ -93,7 +93,9 @@ CvStatus* cv_dnn_Net_blobFromImages(
 CvStatus* cv_dnn_Net_imagesFromBlob(Mat blob, CVD_OUT VecMat* rval, CvCallback_0 callback);
 bool cv_dnn_Net_empty(Net net);
 CvStatus* cv_dnn_Net_dump(Net net, CVD_OUT char** rval);
-CvStatus* cv_dnn_Net_setInput(Net net, Mat blob, const char* name, CvCallback_0 callback);
+CvStatus* cv_dnn_Net_setInput(
+    Net net, Mat blob, const char* name, double scalefactor, Scalar mean, CvCallback_0 callback
+);
 CvStatus* cv_dnn_Net_forward(
     Net net, const char* outputName, CVD_OUT Mat rval, CvCallback_0 callback
 );

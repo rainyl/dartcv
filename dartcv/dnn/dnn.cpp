@@ -231,9 +231,12 @@ CvStatus* cv_dnn_Net_dump(Net net, char** rval) {
     END_WRAP
 }
 
-CvStatus* cv_dnn_Net_setInput(Net net, Mat blob, const char* name, CvCallback_0 callback) {
+CvStatus* cv_dnn_Net_setInput(
+    Net net, Mat blob, const char* name, double scalefactor, Scalar mean, CvCallback_0 callback
+) {
     BEGIN_WRAP
-    net.ptr->setInput(CVDEREF(blob), name);
+    cv::Scalar _mean(mean.val1, mean.val2, mean.val3, mean.val4);
+    net.ptr->setInput(CVDEREF(blob), name, scalefactor, _mean);
     if (callback != nullptr) {
         callback();
     }
