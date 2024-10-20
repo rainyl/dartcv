@@ -19,7 +19,7 @@ CvStatus* cv_colorChange(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::colorChange(*src.ptr, *mask.ptr, *dst.ptr, red_mul, green_mul, blue_mul);
+    cv::colorChange(CVDEREF(src), CVDEREF(mask), CVDEREF(dst), red_mul, green_mul, blue_mul);
     if (callback != nullptr) {
         callback();
     }
@@ -30,7 +30,9 @@ CvStatus* cv_seamlessClone(
     Mat src, Mat dst, Mat mask, CvPoint p, Mat blend, int flags, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::seamlessClone(*src.ptr, *dst.ptr, *mask.ptr, cv::Point(p.x, p.y), *blend.ptr, flags);
+    cv::seamlessClone(
+        CVDEREF(src), CVDEREF(dst), CVDEREF(mask), cv::Point(p.x, p.y), CVDEREF(blend), flags
+    );
     if (callback != nullptr) {
         callback();
     }
@@ -41,7 +43,7 @@ CvStatus* cv_illuminationChange(
     Mat src, Mat mask, Mat dst, float alpha, float beta, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::illuminationChange(*src.ptr, *mask.ptr, *dst.ptr, alpha, beta);
+    cv::illuminationChange(CVDEREF(src), CVDEREF(mask), CVDEREF(dst), alpha, beta);
     if (callback != nullptr) {
         callback();
     }
@@ -59,7 +61,7 @@ CvStatus* cv_textureFlattening(
 ) {
     BEGIN_WRAP
     cv::textureFlattening(
-        *src.ptr, *mask.ptr, *dst.ptr, low_threshold, high_threshold, kernel_size
+        CVDEREF(src), CVDEREF(mask), CVDEREF(dst), low_threshold, high_threshold, kernel_size
     );
     if (callback != nullptr) {
         callback();
@@ -72,7 +74,7 @@ CvStatus* cv_fastNlMeansDenoisingColoredMulti(
 ) {
     BEGIN_WRAP
     auto _src = vecmat_c2cpp(src);
-    cv::fastNlMeansDenoisingColoredMulti(_src, *dst.ptr, imgToDenoiseIndex, temporalWindowSize);
+    cv::fastNlMeansDenoisingColoredMulti(_src, CVDEREF(dst), imgToDenoiseIndex, temporalWindowSize);
     if (callback != nullptr) {
         callback();
     }
@@ -93,7 +95,7 @@ CvStatus* cv_fastNlMeansDenoisingColoredMulti_1(
     auto _src = vecmat_c2cpp(src);
     cv::fastNlMeansDenoisingColoredMulti(
         _src,
-        *dst.ptr,
+        CVDEREF(dst),
         imgToDenoiseIndex,
         temporalWindowSize,
         h,
@@ -108,7 +110,7 @@ CvStatus* cv_fastNlMeansDenoisingColoredMulti_1(
 }
 CvStatus* cv_fastNlMeansDenoising(Mat src, Mat dst, CvCallback_0 callback) {
     BEGIN_WRAP
-    cv::fastNlMeansDenoising(*src.ptr, *dst.ptr);
+    cv::fastNlMeansDenoising(CVDEREF(src), CVDEREF(dst));
     if (callback != nullptr) {
         callback();
     }
@@ -118,7 +120,7 @@ CvStatus* cv_fastNlMeansDenoising_1(
     Mat src, Mat dst, float h, int templateWindowSize, int searchWindowSize, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::fastNlMeansDenoising(*src.ptr, *dst.ptr, h, templateWindowSize, searchWindowSize);
+    cv::fastNlMeansDenoising(CVDEREF(src), CVDEREF(dst), h, templateWindowSize, searchWindowSize);
     if (callback != nullptr) {
         callback();
     }
@@ -126,7 +128,7 @@ CvStatus* cv_fastNlMeansDenoising_1(
 }
 CvStatus* cv_fastNlMeansDenoisingColored(Mat src, Mat dst, CvCallback_0 callback) {
     BEGIN_WRAP
-    cv::fastNlMeansDenoisingColored(*src.ptr, *dst.ptr);
+    cv::fastNlMeansDenoisingColored(CVDEREF(src), CVDEREF(dst));
     if (callback != nullptr) {
         callback();
     }
@@ -143,7 +145,7 @@ CvStatus* cv_fastNlMeansDenoisingColored_1(
 ) {
     BEGIN_WRAP
     cv::fastNlMeansDenoisingColored(
-        *src.ptr, *dst.ptr, h, hColor, templateWindowSize, searchWindowSize
+        CVDEREF(src), CVDEREF(dst), h, hColor, templateWindowSize, searchWindowSize
     );
     if (callback != nullptr) {
         callback();
@@ -168,7 +170,7 @@ CvStatus* cv_createMergeMertens_1(
 CvStatus* cv_MergeMertens_process(MergeMertens b, VecMat src, Mat dst, CvCallback_0 callback) {
     BEGIN_WRAP
     auto _src = vecmat_c2cpp(src);
-    (*b.ptr)->process(_src, *dst.ptr);
+    (CVDEREF(b))->process(_src, CVDEREF(dst));
     if (callback != nullptr) {
         callback();
     }
@@ -193,7 +195,7 @@ CvStatus* cv_AlignMTB_process(AlignMTB b, VecMat src, VecMat* dst, CvCallback_0 
     BEGIN_WRAP
     auto vec = std::vector<cv::Mat>();
     auto _src = vecmat_c2cpp(src);
-    (*b.ptr)->process(_src, vec);
+    (CVDEREF(b))->process(_src, vec);
     *dst = vecmat_cpp2c(vec);
     if (callback != nullptr) {
         callback();
@@ -207,7 +209,7 @@ void cv_AlignMTB_close(AlignMTBPtr b) {
 
 CvStatus* cv_detailEnhance(Mat src, Mat dst, float sigma_s, float sigma_r, CvCallback_0 callback) {
     BEGIN_WRAP
-    cv::detailEnhance(*src.ptr, *dst.ptr, sigma_s, sigma_r);
+    cv::detailEnhance(CVDEREF(src), CVDEREF(dst), sigma_s, sigma_r);
     if (callback != nullptr) {
         callback();
     }
@@ -217,7 +219,7 @@ CvStatus* cv_edgePreservingFilter(
     Mat src, Mat dst, int filter, float sigma_s, float sigma_r, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::edgePreservingFilter(*src.ptr, *dst.ptr, filter, sigma_s, sigma_r);
+    cv::edgePreservingFilter(CVDEREF(src), CVDEREF(dst), filter, sigma_s, sigma_r);
     if (callback != nullptr) {
         callback();
     }
@@ -233,7 +235,7 @@ CvStatus* cv_pencilSketch(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::pencilSketch(*src.ptr, *dst1.ptr, *dst2.ptr, sigma_s, sigma_r, shade_factor);
+    cv::pencilSketch(CVDEREF(src), CVDEREF(dst1), CVDEREF(dst2), sigma_s, sigma_r, shade_factor);
     if (callback != nullptr) {
         callback();
     }
@@ -241,7 +243,7 @@ CvStatus* cv_pencilSketch(
 }
 CvStatus* cv_stylization(Mat src, Mat dst, float sigma_s, float sigma_r, CvCallback_0 callback) {
     BEGIN_WRAP
-    cv::stylization(*src.ptr, *dst.ptr, sigma_s, sigma_r);
+    cv::stylization(CVDEREF(src), CVDEREF(dst), sigma_s, sigma_r);
     if (callback != nullptr) {
         callback();
     }
@@ -252,7 +254,7 @@ CvStatus* cv_inpaint(
     Mat src, Mat mask, Mat dst, float inpaint_radius, int algorithm_type, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::inpaint(*src.ptr, *mask.ptr, *dst.ptr, inpaint_radius, algorithm_type);
+    cv::inpaint(CVDEREF(src), CVDEREF(mask), CVDEREF(dst), inpaint_radius, algorithm_type);
     if (callback != nullptr) {
         callback();
     }

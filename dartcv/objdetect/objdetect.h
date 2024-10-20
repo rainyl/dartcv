@@ -79,10 +79,10 @@ CvStatus* cv_CascadeClassifier_detectMultiScale_3(
     bool outputRejectLevels,
     CvCallback_0 callback
 );
-CvStatus* cv_CascadeClassifier_empty(CascadeClassifier self, bool* rval);
-CvStatus* cv_CascadeClassifier_getFeatureType(CascadeClassifier self, int* rval);
-CvStatus* cv_CascadeClassifier_getOriginalWindowSize(CascadeClassifier self, CvSize* rval);
-CvStatus* cv_CascadeClassifier_isOldFormatCascade(CascadeClassifier self, bool* rval);
+bool cv_CascadeClassifier_empty(CascadeClassifier self);
+int cv_CascadeClassifier_getFeatureType(CascadeClassifier self);
+CvSize cv_CascadeClassifier_getOriginalWindowSize(CascadeClassifier self);
+bool cv_CascadeClassifier_isOldFormatCascade(CascadeClassifier self);
 
 // HOGDescriptor
 // struct for detection region of interest (ROI)
@@ -131,7 +131,7 @@ CvStatus* cv_HOGDescriptor_detectMultiScale_1(
     VecRect* rval,
     CvCallback_0 callback
 );
-CvStatus* cv_HOGDescriptor_getDefaultPeopleDetector(VecF32* rval, CvCallback_0 callback);
+CvStatus* cv_HOGDescriptor_getDefaultPeopleDetector(VecF32* rval);
 CvStatus* cv_HOGDescriptor_setSVMDetector(HOGDescriptor self, VecF32 det);
 CvStatus* cv_HOGDescriptor_compute(
     HOGDescriptor self,
@@ -158,9 +158,9 @@ CvStatus* cv_HOGDescriptor_computeGradient(
 // *foundLocations,
 //                                  VecF64 *confidences, double hitThreshold, CvSize winStride, CvSize
 //                                  padding);
-CvStatus* cv_HOGDescriptor_getDaimlerPeopleDetector(VecF32* rval, CvCallback_0 callback);
-CvStatus* cv_HOGDescriptor_getDescriptorSize(HOGDescriptor self, size_t* rval);
-CvStatus* cv_HOGDescriptor_getWinSigma(HOGDescriptor self, double* rval);
+CvStatus* cv_HOGDescriptor_getDaimlerPeopleDetector(VecF32* rval);
+size_t cv_HOGDescriptor_getDescriptorSize(HOGDescriptor self);
+double cv_HOGDescriptor_getWinSigma(HOGDescriptor self);
 CvStatus* cv_HOGDescriptor_groupRectangles(
     HOGDescriptor self,
     VecRect* rectList,
@@ -221,9 +221,9 @@ CvStatus* cv_QRCodeDetector_detectAndDecodeMulti(
     bool* rval,
     CvCallback_0 callback
 );
-CvStatus* cv_QRCodeDetector_setEpsX(QRCodeDetector self, double epsX);
-CvStatus* cv_QRCodeDetector_setEpsY(QRCodeDetector self, double epsY);
-CvStatus* cv_QRCodeDetector_setUseAlignmentMarkers(QRCodeDetector self, bool useAlignmentMarkers);
+void cv_QRCodeDetector_setEpsX(QRCodeDetector self, double epsX);
+void cv_QRCodeDetector_setEpsY(QRCodeDetector self, double epsY);
+void cv_QRCodeDetector_setUseAlignmentMarkers(QRCodeDetector self, bool useAlignmentMarkers);
 
 // FaceDetectorYN
 CvStatus* cv_FaceDetectorYN_create(
@@ -251,14 +251,14 @@ CvStatus* cv_FaceDetectorYN_create_1(
 );
 void cv_FaceDetectorYN_close(FaceDetectorYNPtr self);
 CvStatus* cv_FaceDetectorYN_detect(FaceDetectorYN self, Mat img, Mat* faces, CvCallback_0 callback);
-CvStatus* cv_FaceDetectorYN_setInputSize(FaceDetectorYN self, CvSize input_size);
-CvStatus* cv_FaceDetectorYN_setScoreThreshold(FaceDetectorYN self, float score_threshold);
-CvStatus* cv_FaceDetectorYN_setNMSThreshold(FaceDetectorYN self, float nms_threshold);
-CvStatus* cv_FaceDetectorYN_setTopK(FaceDetectorYN self, int top_k);
-CvStatus* cv_FaceDetectorYN_getInputSize(FaceDetectorYN self, CvSize* input_size);
-CvStatus* cv_FaceDetectorYN_getScoreThreshold(FaceDetectorYN self, float* score_threshold);
-CvStatus* cv_FaceDetectorYN_getNMSThreshold(FaceDetectorYN self, float* nms_threshold);
-CvStatus* cv_FaceDetectorYN_getTopK(FaceDetectorYN self, int* top_k);
+void cv_FaceDetectorYN_setInputSize(FaceDetectorYN self, CvSize input_size);
+void cv_FaceDetectorYN_setScoreThreshold(FaceDetectorYN self, float score_threshold);
+void cv_FaceDetectorYN_setNMSThreshold(FaceDetectorYN self, float nms_threshold);
+void cv_FaceDetectorYN_setTopK(FaceDetectorYN self, int top_k);
+CvSize cv_FaceDetectorYN_getInputSize(FaceDetectorYN self);
+float cv_FaceDetectorYN_getScoreThreshold(FaceDetectorYN self);
+float cv_FaceDetectorYN_getNMSThreshold(FaceDetectorYN self);
+int cv_FaceDetectorYN_getTopK(FaceDetectorYN self);
 
 // FaceRecognizerSF
 CvStatus* cv_FaceRecognizerSF_create(
