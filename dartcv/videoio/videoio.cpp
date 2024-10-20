@@ -119,7 +119,7 @@ CvStatus* cv_VideoCapture_retrieve(
 }
 
 const char* cv_VideoCapture_getBackendName(VideoCapture self) {
-    return self.ptr->getBackendName().c_str();
+    return strdup(self.ptr->getBackendName().c_str());
 }
 
 // VideoWriter

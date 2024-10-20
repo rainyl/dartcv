@@ -105,7 +105,10 @@ void cv_aruco_arucoDictionary_close(ArucoDictionaryPtr self);
 
 CvStatus* cv_aruco_arucoDetector_create(ArucoDetector* rval);
 CvStatus* cv_aruco_arucoDetector_create_1(
-    ArucoDictionary dictionary, ArucoDetectorParams params, ArucoDetector* rval
+    ArucoDictionary dictionary,
+    ArucoDetectorParams params,
+    ArucoDetector* rval,
+    CvCallback_0 callback
 );
 void cv_aruco_arucoDetector_close(ArucoDetectorPtr ad);
 CvStatus* cv_aruco_arucoDetector_detectMarkers(
@@ -125,12 +128,7 @@ CvStatus* cv_aruco_drawDetectedMarkers(
     CvCallback_0 callback
 );
 CvStatus* cv_aruco_generateImageMarker(
-    int dictionaryId,
-    int id,
-    int sidePixels,
-    int borderBits,
-    Mat dst,
-    CvCallback_0 callback
+    int dictionaryId, int id, int sidePixels, int borderBits, Mat dst, CvCallback_0 callback
 );
 
 #ifdef __cplusplus
