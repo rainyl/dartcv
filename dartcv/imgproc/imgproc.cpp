@@ -1652,39 +1652,18 @@ CvStatus* cv_CLAHE_collectGarbage(CLAHE self, CvCallback_0 callback) {
     END_WRAP
 }
 
-CvStatus* cv_CLAHE_getClipLimit(CLAHE self, double* rval, CvCallback_0 callback) {
-    BEGIN_WRAP
-    *rval = (CVDEREF(self))->getClipLimit();
-    if (callback != nullptr) {
-        callback();
-    }
-    END_WRAP
+double cv_CLAHE_getClipLimit(CLAHE self) {
+    return (CVDEREF(self))->getClipLimit();
 }
-
-CvStatus* cv_CLAHE_setClipLimit(CLAHE self, double clipLimit, CvCallback_0 callback) {
-    BEGIN_WRAP(CVDEREF(self))->setClipLimit(clipLimit);
-    if (callback != nullptr) {
-        callback();
-    }
-    END_WRAP
+void cv_CLAHE_setClipLimit(CLAHE self, double clipLimit) {
+    (CVDEREF(self))->setClipLimit(clipLimit);
 }
-
-CvStatus* cv_CLAHE_getTilesGridSize(CLAHE self, CvSize* rval, CvCallback_0 callback) {
-    BEGIN_WRAP
-    auto sz = (CVDEREF(self))->getTilesGridSize();
-    *rval = {sz.width, sz.height};
-    if (callback != nullptr) {
-        callback();
-    }
-    END_WRAP
+CvSize* cv_CLAHE_getTilesGridSize(CLAHE self) {
+    cv::Size sz = (CVDEREF(self))->getTilesGridSize();
+    return new CvSize{sz.width, sz.height};
 }
-
-CvStatus* cv_CLAHE_setTilesGridSize(CLAHE self, CvSize size, CvCallback_0 callback) {
-    BEGIN_WRAP(CVDEREF(self))->setTilesGridSize(cv::Size(size.width, size.height));
-    if (callback != nullptr) {
-        callback();
-    }
-    END_WRAP
+void cv_CLAHE_setTilesGridSize(CLAHE self, CvSize size) {
+    (CVDEREF(self))->setTilesGridSize(cv::Size(size.width, size.height));
 }
 
 CvStatus* cv_Subdiv2D_create(Subdiv2D* rval) {

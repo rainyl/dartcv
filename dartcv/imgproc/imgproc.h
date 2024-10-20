@@ -686,10 +686,10 @@ CvStatus* cv_CLAHE_create_1(double clipLimit, CvSize tileGridSize, CLAHE* rval);
 void cv_CLAHE_close(CLAHEPtr self);
 CvStatus* cv_CLAHE_apply(CLAHE self, Mat src, Mat dst, CvCallback_0 callback);
 CvStatus* cv_CLAHE_collectGarbage(CLAHE self, CvCallback_0 callback);
-CvStatus* cv_CLAHE_getClipLimit(CLAHE self, double* rval, CvCallback_0 callback);
-CvStatus* cv_CLAHE_setClipLimit(CLAHE self, double clipLimit, CvCallback_0 callback);
-CvStatus* cv_CLAHE_getTilesGridSize(CLAHE self, CvSize* rval, CvCallback_0 callback);
-CvStatus* cv_CLAHE_setTilesGridSize(CLAHE self, CvSize size, CvCallback_0 callback);
+double cv_CLAHE_getClipLimit(CLAHE self);
+void cv_CLAHE_setClipLimit(CLAHE self, double clipLimit);
+CvSize* cv_CLAHE_getTilesGridSize(CLAHE self);
+void cv_CLAHE_setTilesGridSize(CLAHE self, CvSize size);
 
 // Computes the "minimal work" distance between two weighted point configurations.
 // float cv::EMD (InputArray signature1, InputArray signature2, int distType, InputArray cost=noArray(), float *lowerBound=0, OutputArray flow=noArray())
