@@ -10,8 +10,6 @@
 #include "dartcv/core/vec.hpp"
 #include <vector>
 
-#pragma ide diagnostic ignored "OCDFAInspection"
-
 CvStatus* cv_arcLength(VecPoint curve, bool is_closed, double* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     auto _curve = vecpoint_c2cpp(curve);

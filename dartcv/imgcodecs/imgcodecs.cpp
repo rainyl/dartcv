@@ -64,7 +64,7 @@ CvStatus* cv_imencode_1(
 
 CvStatus* cv_imread(const char* filename, int flags, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    rval->ptr = new cv::Mat(cv::imread(filename, flags));
+    *rval = {new cv::Mat(cv::imread(filename, flags))};
     if (callback != nullptr) {
         callback();
     }

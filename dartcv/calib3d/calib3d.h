@@ -21,13 +21,7 @@ CvStatus* cv_fisheye_undistortImage(
     Mat distorted, Mat undistorted, Mat k, Mat d, CvCallback_0 callback
 );
 CvStatus* cv_fisheye_undistortImage_1(
-    Mat distorted,
-    Mat undistorted,
-    Mat k,
-    Mat d,
-    Mat knew,
-    CvSize size,
-    CvCallback_0 callback
+    Mat distorted, Mat undistorted, Mat k, Mat d, Mat knew, CvSize size, CvCallback_0 callback
 );
 CvStatus* cv_fisheye_undistortPoints(
     Mat distorted, Mat undistorted, Mat k, Mat d, Mat R, Mat P, CvCallback_0 callback
@@ -80,12 +74,7 @@ CvStatus* cv_calibrateCamera(
     CvCallback_0 callback
 );
 CvStatus* cv_undistort(
-    Mat src,
-    Mat dst,
-    Mat cameraMatrix,
-    Mat distCoeffs,
-    Mat newCameraMatrix,
-    CvCallback_0 callback
+    Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, Mat newCameraMatrix, CvCallback_0 callback
 );
 CvStatus* cv_undistortPoints(
     Mat distorted,
@@ -98,36 +87,22 @@ CvStatus* cv_undistortPoints(
     CvCallback_0 callback
 );
 CvStatus* cv_findChessboardCorners(
-    Mat image,
-    CvSize patternSize,
-    Mat corners,
-    int flags,
-    bool* rval,
-    CvCallback_0 callback
+    Mat image, CvSize patternSize, Mat corners, int flags, bool* rval, CvCallback_0 callback
 );
 CvStatus* cv_findChessboardCornersSB(
-    Mat image,
-    CvSize patternSize,
-    Mat corners,
-    int flags,
-    bool* rval,
-    CvCallback_0 callback
+    Mat image, CvSize patternSize, VecPoint2f* corners, int flags, bool* rval, CvCallback_0 callback
 );
 CvStatus* cv_FindChessboardCornersSB_1(
     Mat image,
     CvSize patternSize,
-    Mat corners,
+    VecPoint2f* corners,
     int flags,
     Mat meta,
     bool* rval,
     CvCallback_0 callback
 );
 CvStatus* cv_drawChessboardCorners(
-    Mat image,
-    CvSize patternSize,
-    Mat corners,
-    bool patternWasFound,
-    CvCallback_0 callback
+    Mat image, CvSize patternSize, Mat corners, bool patternWasFound, CvCallback_0 callback
 );
 CvStatus* cv_estimateAffinePartial2D(
     VecPoint2f from, VecPoint2f to, Mat* rval, CvCallback_0 callback
@@ -144,9 +119,7 @@ CvStatus* cv_estimateAffinePartial2D_1(
     Mat* rval,
     CvCallback_0 callback
 );
-CvStatus* cv_estimateAffine2D(
-    VecPoint2f from, VecPoint2f to, Mat* rval, CvCallback_0 callback
-);
+CvStatus* cv_estimateAffine2D(VecPoint2f from, VecPoint2f to, Mat* rval, CvCallback_0 callback);
 CvStatus* cv_estimateAffine2D_1(
     VecPoint2f from,
     VecPoint2f to,

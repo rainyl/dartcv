@@ -12,3 +12,9 @@ TEST(ImgCodecs, Read)
   ASSERT_EQ(status->code, 0);
   ASSERT_EQ(im.ptr->empty(), false);
 }
+
+int main(int argc, char **argv)
+{
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}

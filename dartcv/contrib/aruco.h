@@ -101,18 +101,34 @@ void cv_aruco_detectorParameters_set_detectInvertedMarker(ArucoDetectorParams se
 bool cv_aruco_detectorParameters_get_detectInvertedMarker(ArucoDetectorParams self);
 
 CvStatus* cv_aruco_getPredefinedDictionary(int dictionaryId, ArucoDictionary* rval);
-void cv_aruco_arucoDictionary_close(ArucoDictionaryPtr self);
+CvStatus* cv_aruco_Dictionary_create(ArucoDictionary* rval);
+CvStatus* cv_aruco_Dictionary_create_1(
+    Mat bytesList, int markerSize, int maxCorr, ArucoDictionary* rval
+);
+CvStatus* cv_aruco_Dictionary_generateImageMarker(
+    ArucoDictionary self, int id, int sidePixels, Mat _img, int borderBits
+);
+int cv_aruco_Dictionary_getDistanceToId(ArucoDictionary self, Mat bits, int id, bool allRotations);
+bool cv_aruco_Dictionary_identify(
+    ArucoDictionary self, Mat onlyBits, int* idx, int* rotation, double maxCorrectionRate
+);
+CvStatus* cv_aruco_Dictionary_get_bytesList(ArucoDictionary self, Mat* rval);
+int cv_aruco_Dictionary_get_markerSize(ArucoDictionary self);
+int cv_aruco_Dictionary_get_maxCorrectionBits(ArucoDictionary self);
+CvStatus* cv_aruco_Dictionary_set_bytesList(ArucoDictionary self, Mat value);
+void cv_aruco_Dictionary_set_markerSize(ArucoDictionary self, int value);
+void cv_aruco_Dictionary_set_maxCorrectionBits(ArucoDictionary self, int value);
+void cv_aruco_Dictionary_close(ArucoDictionaryPtr self);
 
 CvStatus* cv_aruco_arucoDetector_create(ArucoDetector* rval);
 CvStatus* cv_aruco_arucoDetector_create_1(
     ArucoDictionary dictionary,
     ArucoDetectorParams params,
-    ArucoDetector* rval,
-    CvCallback_0 callback
+    ArucoDetector* rval
 );
-void cv_aruco_arucoDetector_close(ArucoDetectorPtr ad);
+void cv_aruco_arucoDetector_close(ArucoDetectorPtr self);
 CvStatus* cv_aruco_arucoDetector_detectMarkers(
-    ArucoDetector ad,
+    ArucoDetector self,
     Mat inputArr,
     VecVecPoint2f* markerCorners,
     VecI32* markerIds,

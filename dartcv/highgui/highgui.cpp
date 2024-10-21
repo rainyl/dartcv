@@ -131,15 +131,15 @@ CvStatus* cv_destroyAllWindows() {
 }
 
 // Trackbar
-CvStatus* cv_createTrackbar(const char* winname, const char* trackname, int max) {
+CvStatus* cv_createTrackbar(const char* trackname, const char* winname, int max) {
     BEGIN_WRAP
     cv::createTrackbar(trackname, winname, nullptr, max);
     END_WRAP
 }
 
 CvStatus* cv_createTrackbar_1(
-    const char* winname,
     const char* trackname,
+    const char* winname,
     int* value,
     int max,
     cv_TrackbarCallback onChange,
@@ -150,25 +150,25 @@ CvStatus* cv_createTrackbar_1(
     END_WRAP
 }
 
-CvStatus* cv_getTrackbarPos(const char* winname, const char* trackname, int* rval) {
+CvStatus* cv_getTrackbarPos(const char* trackname, const char* winname, int* rval) {
     BEGIN_WRAP
     *rval = cv::getTrackbarPos(trackname, winname);
     END_WRAP
 }
 
-CvStatus* cv_setTrackbarPos(const char* winname, const char* trackname, int pos) {
+CvStatus* cv_setTrackbarPos(const char* trackname, const char* winname, int pos) {
     BEGIN_WRAP
     cv::setTrackbarPos(trackname, winname, pos);
     END_WRAP
 }
 
-CvStatus* cv_setTrackbarMin(const char* winname, const char* trackname, int val) {
+CvStatus* cv_setTrackbarMin(const char* trackname, const char* winname, int val) {
     BEGIN_WRAP
     cv::setTrackbarMin(trackname, winname, val);
     END_WRAP
 }
 
-CvStatus* cv_setTrackbarMax(const char* winname, const char* trackname, int val) {
+CvStatus* cv_setTrackbarMax(const char* trackname, const char* winname, int val) {
     BEGIN_WRAP
     cv::setTrackbarMax(trackname, winname, val);
     END_WRAP

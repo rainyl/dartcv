@@ -121,7 +121,7 @@ CvStatus* cv_ximgproc_RFFeatureGetter_clear(RFFeatureGetter self) {
 
 bool cv_ximgproc_RFFeatureGetter_empty(RFFeatureGetter self) {
     BEGIN_WRAP
-    CVDEREF(self)->empty();
+    (CVDEREF(self))->empty();
     END_WRAP
 }
 

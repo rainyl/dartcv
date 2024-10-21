@@ -27,3 +27,8 @@ TEST(videoCapture, get)
   EXPECT_EQ(s->code, 0);
   std::cout << cc << std::endl;
 }
+int main(int argc, char **argv)
+{
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}

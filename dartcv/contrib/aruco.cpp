@@ -5,12 +5,13 @@
     Modified by Rainyl.
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
+#include <iostream>
 #include "dartcv/contrib/aruco.h"
 #include "dartcv/core/vec.hpp"
 
 CvStatus* cv_aruco_detectorParameters_create(ArucoDetectorParams* rval) {
     BEGIN_WRAP
-    *rval = {new cv::aruco::DetectorParameters()};
+    rval->ptr = new cv::aruco::DetectorParameters();
     END_WRAP
 }
 
@@ -274,42 +275,93 @@ bool cv_aruco_detectorParameters_get_detectInvertedMarker(ArucoDetectorParams se
     return self.ptr->detectInvertedMarker;
 }
 
-CvStatus* cv_aruco_getPredefinedDictionary(int dictionaryId, ArucoDictionary* rval) {
+CvStatus* cv_aruco_Dictionary_create(ArucoDictionary* rval) {
     BEGIN_WRAP
-    *rval = {new cv::aruco::Dictionary(cv::aruco::getPredefinedDictionary(dictionaryId))};
+    rval->ptr = new cv::aruco::Dictionary();
     END_WRAP
 }
 
-void cv_aruco_arucoDictionary_close(ArucoDictionaryPtr self) {
+CvStatus* cv_aruco_getPredefinedDictionary(int dictionaryId, ArucoDictionary* rval) {
+    BEGIN_WRAP
+    rval->ptr = new cv::aruco::Dictionary(cv::aruco::getPredefinedDictionary(dictionaryId));
+    END_WRAP
+}
+
+CvStatus* cv_aruco_Dictionary_create_1(
+    Mat bytesList, int markerSize, int maxCorr, ArucoDictionary* rval
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::aruco::Dictionary(CVDEREF(bytesList), markerSize, maxCorr);
+    END_WRAP
+}
+
+CvStatus* cv_aruco_Dictionary_generateImageMarker(
+    ArucoDictionary self, int id, int sidePixels, Mat _img, int borderBits
+) {
+    BEGIN_WRAP
+    self.ptr->generateImageMarker(id, sidePixels, CVDEREF(_img), borderBits);
+    END_WRAP
+}
+int cv_aruco_Dictionary_getDistanceToId(ArucoDictionary self, Mat bits, int id, bool allRotations) {
+    return self.ptr->getDistanceToId(CVDEREF(bits), id, allRotations);
+}
+bool cv_aruco_Dictionary_identify(
+    ArucoDictionary self, Mat onlyBits, int* idx, int* rotation, double maxCorrectionRate
+) {
+    int _idx, _rotation;
+    bool rval = self.ptr->identify(CVDEREF(onlyBits), _idx, _rotation, maxCorrectionRate);
+    *idx = _idx;
+    *rotation = _rotation;
+    return rval;
+}
+CvStatus* cv_aruco_Dictionary_get_bytesList(ArucoDictionary self, Mat* rval) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Mat(self.ptr->bytesList);
+    END_WRAP
+}
+int cv_aruco_Dictionary_get_markerSize(ArucoDictionary self) {
+    return self.ptr->markerSize;
+}
+int cv_aruco_Dictionary_get_maxCorrectionBits(ArucoDictionary self) {
+    return self.ptr->maxCorrectionBits;
+}
+
+CvStatus* cv_aruco_Dictionary_set_bytesList(ArucoDictionary self, Mat value){
+    BEGIN_WRAP
+    self.ptr->bytesList = CVDEREF(value);
+    END_WRAP
+}
+void cv_aruco_Dictionary_set_markerSize(ArucoDictionary self, int value){
+    self.ptr->markerSize = value;
+}
+void cv_aruco_Dictionary_set_maxCorrectionBits(ArucoDictionary self, int value){
+    self.ptr->maxCorrectionBits = value;
+}
+
+void cv_aruco_Dictionary_close(ArucoDictionaryPtr self) {
     CVD_FREE(self);
 }
 
 CvStatus* cv_aruco_arucoDetector_create(ArucoDetector* rval) {
     BEGIN_WRAP
-    *rval = {new cv::aruco::ArucoDetector()};
+    rval->ptr = new cv::aruco::ArucoDetector();
     END_WRAP
 }
 
 CvStatus* cv_aruco_arucoDetector_create_1(
-    ArucoDictionary dictionary,
-    ArucoDetectorParams params,
-    ArucoDetector* rval,
-    CvCallback_0 callback
+    ArucoDictionary dictionary, ArucoDetectorParams params, ArucoDetector* rval
 ) {
     BEGIN_WRAP
-    *rval = {new cv::aruco::ArucoDetector(CVDEREF(dictionary), CVDEREF(params))};
-    if (callback != nullptr) {
-        callback();
-    }
+    rval->ptr = new cv::aruco::ArucoDetector(CVDEREF(dictionary), CVDEREF(params));
     END_WRAP
 }
 
-void cv_aruco_arucoDetector_close(ArucoDetectorPtr ad) {
-    CVD_FREE(ad);
+void cv_aruco_arucoDetector_close(ArucoDetectorPtr self) {
+    CVD_FREE(self);
 }
 
 CvStatus* cv_aruco_arucoDetector_detectMarkers(
-    ArucoDetector ad,
+    ArucoDetector self,
     Mat inputArr,
     VecVecPoint2f* markerCorners,
     VecI32* markerIds,
@@ -320,7 +372,7 @@ CvStatus* cv_aruco_arucoDetector_detectMarkers(
     std::vector<std::vector<cv::Point2f>> _markerCorners;
     std::vector<int> _markerIds;
     std::vector<std::vector<cv::Point2f>> _rejectedCandidates;
-    ad.ptr->detectMarkers(*inputArr.ptr, _markerCorners, _markerIds, _rejectedCandidates);
+    self.ptr->detectMarkers(*inputArr.ptr, _markerCorners, _markerIds, _rejectedCandidates);
     *markerCorners = vecvecpoint2f_cpp2c(_markerCorners);
     *markerIds = vecint_cpp2c(_markerIds);
     if (rejectedCandidates != nullptr) {

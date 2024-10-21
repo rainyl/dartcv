@@ -848,3 +848,8 @@ TEST(VecVecDMatch, New_Append_At_Size_Close)
   status = VecVecDMatch_NewFromPointer(dms, 4, &vec);
   EXPECT_EQ(status->code, 0);
 }
+int main(int argc, char **argv)
+{
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}

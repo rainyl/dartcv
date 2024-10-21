@@ -102,7 +102,7 @@ extern "C" {
     value = nullptr
 #endif
 
-#define CVDEREF(value) (*value.ptr)
+#define CVDEREF(value) *value.ptr
 
 #define CVD_TYPEDEF(TYPE, NAME) \
     typedef TYPE* NAME##_CPP;   \

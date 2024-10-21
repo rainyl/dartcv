@@ -59,19 +59,19 @@ CvStatus* cv_selectROIs(
 );
 
 // Trackbar
-CvStatus* cv_createTrackbar(const char* winname, const char* trackname, int max);
+CvStatus* cv_createTrackbar(const char* trackname, const char* winname, int max);
 CvStatus* cv_createTrackbar_1(
-    const char* winname,
     const char* trackname,
+    const char* winname,
     int* value,
     int max,
     cv_TrackbarCallback onChange,
     void* userdata
 );
-CvStatus* cv_getTrackbarPos(const char* winname, const char* trackname, int* rval);
-CvStatus* cv_setTrackbarPos(const char* winname, const char* trackname, int pos);
-CvStatus* cv_setTrackbarMin(const char* winname, const char* trackname, int val);
-CvStatus* cv_setTrackbarMax(const char* winname, const char* trackname, int val);
+CvStatus* cv_getTrackbarPos(const char* trackname, const char* winname, int* rval);
+CvStatus* cv_setTrackbarPos(const char* trackname, const char* winname, int pos);
+CvStatus* cv_setTrackbarMin(const char* trackname, const char* winname, int val);
+CvStatus* cv_setTrackbarMax(const char* trackname, const char* winname, int val);
 
 #ifdef __cplusplus
 }
