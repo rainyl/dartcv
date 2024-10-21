@@ -1,6 +1,12 @@
 build*
 .idea
 libopencv*
+cmake-build*
+googletest
+test/images
+test/images_out
+test/models
+test/data
 .vscode
 .idea
 *.log
