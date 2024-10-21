@@ -137,11 +137,11 @@ CvStatus* cv_ximgproc_StructuredEdgeDetection_create(
 }
 
 CvStatus* cv_ximgproc_StructuredEdgeDetection_create_1(
-    const char* model, RFFeatureGetter howToGetFeatures, CVD_OUT StructuredEdgeDetection* rval
+    const char* model, RFFeatureGetter* howToGetFeatures, CVD_OUT StructuredEdgeDetection* rval
 ) {
     BEGIN_WRAP
     *rval = {new cv::Ptr<cv::ximgproc::StructuredEdgeDetection>(
-        cv::ximgproc::createStructuredEdgeDetection(model, CVDEREF(howToGetFeatures))
+        cv::ximgproc::createStructuredEdgeDetection(model, *howToGetFeatures->ptr)
     )};
     END_WRAP
 }

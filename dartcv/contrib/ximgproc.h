@@ -76,7 +76,7 @@ CvStatus* cv_ximgproc_StructuredEdgeDetection_create(
     const char* model, CVD_OUT StructuredEdgeDetection* rval
 );
 CvStatus* cv_ximgproc_StructuredEdgeDetection_create_1(
-    const char* model, RFFeatureGetter howToGetFeatures, CVD_OUT StructuredEdgeDetection* rval
+    const char* model, RFFeatureGetter* howToGetFeatures, CVD_OUT StructuredEdgeDetection* rval
 );
 void cv_ximgproc_StructuredEdgeDetection_close(StructuredEdgeDetectionPtr self);
 CvStatus* cv_ximgproc_StructuredEdgeDetection_computeOrientation(
