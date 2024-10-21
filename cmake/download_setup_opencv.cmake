@@ -25,21 +25,6 @@ if(DARTCV_DISABLE_DOWNLOAD_OPENCV)
 else()
   message(STATUS "Download OpenCV: enabled")
 
-  # detect os, supported values: windows, linux, macos, android, ios
-  string(TOLOWER ${CMAKE_SYSTEM_NAME} _dartcv_os)
-  set(_target_os "windows" "android" "linux" "ios")
-
-  if(${_dartcv_os} IN_LIST _target_os)
-  # placeholder
-  elseif(${CMAKE_SYSTEM_NAME} STREQUAL "darwin")
-    set(_dartcv_os "macos")
-  else()
-    message(FATAL_ERROR "Unsupported OS: ${CMAKE_SYSTEM_NAME}")
-  endif()
-
-  unset(_target_os)
-
-  # detect arch
   string(TOLOWER ${CMAKE_SYSTEM_PROCESSOR} _processor_lower)
   set(_target_arch_arm64 "arm64" "aarch64")
   set(_target_arch_x64 "x64" "x86_64" "amd64")
@@ -60,10 +45,28 @@ else()
     message(FATAL_ERROR "Unsupported processor: ${CMAKE_SYSTEM_PROCESSOR}")
   endif()
 
+  # detect os, supported: windows, linux, macos, android, ios
+  set(_target_os "windows" "android" "linux" "ios")
+  string(TOLOWER ${CMAKE_SYSTEM_NAME} _dartcv_os)
+
+  if (${_dartcv_os} STREQUAL "windows")
+    set(LIB_FILENAME "libopencv-windows-${_dartcv_arch}.tar.gz")
+  elseif (${_dartcv_os} STREQUAL "linux")
+    set(LIB_FILENAME "libopencv-linux-${_dartcv_arch}.tar.gz")
+  elseif (${_dartcv_os} STREQUAL "android")
+    set(LIB_FILENAME "libopencv-android-${_dartcv_arch}.tar.gz")
+  elseif (${_dartcv_os} STREQUAL "darwin")
+    set(LIB_FILENAME "libopencv-macos.zip")
+  elseif (${_dartcv_os} STREQUAL "ios")
+    set(LIB_FILENAME "libopencv-ios.zip")
+  else()
+    message(FATAL_ERROR "Unsupported OS: ${CMAKE_SYSTEM_NAME}")
+  endif ()
+
   # Print messages
   message(STATUS "os: ${_dartcv_os}, arch: ${_dartcv_arch}")
+  unset(_target_os)
 
-  set(LIB_FILENAME "libopencv-${_dartcv_os}-${_dartcv_arch}.tar.gz")
   include(FetchContent)
   FetchContent_Declare(
     libopencv
@@ -71,7 +74,7 @@ else()
   )
   FetchContent_MakeAvailable(libopencv)
 
-  set(_tmp "linux" "macos" "ios")
+  set(_tmp "linux" "macos" "darwin" "ios")
 
   if(${_dartcv_os} STREQUAL "windows")
     set(OpenCV_DIR ${libopencv_SOURCE_DIR} CACHE PATH "Directory with OpenCVConfig.cmake")

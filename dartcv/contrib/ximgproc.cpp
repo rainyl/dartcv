@@ -208,7 +208,7 @@ CvStatus* cv_ximgproc_EdgeBoxes_create(
     EdgeBoxes* rval
 ) {
     BEGIN_WRAP
-    rval->ptr = new cv::Ptr(cv::ximgproc::createEdgeBoxes(
+    rval->ptr = new cv::Ptr<cv::ximgproc::EdgeBoxes>(cv::ximgproc::createEdgeBoxes(
         alpha,
         beta,
         eta,
