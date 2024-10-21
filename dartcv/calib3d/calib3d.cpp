@@ -202,11 +202,13 @@ CvStatus* cv_undistortPoints(
 }
 
 CvStatus* cv_findChessboardCorners(
-    Mat image, CvSize patternSize, Mat corners, int flags, bool* rval, CvCallback_0 callback
+    Mat image, CvSize patternSize, VecPoint2f* corners, int flags, bool* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
     cv::Size sz(patternSize.width, patternSize.height);
-    *rval = cv::findChessboardCorners(CVDEREF(image), sz, CVDEREF(corners), flags);
+    std::vector<cv::Point2f> _corners;
+    *rval = cv::findChessboardCorners(CVDEREF(image), sz, _corners, flags);
+    *corners = vecpoint2f_cpp2c(_corners);
     if (callback != nullptr) {
         callback();
     }
@@ -248,11 +250,12 @@ CvStatus* cv_FindChessboardCornersSB_1(
 }
 
 CvStatus* cv_drawChessboardCorners(
-    Mat image, CvSize patternSize, Mat corners, bool patternWasFound, CvCallback_0 callback
+    Mat image, CvSize patternSize, VecPoint2f corners, bool patternWasFound, CvCallback_0 callback
 ) {
     BEGIN_WRAP
     cv::Size sz(patternSize.width, patternSize.height);
-    cv::drawChessboardCorners(CVDEREF(image), sz, CVDEREF(corners), patternWasFound);
+    auto _corners = vecpoint2f_c2cpp(corners);
+    cv::drawChessboardCorners(CVDEREF(image), sz, _corners, patternWasFound);
     if (callback != nullptr) {
         callback();
     }

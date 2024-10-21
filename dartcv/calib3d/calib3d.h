@@ -87,7 +87,7 @@ CvStatus* cv_undistortPoints(
     CvCallback_0 callback
 );
 CvStatus* cv_findChessboardCorners(
-    Mat image, CvSize patternSize, Mat corners, int flags, bool* rval, CvCallback_0 callback
+    Mat image, CvSize patternSize, VecPoint2f* corners, int flags, bool* rval, CvCallback_0 callback
 );
 CvStatus* cv_findChessboardCornersSB(
     Mat image, CvSize patternSize, VecPoint2f* corners, int flags, bool* rval, CvCallback_0 callback
@@ -102,7 +102,7 @@ CvStatus* cv_FindChessboardCornersSB_1(
     CvCallback_0 callback
 );
 CvStatus* cv_drawChessboardCorners(
-    Mat image, CvSize patternSize, Mat corners, bool patternWasFound, CvCallback_0 callback
+    Mat image, CvSize patternSize, VecPoint2f corners, bool patternWasFound, CvCallback_0 callback
 );
 CvStatus* cv_estimateAffinePartial2D(
     VecPoint2f from, VecPoint2f to, Mat* rval, CvCallback_0 callback
