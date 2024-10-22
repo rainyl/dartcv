@@ -178,10 +178,11 @@ CvStatus* cv_VideoWriter_open(
     int width,
     int height,
     bool isColor,
+    bool* rval,
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    self.ptr->open(name, fourcc, fps, cv::Size(width, height), isColor);
+    *rval = self.ptr->open(name, fourcc, fps, cv::Size(width, height), isColor);
     if (callback != nullptr) {
         callback();
     }
@@ -197,10 +198,11 @@ CvStatus* cv_VideoWriter_open_1(
     int width,
     int height,
     bool isColor,
+    bool* rval,
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    self.ptr->open(name, apiPreference, fourcc, fps, cv::Size(width, height), isColor);
+    *rval = self.ptr->open(name, apiPreference, fourcc, fps, cv::Size(width, height), isColor);
     if (callback != nullptr) {
         callback();
     }

@@ -74,7 +74,7 @@ CvStatus* cv_Mat_create_4(VecI32 sizes, int type, void* buf, Mat* rval, CvCallba
 /**
  * @brief Create Mat with Scalar values
  *
- * @param ar array of values to initialize the matrix with
+ * @param scalar array of values to initialize the matrix with
  * @param rows number of rows
  * @param cols number of columns
  * @param type type of the created matrix
@@ -82,7 +82,7 @@ CvStatus* cv_Mat_create_4(VecI32 sizes, int type, void* buf, Mat* rval, CvCallba
  * @return CvStatus
  */
 CvStatus* cv_Mat_create_5(
-    const Scalar ar, int rows, int cols, int type, Mat* rval, CvCallback_0 callback
+    const Scalar scalar, int rows, int cols, int type, Mat* rval, CvCallback_0 callback
 );
 
 /**

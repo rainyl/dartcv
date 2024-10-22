@@ -14,7 +14,7 @@ inline std::vector<cv::Point> vecpoint_c2cpp(VecPoint v) {
 }
 
 inline VecPoint vecpoint_cpp2c(std::vector<cv::Point> v) {
-    CvPoint* ptr = new CvPoint[v.size()];
+    auto* ptr = (CvPoint*)calloc(v.size(), sizeof(CvPoint));
     for (int i = 0; i < v.size(); i++) {
         ptr[i] = CvPoint{v[i].x, v[i].y};
     }
@@ -22,7 +22,7 @@ inline VecPoint vecpoint_cpp2c(std::vector<cv::Point> v) {
 }
 
 inline VecPoint* vecpoint_cpp2c_p(std::vector<cv::Point> v) {
-    CvPoint* ptr = new CvPoint[v.size()];
+    auto* ptr = (CvPoint*)calloc(v.size(), sizeof(CvPoint));
     for (int i = 0; i < v.size(); i++) {
         ptr[i] = CvPoint{v[i].x, v[i].y};
     }
@@ -39,7 +39,7 @@ inline std::vector<cv::Point2f> vecpoint2f_c2cpp(VecPoint2f v) {
 }
 
 inline VecPoint2f vecpoint2f_cpp2c(std::vector<cv::Point2f> v) {
-    CvPoint2f* ptr = new CvPoint2f[v.size()];
+    auto* ptr = (CvPoint2f*)calloc(v.size(), sizeof(CvPoint2f));
     for (int i = 0; i < v.size(); i++) {
         ptr[i] = CvPoint2f{v[i].x, v[i].y};
     }
@@ -488,7 +488,7 @@ inline std::vector<cv::KeyPoint> veckeypoint_c2cpp(VecKeyPoint v) {
     return rv;
 }
 inline VecKeyPoint veckeypoint_cpp2c(std::vector<cv::KeyPoint> v) {
-    KeyPoint* ptr = new KeyPoint[v.size()];
+    auto* ptr = (KeyPoint*)calloc(v.size(), sizeof(KeyPoint));
     for (int i = 0; i < v.size(); i++) {
         auto kp = v[i];
         KeyPoint ckp = {kp.pt.x, kp.pt.y, kp.size, kp.angle, kp.response, kp.octave, kp.class_id};
@@ -498,7 +498,7 @@ inline VecKeyPoint veckeypoint_cpp2c(std::vector<cv::KeyPoint> v) {
 }
 
 inline VecKeyPoint* veckeypoint_cpp2c_p(std::vector<cv::KeyPoint> v) {
-    KeyPoint* ptr = new KeyPoint[v.size()];
+    auto* ptr = new KeyPoint[v.size()];
     for (int i = 0; i < v.size(); i++) {
         auto kp = v[i];
         KeyPoint ckp = {kp.pt.x, kp.pt.y, kp.size, kp.angle, kp.response, kp.octave, kp.class_id};

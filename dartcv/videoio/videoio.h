@@ -86,6 +86,7 @@ CvStatus* cv_VideoWriter_open(
     int width,
     int height,
     bool isColor,
+    bool* rval,
     CvCallback_0 callback
 );
 
@@ -98,6 +99,7 @@ CvStatus* cv_VideoWriter_open_1(
     int width,
     int height,
     bool isColor,
+    bool* rval,
     CvCallback_0 callback
 );
 

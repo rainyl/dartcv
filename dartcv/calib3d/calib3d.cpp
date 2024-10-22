@@ -220,7 +220,7 @@ CvStatus* cv_findChessboardCornersSB(
 ) {
     BEGIN_WRAP
     cv::Size sz(patternSize.width, patternSize.height);
-    std::vector<cv::Point2f> _corners;
+    std::vector<cv::Point2f> _corners = std::vector<cv::Point2f>();
     *rval = cv::findChessboardCornersSB(CVDEREF(image), sz, _corners, flags);
     *corners = vecpoint2f_cpp2c(_corners);
     if (callback != nullptr) {
@@ -229,7 +229,7 @@ CvStatus* cv_findChessboardCornersSB(
     END_WRAP
 }
 
-CvStatus* cv_FindChessboardCornersSB_1(
+CvStatus* cv_findChessboardCornersSB_1(
     Mat image,
     CvSize patternSize,
     VecPoint2f* corners,

@@ -22,7 +22,7 @@ CvStatus* cv_quality_QualityBRISQUE_compute(
     QualityBRISQUE self, Mat img, Scalar* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::Scalar r = (*self.ptr)->compute(*img.ptr);
+    cv::Scalar r = (CVDEREF(self))->compute(CVDEREF(img));
     *rval = {r.val[0], r.val[1], r.val[2], r.val[3]};
     if (callback != nullptr) {
         callback();
@@ -34,7 +34,7 @@ CvStatus* cv_quality_QualityBRISQUE_compute_static(
     Mat img, const char* model_file, const char* range_file, Scalar* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::Scalar r = cv::quality::QualityBRISQUE::compute(*img.ptr, model_file, range_file);
+    cv::Scalar r = cv::quality::QualityBRISQUE::compute(CVDEREF(img), model_file, range_file);
     if (callback != nullptr) {
         callback();
     }
@@ -46,7 +46,7 @@ CvStatus* cv_quality_QualityBRISQUE_computeFeatures_static(
     Mat img, Mat features, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::quality::QualityBRISQUE::computeFeatures(*img.ptr, *features.ptr);
+    cv::quality::QualityBRISQUE::computeFeatures(CVDEREF(img), CVDEREF(features));
     if (callback != nullptr) {
         callback();
     }
@@ -55,7 +55,7 @@ CvStatus* cv_quality_QualityBRISQUE_computeFeatures_static(
 
 CvStatus* cv_quality_QualityGMSD_create(Mat ref, QualityGMSD* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    *rval = {new cv::Ptr<cv::quality::QualityGMSD>(cv::quality::QualityGMSD::create(*ref.ptr))};
+    *rval = {new cv::Ptr<cv::quality::QualityGMSD>(cv::quality::QualityGMSD::create(CVDEREF(ref)))};
     if (callback != nullptr) {
         callback();
     }
@@ -71,7 +71,7 @@ CvStatus* cv_quality_QualityGMSD_compute(
     QualityGMSD self, Mat cmp, Scalar* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::Scalar r = (*self.ptr)->compute(*cmp.ptr);
+    cv::Scalar r = (CVDEREF(self))->compute(CVDEREF(cmp));
     *rval = {r.val[0], r.val[1], r.val[2], r.val[3]};
     if (callback != nullptr) {
         callback();
@@ -83,7 +83,8 @@ CvStatus* cv_quality_QualityGMSD_compute_static(
     Mat ref, Mat cmp, Mat qualityMap, Scalar* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::Scalar r = cv::quality::QualityGMSD::compute(*ref.ptr, *cmp.ptr, *qualityMap.ptr);
+    cv::Scalar r =
+        cv::quality::QualityGMSD::compute(CVDEREF(ref), CVDEREF(cmp), CVDEREF(qualityMap));
     *rval = {r.val[0], r.val[1], r.val[2], r.val[3]};
     if (callback != nullptr) {
         callback();
@@ -93,7 +94,7 @@ CvStatus* cv_quality_QualityGMSD_compute_static(
 
 CvStatus* cv_quality_QualityMSE_create(Mat ref, QualityMSE* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    *rval = {new cv::Ptr<cv::quality::QualityMSE>(cv::quality::QualityMSE::create(*ref.ptr))};
+    *rval = {new cv::Ptr<cv::quality::QualityMSE>(cv::quality::QualityMSE::create(CVDEREF(ref)))};
     if (callback != nullptr) {
         callback();
     }
@@ -109,7 +110,7 @@ CvStatus* cv_quality_QualityMSE_compute(
     QualityMSE self, Mat cmpImgs, Scalar* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::Scalar r = (*self.ptr)->compute(*cmpImgs.ptr);
+    cv::Scalar r = (CVDEREF(self))->compute(CVDEREF(cmpImgs));
     *rval = {r.val[0], r.val[1], r.val[2], r.val[3]};
     if (callback != nullptr) {
         callback();
@@ -121,7 +122,8 @@ CvStatus* cv_quality_QualityMSE_compute_static(
     Mat ref, Mat cmp, Mat qualityMap, Scalar* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::Scalar r = cv::quality::QualityMSE::compute(*ref.ptr, *cmp.ptr, *qualityMap.ptr);
+    cv::Scalar r =
+        cv::quality::QualityMSE::compute(CVDEREF(ref), CVDEREF(cmp), CVDEREF(qualityMap));
     *rval = {r.val[0], r.val[1], r.val[2], r.val[3]};
     if (callback != nullptr) {
         callback();
@@ -134,7 +136,7 @@ CvStatus* cv_quality_QualityPSNR_create(
 ) {
     BEGIN_WRAP
     *rval = {new cv::Ptr<cv::quality::QualityPSNR>(
-        cv::quality::QualityPSNR::create(*ref.ptr, maxPixelValue)
+        cv::quality::QualityPSNR::create(CVDEREF(ref), maxPixelValue)
     )};
     if (callback != nullptr) {
         callback();
@@ -151,7 +153,7 @@ CvStatus* cv_quality_QualityPSNR_compute(
     QualityPSNR self, Mat cmp, Scalar* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::Scalar r = (*self.ptr)->compute(*cmp.ptr);
+    cv::Scalar r = (CVDEREF(self))->compute(CVDEREF(cmp));
     *rval = {r.val[0], r.val[1], r.val[2], r.val[3]};
     if (callback != nullptr) {
         callback();
@@ -163,8 +165,9 @@ CvStatus* cv_quality_QualityPSNR_compute_static(
     Mat ref, Mat cmp, double maxPixelValue, Mat qualityMap, Scalar* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::Scalar r =
-        cv::quality::QualityPSNR::compute(*ref.ptr, *cmp.ptr, *qualityMap.ptr, maxPixelValue);
+    cv::Scalar r = cv::quality::QualityPSNR::compute(
+        CVDEREF(ref), CVDEREF(cmp), CVDEREF(qualityMap), maxPixelValue
+    );
     *rval = {r.val[0], r.val[1], r.val[2], r.val[3]};
     if (callback != nullptr) {
         callback();
@@ -173,16 +176,16 @@ CvStatus* cv_quality_QualityPSNR_compute_static(
 }
 
 double cv_quality_QualityPSNR_getMaxPixelValue(QualityPSNR self) {
-    return (*self.ptr)->getMaxPixelValue();
+    return (CVDEREF(self))->getMaxPixelValue();
 }
 
 void cv_quality_QualityPSNR_setMaxPixelValue(QualityPSNR self, double maxPixelValue) {
-    (*self.ptr)->setMaxPixelValue(maxPixelValue);
+    (CVDEREF(self))->setMaxPixelValue(maxPixelValue);
 }
 
 CvStatus* cv_quality_QualitySSIM_create(Mat ref, QualitySSIM* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    *rval = {new cv::Ptr<cv::quality::QualitySSIM>(cv::quality::QualitySSIM::create(*ref.ptr))};
+    *rval = {new cv::Ptr<cv::quality::QualitySSIM>(cv::quality::QualitySSIM::create(CVDEREF(ref)))};
     if (callback != nullptr) {
         callback();
     }
@@ -198,7 +201,7 @@ CvStatus* cv_quality_QualitySSIM_compute(
     QualitySSIM self, Mat cmp, Scalar* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::Scalar r = (*self.ptr)->compute(*cmp.ptr);
+    cv::Scalar r = (CVDEREF(self))->compute(CVDEREF(cmp));
     *rval = {r.val[0], r.val[1], r.val[2], r.val[3]};
     if (callback != nullptr) {
         callback();
@@ -210,7 +213,8 @@ CvStatus* cv_quality_QualitySSIM_compute_static(
     Mat ref, Mat cmp, Mat qualityMap, Scalar* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::Scalar r = cv::quality::QualitySSIM::compute(*ref.ptr, *cmp.ptr, *qualityMap.ptr);
+    cv::Scalar r =
+        cv::quality::QualitySSIM::compute(CVDEREF(ref), CVDEREF(cmp), CVDEREF(qualityMap));
     *rval = {r.val[0], r.val[1], r.val[2], r.val[3]};
     if (callback != nullptr) {
         callback();

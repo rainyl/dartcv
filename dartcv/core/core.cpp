@@ -710,6 +710,9 @@ CvStatus* cv_PCAProject(Mat data, Mat mean, Mat eigenvectors, Mat result, CvCall
 CvStatus* cv_perspectiveTransform(Mat src, Mat dst, Mat tm, CvCallback_0 callback) {
     BEGIN_WRAP
     cv::perspectiveTransform(CVDEREF(src), CVDEREF(dst), CVDEREF(tm));
+    if (callback != nullptr) {
+        callback();
+    }
     END_WRAP
 }
 
@@ -756,7 +759,7 @@ CvStatus* cv_reduce(Mat src, Mat dst, int dim, int rType, int dType, CvCallback_
 }
 CvStatus* cv_reduceArgMax(Mat src, Mat dst, int axis, bool lastIndex, CvCallback_0 callback) {
     BEGIN_WRAP
-    cv::reduceArgMin(CVDEREF(src), CVDEREF(dst), axis, lastIndex);
+    cv::reduceArgMax(CVDEREF(src), CVDEREF(dst), axis, lastIndex);
     if (callback != nullptr) {
         callback();
     }
@@ -764,7 +767,7 @@ CvStatus* cv_reduceArgMax(Mat src, Mat dst, int axis, bool lastIndex, CvCallback
 }
 CvStatus* cv_reduceArgMin(Mat src, Mat dst, int axis, bool lastIndex, CvCallback_0 callback) {
     BEGIN_WRAP
-    cv::reduceArgMax(CVDEREF(src), CVDEREF(dst), axis, lastIndex);
+    cv::reduceArgMin(CVDEREF(src), CVDEREF(dst), axis, lastIndex);
     if (callback != nullptr) {
         callback();
     }

@@ -49,10 +49,11 @@ CvStatus* cv_Mat_create_4(VecI32 sizes, int type, void* buf, Mat* rval, CvCallba
 }
 
 CvStatus* cv_Mat_create_5(
-    const Scalar ar, int rows, int cols, int type, Mat* rval, CvCallback_0 callback
+    const Scalar scalar, int rows, int cols, int type, Mat* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    rval->ptr = new cv::Mat(rows, cols, type, cv::Scalar(ar.val1, ar.val2, ar.val3, ar.val4));
+    cv::Scalar c = cv::Scalar(scalar.val1, scalar.val2, scalar.val3, scalar.val4);
+    rval->ptr = new cv::Mat(rows, cols, type, c);
     if (callback != nullptr) {
         callback();
     }
@@ -63,7 +64,10 @@ CvStatus* cv_Mat_create_6(
     int rows, int cols, int type, void* buf, Mat* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    rval->ptr = new cv::Mat(rows, cols, type, buf);
+    cv::Mat m = cv::Mat(rows, cols, type);
+    m.create(rows, cols, type);
+    memcpy(m.data, buf, m.total() * m.elemSize());
+    rval->ptr = new cv::Mat(m);
     if (callback != nullptr) {
         callback();
     }
@@ -410,7 +414,7 @@ CvStatus* cv_Mat_convertTo_1(
     END_WRAP
 }
 
-CvStatus* cv_Mat_setTo(Mat self, Scalar value, Mat mask, CvCallback_0 callback){
+CvStatus* cv_Mat_setTo(Mat self, Scalar value, Mat mask, CvCallback_0 callback) {
     BEGIN_WRAP
     cv::Scalar c_val(value.val1, value.val2, value.val3, value.val4);
     self.ptr->setTo(c_val, CVDEREF(mask));
