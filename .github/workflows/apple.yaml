@@ -14,6 +14,17 @@ on:
       - "**.md"
       - "LICENSE"
 
+env:
+  DEVELOPER_DIR: /Applications/Xcode_15.2.app/Contents/Developer
+  IOS_DEPLOYMENT_TARGET: "12.0"
+  MAC_DEPLOYMENT_TARGET: "10.15"
+  ENABLE_BITCODE: OFF
+  ENABLE_ARC: OFF
+  ENABLE_VISIBILITY: OFF
+  FFMPEG_ROOT: /tmp/ffmpeg
+  SOURCE_DIR: opencv
+  OPENCV_SUBDIR: lib/cmake/opencv4
+
 jobs:
   macos:
     name: macos
@@ -32,6 +43,11 @@ jobs:
           mkdir -p build && cd build
           cmake -S ${{ github.workspace }} \
             -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/cmake/ios.toolchain.cmake \
+            -DPLATFORM=${{ matrix.osname.platform }} \
+            -DDEPLOYMENT_TARGET=$MAC_DEPLOYMENT_TARGET \
+            -DENABLE_BITCODE=OFF \
+            -DENABLE_ARC=$ENABLE_ARC \
+            -DENABLE_VISIBILITY=$ENABLE_VISIBILITY \
             -DCMAKE_INSTALL_PREFIX=install \
             -DDARTCV_WITH_VIDEOIO=ON \
             -DDARTCV_WITH_HIGHGUI=ON \
