@@ -251,11 +251,8 @@ void cv_ORB_close(ORBPtr self) {
 CvStatus* cv_ORB_detect(ORB self, Mat src, VecKeyPoint* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    cv::Mat m((CVDEREF(src)).rows, (CVDEREF(src)).cols, CV_8UC3);
-    cv::randu(m, 0, 255);
-    (*self.ptr)->detect(m, detected);
-    std::cout << "detected: " << detected.size() << std::endl;
-//    *rval = veckeypoint_cpp2c(detected);
+    (*self.ptr)->detect(CVDEREF(src), detected);
+    *rval = veckeypoint_cpp2c(detected);
     if (callback != nullptr) {
         callback();
     }
