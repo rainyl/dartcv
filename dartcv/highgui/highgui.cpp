@@ -8,8 +8,8 @@
 #include "dartcv/highgui/highgui.h"
 #include "dartcv/core/vec.hpp"
 
-const char* cv_currentUIFramework() {
-    return cv::currentUIFramework().c_str();
+char* cv_currentUIFramework() {
+    return strdup(cv::currentUIFramework().c_str());
 }
 int cv_getMouseWheelDelta(int flags) {
     return cv::getMouseWheelDelta(flags);

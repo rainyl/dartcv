@@ -20,7 +20,7 @@ typedef void (*cv_MouseCallback)(int event, int x, int y, int flags, void* userd
 typedef void (*cv_OpenGlDrawCallback)(void* userdata);
 typedef void (*cv_TrackbarCallback)(int pos, void* userdata);
 
-const char* cv_currentUIFramework();
+char* cv_currentUIFramework();
 int cv_getMouseWheelDelta(int flags);
 int cv_pollKey();
 int cv_waitKey(int delay);

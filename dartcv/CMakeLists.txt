@@ -127,7 +127,7 @@ foreach (_cpp_file IN LISTS _cpp_files)
 endforeach ()
 
 if (APPLE)
-  set(DARTCV_DEPS ${OpenCV_LIBS})
+  set(DARTCV_DEPS opencv_world opencv_img_hash)
   if ((NOT IOS) AND DARTCV_WITH_FFMPEG)
     set(DARTCV_DEPS ${DARTCV_DEPS} ${FFMPEG_LIBRARIES})
   endif ()

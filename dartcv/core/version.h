@@ -15,8 +15,8 @@ extern "C" {
 
 #include "dartcv/core/core.h"
 
-const char* getCvVersion();
-const char* getBuildInfo();
+char* getCvVersion();
+char* getBuildInfo();
 
 #ifdef __cplusplus
 }
