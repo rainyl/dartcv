@@ -126,6 +126,13 @@ foreach (_cpp_file IN LISTS _cpp_files)
     list(APPEND _header_files ${_header_file})
 endforeach ()
 
+if (APPLE)
+  set(DARTCV_DEPS opencv_world)
+  if ((NOT IOS) AND DARTCV_WITH_FFMPEG)
+    set(DARTCV_DEPS ${DARTCV_DEPS} ${FFMPEG_LIBRARIES})
+  endif ()
+endif ()
+
 # ##############################################################################
 # Add library
 # ##############################################################################
