@@ -164,9 +164,9 @@ if (WIN32)
             COMPILE_FLAGS "/EHsc"
     )
 
-#    if (BUILD_WITH_STATIC_CRT)
-#        target_compile_options(${LIBRARY_NAME} PRIVATE "/MT")
-#    endif ()
+    if (BUILD_WITH_STATIC_CRT)
+        target_compile_options(${LIBRARY_NAME} PRIVATE "/MT")
+    endif ()
 endif (WIN32)
 
 target_compile_definitions(${LIBRARY_NAME} PUBLIC DART_SHARED_LIB)

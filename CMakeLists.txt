@@ -29,7 +29,7 @@ option(DARTCV_ENABLE_TEST "Enable tests" OFF)
 option(BUILD_WITH_STATIC_CRT "Build with static CRT" ON)
 option(DARTCV_DISABLE_DOWNLOAD_OPENCV "Download opencv sdk from opencv.full" OFF)
 
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>" CACHE INTERNAL "")
+#set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>" CACHE INTERNAL "")
 
 if (${DARTCV_WITH_HIGHGUI} OR ${DARTCV_WITH_VIDEOIO} OR ${DARTCV_WORLD})
   set(DARTCV_WITH_FFMPEG ON CACHE BOOL "")
