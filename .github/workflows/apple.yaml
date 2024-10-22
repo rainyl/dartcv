@@ -23,8 +23,38 @@ jobs:
           - {os: macos-13, arch: x64, platform: MAC}
           - {os: macos-14, arch: arm64, platform: MAC_ARM64}
     runs-on: ${{ matrix.osname.os }}
+    env:
+      PACKAGE_NAME: libdartcv-macos-${{ matrix.osname.arch }}
     steps:
       - uses: actions/checkout@v4
+      - name: build
+        run: |
+          mkdir -p build && cd build
+          cmake -S ${{ github.workspace }} \
+            -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/cmake/ios.toolchain.cmake \
+            -DCMAKE_INSTALL_PREFIX=install \
+            -DDARTCV_WITH_VIDEOIO=ON \
+            -DDARTCV_WITH_HIGHGUI=ON \
+            -DDARTCV_ENABLE_INSTALL=ON \
+            -DCMAKE_BUILD_TYPE=Release
+
+          cmake --build . --config Release -j $(nproc) --target install
+      - uses: actions/upload-artifact@v4
+        name: upload
+        with:
+          path: build/install
+          name: ${{ env.PACKAGE_NAME }}
+      - name: package
+        run: |
+          tar -C build/install -zcf ${{ env.PACKAGE_NAME }}.tar.gz .
+      - name: release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          prerelease: false
+          files: |
+            ${{ env.PACKAGE_NAME }}.tar.gz
       - name: macos
         run: |
           pod lib lint DartCvMacOS.podspec --allow-warnings
