@@ -53,12 +53,10 @@ CvStatus* cv_quality_QualityBRISQUE_computeFeatures_static(
     END_WRAP
 }
 
-CvStatus* cv_quality_QualityGMSD_create(Mat ref, QualityGMSD* rval, CvCallback_0 callback) {
+CvStatus* cv_quality_QualityGMSD_create(Mat ref, QualityGMSD* rval) {
     BEGIN_WRAP
-    *rval = {new cv::Ptr<cv::quality::QualityGMSD>(cv::quality::QualityGMSD::create(CVDEREF(ref)))};
-    if (callback != nullptr) {
-        callback();
-    }
+    rval->ptr =
+        new cv::Ptr<cv::quality::QualityGMSD>(cv::quality::QualityGMSD::create(CVDEREF(ref)));
     END_WRAP
 }
 

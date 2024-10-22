@@ -43,7 +43,7 @@ CvStatus* cv_quality_QualityBRISQUE_computeFeatures_static(
     Mat img, Mat features, CvCallback_0 callback
 );
 
-CvStatus* cv_quality_QualityGMSD_create(Mat ref, QualityGMSD* rval, CvCallback_0 callback);
+CvStatus* cv_quality_QualityGMSD_create(Mat ref, QualityGMSD* rval);
 void cv_quality_QualityGMSD_close(QualityGMSDPtr self);
 CvStatus* cv_quality_QualityGMSD_compute(
     QualityGMSD self, Mat cmp, Scalar* rval, CvCallback_0 callback
