@@ -16,15 +16,16 @@ if(_env_cache_dir)
     message(STATUS "Using cache directory: ${_env_cache_dir}")
     file(TO_CMAKE_PATH ${_env_cache_dir} _env_cache_dir)
     set(DARTCV_CACHE_DIR ${_env_cache_dir} CACHE PATH "Cache directory for DartCV")
+    set(FETCHCONTENT_BASE_DIR "${DARTCV_CACHE_DIR}/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_PROCESSOR}"
+            CACHE PATH "Directory under which to collect all populated content" FORCE
+    )
   else()
     message(WARNING "DARTCV_CACHE_DIR is defined as ${_env_cache_dir} but invalid, ignored.")
-    set(DARTCV_CACHE_DIR "${CMAKE_BINARY_DIR}/_deps" CACHE PATH "Cache directory for DartCV")
   endif()
 endif()
 unset(_env_cache_dir)
 
 # cache opencv to system cache directory
-set(FETCHCONTENT_BASE_DIR "${DARTCV_CACHE_DIR}/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_PROCESSOR}" CACHE PATH "Directory under which to collect all populated content" FORCE)
 
 # check whether the download is disabled
 if(DARTCV_DISABLE_DOWNLOAD_OPENCV)
