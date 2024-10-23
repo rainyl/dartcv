@@ -8,6 +8,24 @@ endif(_env_disable_download_opencv)
 
 unset(_env_disable_download_opencv)
 
+# DARTCV_CACHE_DIR is used to cache opencv sdk to system directory
+# if not specified, set it to the default value of FETCHCONTENT_BASE_DIR, i.e., "CMAKE_BINARY_DIR/_deps"
+set(_env_cache_dir $ENV{DARTCV_CACHE_DIR})
+if(_env_cache_dir)
+  if(EXISTS ${_env_cache_dir} AND IS_DIRECTORY ${_env_cache_dir})
+    message(STATUS "Using cache directory: ${_env_cache_dir}")
+    file(TO_CMAKE_PATH ${_env_cache_dir} _env_cache_dir)
+    set(DARTCV_CACHE_DIR ${_env_cache_dir} CACHE PATH "Cache directory for DartCV")
+  else()
+    message(WARNING "DARTCV_CACHE_DIR is defined as ${_env_cache_dir} but invalid, ignored.")
+    set(DARTCV_CACHE_DIR "${CMAKE_BINARY_DIR}/_deps" CACHE PATH "Cache directory for DartCV")
+  endif()
+endif()
+unset(_env_cache_dir)
+
+# cache opencv to system cache directory
+set(FETCHCONTENT_BASE_DIR "${DARTCV_CACHE_DIR}/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_PROCESSOR}" CACHE PATH "Directory under which to collect all populated content" FORCE)
+
 # check whether the download is disabled
 if(DARTCV_DISABLE_DOWNLOAD_OPENCV)
   message(STATUS "Download OpenCV: disabled")
@@ -66,13 +84,16 @@ else()
   # Print messages
   message(STATUS "os: ${_dartcv_os}, arch: ${_dartcv_arch}")
   unset(_target_os)
-
+message(STATUS "FETCHCONTENT_BASE_DIR ${FETCHCONTENT_BASE_DIR}")
   include(FetchContent)
   FetchContent_Declare(
     libopencv
     URL "${LIBOPENCV_URL_BASE}/${OPENCV_VERSION}/${LIB_FILENAME}"
   )
-  FetchContent_MakeAvailable(libopencv)
+  if(NOT libopencv_POPULATED)
+    FetchContent_Populate(libopencv)
+  endif()
+#  FetchContent_MakeAvailable(libopencv)
 
   set(_tmp "linux" "macos" "darwin" "ios")
 
@@ -97,3 +118,6 @@ else()
 endif()
 
 set(OpenCV_STATIC ON)
+
+# restore the original value
+set(FETCHCONTENT_BASE_DIR "${CMAKE_BINARY_DIR}/_deps" CACHE PATH "Directory under which to collect all populated content" FORCE)
