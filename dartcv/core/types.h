@@ -450,6 +450,7 @@ CVD_TYPEDEF_VEC(VecPoint2f, VecVecPoint2f);
 CVD_TYPEDEF_VEC(VecPoint3f, VecVecPoint3f);
 CVD_TYPEDEF_VEC(VecPoint3i, VecVecPoint3i);
 CVD_TYPEDEF_VEC(CvRect, VecRect);
+CVD_TYPEDEF_VEC(CvRect2f, VecRect2f);
 CVD_TYPEDEF_VEC(RotatedRect, VecRotatedRect);
 CVD_TYPEDEF_VEC(KeyPoint, VecKeyPoint);
 CVD_TYPEDEF_VEC(DMatch, VecDMatch);
