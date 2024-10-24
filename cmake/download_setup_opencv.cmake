@@ -85,7 +85,7 @@ else()
   # Print messages
   message(STATUS "os: ${_dartcv_os}, arch: ${_dartcv_arch}")
   unset(_target_os)
-message(STATUS "FETCHCONTENT_BASE_DIR ${FETCHCONTENT_BASE_DIR}")
+  message(STATUS "FETCHCONTENT_BASE_DIR: ${FETCHCONTENT_BASE_DIR}")
   include(FetchContent)
   FetchContent_Declare(
     libopencv
@@ -108,7 +108,6 @@ message(STATUS "FETCHCONTENT_BASE_DIR ${FETCHCONTENT_BASE_DIR}")
     message(FATAL_ERROR "Unsupported OS: ${_dartcv_os}")
   endif()
   set(FFMPEG_DIR ${libopencv_SOURCE_DIR}/ffmpeg/cmake CACHE PATH "Directory with ffmpeg-config.cmake")
-
   unset(_tmp)
 endif()
 

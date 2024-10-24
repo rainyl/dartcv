@@ -10,6 +10,7 @@
 #include "dartcv/core/vec.hpp"
 #include <cstring>
 #include <vector>
+#include <iostream>
 
 // AsyncArray_New creates a new empty AsyncArray
 CvStatus* cv_dnn_AsyncArray_new(AsyncArray* rval) {
@@ -29,10 +30,147 @@ CvStatus* cv_dnn_AsyncArray_get(AsyncArray async_out, Mat out) {
     END_WRAP
 }
 
+CvStatus* cv_dnn_blobFromImage(
+    Mat image,
+    Mat blob,
+    double scalefactor,
+    CvSize size,
+    Scalar mean,
+    bool swapRB,
+    bool crop,
+    int ddepth,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::Size sz(size.width, size.height);
+    cv::Scalar cm(mean.val1, mean.val2, mean.val3, mean.val4);
+    cv_dnn::blobFromImage(CVDEREF(image), CVDEREF(blob), scalefactor, sz, cm, swapRB, crop, ddepth);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_dnn_blobFromImages(
+    VecMat images,
+    Mat blob,
+    double scalefactor,
+    CvSize size,
+    Scalar mean,
+    bool swapRB,
+    bool crop,
+    int ddepth,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::Size sz(size.width, size.height);
+    cv::Scalar cm = cv::Scalar(mean.val1, mean.val2, mean.val3, mean.val4);
+    auto _images = vecmat_c2cpp(images);
+    cv_dnn::blobFromImages(_images, CVDEREF(blob), scalefactor, sz, cm, swapRB, crop, ddepth);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+void cv_dnn_enableModelDiagnostics(bool isDiagnosticsMode) {
+    cv_dnn::enableModelDiagnostics(isDiagnosticsMode);
+}
+// rval: x: backend, y: target
+void cv_dnn_getAvailableBackends(VecPoint* rval) {
+    auto _bt = cv_dnn::getAvailableBackends();
+    auto _bt_c = new CvPoint[_bt.size()];
+    for (int i = 0; i < _bt.size(); ++i) {
+        _bt_c[i] = {_bt[i].first, _bt[i].second};
+    }
+    *rval = {_bt_c, _bt.size()};
+}
+CvStatus* cv_dnn_getAvailableTargets(int be, VecI32* rval) {
+    BEGIN_WRAP
+    std::vector<cv_dnn::Target> _targets =
+        cv_dnn::getAvailableTargets(static_cast<cv_dnn::Backend>(be));
+    *rval = vecint_cpp2c(std::vector<int>(_targets.begin(), _targets.end()));
+    END_WRAP
+}
+
+CvStatus* cv_dnn_imagesFromBlob(Mat blob, VecMat* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    std::vector<cv::Mat> imgs;
+    cv_dnn::imagesFromBlob(CVDEREF(blob), imgs);
+    *rval = vecmat_cpp2c(imgs);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_dnn_getBlobChannel(
+    Mat blob, int imgidx, int chnidx, Mat* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    int w = blob.ptr->size[3];
+    int h = blob.ptr->size[2];
+    rval->ptr = new cv::Mat(h, w, CV_32F, blob.ptr->ptr<float>(imgidx, chnidx));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_dnn_getBlobSize(Mat blob, VecI32* rval) {
+    BEGIN_WRAP
+    auto size = blob.ptr->size;
+    int* ptr = new int[size.dims()];
+    memcpy(ptr, size.p, size.dims() * sizeof(int));
+    *rval = {ptr, static_cast<size_t>(size.dims())};
+    END_WRAP
+}
+
+CvStatus* cv_dnn_NMSBoxes(
+    VecRect bboxes,
+    VecF32 scores,
+    float score_threshold,
+    float nms_threshold,
+    VecI32* indices,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    std::vector<int> v;
+    auto _bboxes = vecrect_c2cpp(bboxes);
+    auto _scores = vecfloat_c2cpp(scores);
+    cv_dnn::NMSBoxes(_bboxes, _scores, score_threshold, nms_threshold, v, 1.f, 0);
+    *indices = vecint_cpp2c(v);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_dnn_NMSBoxes_1(
+    VecRect bboxes,
+    VecF32 scores,
+    const float score_threshold,
+    const float nms_threshold,
+    VecI32* indices,
+    const float eta,
+    const int top_k,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    std::vector<int> v;
+    auto _bboxes = vecrect_c2cpp(bboxes);
+    auto _scores = vecfloat_c2cpp(scores);
+    cv_dnn::NMSBoxes(_bboxes, _scores, score_threshold, nms_threshold, v, eta, top_k);
+    *indices = vecint_cpp2c(v);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_dnn_Net_forwardAsync(Net net, const char* outputName, AsyncArray* rval) {
     BEGIN_WRAP
-    auto arr = net.ptr->forwardAsync();
-    *rval = {&arr};
+    rval->ptr = new cv::AsyncArray(net.ptr->forwardAsync(outputName));
     END_WRAP
 }
 
@@ -166,60 +304,6 @@ void cv_dnn_Net_close(NetPtr net) {
     CVD_FREE(net);
 }
 
-CvStatus* cv_dnn_Net_blobFromImage(
-    Mat image,
-    Mat blob,
-    double scalefactor,
-    CvSize size,
-    Scalar mean,
-    bool swapRB,
-    bool crop,
-    int ddepth,
-    CvCallback_0 callback
-) {
-    BEGIN_WRAP
-    cv::Size sz(size.width, size.height);
-    cv::Scalar cm(mean.val1, mean.val2, mean.val3, mean.val4);
-    cv_dnn::blobFromImage(CVDEREF(image), CVDEREF(blob), scalefactor, sz, cm, swapRB, crop, ddepth);
-    if (callback != nullptr) {
-        callback();
-    }
-    END_WRAP
-}
-
-CvStatus* cv_dnn_Net_blobFromImages(
-    VecMat images,
-    Mat blob,
-    double scalefactor,
-    CvSize size,
-    Scalar mean,
-    bool swapRB,
-    bool crop,
-    int ddepth,
-    CvCallback_0 callback
-) {
-    BEGIN_WRAP
-    cv::Size sz(size.width, size.height);
-    cv::Scalar cm = cv::Scalar(mean.val1, mean.val2, mean.val3, mean.val4);
-    auto _images = vecmat_c2cpp(images);
-    cv_dnn::blobFromImages(_images, CVDEREF(blob), scalefactor, sz, cm, swapRB, crop, ddepth);
-    if (callback != nullptr) {
-        callback();
-    }
-    END_WRAP
-}
-
-CvStatus* cv_dnn_Net_imagesFromBlob(Mat blob, VecMat* rval, CvCallback_0 callback) {
-    BEGIN_WRAP
-    std::vector<cv::Mat> imgs;
-    cv_dnn::imagesFromBlob(CVDEREF(blob), imgs);
-    *rval = vecmat_cpp2c(imgs);
-    if (callback != nullptr) {
-        callback();
-    }
-    END_WRAP
-}
-
 bool cv_dnn_Net_empty(Net net) {
     return net.ptr->empty();
 }
@@ -301,6 +385,17 @@ CvStatus* cv_dnn_Net_getUnconnectedOutLayers(Net net, VecI32* rval, CvCallback_0
     END_WRAP
 }
 
+CvStatus* cv_dnn_Net_getUnconnectedOutLayersNames(
+    Net net, CVD_OUT VecVecChar* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    *rval = vecvecchar_cpp2c_s(net.ptr->getUnconnectedOutLayersNames());
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_dnn_Net_getLayerNames(Net net, VecVecChar* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     std::vector<cv::String> cstrs = net.ptr->getLayerNames();
@@ -323,28 +418,6 @@ CvStatus* cv_dnn_Net_getInputDetails(
     if (callback != nullptr) {
         callback();
     }
-    END_WRAP
-}
-
-CvStatus* cv_dnn_Net_getBlobChannel(
-    Mat blob, int imgidx, int chnidx, Mat* rval, CvCallback_0 callback
-) {
-    BEGIN_WRAP
-    int w = blob.ptr->size[3];
-    int h = blob.ptr->size[2];
-    rval->ptr = new cv::Mat(h, w, CV_32F, blob.ptr->ptr<float>(imgidx, chnidx));
-    if (callback != nullptr) {
-        callback();
-    }
-    END_WRAP
-}
-
-CvStatus* cv_dnn_Net_getBlobSize(Mat blob, VecI32* rval) {
-    BEGIN_WRAP
-    auto size = blob.ptr->size;
-    int* ptr = new int[size.dims()];
-    memcpy(ptr, size.p, size.dims() * sizeof(int));
-    *rval = {ptr, static_cast<size_t>(size.dims())};
     END_WRAP
 }
 
@@ -383,46 +456,4 @@ CvStatus* cv_dnn_Layer_getType(Layer layer, char** rval) {
 void cv_dnn_Layer_close(LayerPtr layer) {
     layer->ptr->reset();
     CVD_FREE(layer);
-}
-
-CvStatus* cv_dnn_NMSBoxes(
-    VecRect bboxes,
-    VecF32 scores,
-    float score_threshold,
-    float nms_threshold,
-    VecI32* indices,
-    CvCallback_0 callback
-) {
-    BEGIN_WRAP
-    std::vector<int> v;
-    auto _bboxes = vecrect_c2cpp(bboxes);
-    auto _scores = vecfloat_c2cpp(scores);
-    cv_dnn::NMSBoxes(_bboxes, _scores, score_threshold, nms_threshold, v, 1.f, 0);
-    *indices = vecint_cpp2c(v);
-    if (callback != nullptr) {
-        callback();
-    }
-    END_WRAP
-}
-
-CvStatus* cv_dnn_NMSBoxes_1(
-    VecRect bboxes,
-    VecF32 scores,
-    const float score_threshold,
-    const float nms_threshold,
-    VecI32* indices,
-    const float eta,
-    const int top_k,
-    CvCallback_0 callback
-) {
-    BEGIN_WRAP
-    std::vector<int> v;
-    auto _bboxes = vecrect_c2cpp(bboxes);
-    auto _scores = vecfloat_c2cpp(scores);
-    cv_dnn::NMSBoxes(_bboxes, _scores, score_threshold, nms_threshold, v, eta, top_k);
-    *indices = vecint_cpp2c(v);
-    if (callback != nullptr) {
-        callback();
-    }
-    END_WRAP
 }
