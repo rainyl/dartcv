@@ -418,8 +418,10 @@ CvStatus* cv_getOptimalDFTSize(int vecsize, int* rval, CvCallback_0 callback) {
     END_WRAP
 }
 
-bool cv_hasNonZero(Mat src) {
-    return cv::hasNonZero(CVDEREF(src));
+CvStatus* cv_hasNonZero(Mat src, bool* rval) {
+    BEGIN_WRAP
+    *rval = cv::hasNonZero(CVDEREF(src));
+    END_WRAP
 }
 
 CvStatus* cv_hconcat(Mat src1, Mat src2, Mat dst, CvCallback_0 callback) {
@@ -869,7 +871,8 @@ CvStatus* cv_transpose(Mat src, Mat dst, CvCallback_0 callback) {
 }
 CvStatus* cv_transposeND(Mat src, Mat dst, VecI32 order, CvCallback_0 callback) {
     BEGIN_WRAP
-    cv::transposeND(CVDEREF(src), CVDEREF(dst), vecint_c2cpp(order));
+    auto _order = vecint_c2cpp(order);
+    cv::transposeND(CVDEREF(src), _order, CVDEREF(dst));
     if (callback != nullptr) {
         callback();
     }

@@ -105,7 +105,7 @@ CvStatus* cv_gemm(
     CvCallback_0 callback
 );
 CvStatus* cv_getOptimalDFTSize(int vecsize, int* rval, CvCallback_0 callback);
-bool cv_hasNonZero(Mat src);
+CvStatus* cv_hasNonZero(Mat src, bool* rval);
 CvStatus* cv_hconcat(Mat src1, Mat src2, Mat dst, CvCallback_0 callback);
 CvStatus* cv_idct(Mat src, Mat dst, int flags, CvCallback_0 callback);
 CvStatus* cv_idft(Mat src, Mat dst, int flags, int nonzeroRows, CvCallback_0 callback);
