@@ -140,6 +140,16 @@ CvStatus* cv_Mat_create_12(
     END_WRAP
 }
 
+CvStatus* cv_Mat_create_13(Mat self, CvRect roi, Mat* rval, CvCallback_0 callback){
+    BEGIN_WRAP
+    cv::Rect _roi(roi.x, roi.y, roi.width, roi.height);
+    rval->ptr = new cv::Mat(CVDEREF(self), _roi);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_Mat_eye(int rows, int cols, int type, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     rval->ptr = new cv::Mat(cv::Mat::eye(rows, cols, type));

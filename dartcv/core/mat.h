@@ -124,6 +124,8 @@ CvStatus* cv_Mat_create_12(
     Mat self, int rowStart, int rowEnd, int colStart, int colEnd, Mat* rval, CvCallback_0 callback
 );
 
+CvStatus* cv_Mat_create_13(Mat self, CvRect roi, Mat* rval, CvCallback_0 callback);
+
 CvStatus* cv_Mat_eye(int rows, int cols, int type, Mat* rval, CvCallback_0 callback);
 CvStatus* cv_Mat_zeros(int rows, int cols, int type, Mat* rval, CvCallback_0 callback);
 CvStatus* cv_Mat_ones(int rows, int cols, int type, Mat* rval, CvCallback_0 callback);
