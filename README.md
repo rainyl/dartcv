@@ -6,7 +6,7 @@ C wrappers for opencv, used for [opencv_dart](https://github.com/rainyl/opencv_d
 #### 1. Install dependencies
 
 - Windows: Install Visual Studio 2019 or Later, cmake
-- Linux: Ubuntu as example, note `opencv.full` is built on Ubuntu 22.04 with ffmpeg 4.4
+- Linux: Ubuntu as example
 
 ```bash
 sudo apt-get install build-essential libgtk-3-dev cmake
