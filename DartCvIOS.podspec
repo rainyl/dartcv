@@ -5,16 +5,9 @@
 
 opencv_version = '4.10.0+9'
 
-xcode_version = `xcodebuild -version`.split("\n").first.split(" ").last
-major_version = xcode_version.split(".").first.to_i
-other_ld_flags = '-Wno-unused-function'
-if major_version >= 15
-  other_ld_flags = other_ld_flags + ' -Wl,-ld_classic'
-end
-
 Pod::Spec.new do |s|
   s.name             = 'DartCvIOS'
-  s.version          = '4.10.0.3'
+  s.version          = '4.10.0.4'
   s.summary          = 'dartcv for ios'
   s.description      = <<-DESC
   OpenCV bindings for Dart.
@@ -55,7 +48,7 @@ Pod::Spec.new do |s|
     'CLANG_WARN_DOCUMENTATION_COMMENTS' => 'NO',
     'CLANG_CXX_LANGUAGE_STANDARD' => 'c++14',
     # https://wadetregaskis.com/no-platform-load-command-found-in-libxyz-a-assuming-macos/
-    'OTHER_LDFLAGS' => "#{other_ld_flags}"
+    'OTHER_LDFLAGS' => "-Wno-unused-function"
   }
   s.swift_version = '5.0'
 
