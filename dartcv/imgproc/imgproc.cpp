@@ -388,7 +388,7 @@ CvStatus* cv_minEnclosingCircle(
     float r;
     auto _points = vecpoint_c2cpp(pts);
     cv::minEnclosingCircle(_points, c, r);
-    *center = {c.y, c.x};
+    *center = {c.x, c.y};
     *radius = r;
     if (callback != nullptr) {
         callback();
