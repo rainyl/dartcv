@@ -38,7 +38,7 @@ else ()
 endif ()
 
 if (NOT OPENCV_VERSION)
-  set(OPENCV_VERSION "4.10.0+9")
+  set(OPENCV_VERSION "4.10.0+10")
 endif ()
 
 # ============ download and prepare OpenCV =========
