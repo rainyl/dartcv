@@ -153,6 +153,9 @@ set_target_properties(${LIBRARY_NAME} PROPERTIES
         C_VISIBILITY_PRESET default
 )
 target_link_libraries(${LIBRARY_NAME} PUBLIC ${DARTCV_DEPS} ${PLATFORM_LIBS})
+if(ANDROID)
+    target_link_options(${LIBRARY_NAME} PRIVATE "-Wl,-z,max-page-size=16384")
+endif()
 
 if (APPLE)
     target_link_options(${LIBRARY_NAME} PRIVATE "LINKER:-ld_classic")
