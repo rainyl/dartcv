@@ -3,11 +3,11 @@
 # Run `pod lib lint DartCvMacOS.podspec` to validate before publishing.
 #
 
-opencv_version = '4.10.0+9'
+opencv_version = '4.10.0+10'
 
 Pod::Spec.new do |s|
   s.name             = 'DartCvMacOS'
-  s.version          = '4.10.0.4'
+  s.version          = '4.10.0.5'
   s.summary          = 'dartcv for macos'
   s.description      = <<-DESC
   OpenCV bindings for Dart.
