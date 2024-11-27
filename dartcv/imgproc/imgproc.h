@@ -808,7 +808,7 @@ CvStatus* cv_fitLine(
 
 // Tests a contour convexity.
 // bool cv::isContourConvex (InputArray contour)
-CvStatus* cv_isContourConvex(VecPoint contour, CvCallback_1 callback);
+CvStatus* cv_isContourConvex(VecPoint contour, bool* rval, CvCallback_0 callback);
 
 // Compares two shapes.
 // double cv::matchShapes (InputArray contour1, InputArray contour2, int method, double parameter)

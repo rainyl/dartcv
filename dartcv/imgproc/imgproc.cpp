@@ -1587,7 +1587,8 @@ CvStatus* cv_linearPolar(
 }
 CvStatus* cv_isContourConvex(
     VecPoint contour,
-    CvCallback_1 callback
+    bool* rval,
+    CvCallback_0 callback
 ) {
     BEGIN_WRAP
     auto _contour = vecpoint_c2cpp(contour);
