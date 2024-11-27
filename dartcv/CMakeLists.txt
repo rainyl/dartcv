@@ -157,9 +157,10 @@ if(ANDROID)
     target_link_options(${LIBRARY_NAME} PRIVATE "-Wl,-z,max-page-size=16384")
 endif()
 
-if (APPLE)
-    target_link_options(${LIBRARY_NAME} PRIVATE "LINKER:-ld_classic")
-endif (APPLE)
+# if (APPLE)
+#     message(STATUS "XCODE_VERSION: ${XCODE_VERSION}")
+#     target_link_options(${LIBRARY_NAME} PRIVATE "LINKER:-ld_classic")
+# endif (APPLE)
 
 if (WIN32)
     set_target_properties(${LIBRARY_NAME} PROPERTIES

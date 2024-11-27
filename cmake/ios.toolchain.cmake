@@ -153,7 +153,7 @@
 #   command.
 #
 
-cmake_minimum_required(VERSION 3.8.0)
+cmake_minimum_required(VERSION 3.10.0)
 
 # CMake invokes the toolchain file twice during the first build, but only once during subsequent rebuilds.
 # NOTE: To improve single-library build-times, provide the flag "OS_SINGLE_BUILD" as a build argument.
@@ -168,7 +168,7 @@ list(APPEND _supported_platforms
         "TVOS" "TVOSCOMBINED" "SIMULATOR_TVOS" "SIMULATORARM64_TVOS"
         "WATCHOS" "WATCHOSCOMBINED" "SIMULATOR_WATCHOS" "SIMULATORARM64_WATCHOS"
         "MAC" "MAC_ARM64" "MAC_UNIVERSAL"
-        "VISIONOS" "SIMULATOR_VISIONOS" "VISIONOSCOMBINED" 
+        "VISIONOS" "SIMULATOR_VISIONOS" "VISIONOSCOMBINED"
         "MAC_CATALYST" "MAC_CATALYST_ARM64" "MAC_CATALYST_UNIVERSAL")
 
 # Cache what generator is used
@@ -316,7 +316,7 @@ if(PLATFORM_INT STREQUAL "OS")
     set(ARCHS armv7 armv7s arm64)
     set(APPLE_TARGET_TRIPLE_INT arm-apple-ios${DEPLOYMENT_TARGET})
   else()
-    set(APPLE_TARGET_TRIPLE_INT ${ARCHS_SPLIT}-apple-ios${DEPLOYMENT_TARGET})  
+    set(APPLE_TARGET_TRIPLE_INT ${ARCHS_SPLIT}-apple-ios${DEPLOYMENT_TARGET})
   endif()
 elseif(PLATFORM_INT STREQUAL "OS64")
   set(SDK_NAME iphoneos)
@@ -1049,7 +1049,7 @@ set(CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
 )
 
 if(NAMED_LANGUAGE_SUPPORT_INT)
-  list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES 
+  list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
         CMAKE_OBJC_FLAGS
         CMAKE_OBJC_DEBUG
         CMAKE_OBJC_MINSIZEREL
@@ -1087,7 +1087,7 @@ IF(NOT DEFINED CMAKE_FIND_FRAMEWORK)
 ENDIF(NOT DEFINED CMAKE_FIND_FRAMEWORK)
 
 # Set up the default search directories for frameworks.
-if(PLATFORM_INT MATCHES "^MAC_CATALYST") 
+if(PLATFORM_INT MATCHES "^MAC_CATALYST")
   set(CMAKE_FRAMEWORK_PATH
           ${CMAKE_DEVELOPER_ROOT}/Library/PrivateFrameworks
           ${CMAKE_OSX_SYSROOT_INT}/System/Library/Frameworks
