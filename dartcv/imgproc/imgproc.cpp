@@ -1585,6 +1585,19 @@ CvStatus* cv_linearPolar(
     }
     END_WRAP
 }
+CvStatus* cv_isContourConvex(
+    VecPoint contour,
+    bool* rval,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    auto _contour = vecpoint_c2cpp(contour);
+    *rval = cv::isContourConvex(_contour);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
 
 CvStatus* cv_matchShapes(
     VecPoint contour1,

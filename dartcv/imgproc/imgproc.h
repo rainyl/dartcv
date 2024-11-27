@@ -108,7 +108,9 @@ CvStatus* cv_GaussianBlur(
 
 // Returns Gaussian filter coefficients.
 // Mat cv::getGaussianKernel (int ksize, double sigma, int ktype=CV_64F)
-CvStatus* cv_getGaussianKernel(int ksize, double sigma, int ktype, Mat* rval, CvCallback_0 callback);
+CvStatus* cv_getGaussianKernel(
+    int ksize, double sigma, int ktype, Mat* rval, CvCallback_0 callback
+);
 
 // Returns a structuring element of the specified size and shape for morphological operations.
 // Mat cv::getStructuringElement (int shape, CvSize ksize, CvPoint anchor=CvPoint(-1,-1))
@@ -806,6 +808,7 @@ CvStatus* cv_fitLine(
 
 // Tests a contour convexity.
 // bool cv::isContourConvex (InputArray contour)
+CvStatus* cv_isContourConvex(VecPoint contour, bool* rval, CvCallback_0 callback);
 
 // Compares two shapes.
 // double cv::matchShapes (InputArray contour1, InputArray contour2, int method, double parameter)
