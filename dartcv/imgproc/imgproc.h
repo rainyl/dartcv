@@ -805,10 +805,11 @@ CvStatus* cv_fitLine(
 
 // Finds intersection of two convex polygons.
 // float cv::intersectConvexConvex (InputArray p1, InputArray p2, OutputArray p12, bool handleNested=true)
+CvStatus* cv_intersectConvexConvex(VecPoint p1, VecPoint p2, VecPoint* p12, bool handleNested, float *rval, CvCallback_0 callback);
 
 // Tests a contour convexity.
 // bool cv::isContourConvex (InputArray contour)
-CvStatus* cv_isContourConvex(VecPoint contour, bool* rval, CvCallback_0 callback);
+bool cv_isContourConvex(VecPoint contour);
 
 // Compares two shapes.
 // double cv::matchShapes (InputArray contour1, InputArray contour2, int method, double parameter)

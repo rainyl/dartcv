@@ -1585,18 +1585,20 @@ CvStatus* cv_linearPolar(
     }
     END_WRAP
 }
-CvStatus* cv_isContourConvex(
-    VecPoint contour,
-    bool* rval,
-    CvCallback_0 callback
-) {
-    BEGIN_WRAP
+
+CvStatus* cv_intersectConvexConvex(VecPoint p1, VecPoint p2, VecPoint* p12, bool handleNested, float *rval, CvCallback_0 callback) {
+  BEGIN_WRAP
+  auto _p1 = vecpoint_c2cpp(p1);
+  auto _p2 = vecpoint_c2cpp(p2);
+  std::vector<cv::Point> _p12;
+  *rval = cv::intersectConvexConvex(_p1, _p2, _p12, handleNested);
+  *p12 = vecpoint_cpp2c(_p12);
+  END_WRAP
+}
+
+bool cv_isContourConvex(VecPoint contour) {
     auto _contour = vecpoint_c2cpp(contour);
-    *rval = cv::isContourConvex(_contour);
-    if (callback != nullptr) {
-        callback();
-    }
-    END_WRAP
+    return cv::isContourConvex(_contour);
 }
 
 CvStatus* cv_matchShapes(

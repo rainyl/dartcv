@@ -92,9 +92,9 @@ else()
     URL "${LIBOPENCV_URL_BASE}/${OPENCV_VERSION}/${LIB_FILENAME}"
   )
   if(NOT libopencv_POPULATED)
-    FetchContent_Populate(libopencv)
+    # FetchContent_Populate(libopencv)
+    FetchContent_MakeAvailable(libopencv)
   endif()
-#  FetchContent_MakeAvailable(libopencv)
 
   set(_tmp "linux" "macos" "darwin" "ios")
 
