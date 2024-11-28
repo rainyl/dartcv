@@ -1593,6 +1593,9 @@ CvStatus* cv_intersectConvexConvex(VecPoint p1, VecPoint p2, VecPoint* p12, bool
   std::vector<cv::Point> _p12;
   *rval = cv::intersectConvexConvex(_p1, _p2, _p12, handleNested);
   *p12 = vecpoint_cpp2c(_p12);
+  if (callback != nullptr) {
+    callback();
+  }
   END_WRAP
 }
 
