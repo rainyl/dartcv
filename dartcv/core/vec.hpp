@@ -251,200 +251,6 @@ inline VecMat* vecmat_cpp2c_p(std::vector<cv::Mat> v) {
     return new VecMat{.ptr = ptr, .length = v.size()};
 }
 
-inline std::vector<char> vecchar_c2cpp(VecChar v) {
-    std::vector<char> rv(v.length);
-    for (int i = 0; i < v.length; i++) {
-        rv[i] = v.ptr[i];
-    }
-    return rv;
-}
-
-inline std::string vecchar_c2cpp_s(VecChar v) {
-    return std::string(v.ptr, v.length);
-}
-
-inline VecChar vecchar_cpp2c(std::vector<char> v) {
-    char* ptr = new char[v.size()];
-    std::copy(v.begin(), v.end(), ptr);
-    // for (int i = 0; i < v.size(); i++) { ptr[i] = v[i]; }
-    return VecChar{.ptr = ptr, .length = v.size()};
-}
-
-inline VecChar* vecchar_cpp2c_p(std::vector<char> v) {
-    char* ptr = new char[v.size()];
-    std::copy(v.begin(), v.end(), ptr);
-    // for (int i = 0; i < v.size(); i++) { ptr[i] = v[i]; }
-    return new VecChar{.ptr = ptr, .length = v.size()};
-}
-
-inline VecChar vecchar_cpp2c_s(std::string v) {
-    char* ptr = new char[v.size()];
-    std::copy(v.begin(), v.end(), ptr);
-    // for (int i = 0; i < v.size(); i++) { ptr[i] = v[i]; }
-    return VecChar{.ptr = ptr, .length = v.size()};
-}
-
-inline VecChar* vecchar_cpp2c_s_p(std::string v) {
-    char* ptr = new char[v.size()];
-    std::copy(v.begin(), v.end(), ptr);
-    // for (int i = 0; i < v.size(); i++) { ptr[i] = v[i]; }
-    return new VecChar{.ptr = ptr, .length = v.size()};
-}
-
-inline std::vector<uchar> vecuchar_c2cpp(VecUChar v) {
-    std::vector<uchar> rv(v.length);
-    for (int i = 0; i < v.length; i++) {
-        rv[i] = v.ptr[i];
-    }
-    return rv;
-}
-inline VecUChar vecuchar_cpp2c(std::vector<uchar> v) {
-    auto* ptr = new uchar[v.size()];
-    for (int i = 0; i < v.size(); i++) {
-        ptr[i] = v[i];
-    }
-    return VecUChar{.ptr = ptr, .length = v.size()};
-}
-
-inline VecUChar* vecuchar_cpp2c_p(std::vector<uchar> v) {
-    auto* ptr = new uchar[v.size()];
-    for (int i = 0; i < v.size(); i++) {
-        ptr[i] = v[i];
-    }
-    return new VecUChar{.ptr = ptr, .length = v.size()};
-}
-
-inline std::vector<std::vector<char>> vecvecchar_c2cpp(VecVecChar v) {
-    std::vector<std::vector<char>> rv(v.length);
-    for (int i = 0; i < v.length; i++) {
-        VecChar vc = v.ptr[i];
-        std::vector<char> pts = vecchar_c2cpp(vc);
-        rv[i] = pts;
-    }
-    return rv;
-}
-
-inline std::vector<std::string> vecvecchar_c2cpp_s(VecVecChar v) {
-    std::vector<std::string> rv(v.length);
-    for (int i = 0; i < v.length; i++) {
-        rv[i] = vecchar_c2cpp_s(v.ptr[i]);
-    }
-    return rv;
-}
-
-inline VecVecChar vecvecchar_cpp2c(std::vector<std::vector<char>> v) {
-    auto* ptr = new VecChar[v.size()];
-    for (int i = 0; i < v.size(); i++) {
-        ptr[i] = vecchar_cpp2c(v[i]);
-    }
-    return VecVecChar{.ptr = ptr, .length = v.size()};
-}
-
-inline VecVecChar* vecvecchar_cpp2c_p(std::vector<std::vector<char>> v) {
-    auto* ptr = new VecChar[v.size()];
-    for (int i = 0; i < v.size(); i++) {
-        ptr[i] = vecchar_cpp2c(v[i]);
-    }
-    return new VecVecChar{.ptr = ptr, .length = v.size()};
-}
-
-inline VecVecChar vecvecchar_cpp2c_s(std::vector<std::string> v) {
-    auto* ptr = new VecChar[v.size()];
-    for (size_t i = 0; i < v.size(); i++) {
-        ptr[i] = vecchar_cpp2c_s(v[i]);
-    }
-    return VecVecChar{.ptr = ptr, .length = v.size()};
-}
-
-inline VecVecChar* vecvecchar_cpp2c_s_p(std::vector<std::string> v) {
-    auto* ptr = new VecChar[v.size()];
-    for (size_t i = 0; i < v.size(); i++) {
-        ptr[i] = vecchar_cpp2c_s(v[i]);
-    }
-    return new VecVecChar{.ptr = ptr, .length = v.size()};
-}
-
-inline std::vector<int> vecint_c2cpp(VecI32 v) {
-    std::vector<int> rv(v.length);
-    for (int i = 0; i < v.length; i++) {
-        rv[i] = v.ptr[i];
-    }
-    return rv;
-}
-inline VecI32 vecint_cpp2c(std::vector<int> v) {
-    int* ptr = new int[v.size()];
-    for (int i = 0; i < v.size(); i++) {
-        ptr[i] = v[i];
-    }
-    return VecI32{.ptr = ptr, .length = v.size()};
-}
-
-inline VecI32* vecint_cpp2c_p(std::vector<int> v) {
-    int* ptr = new int[v.size()];
-    for (int i = 0; i < v.size(); i++) {
-        ptr[i] = v[i];
-    }
-    return new VecI32{.ptr = ptr, .length = v.size()};
-}
-
-inline std::vector<float> vecfloat_c2cpp(VecF32 v) {
-    std::vector<float> rv(v.length);
-    for (int i = 0; i < v.length; i++) {
-        rv[i] = v.ptr[i];
-    }
-    return rv;
-}
-
-inline VecF32 vecfloat_cpp2c(std::vector<float> v) {
-    auto* ptr = new float[v.size()];
-    for (int i = 0; i < v.size(); i++) {
-        ptr[i] = v[i];
-    }
-    return VecF32{.ptr = ptr, .length = v.size()};
-}
-
-inline VecF32* vecfloat_cpp2c_p(std::vector<float> v) {
-    auto* ptr = new float[v.size()];
-    for (int i = 0; i < v.size(); i++) {
-        ptr[i] = v[i];
-    }
-    return new VecF32{.ptr = ptr, .length = v.size()};
-}
-
-inline std::vector<double> vecdouble_c2cpp(VecF64 v) {
-    std::vector<double> rv(v.length);
-    for (int i = 0; i < v.length; i++) {
-        rv[i] = v.ptr[i];
-    }
-    return rv;
-}
-
-inline VecF64 vecdouble_cpp2c(std::vector<double> v) {
-    auto* ptr = new double[v.size()];
-    for (int i = 0; i < v.size(); i++) {
-        ptr[i] = v[i];
-    }
-    return VecF64{.ptr = ptr, .length = v.size()};
-}
-
-inline void vecdouble_cpp2c(std::vector<double> v, VecF64* vv) {
-    if (vv->length != v.size()) {
-        vv->ptr = (double*)realloc(vv->ptr, v.size() * sizeof(double));
-        vv->length = v.size();
-    }
-    for (int i = 0; i < v.size(); i++) {
-        vv->ptr[i] = v[i];
-    }
-}
-
-inline VecF64* vecdouble_cpp2c_p(std::vector<double> v) {
-    auto* ptr = (double*)calloc(v.size(), sizeof(double));
-    for (int i = 0; i < v.size(); i++) {
-        ptr[i] = v[i];
-    }
-    return new VecF64{.ptr = ptr, .length = v.size()};
-}
-
 inline std::vector<cv::Rect> vecrect_c2cpp(VecRect v) {
     std::vector<cv::Rect> rv(v.length);
     for (int i = 0; i < v.length; i++) {
@@ -640,6 +446,196 @@ inline VecVec6f* vec_vec6f_cpp2c_p(std::vector<cv::Vec6f> v) {
         ptr[i] = {vec.val[0], vec.val[1], vec.val[2], vec.val[3], vec.val[4], vec.val[5]};
     }
     return new VecVec6f{.ptr = ptr, .length = v.size()};
+}
+
+// char
+inline std::vector<char> vecchar_c2cpp(VecChar v) {
+    return std::vector<char>(v.ptr, v.ptr + v.length);
+}
+
+inline std::string vecchar_c2cpp_s(VecChar v) {
+    return std::string(v.ptr, v.length);
+}
+
+inline VecChar vecchar_cpp2c(std::vector<char> v, bool copy = true) {
+    if (copy) {
+        char* ptr = new char[v.size()];
+        std::copy(v.begin(), v.end(), ptr);
+        return VecChar{.ptr = ptr, .length = v.size()};
+    }
+    return VecChar{.ptr = v.data(), .length = v.size()};
+}
+
+inline VecChar* vecchar_cpp2c_p(std::vector<char> v, bool copy = true) {
+    if (copy) {
+        char* ptr = new char[v.size()];
+        std::copy(v.begin(), v.end(), ptr);
+        return new VecChar{.ptr = ptr, .length = v.size()};
+    }
+    return new VecChar{.ptr = v.data(), .length = v.size()};
+}
+
+inline VecChar vecchar_cpp2c_s(std::string v) {
+    char* ptr = new char[v.size()];
+    std::copy(v.begin(), v.end(), ptr);
+    return VecChar{.ptr = ptr, .length = v.size()};
+}
+
+inline VecChar* vecchar_cpp2c_s_p(std::string v) {
+    char* ptr = new char[v.size()];
+    std::copy(v.begin(), v.end(), ptr);
+    return new VecChar{.ptr = ptr, .length = v.size()};
+}
+
+// uchar
+inline std::vector<uchar> vecuchar_c2cpp(VecUChar v) {
+    return std::vector<uchar>(v.ptr, v.ptr + v.length);
+}
+
+inline VecUChar vecuchar_cpp2c(std::vector<uchar> v, bool copy = true) {
+    if (copy) {
+        auto* ptr = new uchar[v.size()];
+        std::copy(v.begin(), v.end(), ptr);
+        return VecUChar{.ptr = ptr, .length = v.size()};
+    }
+    return VecUChar{.ptr = v.data(), .length = v.size()};
+}
+
+inline VecUChar* vecuchar_cpp2c_p(std::vector<uchar> v, bool copy = true) {
+    if (copy) {
+        auto* ptr = new uchar[v.size()];
+        std::copy(v.begin(), v.end(), ptr);
+        return new VecUChar{.ptr = ptr, .length = v.size()};
+    }
+    return new VecUChar{.ptr = v.data(), .length = v.size()};
+}
+
+// TODO
+inline std::vector<std::vector<char>> vecvecchar_c2cpp(VecVecChar v) {
+    std::vector<std::vector<char>> rv(v.length);
+    for (int i = 0; i < v.length; i++) {
+        VecChar vc = v.ptr[i];
+        std::vector<char> pts = vecchar_c2cpp(vc);
+        rv[i] = pts;
+    }
+    return rv;
+}
+
+inline std::vector<std::string> vecvecchar_c2cpp_s(VecVecChar v) {
+    std::vector<std::string> rv(v.length);
+    for (int i = 0; i < v.length; i++) {
+        rv[i] = vecchar_c2cpp_s(v.ptr[i]);
+    }
+    return rv;
+}
+
+inline VecVecChar vecvecchar_cpp2c(std::vector<std::vector<char>> v) {
+    auto* ptr = new VecChar[v.size()];
+    for (int i = 0; i < v.size(); i++) {
+        ptr[i] = vecchar_cpp2c(v[i]);
+    }
+    return VecVecChar{.ptr = ptr, .length = v.size()};
+}
+
+inline VecVecChar* vecvecchar_cpp2c_p(std::vector<std::vector<char>> v) {
+    auto* ptr = new VecChar[v.size()];
+    for (int i = 0; i < v.size(); i++) {
+        ptr[i] = vecchar_cpp2c(v[i]);
+    }
+    return new VecVecChar{.ptr = ptr, .length = v.size()};
+}
+
+inline VecVecChar vecvecchar_cpp2c_s(std::vector<std::string> v) {
+    auto* ptr = new VecChar[v.size()];
+    for (size_t i = 0; i < v.size(); i++) {
+        ptr[i] = vecchar_cpp2c_s(v[i]);
+    }
+    return VecVecChar{.ptr = ptr, .length = v.size()};
+}
+
+inline VecVecChar* vecvecchar_cpp2c_s_p(std::vector<std::string> v) {
+    auto* ptr = new VecChar[v.size()];
+    for (size_t i = 0; i < v.size(); i++) {
+        ptr[i] = vecchar_cpp2c_s(v[i]);
+    }
+    return new VecVecChar{.ptr = ptr, .length = v.size()};
+}
+
+// int
+inline std::vector<int> vecint_c2cpp(VecI32 v) {
+    return std::vector<int>(v.ptr, v.ptr + v.length);
+}
+
+inline VecI32 vecint_cpp2c(std::vector<int> v, bool copy = true) {
+    if (copy) {
+        int* ptr = new int[v.size()];
+        std::copy(v.begin(), v.end(), ptr);
+        return VecI32{.ptr = ptr, .length = v.size()};
+    }
+    return VecI32{.ptr = v.data(), .length = v.size()};
+}
+
+inline VecI32* vecint_cpp2c_p(std::vector<int> v, bool copy = true) {
+    if (copy) {
+        int* ptr = new int[v.size()];
+        std::copy(v.begin(), v.end(), ptr);
+        return new VecI32{.ptr = ptr, .length = v.size()};
+    }
+    return new VecI32{.ptr = v.data(), .length = v.size()};
+}
+
+// float
+inline std::vector<float> vecfloat_c2cpp(VecF32 v) {
+    return std::vector<float>(v.ptr, v.ptr + v.length);
+}
+
+inline VecF32 vecfloat_cpp2c(std::vector<float> v, bool copy = true) {
+    if (copy) {
+        auto* ptr = new float[v.size()];
+        std::copy(v.begin(), v.end(), ptr);
+        return VecF32{.ptr = ptr, .length = v.size()};
+    }
+    return VecF32{.ptr = v.data(), .length = v.size()};
+}
+
+inline VecF32* vecfloat_cpp2c_p(std::vector<float> v, bool copy = true) {
+    if (copy) {
+        auto* ptr = new float[v.size()];
+        std::copy(v.begin(), v.end(), ptr);
+        return new VecF32{.ptr = ptr, .length = v.size()};
+    }
+    return new VecF32{.ptr = v.data(), .length = v.size()};
+}
+
+// double
+inline std::vector<double> vecdouble_c2cpp(VecF64 v) {
+    return std::vector<double>(v.ptr, v.ptr + v.length);
+}
+
+inline VecF64 vecdouble_cpp2c(std::vector<double> v, bool copy = true) {
+    if (copy) {
+        double* ptr = new double[v.size()];
+        std::copy(v.begin(), v.end(), ptr);
+        return VecF64{.ptr = ptr, .length = v.size()};
+    }
+    return VecF64{.ptr = v.data(), .length = v.size()};
+}
+
+inline void vecdouble_cpp2c(std::vector<double> v, VecF64* vv) {
+    if (vv->length != v.size()) {
+        vv->ptr = (double*)realloc(vv->ptr, v.size() * sizeof(double));
+        vv->length = v.size();
+    }
+    std::copy(v.begin(), v.end(), vv->ptr);
+}
+
+inline VecF64* vecdouble_cpp2c_p(std::vector<double> v, bool copy = true) {
+    if (copy) {
+        double* ptr = new double[v.size()];
+        std::copy(v.begin(), v.end(), ptr);
+        return new VecF64{.ptr = ptr, .length = v.size()};
+    }
+    return new VecF64{.ptr = v.data(), .length = v.size()};
 }
 
 #endif  // CVD_VEC_UTILS_H
