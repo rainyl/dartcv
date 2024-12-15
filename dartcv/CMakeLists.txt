@@ -25,6 +25,7 @@ set(_cpp_files
         "core/exception.cpp"
         "core/logging.cpp"
         "core/svd.cpp"
+        "core/utils.cpp"
         "core/version.cpp"
         "imgcodecs/imgcodecs.cpp"
 )
