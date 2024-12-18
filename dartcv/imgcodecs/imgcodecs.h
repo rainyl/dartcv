@@ -25,7 +25,7 @@ CvStatus* cv_imencode(
     const char* fileExt,
     Mat img,
     CVD_OUT bool* success,
-    CVD_OUT VecUChar* rval,
+    VecUChar* rval,
     CvCallback_0 callback
 );
 CvStatus* cv_imencode_1(
@@ -33,7 +33,7 @@ CvStatus* cv_imencode_1(
     Mat img,
     VecI32 params,
     CVD_OUT bool* success,
-    CVD_OUT VecUChar* rval,
+    VecUChar* rval,
     CvCallback_0 callback
 );
 CvStatus* cv_imread(const char* filename, int flags, CVD_OUT Mat* rval, CvCallback_0 callback);

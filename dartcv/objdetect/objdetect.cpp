@@ -7,6 +7,8 @@
 */
 
 #include "dartcv/objdetect/objdetect.h"
+#include <cmath>
+#include <vector>
 #include "dartcv/core/vec.hpp"
 
 // CascadeClassifier
@@ -33,9 +35,7 @@ CvStatus* cv_CascadeClassifier_detectMultiScale(
     CascadeClassifier self, Mat img, VecRect* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Rect> rects = std::vector<cv::Rect>();
-    self.ptr->detectMultiScale(CVDEREF(img), rects);
-    *rval = vecrect_cpp2c(rects);
+    self.ptr->detectMultiScale(CVDEREF(img), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -53,11 +53,9 @@ CvStatus* cv_CascadeClassifier_detectMultiScale_1(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Rect> rects;
     auto minsize = cv::Size(minSize.width, minSize.height);
     auto maxsize = cv::Size(maxSize.width, maxSize.height);
-    self.ptr->detectMultiScale(CVDEREF(img), rects, scale, minNeighbors, flags, minsize, maxsize);
-    *objects = vecrect_cpp2c(rects);
+    self.ptr->detectMultiScale(CVDEREF(img), CVDEREF_P(objects), scale, minNeighbors, flags, minsize, maxsize);
     if (callback != nullptr) {
         callback();
     }
@@ -77,15 +75,11 @@ CvStatus* cv_CascadeClassifier_detectMultiScale_2(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Rect> rects;
-    std::vector<int> nums;
     auto minsize = cv::Size(minSize.width, minSize.height);
     auto maxsize = cv::Size(maxSize.width, maxSize.height);
     self.ptr->detectMultiScale(
-        CVDEREF(img), rects, nums, scaleFactor, minNeighbors, flags, minsize, maxsize
+        CVDEREF(img), CVDEREF_P(objects), CVDEREF_P(numDetections), scaleFactor, minNeighbors, flags, minsize, maxsize
     );
-    *objects = vecrect_cpp2c(rects);
-    *numDetections = vecint_cpp2c(nums);
     if (callback != nullptr) {
         callback();
     }
@@ -107,16 +101,13 @@ CvStatus* cv_CascadeClassifier_detectMultiScale_3(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Rect> rects;
-    std::vector<int> rejects;
-    std::vector<double> weights;
     auto minsize = cv::Size(minSize.width, minSize.height);
     auto maxsize = cv::Size(maxSize.width, maxSize.height);
     self.ptr->detectMultiScale(
         CVDEREF(img),
-        rects,
-        rejects,
-        weights,
+        CVDEREF_P(objects),
+        CVDEREF_P(rejectLevels),
+        CVDEREF_P(levelWeights),
         scaleFactor,
         minNeighbors,
         flags,
@@ -124,9 +115,6 @@ CvStatus* cv_CascadeClassifier_detectMultiScale_3(
         maxsize,
         outputRejectLevels
     );
-    *objects = vecrect_cpp2c(rects);
-    *rejectLevels = vecint_cpp2c(rejects);
-    *levelWeights = vecdouble_cpp2c(weights);
     if (callback != nullptr) {
         callback();
     }
@@ -177,21 +165,15 @@ CvStatus* cv_HOGDescriptor_detect(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Point> _foundLocations;
-    std::vector<cv::Point> _searchLocations;
-    std::vector<double> _weights;
     self.ptr->detect(
         CVDEREF(img),
-        _foundLocations,
-        _weights,
+        CVDEREF_P(foundLocations),
+        CVDEREF_P(weights),
         hitThresh,
         cv::Point(winStride.width, winStride.height),
         cv::Point(padding.width, padding.height),
-        _searchLocations
+        CVDEREF_P(searchLocations)
     );
-    *foundLocations = vecpoint_cpp2c(_foundLocations);
-    *weights = vecdouble_cpp2c(_weights);
-    *searchLocations = vecpoint_cpp2c(_searchLocations);
     if (callback != nullptr) {
         callback();
     }
@@ -208,18 +190,14 @@ CvStatus* cv_HOGDescriptor_detect2(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Point> _foundLocations;
-    std::vector<cv::Point> _searchLocations;
     self.ptr->detect(
         CVDEREF(img),
-        _foundLocations,
+        CVDEREF_P(foundLocations),
         hitThresh,
         cv::Point(winStride.width, winStride.height),
         cv::Point(padding.width, padding.height),
-        _searchLocations
+        CVDEREF_P(searchLocations)
     );
-    *foundLocations = vecpoint_cpp2c(_foundLocations);
-    *searchLocations = vecpoint_cpp2c(_searchLocations);
     if (callback != nullptr) {
         callback();
     }
@@ -229,9 +207,7 @@ CvStatus* cv_HOGDescriptor_detectMultiScale(
     HOGDescriptor self, Mat img, VecRect* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Rect> rects = std::vector<cv::Rect>();
-    self.ptr->detectMultiScale(CVDEREF(img), rects);
-    *rval = vecrect_cpp2c(rects);
+    self.ptr->detectMultiScale(CVDEREF(img), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -250,13 +226,11 @@ CvStatus* cv_HOGDescriptor_detectMultiScale_1(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Rect> rects;
     auto winstride = cv::Size(winStride.width, winStride.height);
     auto pad = cv::Size(padding.width, padding.height);
     self.ptr->detectMultiScale(
-        CVDEREF(img), rects, hitThresh, winstride, pad, scale, finalThreshold, useMeanshiftGrouping
+        CVDEREF(img), CVDEREF_P(rval), hitThresh, winstride, pad, scale, finalThreshold, useMeanshiftGrouping
     );
-    *rval = vecrect_cpp2c(rects);
     if (callback != nullptr) {
         callback();
     }
@@ -264,12 +238,12 @@ CvStatus* cv_HOGDescriptor_detectMultiScale_1(
 }
 CvStatus* cv_HOGDescriptor_getDefaultPeopleDetector(VecF32* rval) {
     BEGIN_WRAP
-    *rval = vecfloat_cpp2c(cv::HOGDescriptor::getDefaultPeopleDetector());
+    rval->ptr = {new std::vector<float_t>(cv::HOGDescriptor::getDefaultPeopleDetector())};
     END_WRAP
 }
 CvStatus* cv_HOGDescriptor_setSVMDetector(HOGDescriptor self, VecF32 det) {
     BEGIN_WRAP
-    self.ptr->setSVMDetector(vecfloat_c2cpp(det));
+    self.ptr->setSVMDetector(CVDEREF(det));
     END_WRAP
 }
 CvStatus* cv_HOGDescriptor_compute(
@@ -282,17 +256,13 @@ CvStatus* cv_HOGDescriptor_compute(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<float> _descriptors;
-    std::vector<cv::Point> _locations;
     self.ptr->compute(
         CVDEREF(img),
-        _descriptors,
+        CVDEREF_P(descriptors),
         cv::Size(winStride.width, winStride.height),
         cv::Size(padding.width, padding.height),
-        _locations
+        CVDEREF_P(locations)
     );
-    *descriptors = vecfloat_cpp2c(_descriptors);
-    *locations = vecpoint_cpp2c(_locations);
     if (callback != nullptr) {
         callback();
     }
@@ -349,7 +319,7 @@ CvStatus* cv_HOGDescriptor_computeGradient(
 // }
 CvStatus* cv_HOGDescriptor_getDaimlerPeopleDetector(VecF32* rval) {
     BEGIN_WRAP
-    *rval = vecfloat_cpp2c(cv::HOGDescriptor::getDaimlerPeopleDetector());
+    rval->ptr = new std::vector<float_t>(cv::HOGDescriptor::getDaimlerPeopleDetector());
     END_WRAP
 }
 size_t cv_HOGDescriptor_getDescriptorSize(HOGDescriptor self) {
@@ -367,11 +337,7 @@ CvStatus* cv_HOGDescriptor_groupRectangles(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _rectList = vecrect_c2cpp(*rectList);
-    auto _weights = vecdouble_c2cpp(*weights);
-    self.ptr->groupRectangles(_rectList, _weights, groupThreshold, eps);
-    vecrect_cpp2c(_rectList, rectList);
-    vecdouble_cpp2c(_weights, weights);
+    self.ptr->groupRectangles(CVDEREF_P(rectList), CVDEREF_P(weights), groupThreshold, eps);
     if (callback != nullptr) {
         callback();
     }
@@ -382,9 +348,7 @@ CvStatus* cv_groupRectangles(
     VecRect* rects, int groupThreshold, double eps, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _rects = vecrect_c2cpp(*rects);
-    cv::groupRectangles(_rects, groupThreshold, eps);
-    vecrect_cpp2c(_rects, rects);
+    cv::groupRectangles(CVDEREF_P(rects), groupThreshold, eps);
     if (callback != nullptr) {
         callback();
     }
@@ -405,12 +369,8 @@ CvStatus* cv_QRCodeDetector_detectAndDecode(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Point> points_;
-    cv::Mat mat;
-    auto info = self.ptr->detectAndDecode(CVDEREF(input), points_, mat);
+    auto info = self.ptr->detectAndDecode(CVDEREF(input), CVDEREF_P(points), CVDEREF_P(straight_qrcode));
     *rval = strdup(info.c_str());
-    *points = vecpoint_cpp2c(points_);
-    *straight_qrcode = {new cv::Mat(mat)};
     if (callback != nullptr) {
         callback();
     }
@@ -420,9 +380,7 @@ CvStatus* cv_QRCodeDetector_detect(
     QRCodeDetector self, Mat input, VecPoint* points, bool* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Point> _points;
-    *rval = self.ptr->detect(CVDEREF(input), _points);
-    *points = vecpoint_cpp2c(_points);
+    *rval = self.ptr->detect(CVDEREF(input), CVDEREF_P(points));
     if (callback != nullptr) {
         callback();
     }
@@ -437,10 +395,8 @@ CvStatus* cv_QRCodeDetector_decode(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Point> _points;
-    auto info = self.ptr->detectAndDecode(CVDEREF(input), _points, CVDEREF(straight_qrcode));
+    auto info = self.ptr->detectAndDecode(CVDEREF(input), CVDEREF_P(points), CVDEREF(straight_qrcode));
     *rval = strdup(info.c_str());
-    *points = vecpoint_cpp2c(_points);
     if (callback != nullptr) {
         callback();
     }
@@ -455,11 +411,8 @@ CvStatus* cv_QRCodeDetector_decodeCurved(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::Mat _straight_qrcode;
-    auto _points = vecpoint_c2cpp(points);
-    auto ret = self.ptr->decodeCurved(CVDEREF(img), _points, _straight_qrcode);
+    auto ret = self.ptr->decodeCurved(CVDEREF(img), CVDEREF(points), CVDEREF_P(straight_qrcode));
     *rval = strdup(ret.c_str());
-    *straight_qrcode = {new cv::Mat(_straight_qrcode)};
     if (callback != nullptr) {
         callback();
     }
@@ -474,12 +427,8 @@ CvStatus* cv_QRCodeDetector_detectAndDecodeCurved(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::Mat _straight_qrcode;
-    std::vector<cv::Point> _points;
-    auto ret = self.ptr->detectAndDecodeCurved(CVDEREF(img), _points, _straight_qrcode);
+    auto ret = self.ptr->detectAndDecodeCurved(CVDEREF(img), CVDEREF_P(points), CVDEREF_P(straight_qrcode));
     *rval = strdup(ret.c_str());
-    *points = vecpoint_cpp2c(_points);
-    *straight_qrcode = {new cv::Mat(_straight_qrcode)};
     if (callback != nullptr) {
         callback();
     }
@@ -493,9 +442,7 @@ CvStatus* cv_QRCodeDetector_detectMulti(
     QRCodeDetector self, Mat input, VecPoint* points, bool* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Point> _points;
-    *rval = self.ptr->detectMulti(CVDEREF(input), _points);
-    *points = vecpoint_cpp2c(_points);
+    *rval = self.ptr->detectMulti(CVDEREF(input), CVDEREF_P(points));
     if (callback != nullptr) {
         callback();
     }
@@ -512,23 +459,8 @@ CvStatus* cv_QRCodeDetector_detectAndDecodeMulti(
 ) {
     BEGIN_WRAP
     std::vector<cv::String> decodedCodes;
-    std::vector<cv::Mat> straightQrCodes;
-    std::vector<cv::Point> points_;
-
-    *rval = self.ptr->detectAndDecodeMulti(CVDEREF(input), decodedCodes, points_, straightQrCodes);
-    if (!*rval) {
-        *decoded = {nullptr, 0};
-        *straight_code = {nullptr, 0};
-        *points = {nullptr, 0};
-    } else {
-        std::vector<std::vector<char>> vecvec;
-        for (auto& decodedCode : decodedCodes) {
-            vecvec.emplace_back(decodedCode.begin(), decodedCode.end());
-        }
-        *decoded = vecvecchar_cpp2c(vecvec);
-        *straight_code = vecmat_cpp2c(straightQrCodes);
-        *points = vecpoint_cpp2c(points_);
-    }
+    *rval = self.ptr->detectAndDecodeMulti(CVDEREF(input), decodedCodes, CVDEREF_P(points), CVDEREF_P(straight_code));
+    decoded->ptr = vecstr_2_vecvecchar(decodedCodes);
     if (callback != nullptr) {
         callback();
     }
@@ -583,12 +515,10 @@ CvStatus* cv_FaceDetectorYN_create_1(
     FaceDetectorYN* rval
 ) {
     BEGIN_WRAP
-    auto _buffer = vecuchar_c2cpp(buffer);
-    auto _buffer_config = vecuchar_c2cpp(buffer_config);
     *rval = {new cv::Ptr<cv::FaceDetectorYN>(cv::FaceDetectorYN::create(
         framework,
-        _buffer,
-        _buffer_config,
+        CVDEREF(buffer),
+        CVDEREF(buffer_config),
         cv::Size(input_size.width, input_size.height),
         score_threshold,
         nms_threshold,

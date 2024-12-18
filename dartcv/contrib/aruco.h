@@ -130,9 +130,9 @@ void cv_aruco_arucoDetector_close(ArucoDetectorPtr self);
 CvStatus* cv_aruco_arucoDetector_detectMarkers(
     ArucoDetector self,
     Mat inputArr,
-    VecVecPoint2f* markerCorners,
-    VecI32* markerIds,
-    VecVecPoint2f* rejectedCandidates,
+    VecVecPoint2f* out_markerCorners,
+    VecI32* out_markerIds,
+    VecVecPoint2f* out_rejectedCandidates,
     CvCallback_0 callback
 );
 

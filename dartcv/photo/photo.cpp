@@ -73,8 +73,7 @@ CvStatus* cv_fastNlMeansDenoisingColoredMulti(
     VecMat src, Mat dst, int imgToDenoiseIndex, int temporalWindowSize, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _src = vecmat_c2cpp(src);
-    cv::fastNlMeansDenoisingColoredMulti(_src, CVDEREF(dst), imgToDenoiseIndex, temporalWindowSize);
+    cv::fastNlMeansDenoisingColoredMulti(CVDEREF(src), CVDEREF(dst), imgToDenoiseIndex, temporalWindowSize);
     if (callback != nullptr) {
         callback();
     }
@@ -92,9 +91,8 @@ CvStatus* cv_fastNlMeansDenoisingColoredMulti_1(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _src = vecmat_c2cpp(src);
     cv::fastNlMeansDenoisingColoredMulti(
-        _src,
+        CVDEREF(src),
         CVDEREF(dst),
         imgToDenoiseIndex,
         temporalWindowSize,
@@ -169,8 +167,7 @@ CvStatus* cv_createMergeMertens_1(
 }
 CvStatus* cv_MergeMertens_process(MergeMertens b, VecMat src, Mat dst, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto _src = vecmat_c2cpp(src);
-    (CVDEREF(b))->process(_src, CVDEREF(dst));
+    (CVDEREF(b))->process(CVDEREF(src), CVDEREF(dst));
     if (callback != nullptr) {
         callback();
     }
@@ -191,12 +188,9 @@ CvStatus* cv_createAlignMTB_1(int max_bits, int exclude_range, bool cut, AlignMT
     *rval = {new cv::Ptr<cv::AlignMTB>(cv::createAlignMTB(max_bits, exclude_range, cut))};
     END_WRAP
 }
-CvStatus* cv_AlignMTB_process(AlignMTB b, VecMat src, VecMat* dst, CvCallback_0 callback) {
+CvStatus* cv_AlignMTB_process(AlignMTB b, VecMat src, const VecMat* dst, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto vec = std::vector<cv::Mat>();
-    auto _src = vecmat_c2cpp(src);
-    (CVDEREF(b))->process(_src, vec);
-    *dst = vecmat_cpp2c(vec);
+    (CVDEREF(b))->process(CVDEREF(src), CVDEREF_P(dst));
     if (callback != nullptr) {
         callback();
     }

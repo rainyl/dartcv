@@ -15,7 +15,7 @@
 extern "C" {
 #endif
 
-CvStatus* cv_RotatedRect_points(RotatedRect rect, VecPoint2f* pts);
+CvStatus* cv_RotatedRect_points(RotatedRect rect, VecPoint2f* out_pts);
 CvStatus* cv_RotatedRect_boundingRect(RotatedRect rect, CvRect* rval);
 CvStatus* cv_RotatedRect_boundingRect2f(RotatedRect rect, CvRect2f* rval);
 // CvStatus *noArray(InputOutputArray *rval);
@@ -200,7 +200,7 @@ CvStatus* cv_solveCubic(Mat coeffs, Mat roots, int* rval, CvCallback_0 callback)
 CvStatus* cv_solvePoly(Mat coeffs, Mat roots, int maxIters, double* rval, CvCallback_0 callback);
 CvStatus* cv_sort(Mat src, Mat dst, int flags, CvCallback_0 callback);
 CvStatus* cv_sortIdx(Mat src, Mat dst, int flags, CvCallback_0 callback);
-CvStatus* cv_split(Mat src, VecMat* rval, CvCallback_0 callback);
+CvStatus* cv_split(Mat src, VecMat* out_rval, CvCallback_0 callback);
 CvStatus* cv_sqrt(Mat src, Mat dst, CvCallback_0 callback);
 CvStatus* cv_subtract(Mat src1, Mat src2, Mat dst, Mat mask, int dtype, CvCallback_0 callback);
 CvStatus* cv_sum(Mat src, Scalar* rval, CvCallback_0 callback);

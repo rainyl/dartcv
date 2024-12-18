@@ -90,12 +90,12 @@ CvStatus* cv_findChessboardCorners(
     Mat image, CvSize patternSize, VecPoint2f* corners, int flags, bool* rval, CvCallback_0 callback
 );
 CvStatus* cv_findChessboardCornersSB(
-    Mat image, CvSize patternSize, VecPoint2f* corners, int flags, bool* rval, CvCallback_0 callback
+    Mat image, CvSize patternSize, VecPoint2f* out_corners, int flags, bool* rval, CvCallback_0 callback
 );
 CvStatus* cv_findChessboardCornersSB_1(
     Mat image,
     CvSize patternSize,
-    VecPoint2f* corners,
+    VecPoint2f* out_corners,
     int flags,
     Mat meta,
     bool* rval,

@@ -5,7 +5,6 @@
     Modified by Rainyl.
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
-#include <iostream>
 #include "dartcv/contrib/aruco.h"
 #include "dartcv/core/vec.hpp"
 
@@ -363,21 +362,13 @@ void cv_aruco_arucoDetector_close(ArucoDetectorPtr self) {
 CvStatus* cv_aruco_arucoDetector_detectMarkers(
     ArucoDetector self,
     Mat inputArr,
-    VecVecPoint2f* markerCorners,
-    VecI32* markerIds,
-    VecVecPoint2f* rejectedCandidates,
+    VecVecPoint2f* out_markerCorners,
+    VecI32* out_markerIds,
+    VecVecPoint2f* out_rejectedCandidates,
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<std::vector<cv::Point2f>> _markerCorners;
-    std::vector<int> _markerIds;
-    std::vector<std::vector<cv::Point2f>> _rejectedCandidates;
-    self.ptr->detectMarkers(*inputArr.ptr, _markerCorners, _markerIds, _rejectedCandidates);
-    *markerCorners = vecvecpoint2f_cpp2c(_markerCorners);
-    *markerIds = vecint_cpp2c(_markerIds);
-    if (rejectedCandidates != nullptr) {
-        *rejectedCandidates = vecvecpoint2f_cpp2c(_rejectedCandidates);
-    }
+    self.ptr->detectMarkers(*inputArr.ptr, CVDEREF_P(out_markerCorners), CVDEREF_P(out_markerIds), CVDEREF_P(out_rejectedCandidates));
     if (callback != nullptr) {
         callback();
     }
@@ -394,9 +385,7 @@ CvStatus* cv_aruco_drawDetectedMarkers(
     BEGIN_WRAP
     cv::Scalar _borderColor =
         cv::Scalar(borderColor.val1, borderColor.val2, borderColor.val3, borderColor.val4);
-    auto _markerCorners = vecvecpoint2f_c2cpp(markerCorners);
-    auto _markerIds = vecint_c2cpp(markerIds);
-    cv::aruco::drawDetectedMarkers(*image.ptr, _markerCorners, _markerIds, _borderColor);
+    cv::aruco::drawDetectedMarkers(*image.ptr, CVDEREF(markerCorners), CVDEREF(markerIds), _borderColor);
     if (callback != nullptr) {
         callback();
     }

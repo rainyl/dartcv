@@ -1,16 +1,28 @@
 if (ANDROID)
     set(PLATFORM_LIBS ${PLATFORM_LIBS} camera2ndk mediandk -landroid)
-elseif (IOS)
+elseif (APPLE AND IOS)
     # https://github.com/opencv/opencv/blob/450e741f8d53ff12b4e194c7762adaefb952555a/platforms/ios/build_framework.py#L386
     set(PLATFORM_LIBS ${PLATFORM_LIBS}
+            "-framework UIKit"
             "-framework AVFoundation"
+            "-framework CoreVideo"
             "-framework CoreGraphics"
-            "-framework CoreImage"
             "-framework CoreMedia"
+            "-framework CoreImage"
             "-framework QuartzCore"
             "-framework Accelerate"
-            "-framework UIKit"
+    )
+elseif (APPLE AND NOT IOS)
+    set(PLATFORM_LIBS ${PLATFORM_LIBS}
+            "-framework Cocoa"
+            "-framework AVFoundation"
+            "-framework OpenGL"
             "-framework CoreVideo"
+            "-framework CoreGraphics"
+            "-framework CoreMedia"
+            "-framework CoreImage"
+            "-framework QuartzCore"
+            "-framework Accelerate"
     )
 endif ()
 
@@ -28,6 +40,7 @@ set(_cpp_files
         "core/utils.cpp"
         "core/version.cpp"
         "imgcodecs/imgcodecs.cpp"
+        "core/stdvec.cpp"
 )
 set(DARTCV_DEPS opencv_core opencv_imgcodecs)
 
@@ -121,7 +134,6 @@ if (DARTCV_WITH_FFMPEG)
     endforeach ()
 endif ()
 
-set(_header_files)
 foreach (_cpp_file IN LISTS _cpp_files)
     string(REGEX REPLACE "\\.cpp$" ".h" _header_file ${_cpp_file})
     list(APPEND _header_files ${_header_file})

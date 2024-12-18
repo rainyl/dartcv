@@ -92,7 +92,7 @@ void cv_MergeMertens_close(MergeMertensPtr b);
 
 CvStatus* cv_createAlignMTB(AlignMTB* rval);
 CvStatus* cv_createAlignMTB_1(int max_bits, int exclude_range, bool cut, AlignMTB* rval);
-CvStatus* cv_AlignMTB_process(AlignMTB b, VecMat src, VecMat* dst, CvCallback_0 callback);
+CvStatus* cv_AlignMTB_process(AlignMTB b, VecMat src, const VecMat* dst, CvCallback_0 callback);
 void cv_AlignMTB_close(AlignMTBPtr b);
 
 CvStatus* cv_detailEnhance(Mat src, Mat dst, float sigma_s, float sigma_r, CvCallback_0 callback);

@@ -34,20 +34,11 @@ void cv_wechat_qrcode_WeChatQRCode_close(WeChatQRCodePtr self) {
 }
 
 CvStatus* cv_wechat_qrcode_WeChatQRCode_detectAndDecode(
-    WeChatQRCode self, Mat img, VecMat* points, VecVecChar* rval, CvCallback_0 callback
+    WeChatQRCode self, Mat img, VecMat* out_points, VecVecChar* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Mat> pts;
-
-    auto strings = self.ptr->detectAndDecode(*img.ptr, pts);
-    *points = vecmat_cpp2c(pts);
-
-    std::vector<std::vector<char>> cstrings;
-    cstrings.reserve(strings.size());
-    for (auto s : strings) {
-        cstrings.emplace_back(s.begin(), s.end());
-    }
-    *rval = vecvecchar_cpp2c(cstrings);
+    auto strings = self.ptr->detectAndDecode(*img.ptr, CVDEREF_P(out_points));
+    rval->ptr = vecstr_2_vecvecchar(strings);
     if (callback != nullptr) {
         callback();
     }

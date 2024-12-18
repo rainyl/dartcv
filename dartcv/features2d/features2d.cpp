@@ -24,9 +24,7 @@ void cv_AKAZE_close(AKAZEPtr self) {
 
 CvStatus* cv_AKAZE_detect(AKAZE self, Mat src, VecKeyPoint* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    (CVDEREF(self))->detect(CVDEREF(src), detected);
-    *rval = veckeypoint_cpp2c(detected);
+    (CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -36,9 +34,8 @@ CvStatus* cv_AKAZE_detectAndCompute(
     AKAZE self, Mat src, Mat mask, Mat desc, VecKeyPoint* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    (CVDEREF(self))->detectAndCompute(CVDEREF(src), CVDEREF(mask), detected, CVDEREF(desc));
-    *rval = veckeypoint_cpp2c(detected);
+    (CVDEREF(self))->detectAndCompute(CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc));
+
     if (callback != nullptr) {
         callback();
     }
@@ -59,9 +56,7 @@ CvStatus* cv_AgastFeatureDetector_detect(
     AgastFeatureDetector self, Mat src, VecKeyPoint* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    (CVDEREF(self))->detect(CVDEREF(src), detected);
-    *rval = veckeypoint_cpp2c(detected);
+    (CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -80,9 +75,7 @@ void cv_BRISK_close(BRISKPtr self) {
 
 CvStatus* cv_BRISK_detect(BRISK self, Mat src, VecKeyPoint* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    (CVDEREF(self))->detect(CVDEREF(src), detected);
-    *rval = veckeypoint_cpp2c(detected);
+    (CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -92,9 +85,7 @@ CvStatus* cv_BRISK_detectAndCompute(
     BRISK self, Mat src, Mat mask, Mat desc, VecKeyPoint* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    (CVDEREF(self))->detectAndCompute(CVDEREF(src), CVDEREF(mask), detected, CVDEREF(desc));
-    *rval = veckeypoint_cpp2c(detected);
+    (CVDEREF(self))->detectAndCompute(CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc));
     if (callback != nullptr) {
         callback();
     }
@@ -125,9 +116,7 @@ CvStatus* cv_FastFeatureDetector_detect(
     FastFeatureDetector self, Mat src, VecKeyPoint* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    (CVDEREF(self))->detect(CVDEREF(src), detected);
-    *rval = veckeypoint_cpp2c(detected);
+    (CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -148,9 +137,7 @@ CvStatus* cv_GFTTDetector_detect(
     GFTTDetector self, Mat src, VecKeyPoint* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    (CVDEREF(self))->detect(CVDEREF(src), detected);
-    *rval = veckeypoint_cpp2c(detected);
+    (CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -169,9 +156,7 @@ void cv_KAZE_close(KAZEPtr self) {
 
 CvStatus* cv_KAZE_detect(KAZE self, Mat src, VecKeyPoint* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    (CVDEREF(self))->detect(CVDEREF(src), detected);
-    *rval = veckeypoint_cpp2c(detected);
+    (CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -181,9 +166,7 @@ CvStatus* cv_KAZE_detectAndCompute(
     KAZE self, Mat src, Mat mask, Mat desc, VecKeyPoint* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    (CVDEREF(self))->detectAndCompute(CVDEREF(src), CVDEREF(mask), detected, CVDEREF(desc));
-    *rval = veckeypoint_cpp2c(detected);
+    (CVDEREF(self))->detectAndCompute(CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc));
     if (callback != nullptr) {
         callback();
     }
@@ -202,9 +185,7 @@ void cv_MSER_close(MSERPtr self) {
 
 CvStatus* cv_MSER_detect(MSER self, Mat src, VecKeyPoint* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    (CVDEREF(self))->detect(CVDEREF(src), detected);
-    *rval = veckeypoint_cpp2c(detected);
+    (CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -250,9 +231,7 @@ void cv_ORB_close(ORBPtr self) {
 
 CvStatus* cv_ORB_detect(ORB self, Mat src, VecKeyPoint* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    (*self.ptr)->detect(CVDEREF(src), detected);
-    *rval = veckeypoint_cpp2c(detected);
+    (*self.ptr)->detect(CVDEREF(src), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -260,14 +239,10 @@ CvStatus* cv_ORB_detect(ORB self, Mat src, VecKeyPoint* rval, CvCallback_0 callb
 }
 
 CvStatus* cv_ORB_detectAndCompute(
-    ORB self, Mat src, Mat mask, Mat* desc, VecKeyPoint* rval, CvCallback_0 callback
+    ORB self, Mat src, Mat mask, VecKeyPoint* out_keypoints, Mat desc, bool useProvidedKeypoints, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    cv::Mat _desc;
-    (CVDEREF(self))->detectAndCompute(CVDEREF(src), CVDEREF(mask), detected, _desc);
-    *rval = veckeypoint_cpp2c(detected);
-    desc->ptr = new cv::Mat(_desc);
+    (CVDEREF(self))->detectAndCompute(CVDEREF(src), CVDEREF(mask), CVDEREF_P(out_keypoints), CVDEREF(desc), useProvidedKeypoints);
     if (callback != nullptr) {
         callback();
     }
@@ -297,9 +272,7 @@ CvStatus* cv_SimpleBlobDetector_detect(
     SimpleBlobDetector self, Mat src, VecKeyPoint* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    (CVDEREF(self))->detect(CVDEREF(src), detected);
-    *rval = veckeypoint_cpp2c(detected);
+    (CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -330,9 +303,7 @@ CvStatus* cv_BFMatcher_match(
     BFMatcher self, Mat query, Mat train, VecDMatch* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::DMatch> matches = std::vector<cv::DMatch>();
-    (CVDEREF(self))->match(CVDEREF(query), CVDEREF(train), matches);
-    *rval = vecdmatch_cpp2c(matches);
+    (CVDEREF(self))->match(CVDEREF(query), CVDEREF(train), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -342,9 +313,7 @@ CvStatus* cv_BFMatcher_knnMatch(
     BFMatcher self, Mat query, Mat train, int k, VecVecDMatch* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<std::vector<cv::DMatch>> matches = std::vector<std::vector<cv::DMatch>>();
-    (CVDEREF(self))->knnMatch(CVDEREF(query), CVDEREF(train), matches, k);
-    *rval = vecvecdmatch_cpp2c(matches);
+    (CVDEREF(self))->knnMatch(CVDEREF(query), CVDEREF(train), CVDEREF_P(rval), k);
     if (callback != nullptr) {
         callback();
     }
@@ -365,9 +334,7 @@ CvStatus* cv_FlannBasedMatcher_knnMatch(
     FlannBasedMatcher self, Mat query, Mat train, int k, VecVecDMatch* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<std::vector<cv::DMatch>> matches = std::vector<std::vector<cv::DMatch>>();
-    (CVDEREF(self))->knnMatch(CVDEREF(query), CVDEREF(train), matches, k);
-    *rval = vecvecdmatch_cpp2c(matches);
+    (CVDEREF(self))->knnMatch(CVDEREF(query), CVDEREF(train), CVDEREF_P(rval), k);
     if (callback != nullptr) {
         callback();
     }
@@ -379,9 +346,8 @@ CvStatus* cv_drawKeyPoints(
 ) {
     BEGIN_WRAP
     auto color_ = cv::Scalar(color.val1, color.val2, color.val3, color.val4);
-    auto _kp = veckeypoint_c2cpp(kp);
     cv::drawKeypoints(
-        CVDEREF(src), _kp, CVDEREF(dst), color_, static_cast<cv::DrawMatchesFlags>(flags)
+        CVDEREF(src), CVDEREF(kp), CVDEREF(dst), color_, static_cast<cv::DrawMatchesFlags>(flags)
     );
     if (callback != nullptr) {
         callback();
@@ -401,9 +367,7 @@ void cv_SIFT_close(SIFTPtr self) {
 
 CvStatus* cv_SIFT_detect(SIFT self, Mat src, VecKeyPoint* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    (CVDEREF(self))->detect(CVDEREF(src), detected);
-    *rval = veckeypoint_cpp2c(detected);
+    (CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -413,9 +377,7 @@ CvStatus* cv_SIFT_detectAndCompute(
     SIFT self, Mat src, Mat mask, Mat desc, VecKeyPoint* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::KeyPoint> detected = std::vector<cv::KeyPoint>();
-    (CVDEREF(self))->detectAndCompute(CVDEREF(src), CVDEREF(mask), detected, CVDEREF(desc));
-    *rval = veckeypoint_cpp2c(detected);
+    (CVDEREF(self))->detectAndCompute(CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc));
     if (callback != nullptr) {
         callback();
     }
@@ -439,20 +401,16 @@ CvStatus* cv_drawMatches(
     auto mColor =
         cv::Scalar(matchesColor.val1, matchesColor.val2, matchesColor.val3, matchesColor.val4);
     auto pColor = cv::Scalar(pointColor.val1, pointColor.val2, pointColor.val3, pointColor.val4);
-    auto _kp1 = veckeypoint_c2cpp(kp1);
-    auto _kp2 = veckeypoint_c2cpp(kp2);
-    auto _matches1to2 = vecdmatch_c2cpp(matches1to2);
-    auto _matchesMask = vecchar_c2cpp(matchesMask);
     cv::drawMatches(
         CVDEREF(img1),
-        _kp1,
+        CVDEREF(kp1),
         CVDEREF(img2),
-        _kp2,
-        _matches1to2,
+        CVDEREF(kp2),
+        CVDEREF(matches1to2),
         CVDEREF(outImg),
         mColor,
         pColor,
-        _matchesMask,
+        CVDEREF(matchesMask),
         static_cast<cv::DrawMatchesFlags>(flags)
     );
     if (callback != nullptr) {

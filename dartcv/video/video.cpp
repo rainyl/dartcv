@@ -9,6 +9,8 @@
 #include "dartcv/video/video.h"
 #include "dartcv/core/vec.hpp"
 
+#include <iostream>
+
 CvStatus* cv_BackgroundSubtractorMOG2_create(BackgroundSubtractorMOG2* rval) {
     BEGIN_WRAP
     rval->ptr = new cv::Ptr<cv::BackgroundSubtractorMOG2>(cv::createBackgroundSubtractorMOG2());
@@ -77,16 +79,9 @@ CvStatus* cv_calcOpticalFlowPyrLK(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _prevPts = vecpoint2f_c2cpp(prevPts);
-    auto _nextPts = vecpoint2f_c2cpp(*nextPts);
-    std::vector<uchar> _status;
-    std::vector<float> _err;
-    cv::calcOpticalFlowPyrLK(CVDEREF(prevImg), CVDEREF(nextImg), _prevPts, _nextPts, _status, _err);
-
-    vecpoint2f_cpp2c(_nextPts, nextPts);
-
-    *status = vecuchar_cpp2c(_status);
-    *err = vecfloat_cpp2c(_err);
+    cv::calcOpticalFlowPyrLK(
+        CVDEREF(prevImg), CVDEREF(nextImg), CVDEREF(prevPts), CVDEREF_P(nextPts), CVDEREF_P(status), CVDEREF_P(err)
+    );
     if (callback != nullptr) {
         callback();
     }
@@ -108,28 +103,20 @@ CvStatus* cv_calcOpticalFlowPyrLK_1(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _prevPts = vecpoint2f_c2cpp(prevPts);
-    auto _nextPts = vecpoint2f_c2cpp(*nextPts);
-    std::vector<uchar> _status;
-    std::vector<float> _err;
     auto tc = cv::TermCriteria(criteria.type, criteria.maxCount, criteria.epsilon);
     cv::calcOpticalFlowPyrLK(
         CVDEREF(prevImg),
         CVDEREF(nextImg),
-        _prevPts,
-        _nextPts,
-        _status,
-        _err,
+        CVDEREF(prevPts),
+        CVDEREF_P(nextPts),
+        CVDEREF_P(status),
+        CVDEREF_P(err),
         cv::Size(winSize.width, winSize.height),
         maxLevel,
         tc,
         flags,
         minEigThreshold
     );
-    vecpoint2f_cpp2c(_nextPts, nextPts);
-
-    *status = vecuchar_cpp2c(_status);
-    *err = vecfloat_cpp2c(_err);
     if (callback != nullptr) {
         callback();
     }

@@ -4,6 +4,7 @@
 */
 
 #include "dartcv/stitching/stitching.h"
+#include <vector>
 #include "dartcv/core/vec.hpp"
 
 CvStatus* cv_Stitcher_create(int mode, Stitcher* rval) {
@@ -71,12 +72,10 @@ CvStatus* cv_Stitcher_estimateTransform(
     Stitcher self, VecMat mats, VecMat masks, int* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _mats = vecmat_c2cpp(mats);
-    if (masks.length > 0) {
-        auto _masks = vecmat_c2cpp(masks);
-        *rval = static_cast<int>((CVDEREF(self))->estimateTransform(_mats, _masks));
+    if (!masks.ptr->empty()) {
+        *rval = static_cast<int>((CVDEREF(self))->estimateTransform(CVDEREF(mats), CVDEREF(masks)));
     } else {
-        *rval = static_cast<int>((CVDEREF(self))->estimateTransform(_mats));
+        *rval = static_cast<int>((CVDEREF(self))->estimateTransform(CVDEREF(mats)));
     }
     if (callback != nullptr) {
         callback();
@@ -96,8 +95,7 @@ CvStatus* cv_Stitcher_composePanorama_1(
     Stitcher self, VecMat mats, Mat rpano, int* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _mats = vecmat_c2cpp(mats);
-    *rval = static_cast<int>((CVDEREF(self))->composePanorama(_mats, CVDEREF(rpano)));
+    *rval = static_cast<int>((CVDEREF(self))->composePanorama(CVDEREF(mats), CVDEREF(rpano)));
     if (callback != nullptr) {
         callback();
     }
@@ -108,8 +106,7 @@ CvStatus* cv_Stitcher_stitch(
     Stitcher self, VecMat mats, Mat rpano, int* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _mats = vecmat_c2cpp(mats);
-    *rval = static_cast<int>((CVDEREF(self))->stitch(_mats, CVDEREF(rpano)));
+    *rval = static_cast<int>((CVDEREF(self))->stitch(CVDEREF(mats), CVDEREF(rpano)));
     if (callback != nullptr) {
         callback();
     }
@@ -119,9 +116,7 @@ CvStatus* cv_Stitcher_stitch_1(
     Stitcher self, VecMat mats, VecMat masks, Mat rpano, int* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _mats = vecmat_c2cpp(mats);
-    auto _masks = vecmat_c2cpp(masks);
-    *rval = static_cast<int>((CVDEREF(self))->stitch(_mats, _masks, CVDEREF(rpano)));
+    *rval = static_cast<int>((CVDEREF(self))->stitch(CVDEREF(mats), CVDEREF(masks), CVDEREF(rpano)));
     if (callback != nullptr) {
         callback();
     }
@@ -131,7 +126,7 @@ CvStatus* cv_Stitcher_stitch_1(
 CvStatus* cv_Stitcher_component(Stitcher self, VecI32* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     std::vector<int> _rval = (CVDEREF(self))->component();
-    *rval = vecint_cpp2c(_rval);
+    *rval = {new std::vector<int32_t>(_rval)};
     if (callback != nullptr) {
         callback();
     }

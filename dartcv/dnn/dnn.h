@@ -70,7 +70,7 @@ CvStatus* cv_dnn_NMSBoxes(
     VecF32 scores,
     float score_threshold,
     float nms_threshold,
-    CVD_OUT VecI32* indices,
+    CVD_OUT VecI32* out_indices,
     CvCallback_0 callback
 );
 CvStatus* cv_dnn_NMSBoxes_1(
