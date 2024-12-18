@@ -58,9 +58,6 @@ extern "C" {
     }                                                                                \
     void std_##TYPE##_extend(TYPE* self, TYPE* other) {                              \
         self->ptr->insert(self->ptr->end(), other->ptr->begin(), other->ptr->end()); \
-    }                                                                                \
-    TYPE* std_##TYPE##_clone(TYPE* self) {                                           \
-        return new TYPE{new std::vector(*(self->ptr))};                              \
     }
 #endif
 
@@ -74,7 +71,6 @@ extern "C" {
     void std_##TYPE##_set(TYPE* self, size_t index, ELEM val); \
     size_t std_##TYPE##_length(TYPE* self);                    \
     ELEM* std_##TYPE##_data(TYPE* self);                       \
-    TYPE* std_##TYPE##_clone(TYPE* self);                      \
     void std_##TYPE##_resize(TYPE* self, size_t new_len);      \
     void std_##TYPE##_reserve(TYPE* self, size_t new_len);     \
     void std_##TYPE##_clear(TYPE* self);                       \
@@ -106,7 +102,6 @@ void std_VecVecChar_push_back(VecVecChar* self, VecChar val);
 VecChar* std_VecVecChar_get(VecVecChar* self, int index);
 void std_VecVecChar_set(VecVecChar* self, int index, VecChar* val);
 VecChar* std_VecVecChar_data(VecVecChar* self);
-VecVecChar* std_VecVecChar_clone(VecVecChar* self);
 void std_VecVecChar_reserve(VecVecChar* self, size_t size);
 void std_VecVecChar_resize(VecVecChar* self, size_t size);
 void std_VecVecChar_clear(VecVecChar* self);

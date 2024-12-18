@@ -106,7 +106,7 @@ VecPoint2f* std_VecPoint2f_new(size_t length) {
 }
 
 VecPoint2f* std_VecPoint2f_new_1(size_t length, CvPoint2f val) {
-    return new VecPoint2f{new std::vector(length, cv::Point2f(val.x, val.y))};
+    return new VecPoint2f{new std::vector<cv::Point2f>(length, cv::Point2f(val.x, val.y))};
 }
 
 VecPoint2f* std_VecPoint2f_new_2(size_t length, CvPoint2f* val_ptr) {
@@ -271,7 +271,9 @@ VecRect2f* std_VecRect2f_new(size_t length) {
 }
 
 VecRect2f* std_VecRect2f_new_1(size_t length, CvRect2f val) {
-    return new VecRect2f{new std::vector(length, cv::Rect2f(val.x, val.y, val.width, val.height))};
+    return new VecRect2f{
+        new std::vector<cv::Rect2f>(length, cv::Rect2f(val.x, val.y, val.width, val.height))
+    };
 }
 
 VecRect2f* std_VecRect2f_new_2(size_t length, CvRect2f* val_ptr) {
@@ -334,7 +336,11 @@ VecRotatedRect* std_VecRotatedRect_new_2(size_t length, RotatedRect* val_ptr) {
 }
 
 void std_VecRotatedRect_push_back(VecRotatedRect* self, RotatedRect val) {
-    self->ptr->emplace_back(cv::Point2f(val.center.x, val.center.y), cv::Size2f(val.size.width, val.size.height), val.angle);
+    self->ptr->emplace_back(
+        cv::Point2f(val.center.x, val.center.y),
+        cv::Size2f(val.size.width, val.size.height),
+        val.angle
+    );
 }
 
 RotatedRect std_VecRotatedRect_get(VecRotatedRect* self, size_t index) {
@@ -370,7 +376,7 @@ VecKeyPoint* std_VecKeyPoint_new(size_t length) {
 
 VecKeyPoint* std_VecKeyPoint_new_1(size_t length, KeyPoint val) {
     auto p = cv::KeyPoint(val.x, val.y, val.size, val.angle, val.response, val.octave, val.classID);
-    return new VecKeyPoint{new std::vector(length, p)};
+    return new VecKeyPoint{new std::vector<cv::KeyPoint>(length, p)};
 }
 
 VecKeyPoint* std_VecKeyPoint_new_2(size_t length, KeyPoint* val_ptr) {
@@ -391,7 +397,9 @@ VecKeyPoint* std_VecKeyPoint_new_2(size_t length, KeyPoint* val_ptr) {
 }
 
 void std_VecKeyPoint_push_back(VecKeyPoint* self, KeyPoint val) {
-    self->ptr->emplace_back(val.x, val.y, val.size, val.angle, val.response, val.octave, val.classID);
+    self->ptr->emplace_back(
+        val.x, val.y, val.size, val.angle, val.response, val.octave, val.classID
+    );
 }
 KeyPoint std_VecKeyPoint_get(VecKeyPoint* self, size_t index) {
     auto p = self->ptr->at(index);
@@ -419,7 +427,8 @@ KeyPoint* std_VecKeyPoint_get_p(VecKeyPoint* self, int index) {
 }
 
 void std_VecKeyPoint_set(VecKeyPoint* self, size_t index, KeyPoint val) {
-    self->ptr->at(index) = cv::KeyPoint(val.x, val.y, val.size, val.angle, val.response, val.octave, val.classID);
+    self->ptr->at(index) =
+        cv::KeyPoint(val.x, val.y, val.size, val.angle, val.response, val.octave, val.classID);
 }
 
 KeyPoint* std_VecKeyPoint_data(VecKeyPoint* self) {
@@ -446,13 +455,15 @@ VecDMatch* std_VecDMatch_new(size_t length) {
 
 VecDMatch* std_VecDMatch_new_1(size_t length, DMatch val) {
     auto d = cv::DMatch(val.queryIdx, val.trainIdx, val.imgIdx, val.distance);
-    return new VecDMatch{new std::vector(length, d)};
+    return new VecDMatch{new std::vector<cv::DMatch>(length, d)};
 }
 
 VecDMatch* std_VecDMatch_new_2(size_t length, DMatch* val_ptr) {
     auto v = new std::vector<cv::DMatch>(length);
     for (size_t i = 0; i < length; i++) {
-        v->at(i) = cv::DMatch(val_ptr[i].queryIdx, val_ptr[i].trainIdx, val_ptr[i].imgIdx, val_ptr[i].distance);
+        v->at(i) = cv::DMatch(
+            val_ptr[i].queryIdx, val_ptr[i].trainIdx, val_ptr[i].imgIdx, val_ptr[i].distance
+        );
     }
     return new VecDMatch{v};
 }
@@ -462,11 +473,15 @@ void std_VecDMatch_push_back(VecDMatch* self, DMatch val) {
 }
 DMatch std_VecDMatch_get(VecDMatch* self, size_t index) {
     auto d = self->ptr->at(index);
-    return DMatch{.queryIdx = d.queryIdx, .trainIdx = d.trainIdx, .imgIdx = d.imgIdx, .distance = d.distance};
+    return DMatch{
+        .queryIdx = d.queryIdx, .trainIdx = d.trainIdx, .imgIdx = d.imgIdx, .distance = d.distance
+    };
 }
 DMatch* std_VecDMatch_get_p(VecDMatch* self, int index) {
     auto d = self->ptr->at(index);
-    return new DMatch{.queryIdx = d.queryIdx, .trainIdx = d.trainIdx, .imgIdx = d.imgIdx, .distance = d.distance};
+    return new DMatch{
+        .queryIdx = d.queryIdx, .trainIdx = d.trainIdx, .imgIdx = d.imgIdx, .distance = d.distance
+    };
 }
 
 void std_VecDMatch_set(VecDMatch* self, size_t index, DMatch val) {
@@ -487,7 +502,9 @@ VecVec4i* std_VecVec4i_new(size_t length) {
 }
 
 VecVec4i* std_VecVec4i_new_1(size_t length, Vec4i val) {
-    return new VecVec4i{new std::vector<cv::Vec4i>(length, cv::Vec4i(val.val1, val.val2, val.val3, val.val4))};
+    return new VecVec4i{
+        new std::vector<cv::Vec4i>(length, cv::Vec4i(val.val1, val.val2, val.val3, val.val4))
+    };
 }
 
 VecVec4i* std_VecVec4i_new_2(size_t length, Vec4i* val_ptr) {
@@ -528,7 +545,9 @@ VecVec4f* std_VecVec4f_new(size_t length) {
 }
 
 VecVec4f* std_VecVec4f_new_1(size_t length, Vec4f val) {
-    return new VecVec4f{new std::vector(length, cv::Vec4f(val.val1, val.val2, val.val3, val.val4))};
+    return new VecVec4f{
+        new std::vector<cv::Vec4f>(length, cv::Vec4f(val.val1, val.val2, val.val3, val.val4))
+    };
 }
 
 VecVec4f* std_VecVec4f_new_2(size_t length, Vec4f* val_ptr) {
@@ -557,7 +576,9 @@ void std_VecVec4f_set(VecVec4f* self, size_t index, Vec4f val) {
 Vec4f* std_VecVec4f_data(VecVec4f* self) {
     auto p = new Vec4f[self->ptr->size()];
     for (size_t i = 0; i < self->ptr->size(); i++) {
-        p[i] = Vec4f{self->ptr->at(i)[0], self->ptr->at(i)[1], self->ptr->at(i)[2], self->ptr->at(i)[3]};
+        p[i] = Vec4f{
+            self->ptr->at(i)[0], self->ptr->at(i)[1], self->ptr->at(i)[2], self->ptr->at(i)[3]
+        };
     }
     return p;
 }
@@ -568,13 +589,22 @@ VecVec6f* std_VecVec6f_new(size_t length) {
 }
 
 VecVec6f* std_VecVec6f_new_1(size_t length, Vec6f val) {
-    return new VecVec6f{new std::vector<cv::Vec6f>(length, cv::Vec6f(val.val1, val.val2, val.val3, val.val4, val.val5, val.val6))};
+    return new VecVec6f{new std::vector<cv::Vec6f>(
+        length, cv::Vec6f(val.val1, val.val2, val.val3, val.val4, val.val5, val.val6)
+    )};
 }
 
 VecVec6f* std_VecVec6f_new_2(size_t length, Vec6f* val_ptr) {
     auto v = new std::vector<cv::Vec6f>(length);
     for (size_t i = 0; i < length; i++) {
-        v->at(i) = cv::Vec6f(val_ptr[i].val1, val_ptr[i].val2, val_ptr[i].val3, val_ptr[i].val4, val_ptr[i].val5, val_ptr[i].val6);
+        v->at(i) = cv::Vec6f(
+            val_ptr[i].val1,
+            val_ptr[i].val2,
+            val_ptr[i].val3,
+            val_ptr[i].val4,
+            val_ptr[i].val5,
+            val_ptr[i].val6
+        );
     }
     return new VecVec6f{v};
 }
@@ -584,11 +614,15 @@ void std_VecVec6f_push_back(VecVec6f* self, Vec6f val) {
 }
 Vec6f std_VecVec6f_get(VecVec6f* self, size_t index) {
     auto v = self->ptr->at(index);
-    return Vec6f{.val1 = v[0], .val2 = v[1], .val3 = v[2], .val4 = v[3], .val5 = v[4], .val6 = v[5]};
+    return Vec6f{
+        .val1 = v[0], .val2 = v[1], .val3 = v[2], .val4 = v[3], .val5 = v[4], .val6 = v[5]
+    };
 }
 Vec6f* std_VecVec6f_get_p(VecVec6f* self, int index) {
     auto v = self->ptr->at(index);
-    return new Vec6f{.val1 = v[0], .val2 = v[1], .val3 = v[2], .val4 = v[3], .val5 = v[4], .val6 = v[5]};
+    return new Vec6f{
+        .val1 = v[0], .val2 = v[1], .val3 = v[2], .val4 = v[3], .val5 = v[4], .val6 = v[5]
+    };
 }
 
 void std_VecVec6f_set(VecVec6f* self, size_t index, Vec6f val) {
@@ -598,7 +632,9 @@ Vec6f* std_VecVec6f_data(VecVec6f* self) {
     auto p = new Vec6f[self->ptr->size()];
     for (size_t i = 0; i < self->ptr->size(); i++) {
         auto v = self->ptr->at(i);
-        p[i] = Vec6f{.val1 = v[0], .val2 = v[1], .val3 = v[2], .val4 = v[3], .val5 = v[4], .val6 = v[5]};
+        p[i] = Vec6f{
+            .val1 = v[0], .val2 = v[1], .val3 = v[2], .val4 = v[3], .val5 = v[4], .val6 = v[5]
+        };
     }
     return p;
 }
@@ -609,7 +645,7 @@ VecVecDMatch* std_VecVecDMatch_new(size_t length) {
 }
 
 VecVecDMatch* std_VecVecDMatch_new_1(size_t length, VecDMatch val) {
-    return new VecVecDMatch{new std::vector(length, CVDEREF(val))};
+    return new VecVecDMatch{new std::vector<std::vector<cv::DMatch>>(length, CVDEREF(val))};
 }
 
 VecVecDMatch* std_VecVecDMatch_new_2(size_t length, VecDMatch* val_ptr) {
@@ -624,11 +660,11 @@ void std_VecVecDMatch_push_back(VecVecDMatch* self, VecDMatch val) {
     self->ptr->push_back(CVDEREF(val));
 }
 VecDMatch std_VecVecDMatch_get(VecVecDMatch* self, size_t index) {
-    return VecDMatch{ new std::vector<cv::DMatch>(self->ptr->at(index))};
+    return VecDMatch{new std::vector<cv::DMatch>(self->ptr->at(index))};
 }
 VecDMatch* std_VecVecDMatch_get_p(VecVecDMatch* self, int index) {
     auto v = self->ptr->at(index);
-    return new VecDMatch{ new std::vector<cv::DMatch>(v)};
+    return new VecDMatch{new std::vector<cv::DMatch>(v)};
 }
 
 void std_VecVecDMatch_set(VecVecDMatch* self, size_t index, VecDMatch val) {
@@ -664,10 +700,10 @@ void std_VecVecPoint_push_back(VecVecPoint* self, VecPoint val) {
     self->ptr->push_back(CVDEREF(val));
 }
 VecPoint std_VecVecPoint_get(VecVecPoint* self, size_t index) {
-    return VecPoint{ new std::vector<cv::Point>(self->ptr->at(index))};
+    return VecPoint{new std::vector<cv::Point>(self->ptr->at(index))};
 }
 VecPoint* std_VecVecPoint_get_p(VecVecPoint* self, int index) {
-    return new VecPoint{ new std::vector<cv::Point>(self->ptr->at(index))};
+    return new VecPoint{new std::vector<cv::Point>(self->ptr->at(index))};
 }
 
 void std_VecVecPoint_set(VecVecPoint* self, size_t index, VecPoint val) {
@@ -677,7 +713,7 @@ void std_VecVecPoint_set(VecVecPoint* self, size_t index, VecPoint val) {
 VecPoint* std_VecVecPoint_data(VecVecPoint* self) {
     auto p = new VecPoint[self->ptr->size()];
     for (size_t i = 0; i < self->ptr->size(); i++) {
-        p[i] = VecPoint{ new std::vector<cv::Point>(self->ptr->at(i))};
+        p[i] = VecPoint{new std::vector<cv::Point>(self->ptr->at(i))};
     }
     return p;
 }

@@ -1,7 +1,6 @@
 #ifndef CVD_VEC_UTILS_H
 #define CVD_VEC_UTILS_H
 
-#include <core/stdvec.h>
 #include "dartcv/core/types.h"
 #include <string>
 #include <vector>

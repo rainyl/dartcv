@@ -372,7 +372,7 @@ CvStatus* cv_ximgproc_GraphSegmentation_create(
     float sigma, float k, int min_size, GraphSegmentation* rval
 ) {
     BEGIN_WRAP
-    *rval = {new cv::Ptr(cv::ximgproc::segmentation::createGraphSegmentation(sigma, k, min_size))};
+    *rval = {new cv::Ptr<cv::ximgproc::segmentation::GraphSegmentation>(cv::ximgproc::segmentation::createGraphSegmentation(sigma, k, min_size))};
     END_WRAP
 }
 
