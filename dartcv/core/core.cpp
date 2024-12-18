@@ -1,23 +1,21 @@
 #include "dartcv/core/core.h"
 #include "dartcv/core/lut.hpp"
 #include "dartcv/core/vec.hpp"
+#include "dartcv/core/stdvec.h"
 
-#include <cassert>
 #include <cstddef>
 #include <cstdlib>
 #include <cstring>
 #include <vector>
 
-CvStatus* cv_RotatedRect_points(RotatedRect rect, VecPoint2f* pts) {
+CvStatus* cv_RotatedRect_points(RotatedRect rect, VecPoint2f* out_pts) {
     BEGIN_WRAP
     auto r = cv::RotatedRect(
         cv::Point2f(rect.center.x, rect.center.y),
         cv::Size2f(rect.size.width, rect.size.height),
         rect.angle
     );
-    std::vector<cv::Point2f> pts_;
-    r.points(pts_);
-    *pts = vecpoint2f_cpp2c(pts_);
+    r.points(CVDEREF_P(out_pts));
     END_WRAP
 }
 
@@ -562,8 +560,7 @@ CvStatus* cv_meanStdDev_1(
 }
 CvStatus* cv_merge(VecMat mats, Mat dst, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto mv = vecmat_c2cpp(mats);
-    cv::merge(mv, CVDEREF(dst));
+    cv::merge(CVDEREF(mats), CVDEREF(dst));
     if (callback != nullptr) {
         callback();
     }
@@ -614,10 +611,7 @@ CvStatus* cv_minMaxLoc(
 }
 CvStatus* cv_mixChannels(VecMat src, VecMat dst, VecI32 fromTo, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto _src = vecmat_c2cpp(src);
-    auto _dst = vecmat_c2cpp(dst);
-    std::vector<int> _fromTo = vecint_c2cpp(fromTo);
-    cv::mixChannels(_src, _dst, _fromTo);
+    cv::mixChannels(CVDEREF(src), CVDEREF(dst), CVDEREF(fromTo));
     if (callback != nullptr) {
         callback();
     }
@@ -816,11 +810,9 @@ CvStatus* cv_sortIdx(Mat src, Mat dst, int flags, CvCallback_0 callback) {
     }
     END_WRAP
 }
-CvStatus* cv_split(Mat src, VecMat* rval, CvCallback_0 callback) {
+CvStatus* cv_split(Mat src, VecMat* out_rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    std::vector<cv::Mat> channels;
-    cv::split(CVDEREF(src), channels);
-    *rval = vecmat_cpp2c(channels);
+    cv::split(CVDEREF(src), CVDEREF_P(out_rval));
     if (callback != nullptr) {
         callback();
     }
@@ -871,8 +863,7 @@ CvStatus* cv_transpose(Mat src, Mat dst, CvCallback_0 callback) {
 }
 CvStatus* cv_transposeND(Mat src, Mat dst, VecI32 order, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto _order = vecint_c2cpp(order);
-    cv::transposeND(CVDEREF(src), _order, CVDEREF(dst));
+    cv::transposeND(CVDEREF(src), CVDEREF(order), CVDEREF(dst));
     if (callback != nullptr) {
         callback();
     }
@@ -1258,8 +1249,7 @@ CvStatus* cv_kmeans_points(
 ) {
     BEGIN_WRAP
     auto tc = cv::TermCriteria(criteria.type, criteria.maxCount, criteria.epsilon);
-    auto _pts = vecpoint2f_c2cpp(pts);
-    *rval = cv::kmeans(_pts, k, CVDEREF(bestLabels), tc, attempts, flags, CVDEREF(centers));
+    *rval = cv::kmeans(CVDEREF(pts), k, CVDEREF(bestLabels), tc, attempts, flags, CVDEREF(centers));
     if (callback != nullptr) {
         callback();
     }

@@ -770,7 +770,7 @@ CvStatus* cv_convexityDefects(VecPoint points, Mat hull, Mat result, CvCallback_
 // void cv::findContours (InputArray image, OutputArrayOfArrays contours, int mode, int method, CvPoint offset=CvPoint())
 // void cv::findContours (InputArray image, OutputArrayOfArrays contours, OutputArray hierarchy, int mode, int method, CvPoint offset=CvPoint())
 CvStatus* cv_findContours(
-    Mat src, Mat hierarchy, int mode, int method, VecVecPoint* rval, CvCallback_0 callback
+    Mat src, VecVecPoint* out_contours, VecVec4i* out_hierarchy, int mode, int method, CvCallback_0 callback
 );
 
 // Find contours using link runs algorithm.

@@ -8,6 +8,8 @@
 
 #include "dartcv/videoio/videoio.h"
 
+#include <iostream>
+
 // VideoCapture
 CvStatus* cv_VideoCapture_create(VideoCapture* rval) {
     BEGIN_WRAP

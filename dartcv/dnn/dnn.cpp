@@ -8,9 +8,8 @@
 
 #include "dartcv/dnn/dnn.h"
 #include "dartcv/core/vec.hpp"
-#include <cstring>
+#include <cstdint>
 #include <vector>
-#include <iostream>
 
 // AsyncArray_New creates a new empty AsyncArray
 CvStatus* cv_dnn_AsyncArray_new(AsyncArray* rval) {
@@ -65,8 +64,7 @@ CvStatus* cv_dnn_blobFromImages(
     BEGIN_WRAP
     cv::Size sz(size.width, size.height);
     cv::Scalar cm = cv::Scalar(mean.val1, mean.val2, mean.val3, mean.val4);
-    auto _images = vecmat_c2cpp(images);
-    cv_dnn::blobFromImages(_images, CVDEREF(blob), scalefactor, sz, cm, swapRB, crop, ddepth);
+    cv_dnn::blobFromImages(CVDEREF(images), CVDEREF(blob), scalefactor, sz, cm, swapRB, crop, ddepth);
     if (callback != nullptr) {
         callback();
     }
@@ -79,25 +77,23 @@ void cv_dnn_enableModelDiagnostics(bool isDiagnosticsMode) {
 // rval: x: backend, y: target
 void cv_dnn_getAvailableBackends(VecPoint* rval) {
     auto _bt = cv_dnn::getAvailableBackends();
-    auto _bt_c = new CvPoint[_bt.size()];
+    rval->ptr->reserve(_bt.size());
     for (int i = 0; i < _bt.size(); ++i) {
-        _bt_c[i] = {_bt[i].first, _bt[i].second};
+        rval->ptr->at(i) = cv::Point(_bt[i].first, _bt[i].second);
     }
-    *rval = {_bt_c, _bt.size()};
 }
+
 CvStatus* cv_dnn_getAvailableTargets(int be, VecI32* rval) {
     BEGIN_WRAP
     std::vector<cv_dnn::Target> _targets =
         cv_dnn::getAvailableTargets(static_cast<cv_dnn::Backend>(be));
-    *rval = vecint_cpp2c(std::vector<int>(_targets.begin(), _targets.end()));
+    *rval = {new std::vector<int>(_targets.begin(), _targets.end())};
     END_WRAP
 }
 
 CvStatus* cv_dnn_imagesFromBlob(Mat blob, VecMat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    std::vector<cv::Mat> imgs;
-    cv_dnn::imagesFromBlob(CVDEREF(blob), imgs);
-    *rval = vecmat_cpp2c(imgs);
+    cv_dnn::imagesFromBlob(CVDEREF(blob), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -120,9 +116,7 @@ CvStatus* cv_dnn_getBlobChannel(
 CvStatus* cv_dnn_getBlobSize(Mat blob, VecI32* rval) {
     BEGIN_WRAP
     auto size = blob.ptr->size;
-    int* ptr = new int[size.dims()];
-    memcpy(ptr, size.p, size.dims() * sizeof(int));
-    *rval = {ptr, static_cast<size_t>(size.dims())};
+    *rval = {new std::vector<int32_t>(size.p, size.p + size.dims())};
     END_WRAP
 }
 
@@ -131,15 +125,11 @@ CvStatus* cv_dnn_NMSBoxes(
     VecF32 scores,
     float score_threshold,
     float nms_threshold,
-    VecI32* indices,
+    VecI32* out_indices,
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<int> v;
-    auto _bboxes = vecrect_c2cpp(bboxes);
-    auto _scores = vecfloat_c2cpp(scores);
-    cv_dnn::NMSBoxes(_bboxes, _scores, score_threshold, nms_threshold, v, 1.f, 0);
-    *indices = vecint_cpp2c(v);
+    cv_dnn::NMSBoxes(CVDEREF(bboxes), CVDEREF(scores), score_threshold, nms_threshold, CVDEREF_P(out_indices), 1.f, 0);
     if (callback != nullptr) {
         callback();
     }
@@ -157,11 +147,7 @@ CvStatus* cv_dnn_NMSBoxes_1(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<int> v;
-    auto _bboxes = vecrect_c2cpp(bboxes);
-    auto _scores = vecfloat_c2cpp(scores);
-    cv_dnn::NMSBoxes(_bboxes, _scores, score_threshold, nms_threshold, v, eta, top_k);
-    *indices = vecint_cpp2c(v);
+    cv_dnn::NMSBoxes(CVDEREF(bboxes), CVDEREF(scores), score_threshold, nms_threshold, CVDEREF_P(indices), eta, top_k);
     if (callback != nullptr) {
         callback();
     }
@@ -201,9 +187,7 @@ CvStatus* cv_dnn_Net_readNetBytes(
     const char* framework, VecUChar model, VecUChar config, Net* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _model = vecuchar_c2cpp(model);
-    auto _config = vecuchar_c2cpp(config);
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNet(framework, _model, _config));
+    rval->ptr = new cv_dnn::Net(cv_dnn::readNet(framework, CVDEREF(model), CVDEREF(config)));
     if (callback != nullptr) {
         callback();
     }
@@ -223,9 +207,7 @@ CvStatus* cv_dnn_Net_readNetFromCaffeBytes(
     VecUChar prototxt, VecUChar caffeModel, Net* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _prototxt = vecuchar_c2cpp(prototxt);
-    auto _caffeModel = vecuchar_c2cpp(caffeModel);
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromCaffe(_prototxt, _caffeModel));
+    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromCaffe(CVDEREF(prototxt), CVDEREF(caffeModel)));
     if (callback != nullptr) {
         callback();
     }
@@ -245,9 +227,7 @@ CvStatus* cv_dnn_Net_readNetFromTensorflowBytes(
     VecUChar model, VecUChar config, Net* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _model = vecuchar_c2cpp(model);
-    auto _config = vecuchar_c2cpp(config);
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromTensorflow(_model, _config));
+    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromTensorflow(CVDEREF(model), CVDEREF(config)));
     if (callback != nullptr) {
         callback();
     }
@@ -265,8 +245,7 @@ CvStatus* cv_dnn_Net_readNetFromTFLiteBytes(
     VecUChar bufferModel, Net* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    rval->ptr =
-        new cv_dnn::Net(cv_dnn::readNetFromTFLite((char*)bufferModel.ptr, bufferModel.length));
+    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromTFLite(CVDEREF(bufferModel)));
     if (callback != nullptr) {
         callback();
     }
@@ -292,8 +271,7 @@ CvStatus* cv_dnn_Net_readNetFromONNX(const char* model, Net* rval, CvCallback_0 
 }
 CvStatus* cv_dnn_Net_readNetFromONNXBytes(VecUChar model, Net* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto _model = vecuchar_c2cpp(model);
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromONNX(_model));
+    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromONNX(CVDEREF(model)));
     if (callback != nullptr) {
         callback();
     }
@@ -340,11 +318,8 @@ CvStatus* cv_dnn_Net_forwardLayers(
     Net net, VecMat* outputBlobs, VecVecChar outBlobNames, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Mat> blobs;
-
     auto names = vecvecchar_c2cpp_s(outBlobNames);
-    net.ptr->forward(blobs, names);
-    *outputBlobs = vecmat_cpp2c(blobs);
+    net.ptr->forward(CVDEREF_P(outputBlobs), names);
     if (callback != nullptr) {
         callback();
     }
@@ -367,9 +342,7 @@ CvStatus* cv_dnn_Net_getPerfProfile(
     Net net, int64_t* rval, VecF64* layersTimes, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<double> _layersTimes;
-    *rval = net.ptr->getPerfProfile(_layersTimes);
-    *layersTimes = vecdouble_cpp2c(_layersTimes);
+    *rval = net.ptr->getPerfProfile(*layersTimes->ptr);
     if (callback != nullptr) {
         callback();
     }
@@ -378,7 +351,11 @@ CvStatus* cv_dnn_Net_getPerfProfile(
 
 CvStatus* cv_dnn_Net_getUnconnectedOutLayers(Net net, VecI32* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    *rval = vecint_cpp2c(net.ptr->getUnconnectedOutLayers());
+    auto _rval = net.ptr->getUnconnectedOutLayers();
+    if (rval->ptr != nullptr) {
+      delete static_cast<std::vector<int32_t>*>(rval->ptr);
+    }
+    rval->ptr = new std::vector<int32_t>(_rval);
     if (callback != nullptr) {
         callback();
     }
@@ -389,7 +366,8 @@ CvStatus* cv_dnn_Net_getUnconnectedOutLayersNames(
     Net net, CVD_OUT VecVecChar* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    *rval = vecvecchar_cpp2c_s(net.ptr->getUnconnectedOutLayersNames());
+    auto _rval = net.ptr->getUnconnectedOutLayersNames();
+    rval->ptr = vecstr_2_vecvecchar(_rval);
     if (callback != nullptr) {
         callback();
     }
@@ -399,7 +377,7 @@ CvStatus* cv_dnn_Net_getUnconnectedOutLayersNames(
 CvStatus* cv_dnn_Net_getLayerNames(Net net, VecVecChar* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     std::vector<cv::String> cstrs = net.ptr->getLayerNames();
-    *rval = vecvecchar_cpp2c_s(cstrs);
+    rval->ptr = vecstr_2_vecvecchar(cstrs);
     if (callback != nullptr) {
         callback();
     }
@@ -410,11 +388,7 @@ CvStatus* cv_dnn_Net_getInputDetails(
     Net net, VecF32* scales, VecI32* zeropoints, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<float> sc;
-    std::vector<int> zp;
-    net.ptr->getInputDetails(sc, zp);
-    *scales = vecfloat_cpp2c(sc);
-    *zeropoints = vecint_cpp2c(zp);
+    net.ptr->getInputDetails(CVDEREF_P(scales), CVDEREF_P(zeropoints));
     if (callback != nullptr) {
         callback();
     }

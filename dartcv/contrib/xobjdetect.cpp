@@ -13,14 +13,10 @@ void cv_xobjdetect_WBDetector_close(PtrWBDetectorPtr self) {
 }
 
 CvStatus* cv_xobjdetect_WBDetector_detect(
-    PtrWBDetector self, Mat img, CVD_OUT VecRect* bbox, CVD_OUT VecF64* confidences
+    PtrWBDetector self, Mat img, CVD_OUT VecRect* out_bbox, CVD_OUT VecF64* confidences
 ) {
     BEGIN_WRAP
-    std::vector<cv::Rect> _bboxes;
-    std::vector<double> _confidences;
-    (CVDEREF(self))->detect(CVDEREF(img), _bboxes, _confidences);
-    *bbox = vecrect_cpp2c(_bboxes);
-    *confidences = vecdouble_cpp2c(_confidences);
+    (CVDEREF(self))->detect(CVDEREF(img), CVDEREF_P(out_bbox), CVDEREF_P(confidences));
     END_WRAP
 }
 

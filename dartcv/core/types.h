@@ -8,23 +8,19 @@
 
 // https://developercommunity.visualstudio.com/t/__imp___std_init_once_complete-unresolve/1684365#T-N10041864
 #if _MSC_VER >= 1932  // Visual Studio 2022 version 17.2+
-#pragma comment(                                                                   \
-    linker, "/alternatename:__imp___std_init_once_complete=__imp_InitOnceComplete" \
-)
-#pragma comment(                                                                          \
-    linker,                                                                               \
-    "/alternatename:__imp___std_init_once_begin_initialize=__imp_InitOnceBeginInitialize" \
+#pragma comment(linker, "/alternatename:__imp___std_init_once_complete=__imp_InitOnceComplete")
+#pragma comment(                                                                                  \
+    linker, "/alternatename:__imp___std_init_once_begin_initialize=__imp_InitOnceBeginInitialize" \
 )
 #endif
 
-#include <math.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <math.h>
 
 #ifdef __cplusplus
 #include <opencv2/core.hpp>
-#include <vector>
 extern "C" {
 #endif
 
@@ -84,7 +80,21 @@ extern "C" {
         TYPE* ptr;                  \
         size_t length;              \
     } NAME;                         \
-    typedef NAME* NAME##Ptr;
+    typedef NAME* NAME##Ptr
+
+#ifdef __cplusplus
+#define CVD_TYPEDEF_STD_VEC(TYPE, NAME) \
+    typedef struct NAME {               \
+        std::vector<TYPE>* ptr;         \
+    } NAME;                             \
+    typedef NAME* NAME##Ptr
+#else
+#define CVD_TYPEDEF_STD_VEC(TYPE, NAME) \
+    typedef struct NAME {               \
+        void* ptr;                      \
+    } NAME;                             \
+    typedef NAME* NAME##Ptr
+#endif
 
 #ifdef __cplusplus
 #define CVD_TYPECAST_CPP(TYPE, value) reinterpret_cast<TYPE##_CPP>(value->ptr)
@@ -103,6 +113,7 @@ extern "C" {
 #endif
 
 #define CVDEREF(value) *value.ptr
+#define CVDEREF_P(value) *value->ptr
 
 #define CVD_TYPEDEF(TYPE, NAME) \
     typedef TYPE* NAME##_CPP;   \
@@ -110,7 +121,6 @@ extern "C" {
         TYPE* ptr;              \
     } NAME;                     \
     typedef NAME* NAME##Ptr;    \
-    // CVD_CALLBACK_DEF(NAME)
 
 CVD_TYPEDEF(cv::Mat, Mat);
 CVD_TYPEDEF(cv::_InputOutputArray, InputOutputArray);
@@ -429,35 +439,62 @@ typedef void (*CvCallback_7)(void*, void*, void*, void*, void*, void*, void*);
 typedef void (*CvCallback_8)(void*, void*, void*, void*, void*, void*, void*, void*);
 typedef void (*CvCallback_9)(void*, void*, void*, void*, void*, void*, void*, void*, void*);
 
-CVD_TYPEDEF_VEC(uchar, VecUChar);
-CVD_TYPEDEF_VEC(char, VecChar);
-CVD_TYPEDEF_VEC(uint8_t, VecU8);
-CVD_TYPEDEF_VEC(int8_t, VecI8);
-CVD_TYPEDEF_VEC(uint16_t, VecU16);
-CVD_TYPEDEF_VEC(int16_t, VecI16);
-CVD_TYPEDEF_VEC(int32_t, VecI32);
-CVD_TYPEDEF_VEC(float_t, VecF32);
-CVD_TYPEDEF_VEC(double_t, VecF64);
-CVD_TYPEDEF_VEC(uint16_t, VecF16);
-CVD_TYPEDEF_VEC(VecChar, VecVecChar);
-CVD_TYPEDEF_VEC(Mat, VecMat);
-CVD_TYPEDEF_VEC(CvPoint, VecPoint);
-CVD_TYPEDEF_VEC(CvPoint2f, VecPoint2f);
-CVD_TYPEDEF_VEC(CvPoint3f, VecPoint3f);
-CVD_TYPEDEF_VEC(CvPoint3i, VecPoint3i);
-CVD_TYPEDEF_VEC(VecPoint, VecVecPoint);
-CVD_TYPEDEF_VEC(VecPoint2f, VecVecPoint2f);
-CVD_TYPEDEF_VEC(VecPoint3f, VecVecPoint3f);
-CVD_TYPEDEF_VEC(VecPoint3i, VecVecPoint3i);
-CVD_TYPEDEF_VEC(CvRect, VecRect);
-CVD_TYPEDEF_VEC(CvRect2f, VecRect2f);
-CVD_TYPEDEF_VEC(RotatedRect, VecRotatedRect);
-CVD_TYPEDEF_VEC(KeyPoint, VecKeyPoint);
-CVD_TYPEDEF_VEC(DMatch, VecDMatch);
-CVD_TYPEDEF_VEC(VecDMatch, VecVecDMatch);
-CVD_TYPEDEF_VEC(Vec4i, VecVec4i);
-CVD_TYPEDEF_VEC(Vec4f, VecVec4f);
-CVD_TYPEDEF_VEC(Vec6f, VecVec6f);
+CVD_TYPEDEF_STD_VEC(uchar, VecUChar);
+CVD_TYPEDEF_STD_VEC(char, VecChar);
+CVD_TYPEDEF_STD_VEC(uint8_t, VecU8);
+CVD_TYPEDEF_STD_VEC(int8_t, VecI8);
+CVD_TYPEDEF_STD_VEC(uint16_t, VecU16);
+CVD_TYPEDEF_STD_VEC(int16_t, VecI16);
+CVD_TYPEDEF_STD_VEC(uint32_t, VecU32);
+CVD_TYPEDEF_STD_VEC(int32_t, VecI32);
+CVD_TYPEDEF_STD_VEC(int64_t, VecI64);
+CVD_TYPEDEF_STD_VEC(uint64_t, VecU64);
+CVD_TYPEDEF_STD_VEC(float_t, VecF32);
+CVD_TYPEDEF_STD_VEC(double_t, VecF64);
+CVD_TYPEDEF_STD_VEC(uint16_t, VecF16);  // TODO: change to native float16
+
+// std::vector
+#ifdef __cplusplus
+CVD_TYPEDEF_STD_VEC(std::vector<char>, VecVecChar);
+CVD_TYPEDEF_STD_VEC(cv::Mat, VecMat);
+CVD_TYPEDEF_STD_VEC(cv::Point, VecPoint);
+CVD_TYPEDEF_STD_VEC(cv::Point2f, VecPoint2f);
+CVD_TYPEDEF_STD_VEC(cv::Point3f, VecPoint3f);
+CVD_TYPEDEF_STD_VEC(cv::Point3i, VecPoint3i);
+CVD_TYPEDEF_STD_VEC(cv::Rect, VecRect);
+CVD_TYPEDEF_STD_VEC(cv::Rect2f, VecRect2f);
+CVD_TYPEDEF_STD_VEC(cv::RotatedRect, VecRotatedRect);
+CVD_TYPEDEF_STD_VEC(cv::KeyPoint, VecKeyPoint);
+CVD_TYPEDEF_STD_VEC(cv::DMatch, VecDMatch);
+CVD_TYPEDEF_STD_VEC(cv::Vec4i, VecVec4i);
+CVD_TYPEDEF_STD_VEC(cv::Vec4f, VecVec4f);
+CVD_TYPEDEF_STD_VEC(cv::Vec6f, VecVec6f);
+CVD_TYPEDEF_STD_VEC(std::vector<cv::Point>, VecVecPoint);
+CVD_TYPEDEF_STD_VEC(std::vector<cv::Point2f>, VecVecPoint2f);
+CVD_TYPEDEF_STD_VEC(std::vector<cv::Point3f>, VecVecPoint3f);
+CVD_TYPEDEF_STD_VEC(std::vector<cv::Point3i>, VecVecPoint3i);
+CVD_TYPEDEF_STD_VEC(std::vector<cv::DMatch>, VecVecDMatch);
+#else
+CVD_TYPEDEF_STD_VEC(void, VecVecChar);
+CVD_TYPEDEF_STD_VEC(void, VecMat);
+CVD_TYPEDEF_STD_VEC(void, VecPoint);
+CVD_TYPEDEF_STD_VEC(void, VecPoint2f);
+CVD_TYPEDEF_STD_VEC(void, VecPoint3f);
+CVD_TYPEDEF_STD_VEC(void, VecPoint3i);
+CVD_TYPEDEF_STD_VEC(void, VecRect);
+CVD_TYPEDEF_STD_VEC(void, VecRect2f);
+CVD_TYPEDEF_STD_VEC(void, VecRotatedRect);
+CVD_TYPEDEF_STD_VEC(void, VecKeyPoint);
+CVD_TYPEDEF_STD_VEC(void, VecDMatch);
+CVD_TYPEDEF_STD_VEC(void, VecVec4i);
+CVD_TYPEDEF_STD_VEC(void, VecVec4f);
+CVD_TYPEDEF_STD_VEC(void, VecVec6f);
+CVD_TYPEDEF_STD_VEC(void, VecVecPoint);
+CVD_TYPEDEF_STD_VEC(void, VecVecPoint2f);
+CVD_TYPEDEF_STD_VEC(void, VecVecPoint3f);
+CVD_TYPEDEF_STD_VEC(void, VecVecPoint3i);
+CVD_TYPEDEF_STD_VEC(void, VecVecDMatch);
+#endif
 
 // Contour is alias for Points
 typedef VecPoint Contour;

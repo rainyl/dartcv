@@ -1,3 +1,4 @@
+#include <vector>
 #include "dartcv/contrib/ximgproc.h"
 #include "dartcv/core/vec.hpp"
 
@@ -120,9 +121,7 @@ CvStatus* cv_ximgproc_RFFeatureGetter_clear(RFFeatureGetter self) {
 }
 
 bool cv_ximgproc_RFFeatureGetter_empty(RFFeatureGetter self) {
-    BEGIN_WRAP
-    (CVDEREF(self))->empty();
-    END_WRAP
+    return (CVDEREF(self))->empty();
 }
 
 // StructuredEdgeDetection
@@ -355,16 +354,13 @@ CvStatus* cv_ximgproc_EdgeBoxes_getBoundingBoxes(
     EdgeBoxes self,
     Mat edge_map,
     Mat orientation_map,
-    CVD_OUT VecRect* boxes,
+    CVD_OUT VecRect* out_boxes,
     CVD_OUT VecF32* scores,
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<float> _scores;
-    std::vector<cv::Rect> _boxes;
-    (CVDEREF(self))->getBoundingBoxes(CVDEREF(edge_map), CVDEREF(orientation_map), _boxes, _scores);
-    *boxes = vecrect_cpp2c(_boxes);
-    *scores = vecfloat_cpp2c(_scores);
+    (CVDEREF(self))
+        ->getBoundingBoxes(CVDEREF(edge_map), CVDEREF(orientation_map), CVDEREF_P(out_boxes), CVDEREF_P(scores));
     if (callback != nullptr) {
         callback();
     }
@@ -376,9 +372,7 @@ CvStatus* cv_ximgproc_GraphSegmentation_create(
     float sigma, float k, int min_size, GraphSegmentation* rval
 ) {
     BEGIN_WRAP
-    *rval = {new cv::Ptr<cv::ximgproc::segmentation::GraphSegmentation>(
-        cv::ximgproc::segmentation::createGraphSegmentation(sigma, k, min_size)
-    )};
+    *rval = {new cv::Ptr(cv::ximgproc::segmentation::createGraphSegmentation(sigma, k, min_size))};
     END_WRAP
 }
 
@@ -481,8 +475,8 @@ CvStatus* cv_ximgproc_EdgeDrawing_getSegmentIndicesOfLines(
     EdgeDrawing self, VecI32* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<int> _rval = (CVDEREF(self))->getSegmentIndicesOfLines();
-    *rval = vecint_cpp2c(_rval);
+    std::vector<int32_t> _rval = (CVDEREF(self))->getSegmentIndicesOfLines();
+    *rval = {new std::vector<int32_t>(_rval)};
     if (callback != nullptr) {
         callback();
     }
@@ -493,8 +487,11 @@ CvStatus* cv_ximgproc_EdgeDrawing_getSegments(
     EdgeDrawing self, VecVecPoint* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<std::vector<cv::Point>> _rval = (CVDEREF(self))->getSegments();
-    *rval = vecvecpoint_cpp2c(_rval);
+    auto _rval = (CVDEREF(self))->getSegments();
+    rval->ptr->reserve(_rval.size());
+    for (auto & i : _rval) {
+        rval->ptr->emplace_back(i);
+    }
     if (callback != nullptr) {
         callback();
     }
@@ -557,8 +554,7 @@ CvStatus* cv_ximgproc_rl_createRLEImage(
     const VecPoint3i runs, Mat res, CvSize size, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _runs = vecpoint3i_c2cpp(runs);
-    cv::ximgproc::rl::createRLEImage(_runs, CVDEREF(res), cv::Size(size.width, size.height));
+    cv::ximgproc::rl::createRLEImage(CVDEREF(runs), CVDEREF(res), cv::Size(size.width, size.height));
     if (callback != nullptr) {
         callback();
     }

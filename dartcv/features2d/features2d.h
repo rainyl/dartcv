@@ -128,7 +128,7 @@ CvStatus* cv_ORB_create_1(
 void cv_ORB_close(ORBPtr self);
 CvStatus* cv_ORB_detect(ORB self, Mat src, VecKeyPoint* rval, CvCallback_0 callback);
 CvStatus* cv_ORB_detectAndCompute(
-    ORB self, Mat src, Mat mask, Mat* desc, VecKeyPoint* rval, CvCallback_0 callback
+    ORB self, Mat src, Mat mask, VecKeyPoint* out_keypoints, Mat desc, bool useProvidedKeypoints, CvCallback_0 callback
 );
 
 CvStatus* cv_SimpleBlobDetector_create(SimpleBlobDetector* rval);

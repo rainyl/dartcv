@@ -200,7 +200,7 @@ CvStatus* cv_ximgproc_EdgeBoxes_getBoundingBoxes(
     EdgeBoxes self,
     Mat edge_map,
     Mat orientation_map,
-    CVD_OUT VecRect* boxes,
+    CVD_OUT VecRect* out_boxes,
     CVD_OUT VecF32* scores,
     CvCallback_0 callback
 );

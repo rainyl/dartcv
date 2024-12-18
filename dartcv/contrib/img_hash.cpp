@@ -1,5 +1,5 @@
 #include "dartcv/contrib/img_hash.h"
-#include "dartcv/core/vec.hpp"
+#include <vector>
 
 CvStatus* cv_img_hash_pHash_compute(Mat inputArr, Mat outputArr, CvCallback_0 callback) {
     BEGIN_WRAP
@@ -48,7 +48,7 @@ CvStatus* cv_img_hash_BlockMeanHash_getMean(
 ) {
     BEGIN_WRAP
     auto m = (CVDEREF(self))->getMean();
-    *rval = vecdouble_cpp2c(m);
+    *rval = {new std::vector<double_t>(m)};
     if (callback != nullptr) {
         callback();
     }

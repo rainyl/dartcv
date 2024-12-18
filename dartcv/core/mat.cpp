@@ -3,6 +3,7 @@
 //
 
 #include "dartcv/core/mat.h"
+#include <vector>
 #include "dartcv/core/vec.hpp"
 
 CvStatus* cv_Mat_create(Mat* rval) {
@@ -22,7 +23,7 @@ CvStatus* cv_Mat_create_1(int rows, int cols, int type, Mat* rval, CvCallback_0 
 
 CvStatus* cv_Mat_create_2(VecI32 sizes, int type, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    rval->ptr = new cv::Mat((int)sizes.length, sizes.ptr, type);
+    rval->ptr = new cv::Mat(CVDEREF(sizes), type);
     if (callback != nullptr) {
         callback();
     }
@@ -32,7 +33,7 @@ CvStatus* cv_Mat_create_2(VecI32 sizes, int type, Mat* rval, CvCallback_0 callba
 CvStatus* cv_Mat_create_3(VecI32 sizes, int type, Scalar ar, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     cv::Scalar c = cv::Scalar(ar.val1, ar.val2, ar.val3, ar.val4);
-    rval->ptr = new cv::Mat((int)sizes.length, sizes.ptr, type, c);
+    rval->ptr = new cv::Mat(CVDEREF(sizes), type, c);
     if (callback != nullptr) {
         callback();
     }
@@ -41,7 +42,7 @@ CvStatus* cv_Mat_create_3(VecI32 sizes, int type, Scalar ar, Mat* rval, CvCallba
 
 CvStatus* cv_Mat_create_4(VecI32 sizes, int type, void* buf, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    rval->ptr = new cv::Mat((int)sizes.length, sizes.ptr, type, buf);
+    rval->ptr = new cv::Mat(CVDEREF(sizes), type, buf);
     if (callback != nullptr) {
         callback();
     }
@@ -76,8 +77,7 @@ CvStatus* cv_Mat_create_6(
 
 CvStatus* cv_Mat_create_7(VecPoint vec, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto v = vecpoint_c2cpp(vec);
-    rval->ptr = new cv::Mat(v, true);
+    rval->ptr = new cv::Mat(CVDEREF(vec), true);
     if (callback != nullptr) {
         callback();
     }
@@ -85,8 +85,7 @@ CvStatus* cv_Mat_create_7(VecPoint vec, Mat* rval, CvCallback_0 callback) {
 }
 CvStatus* cv_Mat_create_8(VecPoint2f vec, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto v = vecpoint2f_c2cpp(vec);
-    rval->ptr = new cv::Mat(v, true);
+    rval->ptr = new cv::Mat(CVDEREF(vec), true);
     if (callback != nullptr) {
         callback();
     }
@@ -94,8 +93,7 @@ CvStatus* cv_Mat_create_8(VecPoint2f vec, Mat* rval, CvCallback_0 callback) {
 }
 CvStatus* cv_Mat_create_9(VecPoint3f vec, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto v = vecpoint3f_c2cpp(vec);
-    rval->ptr = new cv::Mat(v, true);
+    rval->ptr = new cv::Mat(CVDEREF(vec), true);
     if (callback != nullptr) {
         callback();
     }
@@ -103,8 +101,7 @@ CvStatus* cv_Mat_create_9(VecPoint3f vec, Mat* rval, CvCallback_0 callback) {
 }
 CvStatus* cv_Mat_create_10(VecPoint3i vec, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto v = vecpoint3i_c2cpp(vec);
-    rval->ptr = new cv::Mat(v, true);
+    rval->ptr = new cv::Mat(CVDEREF(vec), true);
     if (callback != nullptr) {
         callback();
     }
@@ -140,7 +137,7 @@ CvStatus* cv_Mat_create_12(
     END_WRAP
 }
 
-CvStatus* cv_Mat_create_13(Mat self, CvRect roi, Mat* rval, CvCallback_0 callback){
+CvStatus* cv_Mat_create_13(Mat self, CvRect roi, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     cv::Rect _roi(roi.x, roi.y, roi.width, roi.height);
     rval->ptr = new cv::Mat(CVDEREF(self), _roi);
@@ -179,9 +176,7 @@ CvStatus* cv_Mat_ones(int rows, int cols, int type, Mat* rval, CvCallback_0 call
 
 CvStatus* cv_Mat_toVecPoint(Mat self, VecPoint* vec, CvCallback_0 callback) {
     BEGIN_WRAP
-    std::vector<cv::Point> pts;
-    self.ptr->copyTo(pts);
-    *vec = vecpoint_cpp2c(pts);
+    self.ptr->copyTo(CVDEREF_P(vec));
     if (callback != nullptr) {
         callback();
     }
@@ -190,9 +185,7 @@ CvStatus* cv_Mat_toVecPoint(Mat self, VecPoint* vec, CvCallback_0 callback) {
 
 CvStatus* cv_Mat_toVecPoint2f(Mat self, VecPoint2f* vec, CvCallback_0 callback) {
     BEGIN_WRAP
-    std::vector<cv::Point2f> pts;
-    self.ptr->copyTo(pts);
-    *vec = vecpoint2f_cpp2c(pts);
+    self.ptr->copyTo(CVDEREF_P(vec));
     if (callback != nullptr) {
         callback();
     }
@@ -201,9 +194,7 @@ CvStatus* cv_Mat_toVecPoint2f(Mat self, VecPoint2f* vec, CvCallback_0 callback) 
 
 CvStatus* cv_Mat_toVecPoint3f(Mat self, VecPoint3f* vec, CvCallback_0 callback) {
     BEGIN_WRAP
-    std::vector<cv::Point3f> pts;
-    self.ptr->copyTo(pts);
-    *vec = vecpoint3f_cpp2c(pts);
+    self.ptr->copyTo(CVDEREF_P(vec));
     if (callback != nullptr) {
         callback();
     }
@@ -212,9 +203,7 @@ CvStatus* cv_Mat_toVecPoint3f(Mat self, VecPoint3f* vec, CvCallback_0 callback) 
 
 CvStatus* cv_Mat_toVecPoint3i(Mat self, VecPoint3i* vec, CvCallback_0 callback) {
     BEGIN_WRAP
-    std::vector<cv::Point3i> pts;
-    self.ptr->copyTo(pts);
-    *vec = vecpoint3i_cpp2c(pts);
+    self.ptr->copyTo(CVDEREF_P(vec));
     if (callback != nullptr) {
         callback();
     }
@@ -302,9 +291,7 @@ size_t cv_Mat_total(Mat self) {
 
 VecI32* cv_Mat_size(Mat self) {
     auto size = self.ptr->size;
-    int* ptr = new int[size.dims()];
-    memcpy(ptr, size.p, size.dims() * sizeof(int));
-    return new VecI32{ptr, static_cast<size_t>(size.dims())};
+    return new VecI32{new std::vector<int32_t>(size.p, size.p + size.dims())};
 }
 
 size_t cv_Mat_elemSize(Mat self) {
@@ -437,7 +424,7 @@ CvStatus* cv_Mat_setTo(Mat self, Scalar value, Mat mask, CvCallback_0 callback) 
 CvStatus* cv_Mat_toVecUChar(Mat self, VecUChar* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     if (self.ptr->isContinuous()) {
-        *rval = {self.ptr->data, self.ptr->total() * self.ptr->channels()};
+        *rval = {new std::vector<uchar>(self.ptr->begin<uchar>(), self.ptr->end<uchar>())};
     } else {
         throw cv::Exception(
             cv::Error::StsNotImplemented, "Mat is not continuous", __func__, __FILE__, __LINE__
@@ -452,7 +439,9 @@ CvStatus* cv_Mat_toVecUChar(Mat self, VecUChar* rval, CvCallback_0 callback) {
 CvStatus* cv_Mat_toVecChar(Mat self, VecChar* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     if (self.ptr->isContinuous()) {
-        *rval = {(char*)self.ptr->data, self.ptr->total() * self.ptr->channels()};
+        *rval = {
+            new std::vector<char>(self.ptr->ptr<char>(), self.ptr->ptr<char>() + self.ptr->step1())
+        };
     } else {
         throw cv::Exception(
             cv::Error::StsNotImplemented, "Mat is not continuous", __func__, __FILE__, __LINE__
@@ -484,7 +473,7 @@ CvStatus* cv_Mat_reshape(Mat self, int cn, int rows, Mat* rval, CvCallback_0 cal
 
 CvStatus* cv_Mat_reshape_1(Mat self, int cn, VecI32 newshape, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    rval->ptr = new cv::Mat(self.ptr->reshape(cn, vecint_c2cpp(newshape)));
+    rval->ptr = new cv::Mat(self.ptr->reshape(cn, CVDEREF(newshape)));
     if (callback != nullptr) {
         callback();
     }

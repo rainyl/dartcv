@@ -20,7 +20,7 @@ CVD_TYPEDEF(void*, PtrWBDetector)
 CvStatus* cv_xobjdetect_WBDetector_create(PtrWBDetector* rval);
 void cv_xobjdetect_WBDetector_close(PtrWBDetectorPtr self);
 CvStatus* cv_xobjdetect_WBDetector_detect(
-    PtrWBDetector self, Mat img, CVD_OUT VecRect* bbox, CVD_OUT VecF64* confidences
+    PtrWBDetector self, Mat img, CVD_OUT VecRect* out_bbox, CVD_OUT VecF64* confidences
 );
 CvStatus* cv_xobjdetect_WBDetector_train(
     PtrWBDetector self, const char* pos_samples, const char* neg_imgs

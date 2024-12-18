@@ -12,8 +12,7 @@
 
 CvStatus* cv_arcLength(VecPoint curve, bool is_closed, double* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto _curve = vecpoint_c2cpp(curve);
-    *rval = cv::arcLength(_curve, is_closed);
+    *rval = cv::arcLength(CVDEREF(curve), is_closed);
     if (callback != nullptr) {
         callback();
     }
@@ -24,10 +23,7 @@ CvStatus* cv_approxPolyDP(
     VecPoint curve, double epsilon, bool closed, VecPoint* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Point> approxCurvePts;
-    auto _curve = vecpoint_c2cpp(curve);
-    cv::approxPolyDP(_curve, approxCurvePts, epsilon, closed);
-    *rval = vecpoint_cpp2c(approxCurvePts);
+    cv::approxPolyDP(CVDEREF(curve), CVDEREF_P(rval), epsilon, closed);
     if (callback != nullptr) {
         callback();
     }
@@ -63,11 +59,7 @@ CvStatus* cv_calcHist(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _mats = vecmat_c2cpp(mats);
-    auto _chans = vecint_c2cpp(chans);
-    auto _sz = vecint_c2cpp(sz);
-    auto _rng = vecfloat_c2cpp(rng);
-    cv::calcHist(_mats, _chans, CVDEREF(mask), CVDEREF(hist), _sz, _rng, acc);
+    cv::calcHist(CVDEREF(mats), CVDEREF(chans), CVDEREF(mask), CVDEREF(hist), CVDEREF(sz), CVDEREF(rng), acc);
     if (callback != nullptr) {
         callback();
     }
@@ -84,10 +76,7 @@ CvStatus* cv_calcBackProject(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _mats = vecmat_c2cpp(mats);
-    auto _chans = vecint_c2cpp(chans);
-    auto _rng = vecfloat_c2cpp(rng);
-    cv::calcBackProject(_mats, _chans, CVDEREF(hist), CVDEREF(backProject), _rng, scale);
+    cv::calcBackProject(CVDEREF(mats), CVDEREF(chans), CVDEREF(hist), CVDEREF(backProject), CVDEREF(rng), scale);
     if (callback != nullptr) {
         callback();
     }
@@ -107,8 +96,7 @@ CvStatus* cv_convexHull(
     VecPoint points, Mat hull, bool clockwise, bool returnPoints, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _points = vecpoint_c2cpp(points);
-    cv::convexHull(_points, CVDEREF(hull), clockwise, returnPoints);
+    cv::convexHull(CVDEREF(points), CVDEREF(hull), clockwise, returnPoints);
     if (callback != nullptr) {
         callback();
     }
@@ -117,8 +105,7 @@ CvStatus* cv_convexHull(
 
 CvStatus* cv_convexityDefects(VecPoint points, Mat hull, Mat result, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto _points = vecpoint_c2cpp(points);
-    cv::convexityDefects(_points, CVDEREF(hull), CVDEREF(result));
+    cv::convexityDefects(CVDEREF(points), CVDEREF(hull), CVDEREF(result));
     if (callback != nullptr) {
         callback();
     }
@@ -321,8 +308,7 @@ CvStatus* cv_pyrUp(Mat src, Mat dst, CvSize dstsize, int borderType, CvCallback_
 
 CvStatus* cv_boundingRect(VecPoint pts, CvRect* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto _points = vecpoint_c2cpp(pts);
-    cv::Rect r = cv::boundingRect(_points);
+    cv::Rect r = cv::boundingRect(CVDEREF(pts));
     *rval = {r.x, r.y, r.width, r.height};
     if (callback != nullptr) {
         callback();
@@ -337,11 +323,10 @@ CvStatus* cv_boxPoints(RotatedRect rect, VecPoint2f* boxPts, CvCallback_0 callba
     auto center = cv::Point2f(rect.center.x, rect.center.y);
     auto size = cv::Size2f(rect.size.width, rect.size.height);
     cv::boxPoints(cv::RotatedRect(center, size, rect.angle), mat);
-    std::vector<cv::Point2f> vec;
+    boxPts->ptr->resize(mat.rows);
     for (int i = 0; i < mat.rows; i++) {
-        vec.emplace_back(mat.at<float>(i, 0), mat.at<float>(i, 1));
+        boxPts->ptr->at(i) = cv::Point2f(mat.at<float>(i, 0), mat.at<float>(i, 1));
     }
-    *boxPts = vecpoint2f_cpp2c(vec);
     if (callback != nullptr) {
         callback();
     }
@@ -350,8 +335,7 @@ CvStatus* cv_boxPoints(RotatedRect rect, VecPoint2f* boxPts, CvCallback_0 callba
 
 CvStatus* cv_contourArea(VecPoint pts, double* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto _points = vecpoint_c2cpp(pts);
-    *rval = cv::contourArea(_points);
+    *rval = cv::contourArea(CVDEREF(pts));
     if (callback != nullptr) {
         callback();
     }
@@ -360,8 +344,7 @@ CvStatus* cv_contourArea(VecPoint pts, double* rval, CvCallback_0 callback) {
 
 CvStatus* cv_minAreaRect(VecPoint pts, RotatedRect* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto _points = vecpoint_c2cpp(pts);
-    auto r = cv::minAreaRect(_points);
+    auto r = cv::minAreaRect(CVDEREF(pts));
     *rval = {{r.center.x, r.center.y}, {r.size.width, r.size.height}, r.angle};
     if (callback != nullptr) {
         callback();
@@ -371,8 +354,7 @@ CvStatus* cv_minAreaRect(VecPoint pts, RotatedRect* rval, CvCallback_0 callback)
 
 CvStatus* cv_fitEllipse(VecPoint pts, RotatedRect* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto _points = vecpoint_c2cpp(pts);
-    auto r = cv::fitEllipse(_points);
+    auto r = cv::fitEllipse(CVDEREF(pts));
     *rval = {{r.center.x, r.center.y}, {r.size.width, r.size.height}, r.angle};
     if (callback != nullptr) {
         callback();
@@ -386,8 +368,7 @@ CvStatus* cv_minEnclosingCircle(
     BEGIN_WRAP
     cv::Point2f c;
     float r;
-    auto _points = vecpoint_c2cpp(pts);
-    cv::minEnclosingCircle(_points, c, r);
+    cv::minEnclosingCircle(CVDEREF(pts), c, r);
     *center = {c.x, c.y};
     *radius = r;
     if (callback != nullptr) {
@@ -397,13 +378,10 @@ CvStatus* cv_minEnclosingCircle(
 }
 
 CvStatus* cv_findContours(
-    Mat src, Mat hierarchy, int mode, int method, VecVecPoint* rval, CvCallback_0 callback
+    Mat src, VecVecPoint* out_contours, VecVec4i* out_hierarchy, int mode, int method, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<std::vector<cv::Point>> contours;
-    //   std::vector<cv::Vec4i> hierarchy;
-    cv::findContours(CVDEREF(src), contours, CVDEREF(hierarchy), mode, method);
-    *rval = vecvecpoint_cpp2c(contours);
+    cv::findContours(CVDEREF(src), CVDEREF_P(out_contours), CVDEREF_P(out_hierarchy), mode, method);
     if (callback != nullptr) {
         callback();
     }
@@ -414,8 +392,7 @@ CvStatus* cv_pointPolygonTest(
     VecPoint pts, CvPoint2f pt, bool measureDist, double* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _points = vecpoint_c2cpp(pts);
-    double d = cv::pointPolygonTest(_points, cv::Point2f(pt.x, pt.y), measureDist);
+    double d = cv::pointPolygonTest(CVDEREF(pts), cv::Point2f(pt.x, pt.y), measureDist);
     *rval = d;
     if (callback != nullptr) {
         callback();
@@ -615,8 +592,7 @@ CvStatus* cv_cornerSubPix(
     auto size = cv::Size(winSize.width, winSize.height);
     auto zone = cv::Size(zeroZone.width, zeroZone.height);
     auto tc = cv::TermCriteria(criteria.type, criteria.maxCount, criteria.epsilon);
-    auto _corners = vecpoint2f_c2cpp(corners);
-    cv::cornerSubPix(CVDEREF(img), _corners, size, zone, tc);
+    cv::cornerSubPix(CVDEREF(img), CVDEREF(corners), size, zone, tc);
     // std::cout << CVDEREF(corners) << std::endl;
     if (callback != nullptr) {
         callback();
@@ -637,10 +613,9 @@ CvStatus* cv_goodFeaturesToTrack(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Point2f> _corners;
     cv::goodFeaturesToTrack(
         CVDEREF(img),
-        _corners,
+        CVDEREF_P(corners),
         maxCorners,
         quality,
         minDist,
@@ -649,7 +624,6 @@ CvStatus* cv_goodFeaturesToTrack(
         useHarrisDetector,
         k
     );
-    *corners = vecpoint2f_cpp2c(_corners);
     if (callback != nullptr) {
         callback();
     }
@@ -670,10 +644,9 @@ CvStatus* cv_goodFeaturesToTrack_1(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Point2f> _corners;
     cv::goodFeaturesToTrack(
         CVDEREF(img),
-        _corners,
+        CVDEREF_P(corners),
         maxCorners,
         quality,
         minDist,
@@ -683,7 +656,6 @@ CvStatus* cv_goodFeaturesToTrack_1(
         useHarrisDetector,
         k
     );
-    *corners = vecpoint2f_cpp2c(_corners);
     if (callback != nullptr) {
         callback();
     }
@@ -1069,8 +1041,7 @@ CvStatus* cv_rectangle_1(
 
 CvStatus* cv_fillPoly(Mat img, VecVecPoint points, Scalar color, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto _points = vecvecpoint_c2cpp(points);
-    cv::fillPoly(CVDEREF(img), _points, cv::Scalar(color.val1, color.val2, color.val3, color.val4));
+    cv::fillPoly(CVDEREF(img), CVDEREF(points), cv::Scalar(color.val1, color.val2, color.val3, color.val4));
     if (callback != nullptr) {
         callback();
     }
@@ -1087,10 +1058,9 @@ CvStatus* cv_fillPoly_1(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _points = vecvecpoint_c2cpp(points);
     cv::fillPoly(
         CVDEREF(img),
-        _points,
+        CVDEREF(points),
         cv::Scalar(color.val1, color.val2, color.val3, color.val4),
         lineType,
         shift,
@@ -1106,10 +1076,9 @@ CvStatus* cv_polylines(
     Mat img, VecVecPoint points, bool isClosed, Scalar color, int thickness, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _points = vecvecpoint_c2cpp(points);
     cv::polylines(
         CVDEREF(img),
-        _points,
+        CVDEREF(points),
         isClosed,
         cv::Scalar(color.val1, color.val2, color.val3, color.val4),
         thickness
@@ -1337,8 +1306,14 @@ CvStatus* cv_getPerspectiveTransform(
     VecPoint src, VecPoint dst, Mat* rval, int solveMethod, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<cv::Point2f> src2f = vecPointToVecPoint2f(src);
-    std::vector<cv::Point2f> dst2f = vecPointToVecPoint2f(dst);
+    std::vector<cv::Point2f> src2f(src.ptr->size());
+    std::vector<cv::Point2f> dst2f(dst.ptr->size());
+    for (int i = 0; i < src.ptr->size(); ++i) {
+        src2f.at(i) = cv::Point2f(src.ptr->at(i));
+    }
+    for (int i = 0; i < dst.ptr->size(); ++i) {
+        dst2f.at(i) = cv::Point2f(dst.ptr->at(i));
+    }
     rval->ptr = new cv::Mat(cv::getPerspectiveTransform(src2f, dst2f, solveMethod));
     if (callback != nullptr) {
         callback();
@@ -1350,9 +1325,7 @@ CvStatus* cv_getPerspectiveTransform2f(
     VecPoint2f src, VecPoint2f dst, Mat* rval, int solveMethod, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _src = vecpoint2f_c2cpp(src);
-    auto _dst = vecpoint2f_c2cpp(dst);
-    rval->ptr = new cv::Mat(cv::getPerspectiveTransform(_src, _dst, solveMethod));
+    rval->ptr = new cv::Mat(cv::getPerspectiveTransform(CVDEREF(src), CVDEREF(dst), solveMethod));
     if (callback != nullptr) {
         callback();
     }
@@ -1361,8 +1334,14 @@ CvStatus* cv_getPerspectiveTransform2f(
 
 CvStatus* cv_getAffineTransform(VecPoint src, VecPoint dst, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    std::vector<cv::Point2f> src2f = vecPointToVecPoint2f(src);
-    std::vector<cv::Point2f> dst2f = vecPointToVecPoint2f(dst);
+    std::vector<cv::Point2f> src2f(src.ptr->size());
+    std::vector<cv::Point2f> dst2f(dst.ptr->size());
+    for (int i = 0; i < src.ptr->size(); ++i) {
+        src2f.at(i) = cv::Point2f(src.ptr->at(i));
+    }
+    for (int i = 0; i < dst.ptr->size(); ++i) {
+        dst2f.at(i) = cv::Point2f(dst.ptr->at(i));
+    }
     rval->ptr = new cv::Mat(cv::getAffineTransform(src2f, dst2f));
     if (callback != nullptr) {
         callback();
@@ -1370,11 +1349,11 @@ CvStatus* cv_getAffineTransform(VecPoint src, VecPoint dst, Mat* rval, CvCallbac
     END_WRAP
 }
 
-CvStatus* cv_getAffineTransform2f(VecPoint2f src, VecPoint2f dst, Mat* rval, CvCallback_0 callback) {
+CvStatus* cv_getAffineTransform2f(
+    VecPoint2f src, VecPoint2f dst, Mat* rval, CvCallback_0 callback
+) {
     BEGIN_WRAP
-    auto _src = vecpoint2f_c2cpp(src);
-    auto _dst = vecpoint2f_c2cpp(dst);
-    rval->ptr = new cv::Mat(cv::getAffineTransform(_src, _dst));
+    rval->ptr = new cv::Mat(cv::getAffineTransform(CVDEREF(src), CVDEREF(dst)));
     if (callback != nullptr) {
         callback();
     }
@@ -1390,10 +1369,9 @@ CvStatus* cv_drawContours(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _contours = vecvecpoint_c2cpp(contours);
     cv::drawContours(
         CVDEREF(src),
-        _contours,
+        CVDEREF(contours),
         contourIdx,
         cv::Scalar(color.val1, color.val2, color.val3, color.val4),
         thickness
@@ -1417,10 +1395,9 @@ CvStatus* cv_drawContours_1(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _contours = vecvecpoint_c2cpp(contours);
     cv::drawContours(
         CVDEREF(src),
-        _contours,
+        CVDEREF(contours),
         contourIdx,
         cv::Scalar(color.val1, color.val2, color.val3, color.val4),
         thickness,
@@ -1567,8 +1544,7 @@ CvStatus* cv_fitLine(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _pts = vecpoint_c2cpp(pts);
-    cv::fitLine(_pts, CVDEREF(line), distType, param, reps, aeps);
+    cv::fitLine(CVDEREF(pts), CVDEREF(line), distType, param, reps, aeps);
     if (callback != nullptr) {
         callback();
     }
@@ -1586,22 +1562,19 @@ CvStatus* cv_linearPolar(
     END_WRAP
 }
 
-CvStatus* cv_intersectConvexConvex(VecPoint p1, VecPoint p2, VecPoint* p12, bool handleNested, float *rval, CvCallback_0 callback) {
-  BEGIN_WRAP
-  auto _p1 = vecpoint_c2cpp(p1);
-  auto _p2 = vecpoint_c2cpp(p2);
-  std::vector<cv::Point> _p12;
-  *rval = cv::intersectConvexConvex(_p1, _p2, _p12, handleNested);
-  *p12 = vecpoint_cpp2c(_p12);
-  if (callback != nullptr) {
-    callback();
-  }
-  END_WRAP
+CvStatus* cv_intersectConvexConvex(
+    VecPoint p1, VecPoint p2, VecPoint* p12, bool handleNested, float* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    *rval = cv::intersectConvexConvex(CVDEREF(p1), CVDEREF(p2), CVDEREF_P(p12), handleNested);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
 }
 
 bool cv_isContourConvex(VecPoint contour) {
-    auto _contour = vecpoint_c2cpp(contour);
-    return cv::isContourConvex(_contour);
+    return cv::isContourConvex(CVDEREF(contour));
 }
 
 CvStatus* cv_matchShapes(
@@ -1613,9 +1586,7 @@ CvStatus* cv_matchShapes(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _contour1 = vecpoint_c2cpp(contour1);
-    auto _contour2 = vecpoint_c2cpp(contour2);
-    *rval = cv::matchShapes(_contour1, _contour2, method, parameter);
+    *rval = cv::matchShapes(CVDEREF(contour1), CVDEREF(contour2), method, parameter);
     if (callback != nullptr) {
         callback();
     }
@@ -1769,9 +1740,7 @@ CvStatus* cv_Subdiv2D_getLeadingEdgeList(
     Subdiv2D self, VecI32* leadingEdgeList, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    std::vector<int> v;
-    self.ptr->getLeadingEdgeList(v);
-    *leadingEdgeList = vecint_cpp2c(v);
+    self.ptr->getLeadingEdgeList(CVDEREF_P(leadingEdgeList));
     if (callback != nullptr) {
         callback();
     }
@@ -1816,12 +1785,7 @@ CvStatus* cv_Subdiv2D_getVoronoiFacetList(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto vf = std::vector<std::vector<cv::Point2f>>();
-    auto vfc = std::vector<cv::Point2f>();
-    auto _idx = vecint_c2cpp(idx);
-    self.ptr->getVoronoiFacetList(_idx, vf, vfc);
-    *facetList = vecvecpoint2f_cpp2c(vf);
-    *facetCenters = vecpoint2f_cpp2c(vfc);
+    self.ptr->getVoronoiFacetList(CVDEREF(idx), CVDEREF_P(facetList), CVDEREF_P(facetCenters));
     if (callback != nullptr) {
         callback();
     }
@@ -1848,8 +1812,7 @@ CvStatus* cv_Subdiv2D_insert(Subdiv2D self, CvPoint2f pt, int* rval, CvCallback_
 
 CvStatus* cv_Subdiv2D_insertVec(Subdiv2D self, VecPoint2f ptvec, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto _ptvec = vecpoint2f_c2cpp(ptvec);
-    self.ptr->insert(_ptvec);
+    self.ptr->insert(CVDEREF(ptvec));
     if (callback != nullptr) {
         callback();
     }

@@ -8,7 +8,6 @@
 #pragma warning(disable : 4996)
 #include <opencv2/imgcodecs.hpp>
 #include "dartcv/calib3d/calib3d.h"
-#include "dartcv/core/vec.hpp"
 
 CvStatus* cv_fisheye_undistortImage(
     Mat distorted, Mat undistorted, Mat k, Mat d, CvCallback_0 callback
@@ -144,11 +143,9 @@ CvStatus* cv_calibrateCamera(
 ) {
     BEGIN_WRAP
     auto tc = cv::TermCriteria(criteria.type, criteria.maxCount, criteria.epsilon);
-    auto _objectPoints = vecvecpoint3f_c2cpp(objectPoints);
-    auto _imagePoints = vecvecpoint2f_c2cpp(imagePoints);
     *rval = cv::calibrateCamera(
-        _objectPoints,
-        _imagePoints,
+        CVDEREF(objectPoints),
+        CVDEREF(imagePoints),
         cv::Size(imageSize.width, imageSize.height),
         CVDEREF(cameraMatrix),
         CVDEREF(distCoeffs),
@@ -206,9 +203,7 @@ CvStatus* cv_findChessboardCorners(
 ) {
     BEGIN_WRAP
     cv::Size sz(patternSize.width, patternSize.height);
-    std::vector<cv::Point2f> _corners;
-    *rval = cv::findChessboardCorners(CVDEREF(image), sz, _corners, flags);
-    *corners = vecpoint2f_cpp2c(_corners);
+    *rval = cv::findChessboardCorners(CVDEREF(image), sz, CVDEREF_P(corners), flags);
     if (callback != nullptr) {
         callback();
     }
@@ -216,13 +211,11 @@ CvStatus* cv_findChessboardCorners(
 }
 
 CvStatus* cv_findChessboardCornersSB(
-    Mat image, CvSize patternSize, VecPoint2f* corners, int flags, bool* rval, CvCallback_0 callback
+    Mat image, CvSize patternSize, VecPoint2f* out_corners, int flags, bool* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
     cv::Size sz(patternSize.width, patternSize.height);
-    std::vector<cv::Point2f> _corners = std::vector<cv::Point2f>();
-    *rval = cv::findChessboardCornersSB(CVDEREF(image), sz, _corners, flags);
-    *corners = vecpoint2f_cpp2c(_corners);
+    *rval = cv::findChessboardCornersSB(CVDEREF(image), sz, CVDEREF_P(out_corners), flags);
     if (callback != nullptr) {
         callback();
     }
@@ -232,7 +225,7 @@ CvStatus* cv_findChessboardCornersSB(
 CvStatus* cv_findChessboardCornersSB_1(
     Mat image,
     CvSize patternSize,
-    VecPoint2f* corners,
+    VecPoint2f* out_corners,
     int flags,
     Mat meta,
     bool* rval,
@@ -240,9 +233,7 @@ CvStatus* cv_findChessboardCornersSB_1(
 ) {
     BEGIN_WRAP
     cv::Size sz(patternSize.width, patternSize.height);
-    std::vector<cv::Point2f> _corners;
-    *rval = cv::findChessboardCornersSB(CVDEREF(image), sz, _corners, flags, CVDEREF(meta));
-    *corners = vecpoint2f_cpp2c(_corners);
+    *rval = cv::findChessboardCornersSB(CVDEREF(image), sz, CVDEREF_P(out_corners), flags, CVDEREF(meta));
     if (callback != nullptr) {
         callback();
     }
@@ -254,8 +245,7 @@ CvStatus* cv_drawChessboardCorners(
 ) {
     BEGIN_WRAP
     cv::Size sz(patternSize.width, patternSize.height);
-    auto _corners = vecpoint2f_c2cpp(corners);
-    cv::drawChessboardCorners(CVDEREF(image), sz, _corners, patternWasFound);
+    cv::drawChessboardCorners(CVDEREF(image), sz, CVDEREF(corners), patternWasFound);
     if (callback != nullptr) {
         callback();
     }
@@ -266,9 +256,7 @@ CvStatus* cv_estimateAffinePartial2D(
     VecPoint2f from, VecPoint2f to, Mat* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _from = vecpoint2f_c2cpp(from);
-    auto _to = vecpoint2f_c2cpp(to);
-    rval->ptr = new cv::Mat(cv::estimateAffinePartial2D(_from, _to));
+    rval->ptr = new cv::Mat(cv::estimateAffinePartial2D(CVDEREF(from), CVDEREF(to)));
     if (callback != nullptr) {
         callback();
     }
@@ -288,11 +276,9 @@ CvStatus* cv_estimateAffinePartial2D_1(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _from = vecpoint2f_c2cpp(from);
-    auto _to = vecpoint2f_c2cpp(to);
     auto m = cv::estimateAffinePartial2D(
-        _from,
-        _to,
+        CVDEREF(from),
+        CVDEREF(to),
         CVDEREF(inliers),
         method,
         ransacReprojThreshold,
@@ -309,9 +295,7 @@ CvStatus* cv_estimateAffinePartial2D_1(
 
 CvStatus* cv_estimateAffine2D(VecPoint2f from, VecPoint2f to, Mat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    auto _from = vecpoint2f_c2cpp(from);
-    auto _to = vecpoint2f_c2cpp(to);
-    rval->ptr = new cv::Mat(cv::estimateAffine2D(_from, _to));
+    rval->ptr = new cv::Mat(cv::estimateAffine2D(CVDEREF(from), CVDEREF(to)));
     if (callback != nullptr) {
         callback();
     }
@@ -331,11 +315,9 @@ CvStatus* cv_estimateAffine2D_1(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    auto _from = vecpoint2f_c2cpp(from);
-    auto _to = vecpoint2f_c2cpp(to);
     auto m = cv::estimateAffine2D(
-        _from,
-        _to,
+        CVDEREF(from),
+        CVDEREF(to),
         CVDEREF(inliers),
         method,
         ransacReprojThreshold,

@@ -30,7 +30,7 @@ CvStatus* cv_wechat_qrcode_WeChatQRCode_create_1(
 );
 void cv_wechat_qrcode_WeChatQRCode_close(WeChatQRCodePtr self);
 CvStatus* cv_wechat_qrcode_WeChatQRCode_detectAndDecode(
-    WeChatQRCode self, Mat img, VecMat* points, VecVecChar* rval, CvCallback_0 callback
+    WeChatQRCode self, Mat img, VecMat* out_points, VecVecChar* rval, CvCallback_0 callback
 );
 float cv_wechat_qrcode_WeChatQRCode_getScaleFactor(WeChatQRCode self);
 void cv_wechat_qrcode_WeChatQRCode_setScaleFactor(WeChatQRCode self, float scale_factor);

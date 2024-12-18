@@ -118,9 +118,7 @@ CvStatus* cv_selectROIs(
     bool printNotice
 ) {
     BEGIN_WRAP
-    std::vector<cv::Rect> rects = std::vector<cv::Rect>();
-    cv::selectROIs(winname, CVDEREF(img), rects, showCrosshair, fromCenter, printNotice);
-    *rval = vecrect_cpp2c(rects);
+    cv::selectROIs(winname, CVDEREF(img), CVDEREF_P(rval), showCrosshair, fromCenter, printNotice);
     END_WRAP
 }
 
