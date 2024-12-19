@@ -119,6 +119,7 @@ void std_VecVecChar_reserve(VecVecChar* self, size_t size);
 void std_VecVecChar_resize(VecVecChar* self, size_t size);
 void std_VecVecChar_clear(VecVecChar* self);
 void std_VecVecChar_shrink_to_fit(VecVecChar* self);
+VecVecChar* std_VecVecChar_clone(VecVecChar* self);
 
 CVD_STD_VEC_FUNC_DEF(VecMat, Mat);
 Mat* std_VecMat_get_p(VecMat* self, int index);

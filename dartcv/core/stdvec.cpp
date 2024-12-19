@@ -931,3 +931,7 @@ void std_VecVecChar_set(VecVecChar* self, int index, VecChar* val) {
 VecChar* std_VecVecChar_data(VecVecChar* self) {
     return new VecChar{self->ptr->data()};
 }
+
+VecVecChar* std_VecVecChar_clone(VecVecChar* self){
+    return new VecVecChar{new std::vector<std::vector<char>>(*self->ptr)};
+}
