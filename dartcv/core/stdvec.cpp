@@ -9,18 +9,69 @@
 #include <vector>
 
 CVD_STD_VEC_FUNC_IMPL(VecU8, uint8_t);
+VecU8* std_VecU8_clone(VecU8* self) {
+    return new VecU8{new std::vector<uint8_t>(CVDEREF_P(self))};
+}
+
 CVD_STD_VEC_FUNC_IMPL(VecUChar, unsigned char);
+VecUChar* std_VecUChar_clone(VecUChar* self) {
+    return new VecUChar{new std::vector<unsigned char>(CVDEREF_P(self))};
+}
+
 CVD_STD_VEC_FUNC_IMPL(VecI8, int8_t);
+VecI8* std_VecI8_clone(VecI8* self) {
+    return new VecI8{new std::vector<int8_t>(CVDEREF_P(self))};
+}
+
 CVD_STD_VEC_FUNC_IMPL(VecChar, char);
+VecChar* std_VecChar_clone(VecChar* self) {
+    return new VecChar{new std::vector<char>(CVDEREF_P(self))};
+}
+
 CVD_STD_VEC_FUNC_IMPL(VecU16, uint16_t);
+VecU16* std_VecU16_clone(VecU16* self) {
+    return new VecU16{new std::vector<uint16_t>(CVDEREF_P(self))};
+}
+
 CVD_STD_VEC_FUNC_IMPL(VecI16, int16_t);
+VecI16* std_VecI16_clone(VecI16* self) {
+    return new VecI16{new std::vector<int16_t>(CVDEREF_P(self))};
+}
+
 CVD_STD_VEC_FUNC_IMPL(VecU32, uint32_t);
+VecU32* std_VecU32_clone(VecU32* self) {
+    return new VecU32{new std::vector<uint32_t>(CVDEREF_P(self))};
+}
+
 CVD_STD_VEC_FUNC_IMPL(VecI32, int32_t);
+VecI32* std_VecI32_clone(VecI32* self) {
+    return new VecI32{new std::vector<int32_t>(CVDEREF_P(self))};
+}
+
 CVD_STD_VEC_FUNC_IMPL(VecU64, uint64_t);
+VecU64* std_VecU64_clone(VecU64* self) {
+    return new VecU64{new std::vector<uint64_t>(CVDEREF_P(self))};
+}
+
 CVD_STD_VEC_FUNC_IMPL(VecI64, int64_t);
+VecI64* std_VecI64_clone(VecI64* self) {
+    return new VecI64{new std::vector<int64_t>(CVDEREF_P(self))};
+}
+
 CVD_STD_VEC_FUNC_IMPL(VecF32, float_t);
+VecF32* std_VecF32_clone(VecF32* self) {
+    return new VecF32{new std::vector<float_t>(CVDEREF_P(self))};
+}
+
 CVD_STD_VEC_FUNC_IMPL(VecF64, double_t);
+VecF64* std_VecF64_clone(VecF64* self) {
+    return new VecF64{new std::vector<double_t>(CVDEREF_P(self))};
+}
+
 CVD_STD_VEC_FUNC_IMPL(VecF16, uint16_t);
+VecF16* std_VecF16_clone(VecF16* self) {
+    return new VecF16{new std::vector<uint16_t>(CVDEREF_P(self))};
+}
 
 CVD_STD_VEC_FUNC_IMPL_COMMON(VecMat);
 VecMat* std_VecMat_new(size_t length) {

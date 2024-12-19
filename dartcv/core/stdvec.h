@@ -78,18 +78,31 @@ extern "C" {
     void std_##TYPE##_extend(TYPE* self, TYPE* other)
 
 CVD_STD_VEC_FUNC_DEF(VecU8, uint8_t);
+VecU8* std_VecU8_clone(VecU8* self);
 CVD_STD_VEC_FUNC_DEF(VecUChar, unsigned char);
+VecUChar* std_VecUChar_clone(VecUChar* self);
 CVD_STD_VEC_FUNC_DEF(VecI8, int8_t);
+VecI8* std_VecI8_clone(VecI8* self);
 CVD_STD_VEC_FUNC_DEF(VecChar, char);
+VecChar* std_VecChar_clone(VecChar* self);
 CVD_STD_VEC_FUNC_DEF(VecU16, uint16_t);
+VecU16* std_VecU16_clone(VecU16* self);
 CVD_STD_VEC_FUNC_DEF(VecI16, int16_t);
+VecI16* std_VecI16_clone(VecI16* self);
 CVD_STD_VEC_FUNC_DEF(VecU32, uint32_t);
+VecU32* std_VecU32_clone(VecU32* self);
 CVD_STD_VEC_FUNC_DEF(VecI32, int32_t);
+VecI32* std_VecI32_clone(VecI32* self);
 CVD_STD_VEC_FUNC_DEF(VecU64, uint64_t);
+VecU64* std_VecU64_clone(VecU64* self);
 CVD_STD_VEC_FUNC_DEF(VecI64, int64_t);
+VecI64* std_VecI64_clone(VecI64* self);
 CVD_STD_VEC_FUNC_DEF(VecF32, float_t);
+VecF32* std_VecF32_clone(VecF32* self);
 CVD_STD_VEC_FUNC_DEF(VecF64, double_t);
+VecF64* std_VecF64_clone(VecF64* self);
 CVD_STD_VEC_FUNC_DEF(VecF16, uint16_t);
+VecF16* std_VecF16_clone(VecF16* self);
 
 // CVD_STD_VEC_FUNC_DEF(VecVecChar, VecChar);
 VecVecChar* std_VecVecChar_new(size_t length);
