@@ -12,6 +12,10 @@ unset(_env_disable_download_opencv)
 # if not specified, set it to the default value of FETCHCONTENT_BASE_DIR, i.e., "CMAKE_BINARY_DIR/_deps"
 set(_env_cache_dir $ENV{DARTCV_CACHE_DIR})
 if(_env_cache_dir)
+  if(NOT EXISTS ${_env_cache_dir})
+    file(MAKE_DIRECTORY ${_env_cache_dir})
+  endif()
+
   if(EXISTS ${_env_cache_dir} AND IS_DIRECTORY ${_env_cache_dir})
     message(STATUS "Using cache directory: ${_env_cache_dir}")
     file(TO_CMAKE_PATH ${_env_cache_dir} _env_cache_dir)

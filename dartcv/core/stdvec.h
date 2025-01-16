@@ -123,40 +123,68 @@ VecVecChar* std_VecVecChar_clone(VecVecChar* self);
 
 CVD_STD_VEC_FUNC_DEF(VecMat, Mat);
 Mat* std_VecMat_get_p(VecMat* self, int index);
+
 CVD_STD_VEC_FUNC_DEF(VecPoint, CvPoint);
 CvPoint* std_VecPoint_get_p(VecPoint* self, int index);
+
 CVD_STD_VEC_FUNC_DEF(VecPoint2f, CvPoint2f);
 CvPoint2f* std_VecPoint2f_get_p(VecPoint2f* self, int index);
+
 CVD_STD_VEC_FUNC_DEF(VecPoint3f, CvPoint3f);
 CvPoint3f* std_VecPoint3f_get_p(VecPoint3f* self, int index);
+
 CVD_STD_VEC_FUNC_DEF(VecPoint3i, CvPoint3i);
 CvPoint3i* std_VecPoint3i_get_p(VecPoint3i* self, int index);
+
 CVD_STD_VEC_FUNC_DEF(VecRect, CvRect);
 CvRect* std_VecRect_get_p(VecRect* self, int index);
+
 CVD_STD_VEC_FUNC_DEF(VecRect2f, CvRect2f);
 CvRect2f* std_VecRect2f_get_p(VecRect2f* self, int index);
+
 CVD_STD_VEC_FUNC_DEF(VecRotatedRect, RotatedRect);
 RotatedRect* std_VecRotatedRect_get_p(VecRotatedRect* self, int index);
+
 CVD_STD_VEC_FUNC_DEF(VecKeyPoint, KeyPoint);
 KeyPoint* std_VecKeyPoint_get_p(VecKeyPoint* self, int index);
+
 CVD_STD_VEC_FUNC_DEF(VecDMatch, DMatch);
 DMatch* std_VecDMatch_get_p(VecDMatch* self, int index);
+
 CVD_STD_VEC_FUNC_DEF(VecVec4i, Vec4i);
 Vec4i* std_VecVec4i_get_p(VecVec4i* self, int index);
+
 CVD_STD_VEC_FUNC_DEF(VecVec4f, Vec4f);
 Vec4f* std_VecVec4f_get_p(VecVec4f* self, int index);
+
 CVD_STD_VEC_FUNC_DEF(VecVec6f, Vec6f);
 Vec6f* std_VecVec6f_get_p(VecVec6f* self, int index);
+
 CVD_STD_VEC_FUNC_DEF(VecVecDMatch, VecDMatch);
 VecDMatch* std_VecVecDMatch_get_p(VecVecDMatch* self, int index);
+DMatch* std_VecVecDMatch_get_ij(VecVecDMatch* self, size_t i, size_t j);
+size_t std_VecVecDMatch_length_i(VecVecDMatch* self, size_t i);
+VecVecDMatch* std_VecVecDMatch_clone(VecVecDMatch* self);
+
 CVD_STD_VEC_FUNC_DEF(VecVecPoint, VecPoint);
 VecPoint* std_VecVecPoint_get_p(VecVecPoint* self, int index);
+CvPoint* std_VecVecPoint_get_ij(VecVecPoint* self, size_t i, size_t j);
+size_t std_VecVecPoint_length_i(VecVecPoint* self, size_t i);
+
 CVD_STD_VEC_FUNC_DEF(VecVecPoint2f, VecPoint2f);
 VecPoint2f* std_VecVecPoint2f_get_p(VecVecPoint2f* self, int index);
+CvPoint2f* std_VecVecPoint2f_get_ij(VecVecPoint2f* self, size_t i, size_t j);
+size_t std_VecVecPoint2f_length_i(VecVecPoint2f* self, size_t i);
+
 CVD_STD_VEC_FUNC_DEF(VecVecPoint3f, VecPoint3f);
 VecPoint3f* std_VecVecPoint3f_get_p(VecVecPoint3f* self, int index);
+CvPoint3f* std_VecVecPoint3f_get_ij(VecVecPoint3f* self, size_t i, size_t j);
+size_t std_VecVecPoint3f_length_i(VecVecPoint3f* self, size_t i);
+
 CVD_STD_VEC_FUNC_DEF(VecVecPoint3i, VecPoint3i);
 VecPoint3i* std_VecVecPoint3i_get_p(VecVecPoint3i* self, int index);
+CvPoint3i* std_VecVecPoint3i_get_ij(VecVecPoint3i* self, size_t i, size_t j);
+size_t std_VecVecPoint3i_length_i(VecVecPoint3i* self, size_t i);
 
 #ifdef __cplusplus
 }
