@@ -73,7 +73,7 @@ jobs:
             ${{ env.PACKAGE_NAME }}.tar.gz
       - name: macos
         run: |
-          pod lib lint DartCvMacOS.podspec --allow-warnings
+          pod lib lint DartCvMacOS.podspec --allow-warnings --verbose
   ios:
     name: ios
     strategy:
