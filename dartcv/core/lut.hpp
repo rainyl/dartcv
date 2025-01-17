@@ -17,7 +17,8 @@ namespace cvd
         dst[i + k] = lut[src[i + k] * cn + k];                                                               \
   }
 
-// NOTE: opencv doesn't support LUT from CV_8U or CV_8S to CV_16F now
+// ~~NOTE: opencv doesn't support LUT from CV_8U or CV_8S to CV_16F now~~
+// supported since opencv 4.11.0
 static void LUT8u_16f(const uchar *src, const cv::hfloat *lut, cv::hfloat *dst, int len, int cn, int lutcn)
 {
   LUT_BODY

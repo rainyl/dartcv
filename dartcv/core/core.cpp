@@ -927,7 +927,7 @@ CvStatus* cv_SVDecomp(Mat w, Mat u, Mat vt, Mat d, int flags, CvCallback_0 callb
 CvStatus* cv_LUT(Mat src, Mat lut, Mat dst, CvCallback_0 callback) {
     BEGIN_WRAP
     auto cn = src.ptr->channels(), depth = src.ptr->depth();
-    if (lut.ptr->depth() != CV_16F && (depth == CV_8U || depth == CV_8S)) {
+    if (depth == CV_8U || depth == CV_8S) {
         cv::LUT(CVDEREF(src), CVDEREF(lut), CVDEREF(dst));
     } else {
         int lutcn = lut.ptr->channels(), lut_depth = lut.ptr->depth();
