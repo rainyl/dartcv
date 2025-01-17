@@ -234,3 +234,11 @@ int cv_VideoWriter_fourcc(char c1, char c2, char c3, char c4) {
 char* cv_VideoWriter_getBackendName(VideoWriter self) {
     return strdup(self.ptr->getBackendName().c_str());
 }
+
+double cv_VideoWriter_get(VideoWriter self, int propId) {
+    return self.ptr->get(propId);
+}
+
+void cv_VideoWriter_set(VideoWriter self, int propId, double val) {
+    self.ptr->set(propId, val);
+}

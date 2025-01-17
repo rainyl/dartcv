@@ -108,6 +108,8 @@ CvStatus* cv_VideoWriter_write(VideoWriter self, Mat img, CvCallback_0 callback)
 CvStatus* cv_VideoWriter_release(VideoWriter self);
 int cv_VideoWriter_fourcc(char c1, char c2, char c3, char c4);
 char* cv_VideoWriter_getBackendName(VideoWriter self);
+double cv_VideoWriter_get(VideoWriter self, int propId);
+void cv_VideoWriter_set(VideoWriter self, int propId, double val);
 
 #ifdef __cplusplus
 }
