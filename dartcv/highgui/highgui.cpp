@@ -8,13 +8,13 @@
 #include "dartcv/highgui/highgui.h"
 #include "dartcv/core/vec.hpp"
 
-char* cv_currentUIFramework() {
+char* cv_currentUIFramework(void) {
     return strdup(cv::currentUIFramework().c_str());
 }
 int cv_getMouseWheelDelta(int flags) {
     return cv::getMouseWheelDelta(flags);
 }
-int cv_pollKey() {
+int cv_pollKey(void) {
     return cv::pollKey();
 }
 int cv_waitKey(int delay) {
@@ -122,7 +122,7 @@ CvStatus* cv_selectROIs(
     END_WRAP
 }
 
-CvStatus* cv_destroyAllWindows() {
+CvStatus* cv_destroyAllWindows(void) {
     BEGIN_WRAP
     cv::destroyAllWindows();
     END_WRAP

@@ -20,16 +20,16 @@ typedef void (*cv_MouseCallback)(int event, int x, int y, int flags, void* userd
 typedef void (*cv_OpenGlDrawCallback)(void* userdata);
 typedef void (*cv_TrackbarCallback)(int pos, void* userdata);
 
-char* cv_currentUIFramework();
+char* cv_currentUIFramework(void);
 int cv_getMouseWheelDelta(int flags);
-int cv_pollKey();
+int cv_pollKey(void);
 int cv_waitKey(int delay);
 int cv_waitKeyEx(int delay);
 
 // Window
 CvStatus* cv_namedWindow(const char* winname, int flags);
 CvStatus* cv_destroyWindow(const char* winname);
-CvStatus* cv_destroyAllWindows();
+CvStatus* cv_destroyAllWindows(void);
 CvStatus* cv_imshow(const char* winname, Mat mat);
 CvStatus* cv_getWindowImageRect(const char* winname, CvRect* rval);
 CvStatus* cv_getWindowProperty(const char* winname, int flag, double* rval);

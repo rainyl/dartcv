@@ -1374,15 +1374,15 @@ CvStatus* cv_randu(Mat mat, Scalar low, Scalar high, CvCallback_0 callback) {
     END_WRAP
 }
 
-int64_t cv_getTickCount() {
+int64_t cv_getTickCount(void) {
     return cv::getTickCount();
 }
-double_t cv_getTickFrequency() {
+double_t cv_getTickFrequency(void) {
     return cv::getTickFrequency();
 }
 void cv_setNumThreads(int n) {
     cv::setNumThreads(n);
 }
-int cv_getNumThreads() {
+int cv_getNumThreads(void) {
     return cv::getNumThreads();
 }

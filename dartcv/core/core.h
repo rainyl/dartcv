@@ -251,10 +251,10 @@ CvStatus* cv_RNG_next(RNG rng, uint32_t* rval);
 CvStatus* cv_theRNG(RNGPtr rval);
 CvStatus* cv_setRNGSeed(int seed);
 
-int64_t cv_getTickCount();
-double_t cv_getTickFrequency();
+int64_t cv_getTickCount(void);
+double_t cv_getTickFrequency(void);
 void cv_setNumThreads(int n);
-int cv_getNumThreads();
+int cv_getNumThreads(void);
 
 #ifdef __cplusplus
 }

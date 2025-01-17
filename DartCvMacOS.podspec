@@ -148,6 +148,6 @@ Pod::Spec.new do |s|
     ss.header_mappings_dir = '.'
     ss.source_files = 'dartcv/videoio/*.{h,c,cpp}'
     ss.dependency "DartCvMacOS/core"
-    ss.vendored_libraries = "libopencv/ffmpeg/lib/libffmpeg.6.dylib"
+    ss.vendored_libraries = "libopencv/ffmpeg/lib/libffmpeg.7.dylib"
   end
 end

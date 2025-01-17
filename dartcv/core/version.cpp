@@ -9,6 +9,6 @@
 #include "dartcv/core/version.h"
 #include <cstring>
 
-char *getCvVersion() { return strdup(CV_VERSION); }
+char *getCvVersion(void) { return strdup(CV_VERSION); }
 
-char *getBuildInfo() { return strdup(cv::getBuildInformation().c_str()); }
+char *getBuildInfo(void) { return strdup(cv::getBuildInformation().c_str()); }
