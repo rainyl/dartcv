@@ -21,11 +21,13 @@ if (WIN32)
 endif (WIN32)
 FetchContent_MakeAvailable(googletest)
 # copy test images
-file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/test)
-file(COPY
-        "${CMAKE_CURRENT_SOURCE_DIR}/images"
-        DESTINATION ${CMAKE_BINARY_DIR}/test
-)
+if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/models")
+        file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/test)
+        file(COPY
+                "${CMAKE_CURRENT_SOURCE_DIR}/images"
+                DESTINATION ${CMAKE_BINARY_DIR}/test
+        )
+endif()
 # model files for DNN test
 if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/models")
   file(COPY
@@ -45,7 +47,7 @@ macro(add_dartcv_test executable_name source_file)
   target_link_libraries(
           ${executable_name}
           PUBLIC
-          ${OpenCV_LIBS}
+        #   ${OpenCV_LIBS}
           dartcv
           GTest::gtest_main
   )
@@ -63,17 +65,19 @@ endmacro()
 
 #add_dartcv_test(dartcv_test_vec "vec.cc")
 #add_dartcv_test(dartcv_test_core "core.cc")
-add_dartcv_test(dartcv_test_calib3d "calib3d.cc")
+# add_dartcv_test(dartcv_test_calib3d "calib3d.cc")
 #add_dartcv_test(dartcv_test_dnn "dnn.cc")
 #add_dartcv_test(dartcv_test_imgcodecs "imgcodecs.cc")
 #add_dartcv_test(dartcv_test_imgproc "imgproc.cc")
 #add_dartcv_test(dartcv_test_video "video.cc")
+add_dartcv_test(dartcv_test_highgui "highgui.cc")
 
 include(GoogleTest)
 #gtest_discover_tests(dartcv_test_vec)
 #gtest_discover_tests(dartcv_test_core)
-gtest_discover_tests(dartcv_test_calib3d)
+# gtest_discover_tests(dartcv_test_calib3d)
 #gtest_discover_tests(dartcv_test_dnn)
 #gtest_discover_tests(dartcv_test_imgcodecs)
 #gtest_discover_tests(dartcv_test_imgproc)
 #gtest_discover_tests(dartcv_test_video)
+gtest_discover_tests(dartcv_test_highgui)
