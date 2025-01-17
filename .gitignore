@@ -11,6 +11,7 @@ test/data
 .idea
 *.log
 .cache
+ffmpeg*
 
 # Prerequisites
 *.d
