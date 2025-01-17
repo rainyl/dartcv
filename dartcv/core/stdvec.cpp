@@ -4,6 +4,7 @@
 
 #include "stdvec.h"
 
+#include <cstddef>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -718,6 +719,19 @@ VecDMatch* std_VecVecDMatch_get_p(VecVecDMatch* self, int index) {
     return new VecDMatch{new std::vector<cv::DMatch>(v)};
 }
 
+DMatch* std_VecVecDMatch_get_ij(VecVecDMatch* self, size_t i, size_t j) {
+    auto dm = self->ptr->at(i).at(j);
+    return new DMatch{dm.queryIdx, dm.trainIdx, dm.imgIdx, dm.distance};
+}
+
+size_t std_VecVecDMatch_length_i(VecVecDMatch* self, size_t i) {
+    return self->ptr->at(i).size();
+}
+
+VecVecDMatch* std_VecVecDMatch_clone(VecVecDMatch* self){
+    return new VecVecDMatch{new std::vector<std::vector<cv::DMatch>>(*self->ptr)};
+}
+
 void std_VecVecDMatch_set(VecVecDMatch* self, size_t index, VecDMatch val) {
     self->ptr->at(index) = CVDEREF(val);
 }
@@ -754,7 +768,16 @@ VecPoint std_VecVecPoint_get(VecVecPoint* self, size_t index) {
     return VecPoint{new std::vector<cv::Point>(self->ptr->at(index))};
 }
 VecPoint* std_VecVecPoint_get_p(VecVecPoint* self, int index) {
-    return new VecPoint{new std::vector<cv::Point>(self->ptr->at(index))};
+    return new VecPoint{&(self->ptr->at(index))};
+}
+
+CvPoint* std_VecVecPoint_get_ij(VecVecPoint* self, size_t i, size_t j) {
+    auto p = self->ptr->at(i).at(j);
+    return new CvPoint{p.x, p.y};
+}
+
+size_t std_VecVecPoint_length_i(VecVecPoint* self, size_t i) {
+    return self->ptr->at(i).size();
 }
 
 void std_VecVecPoint_set(VecVecPoint* self, size_t index, VecPoint val) {
@@ -796,6 +819,15 @@ VecPoint2f* std_VecVecPoint2f_get_p(VecVecPoint2f* self, int index) {
     return new VecPoint2f{new std::vector<cv::Point2f>(self->ptr->at(index))};
 }
 
+CvPoint2f* std_VecVecPoint2f_get_ij(VecVecPoint2f* self, size_t i, size_t j) {
+    auto p = self->ptr->at(i).at(j);
+    return new CvPoint2f{p.x, p.y};
+}
+
+size_t std_VecVecPoint2f_length_i(VecVecPoint2f* self, size_t i) {
+    return self->ptr->at(i).size();
+}
+
 void std_VecVecPoint2f_set(VecVecPoint2f* self, size_t index, VecPoint2f val) {
     self->ptr->at(index) = CVDEREF(val);
 }
@@ -833,7 +865,16 @@ VecPoint3f std_VecVecPoint3f_get(VecVecPoint3f* self, size_t index) {
     return VecPoint3f{new std::vector<cv::Point3f>(val)};
 }
 VecPoint3f* std_VecVecPoint3f_get_p(VecVecPoint3f* self, int index) {
-    return new VecPoint3f{new std::vector<cv::Point3f>(self->ptr->at(index))};
+    return new VecPoint3f{&(self->ptr->at(index))};
+}
+
+CvPoint3f* std_VecVecPoint3f_get_ij(VecVecPoint3f* self, size_t i, size_t j) {
+    auto p = self->ptr->at(i).at(j);
+    return new CvPoint3f{p.x, p.y, p.z};
+}
+
+size_t std_VecVecPoint3f_length_i(VecVecPoint3f* self, size_t i) {
+    return self->ptr->at(i).size();
 }
 
 void std_VecVecPoint3f_set(VecVecPoint3f* self, size_t index, VecPoint3f val) {
@@ -874,6 +915,15 @@ VecPoint3i std_VecVecPoint3i_get(VecVecPoint3i* self, size_t index) {
 }
 VecPoint3i* std_VecVecPoint3i_get_p(VecVecPoint3i* self, int index) {
     return new VecPoint3i{&(self->ptr->at(index))};
+}
+
+CvPoint3i* std_VecVecPoint3i_get_ij(VecVecPoint3i* self, size_t i, size_t j) {
+    auto p = self->ptr->at(i).at(j);
+    return new CvPoint3i{p.x, p.y, p.z};
+}
+
+size_t std_VecVecPoint3i_length_i(VecVecPoint3i* self, size_t i) {
+    return self->ptr->at(i).size();
 }
 
 void std_VecVecPoint3i_set(VecVecPoint3i* self, size_t index, VecPoint3i val) {
@@ -932,6 +982,6 @@ VecChar* std_VecVecChar_data(VecVecChar* self) {
     return new VecChar{self->ptr->data()};
 }
 
-VecVecChar* std_VecVecChar_clone(VecVecChar* self){
+VecVecChar* std_VecVecChar_clone(VecVecChar* self) {
     return new VecVecChar{new std::vector<std::vector<char>>(*self->ptr)};
 }

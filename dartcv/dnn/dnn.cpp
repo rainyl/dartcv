@@ -43,7 +43,7 @@ CvStatus* cv_dnn_blobFromImage(
     BEGIN_WRAP
     cv::Size sz(size.width, size.height);
     cv::Scalar cm(mean.val1, mean.val2, mean.val3, mean.val4);
-    cv_dnn::blobFromImage(CVDEREF(image), CVDEREF(blob), scalefactor, sz, cm, swapRB, crop, ddepth);
+    cv::dnn::blobFromImage(CVDEREF(image), CVDEREF(blob), scalefactor, sz, cm, swapRB, crop, ddepth);
     if (callback != nullptr) {
         callback();
     }
@@ -64,7 +64,7 @@ CvStatus* cv_dnn_blobFromImages(
     BEGIN_WRAP
     cv::Size sz(size.width, size.height);
     cv::Scalar cm = cv::Scalar(mean.val1, mean.val2, mean.val3, mean.val4);
-    cv_dnn::blobFromImages(CVDEREF(images), CVDEREF(blob), scalefactor, sz, cm, swapRB, crop, ddepth);
+    cv::dnn::blobFromImages(CVDEREF(images), CVDEREF(blob), scalefactor, sz, cm, swapRB, crop, ddepth);
     if (callback != nullptr) {
         callback();
     }
@@ -72,11 +72,11 @@ CvStatus* cv_dnn_blobFromImages(
 }
 
 void cv_dnn_enableModelDiagnostics(bool isDiagnosticsMode) {
-    cv_dnn::enableModelDiagnostics(isDiagnosticsMode);
+    cv::dnn::enableModelDiagnostics(isDiagnosticsMode);
 }
 // rval: x: backend, y: target
 void cv_dnn_getAvailableBackends(VecPoint* rval) {
-    auto _bt = cv_dnn::getAvailableBackends();
+    auto _bt = cv::dnn::getAvailableBackends();
     rval->ptr->reserve(_bt.size());
     for (int i = 0; i < _bt.size(); ++i) {
         rval->ptr->at(i) = cv::Point(_bt[i].first, _bt[i].second);
@@ -85,15 +85,15 @@ void cv_dnn_getAvailableBackends(VecPoint* rval) {
 
 CvStatus* cv_dnn_getAvailableTargets(int be, VecI32* rval) {
     BEGIN_WRAP
-    std::vector<cv_dnn::Target> _targets =
-        cv_dnn::getAvailableTargets(static_cast<cv_dnn::Backend>(be));
+    std::vector<cv::dnn::Target> _targets =
+        cv::dnn::getAvailableTargets(static_cast<cv::dnn::Backend>(be));
     *rval = {new std::vector<int>(_targets.begin(), _targets.end())};
     END_WRAP
 }
 
 CvStatus* cv_dnn_imagesFromBlob(Mat blob, VecMat* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    cv_dnn::imagesFromBlob(CVDEREF(blob), CVDEREF_P(rval));
+    cv::dnn::imagesFromBlob(CVDEREF(blob), CVDEREF_P(rval));
     if (callback != nullptr) {
         callback();
     }
@@ -129,7 +129,7 @@ CvStatus* cv_dnn_NMSBoxes(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv_dnn::NMSBoxes(CVDEREF(bboxes), CVDEREF(scores), score_threshold, nms_threshold, CVDEREF_P(out_indices), 1.f, 0);
+    cv::dnn::NMSBoxes(CVDEREF(bboxes), CVDEREF(scores), score_threshold, nms_threshold, CVDEREF_P(out_indices), 1.f, 0);
     if (callback != nullptr) {
         callback();
     }
@@ -147,7 +147,7 @@ CvStatus* cv_dnn_NMSBoxes_1(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv_dnn::NMSBoxes(CVDEREF(bboxes), CVDEREF(scores), score_threshold, nms_threshold, CVDEREF_P(indices), eta, top_k);
+    cv::dnn::NMSBoxes(CVDEREF(bboxes), CVDEREF(scores), score_threshold, nms_threshold, CVDEREF_P(indices), eta, top_k);
     if (callback != nullptr) {
         callback();
     }
@@ -162,12 +162,12 @@ CvStatus* cv_dnn_Net_forwardAsync(Net net, const char* outputName, AsyncArray* r
 
 CvStatus* cv_dnn_Net_create(Net* rval) {
     BEGIN_WRAP
-    rval->ptr = new cv_dnn::Net();
+    rval->ptr = new cv::dnn::Net();
     END_WRAP
 }
 CvStatus* cv_dnn_Net_fromNet(Net net, Net* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    rval->ptr = new cv_dnn::Net(CVDEREF(net));
+    rval->ptr = new cv::dnn::Net(CVDEREF(net));
     if (callback != nullptr) {
         callback();
     }
@@ -177,7 +177,7 @@ CvStatus* cv_dnn_Net_readNet(
     const char* model, const char* config, const char* framework, Net* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNet(model, config, framework));
+    rval->ptr = new cv::dnn::Net(cv::dnn::readNet(model, config, framework));
     if (callback != nullptr) {
         callback();
     }
@@ -187,7 +187,7 @@ CvStatus* cv_dnn_Net_readNetBytes(
     const char* framework, VecUChar model, VecUChar config, Net* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNet(framework, CVDEREF(model), CVDEREF(config)));
+    rval->ptr = new cv::dnn::Net(cv::dnn::readNet(framework, CVDEREF(model), CVDEREF(config)));
     if (callback != nullptr) {
         callback();
     }
@@ -197,7 +197,7 @@ CvStatus* cv_dnn_Net_readNetFromCaffe(
     const char* prototxt, const char* caffeModel, Net* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromCaffe(prototxt, caffeModel));
+    rval->ptr = new cv::dnn::Net(cv::dnn::readNetFromCaffe(prototxt, caffeModel));
     if (callback != nullptr) {
         callback();
     }
@@ -207,7 +207,7 @@ CvStatus* cv_dnn_Net_readNetFromCaffeBytes(
     VecUChar prototxt, VecUChar caffeModel, Net* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromCaffe(CVDEREF(prototxt), CVDEREF(caffeModel)));
+    rval->ptr = new cv::dnn::Net(cv::dnn::readNetFromCaffe(CVDEREF(prototxt), CVDEREF(caffeModel)));
     if (callback != nullptr) {
         callback();
     }
@@ -217,7 +217,7 @@ CvStatus* cv_dnn_Net_readNetFromTensorflow(
     const char* model, const char* config, Net* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromTensorflow(model, config));
+    rval->ptr = new cv::dnn::Net(cv::dnn::readNetFromTensorflow(model, config));
     if (callback != nullptr) {
         callback();
     }
@@ -227,7 +227,7 @@ CvStatus* cv_dnn_Net_readNetFromTensorflowBytes(
     VecUChar model, VecUChar config, Net* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromTensorflow(CVDEREF(model), CVDEREF(config)));
+    rval->ptr = new cv::dnn::Net(cv::dnn::readNetFromTensorflow(CVDEREF(model), CVDEREF(config)));
     if (callback != nullptr) {
         callback();
     }
@@ -235,7 +235,7 @@ CvStatus* cv_dnn_Net_readNetFromTensorflowBytes(
 }
 CvStatus* cv_dnn_Net_readNetFromTFLite(const char* model, Net* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromTFLite(model));
+    rval->ptr = new cv::dnn::Net(cv::dnn::readNetFromTFLite(model));
     if (callback != nullptr) {
         callback();
     }
@@ -245,7 +245,7 @@ CvStatus* cv_dnn_Net_readNetFromTFLiteBytes(
     VecUChar bufferModel, Net* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromTFLite(CVDEREF(bufferModel)));
+    rval->ptr = new cv::dnn::Net(cv::dnn::readNetFromTFLite(CVDEREF(bufferModel)));
     if (callback != nullptr) {
         callback();
     }
@@ -255,7 +255,7 @@ CvStatus* cv_dnn_Net_readNetFromTorch(
     const char* model, bool isBinary, bool evaluate, Net* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromTorch(model, isBinary, evaluate));
+    rval->ptr = new cv::dnn::Net(cv::dnn::readNetFromTorch(model, isBinary, evaluate));
     if (callback != nullptr) {
         callback();
     }
@@ -263,7 +263,7 @@ CvStatus* cv_dnn_Net_readNetFromTorch(
 }
 CvStatus* cv_dnn_Net_readNetFromONNX(const char* model, Net* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromONNX(model));
+    rval->ptr = new cv::dnn::Net(cv::dnn::readNetFromONNX(model));
     if (callback != nullptr) {
         callback();
     }
@@ -271,7 +271,7 @@ CvStatus* cv_dnn_Net_readNetFromONNX(const char* model, Net* rval, CvCallback_0 
 }
 CvStatus* cv_dnn_Net_readNetFromONNXBytes(VecUChar model, Net* rval, CvCallback_0 callback) {
     BEGIN_WRAP
-    rval->ptr = new cv_dnn::Net(cv_dnn::readNetFromONNX(CVDEREF(model)));
+    rval->ptr = new cv::dnn::Net(cv::dnn::readNetFromONNX(CVDEREF(model)));
     if (callback != nullptr) {
         callback();
     }
@@ -397,7 +397,7 @@ CvStatus* cv_dnn_Net_getInputDetails(
 
 CvStatus* cv_dnn_Net_getLayer(Net net, int layerid, Layer* rval) {
     BEGIN_WRAP
-    rval->ptr = new cv::Ptr<cv_dnn::Layer>(net.ptr->getLayer(layerid));
+    rval->ptr = new cv::Ptr<cv::dnn::Layer>(net.ptr->getLayer(layerid));
     END_WRAP
 }
 

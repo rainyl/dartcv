@@ -17,9 +17,8 @@ extern "C" {
 #include <stdbool.h>
 
 #ifdef __cplusplus
-namespace cv_dnn = cv::dnn::dnn4_v20240521;
-CVD_TYPEDEF(cv_dnn::Net, Net)
-CVD_TYPEDEF(cv::Ptr<cv_dnn::Layer>, Layer)
+CVD_TYPEDEF(cv::dnn::Net, Net)
+CVD_TYPEDEF(cv::Ptr<cv::dnn::Layer>, Layer)
 CVD_TYPEDEF(cv::AsyncArray, AsyncArray)
 #else
 CVD_TYPEDEF(void, Net);
