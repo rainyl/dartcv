@@ -21,6 +21,7 @@
 
 #ifdef __cplusplus
 #include <opencv2/core.hpp>
+
 extern "C" {
 #endif
 
@@ -120,8 +121,7 @@ extern "C" {
     typedef struct NAME {       \
         TYPE* ptr;              \
     } NAME;                     \
-    typedef NAME* NAME##Ptr;    \
-
+    typedef NAME* NAME##Ptr;
 CVD_TYPEDEF(cv::Mat, Mat);
 CVD_TYPEDEF(cv::_InputOutputArray, InputOutputArray);
 CVD_TYPEDEF(cv::RNG, RNG);
@@ -152,6 +152,11 @@ typedef struct CvPoint2f {
     float x;
     float y;
 } CvPoint2f;
+
+typedef struct CvPoint2d {
+    double x;
+    double y;
+} CvPoint2d;
 
 typedef struct CvPoint3f {
     float x;
@@ -257,10 +262,10 @@ typedef struct Moment {
 
 typedef struct CvStatus {
     int code;
-    char* msg;
-    char* err;
-    char* func;
-    char* file;
+    char *msg;
+    char *err;
+    char *func;
+    char *file;
     int line;
 } CvStatus;
 
@@ -286,6 +291,7 @@ typedef struct Vec2s {
     short val1;
     short val2;
 } Vec2s;
+
 typedef struct Vec3s {
     short val1;
     short val2;
@@ -321,6 +327,7 @@ typedef struct Vec2i {
     int val1;
     int val2;
 } Vec2i;
+
 typedef struct Vec3i {
     int val1;
     int val2;
@@ -333,6 +340,7 @@ typedef struct Vec4i {
     int val3;
     int val4;
 } Vec4i;
+
 typedef struct Vec6i {
     int val1;
     int val2;
@@ -428,16 +436,41 @@ typedef struct MatStep {
     size_t p[3];
 } MatStep;
 
+typedef struct UsacParams {
+    double confidence;
+    bool isParallel;
+    int loIterations;
+    int loMethod;
+    int loSampleSize;
+    int maxIterations;
+    int neighborsSearch;
+    int randomGeneratorState;
+    int sampler;
+    int score;
+    double threshold;
+    int final_polisher;
+    int final_polisher_iterations;
+} UsacParams;
+
 typedef void (*CvCallback_0)();
-typedef void (*CvCallback_1)(void*);
-typedef void (*CvCallback_2)(void*, void*);
-typedef void (*CvCallback_3)(void*, void*, void*);
-typedef void (*CvCallback_4)(void*, void*, void*, void*);
-typedef void (*CvCallback_5)(void*, void*, void*, void*, void*);
-typedef void (*CvCallback_6)(void*, void*, void*, void*, void*, void*);
-typedef void (*CvCallback_7)(void*, void*, void*, void*, void*, void*, void*);
-typedef void (*CvCallback_8)(void*, void*, void*, void*, void*, void*, void*, void*);
-typedef void (*CvCallback_9)(void*, void*, void*, void*, void*, void*, void*, void*, void*);
+
+typedef void (*CvCallback_1)(void *);
+
+typedef void (*CvCallback_2)(void *, void *);
+
+typedef void (*CvCallback_3)(void *, void *, void *);
+
+typedef void (*CvCallback_4)(void *, void *, void *, void *);
+
+typedef void (*CvCallback_5)(void *, void *, void *, void *, void *);
+
+typedef void (*CvCallback_6)(void *, void *, void *, void *, void *, void *);
+
+typedef void (*CvCallback_7)(void *, void *, void *, void *, void *, void *, void *);
+
+typedef void (*CvCallback_8)(void *, void *, void *, void *, void *, void *, void *, void *);
+
+typedef void (*CvCallback_9)(void *, void *, void *, void *, void *, void *, void *, void *, void *);
 
 CVD_TYPEDEF_STD_VEC(uchar, VecUChar);
 CVD_TYPEDEF_STD_VEC(char, VecChar);
@@ -451,7 +484,7 @@ CVD_TYPEDEF_STD_VEC(int64_t, VecI64);
 CVD_TYPEDEF_STD_VEC(uint64_t, VecU64);
 CVD_TYPEDEF_STD_VEC(float_t, VecF32);
 CVD_TYPEDEF_STD_VEC(double_t, VecF64);
-CVD_TYPEDEF_STD_VEC(uint16_t, VecF16);  // TODO: change to native float16
+CVD_TYPEDEF_STD_VEC(uint16_t, VecF16); // TODO: change to native float16
 
 // std::vector
 #ifdef __cplusplus
@@ -503,6 +536,10 @@ typedef VecPoint3f Contour3f;
 typedef VecVecPoint Contours;
 typedef VecVecPoint2f Contours2f;
 typedef VecVecPoint3f Contours3f;
+
+typedef Mat MatIn;
+typedef Mat MatOut;
+typedef Mat MatInOut;
 
 #ifdef __cplusplus
 }

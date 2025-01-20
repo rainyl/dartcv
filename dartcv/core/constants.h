@@ -1317,28 +1317,6 @@ enum
 #endif
 };
 
-/** @brief cv::VideoWriter generic properties identifier.
- @sa VideoWriter::get(), VideoWriter::set()
-*/
-enum
-{
-    VIDEOWRITER_PROP_QUALITY = 1,    //!< Current quality (0..100%) of the encoded videostream. Can be adjusted dynamically in some codecs.
-    VIDEOWRITER_PROP_FRAMEBYTES = 2, //!< (Read-only): Size of just encoded video frame. Note that the encoding order may be different from representation order.
-    VIDEOWRITER_PROP_NSTRIPES = 3,   //!< Number of stripes for parallel encoding. -1 for auto detection.
-    VIDEOWRITER_PROP_IS_COLOR = 4,   //!< If it is not zero, the encoder will expect and encode color frames, otherwise it
-    //!< will work with grayscale frames.
-    VIDEOWRITER_PROP_DEPTH = 5,                      //!< Defaults to \ref CV_8U.
-    VIDEOWRITER_PROP_HW_ACCELERATION = 6,            //!< (**open-only**) Hardware acceleration type (see #VideoAccelerationType). Setting supported only via `params` parameter in VideoWriter constructor / .open() method. Default value is backend-specific.
-    VIDEOWRITER_PROP_HW_DEVICE = 7,                  //!< (**open-only**) Hardware device index (select GPU if multiple available). Device enumeration is acceleration type specific.
-    VIDEOWRITER_PROP_HW_ACCELERATION_USE_OPENCL = 8, //!< (**open-only**) If non-zero, create new OpenCL context and bind it to current thread. The OpenCL context created with Video Acceleration context attached it (if not attached yet) for optimized GPU data copy between cv::UMat and HW accelerated encoder.
-    VIDEOWRITER_PROP_RAW_VIDEO = 9,                  //!< (**open-only**) Set to non-zero to enable encapsulation of an encoded raw video stream. Each raw encoded video frame should be passed to VideoWriter::write() as single row or column of a \ref CV_8UC1 Mat. \note If the key frame interval is not 1 then it must be manually specified by the user. This can either be performed during initialization passing \ref VIDEOWRITER_PROP_KEY_INTERVAL as one of the extra encoder params  to \ref VideoWriter::VideoWriter(const String &, int, double, const Size &, const std::vector< int > &params) or afterwards by setting the \ref VIDEOWRITER_PROP_KEY_FLAG with \ref VideoWriter::set() before writing each frame. FFMpeg backend only.
-    VIDEOWRITER_PROP_KEY_INTERVAL = 10,              //!< (**open-only**) Set the key frame interval using raw video encapsulation (\ref VIDEOWRITER_PROP_RAW_VIDEO != 0). Defaults to 1 when not set. FFMpeg backend only.
-    VIDEOWRITER_PROP_KEY_FLAG = 11,                  //!< Set to non-zero to signal that the following frames are key frames or zero if not, when encapsulating raw video (\ref VIDEOWRITER_PROP_RAW_VIDEO != 0). FFMpeg backend only.
-#ifndef CV_DOXYGEN
-    CV__VIDEOWRITER_PROP_LATEST
-#endif
-};
-
 //! @} videoio_flags_base
 
 //! @addtogroup videoio_flags_others
@@ -1940,33 +1918,6 @@ enum
     USAC_ACCURATE = 36, //!< USAC, accurate settings
     USAC_PROSAC = 37,   //!< USAC, sorted points, runs PROSAC
     USAC_MAGSAC = 38    //!< USAC, runs MAGSAC++
-};
-
-enum SolvePnPMethod
-{
-    SOLVEPNP_ITERATIVE = 0, //!< Pose refinement using non-linear Levenberg-Marquardt minimization scheme @cite Madsen04 @cite Eade13 \n
-    //!< Initial solution for non-planar "objectPoints" needs at least 6 points and uses the DLT algorithm. \n
-    //!< Initial solution for planar "objectPoints" needs at least 4 points and uses pose from homography decomposition.
-    SOLVEPNP_EPNP = 1, //!< EPnP: Efficient Perspective-n-Point Camera Pose Estimation @cite lepetit2009epnp
-    SOLVEPNP_P3P = 2,  //!< Complete Solution Classification for the Perspective-Three-Point Problem @cite gao2003complete
-    SOLVEPNP_DLS = 3,  //!< **Broken implementation. Using this flag will fallback to EPnP.** \n
-    //!< A Direct Least-Squares (DLS) Method for PnP @cite hesch2011direct
-    SOLVEPNP_UPNP = 4, //!< **Broken implementation. Using this flag will fallback to EPnP.** \n
-    //!< Exhaustive Linearization for Robust Camera Pose and Focal Length Estimation @cite penate2013exhaustive
-    SOLVEPNP_AP3P = 5, //!< An Efficient Algebraic Solution to the Perspective-Three-Point Problem @cite Ke17
-    SOLVEPNP_IPPE = 6, //!< Infinitesimal Plane-Based Pose Estimation @cite Collins14 \n
-    //!< Object points must be coplanar.
-    SOLVEPNP_IPPE_SQUARE = 7, //!< Infinitesimal Plane-Based Pose Estimation @cite Collins14 \n
-    //!< This is a special case suitable for marker pose estimation.\n
-    //!< 4 coplanar object points must be defined in the following order:
-    //!<   - point 0: [-squareLength / 2,  squareLength / 2, 0]
-    //!<   - point 1: [ squareLength / 2,  squareLength / 2, 0]
-    //!<   - point 2: [ squareLength / 2, -squareLength / 2, 0]
-    //!<   - point 3: [-squareLength / 2, -squareLength / 2, 0]
-    SOLVEPNP_SQPNP = 8, //!< SQPnP: A Consistently Fast and Globally OptimalSolution to the Perspective-n-Point Problem @cite Terzakis2020SQPnP
-#ifndef CV_DOXYGEN
-    SOLVEPNP_MAX_COUNT //!< Used for count
-#endif
 };
 
 enum
