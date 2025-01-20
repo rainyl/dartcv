@@ -7,7 +7,7 @@ opencv_version = '4.11.0+0'
 
 Pod::Spec.new do |s|
   s.name             = 'DartCvIOS'
-  s.version          = '4.11.0.0'
+  s.version          = '4.11.0.1'
   s.summary          = 'dartcv for ios'
   s.description      = <<-DESC
   OpenCV bindings for Dart.
