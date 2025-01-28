@@ -56,7 +56,7 @@ jobs:
             ${{ env.PACKAGE_NAME }}.tar.gz
   linux-arm64:
     name: linux-arm64
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     env:
       PACKAGE_NAME: libdartcv-linux-arm64
     steps:
