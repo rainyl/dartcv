@@ -4,7 +4,6 @@
 
 #include "dartcv/core/mat.h"
 #include <vector>
-#include "dartcv/core/vec.hpp"
 
 CvStatus* cv_Mat_create(Mat* rval) {
     BEGIN_WRAP
@@ -68,6 +67,18 @@ CvStatus* cv_Mat_create_6(
     cv::Mat m = cv::Mat(rows, cols, type);
     m.create(rows, cols, type);
     memcpy(m.data, buf, m.total() * m.elemSize());
+    rval->ptr = new cv::Mat(m);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_Mat_create_6_no_copy(
+    int rows, int cols, int type, void* buf, Mat* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::Mat m = cv::Mat(rows, cols, type, buf);
     rval->ptr = new cv::Mat(m);
     if (callback != nullptr) {
         callback();

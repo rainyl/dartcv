@@ -98,6 +98,10 @@ CvStatus* cv_Mat_create_6(
     int rows, int cols, int type, void* buf, Mat* rval, CvCallback_0 callback
 );
 
+CvStatus* cv_Mat_create_6_no_copy(
+    int rows, int cols, int type, void* buf, Mat* rval, CvCallback_0 callback
+);
+
 /**
  * @brief Create Mat with specified vector of points
  *
