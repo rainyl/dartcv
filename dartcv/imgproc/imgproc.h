@@ -711,6 +711,9 @@ CvStatus* cv_approxPolyDP(
 
 // Approximates a polygon with a convex hull with a specified accuracy and number of sides.
 // void cv::approxPolyN (InputArray curve, OutputArray approxCurve, int nsides, float epsilon_percentage=-1.0, bool ensure_convex=true)
+CvStatus* cv_approxPolyN(
+    VecPoint curve, int nsides, float epsilon_percentage, bool ensure_convex, VecPoint* rval, CvCallback_0 callback
+);
 
 // Calculates a contour perimeter or a curve length.
 // double cv::arcLength (InputArray curve, bool closed)

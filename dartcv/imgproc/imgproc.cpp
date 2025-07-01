@@ -30,6 +30,17 @@ CvStatus* cv_approxPolyDP(
     END_WRAP
 }
 
+CvStatus* cv_approxPolyN(
+    VecPoint curve, int nsides, float epsilon_percentage, bool ensure_convex, VecPoint* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::approxPolyN(CVDEREF(curve), CVDEREF_P(rval), nsides, epsilon_percentage, ensure_convex);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_cvtColor(Mat src, Mat dst, int code, CvCallback_0 callback) {
     BEGIN_WRAP
     cv::cvtColor(CVDEREF(src), CVDEREF(dst), code);
