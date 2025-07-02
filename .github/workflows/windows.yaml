@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         osname:
-          - {os: windows-2019, vs: vs2019}
+          # - {os: windows-2025, vs: vs2022}
           - {os: windows-2022, vs: vs2022}
     runs-on: ${{ matrix.osname.os }}
     env:
