@@ -709,19 +709,31 @@ CvStatus* cv_approxPolyDP(
     VecPoint curve, double epsilon, bool closed, CVD_OUT VecPoint* rval, CvCallback_0 callback
 );
 
+CvStatus* cv_approxPolyDP2f(
+    VecPoint2f curve, double epsilon, bool closed, CVD_OUT VecPoint2f* rval, CvCallback_0 callback
+);
+
 // Approximates a polygon with a convex hull with a specified accuracy and number of sides.
 // void cv::approxPolyN (InputArray curve, OutputArray approxCurve, int nsides, float epsilon_percentage=-1.0, bool ensure_convex=true)
 CvStatus* cv_approxPolyN(
     VecPoint curve, int nsides, float epsilon_percentage, bool ensure_convex, VecPoint* rval, CvCallback_0 callback
 );
 
+CvStatus* cv_approxPolyN2f(
+    VecPoint2f curve, int nsides, float epsilon_percentage, bool ensure_convex, VecPoint2f* rval, CvCallback_0 callback
+);
+
 // Calculates a contour perimeter or a curve length.
 // double cv::arcLength (InputArray curve, bool closed)
 CvStatus* cv_arcLength(VecPoint curve, bool is_closed, CVD_OUT double* rval, CvCallback_0 callback);
 
+CvStatus* cv_arcLength2f(VecPoint2f curve, bool is_closed, CVD_OUT double* rval, CvCallback_0 callback);
+
 // Calculates the up-right bounding rectangle of a point set or non-zero pixels of gray-scale image.
 // CvRect cv::boundingRect (InputArray array)
 CvStatus* cv_boundingRect(VecPoint pts, CvRect* rval, CvCallback_0 callback);
+
+CvStatus* cv_boundingRect2f(VecPoint2f pts, CvRect* rval, CvCallback_0 callback);
 
 // Finds the four vertices of a rotated rect. Useful to draw the rotated rectangle.
 // void cv::boxPoints (RotatedRect box, OutputArray points)

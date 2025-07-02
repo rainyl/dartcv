@@ -19,6 +19,17 @@ CvStatus* cv_arcLength(VecPoint curve, bool is_closed, double* rval, CvCallback_
     END_WRAP
 }
 
+CvStatus* cv_arcLength2f(
+    VecPoint2f curve, bool is_closed, CVD_OUT double* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    *rval = cv::arcLength(CVDEREF(curve), is_closed);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_approxPolyDP(
     VecPoint curve, double epsilon, bool closed, VecPoint* rval, CvCallback_0 callback
 ) {
@@ -30,8 +41,40 @@ CvStatus* cv_approxPolyDP(
     END_WRAP
 }
 
+CvStatus* cv_approxPolyDP2f(
+    VecPoint2f curve, double epsilon, bool closed, CVD_OUT VecPoint2f* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::approxPolyDP(CVDEREF(curve), CVDEREF_P(rval), epsilon, closed);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_approxPolyN(
-    VecPoint curve, int nsides, float epsilon_percentage, bool ensure_convex, VecPoint* rval, CvCallback_0 callback
+    VecPoint curve,
+    int nsides,
+    float epsilon_percentage,
+    bool ensure_convex,
+    VecPoint* rval,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::approxPolyN(CVDEREF(curve), CVDEREF_P(rval), nsides, epsilon_percentage, ensure_convex);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_approxPolyN2f(
+    VecPoint2f curve,
+    int nsides,
+    float epsilon_percentage,
+    bool ensure_convex,
+    VecPoint2f* rval,
+    CvCallback_0 callback
 ) {
     BEGIN_WRAP
     cv::approxPolyN(CVDEREF(curve), CVDEREF_P(rval), nsides, epsilon_percentage, ensure_convex);
@@ -70,7 +113,9 @@ CvStatus* cv_calcHist(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::calcHist(CVDEREF(mats), CVDEREF(chans), CVDEREF(mask), CVDEREF(hist), CVDEREF(sz), CVDEREF(rng), acc);
+    cv::calcHist(
+        CVDEREF(mats), CVDEREF(chans), CVDEREF(mask), CVDEREF(hist), CVDEREF(sz), CVDEREF(rng), acc
+    );
     if (callback != nullptr) {
         callback();
     }
@@ -87,7 +132,9 @@ CvStatus* cv_calcBackProject(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::calcBackProject(CVDEREF(mats), CVDEREF(chans), CVDEREF(hist), CVDEREF(backProject), CVDEREF(rng), scale);
+    cv::calcBackProject(
+        CVDEREF(mats), CVDEREF(chans), CVDEREF(hist), CVDEREF(backProject), CVDEREF(rng), scale
+    );
     if (callback != nullptr) {
         callback();
     }
@@ -327,6 +374,16 @@ CvStatus* cv_boundingRect(VecPoint pts, CvRect* rval, CvCallback_0 callback) {
     END_WRAP
 }
 
+CvStatus* cv_boundingRect2f(VecPoint2f pts, CvRect* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::Rect r = cv::boundingRect(CVDEREF(pts));
+    *rval = {r.x, r.y, r.width, r.height};
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_boxPoints(RotatedRect rect, VecPoint2f* boxPts, CvCallback_0 callback) {
     BEGIN_WRAP
     /// bottom left, top left, top right, bottom right
@@ -389,7 +446,12 @@ CvStatus* cv_minEnclosingCircle(
 }
 
 CvStatus* cv_findContours(
-    Mat src, VecVecPoint* out_contours, VecVec4i* out_hierarchy, int mode, int method, CvCallback_0 callback
+    Mat src,
+    VecVecPoint* out_contours,
+    VecVec4i* out_hierarchy,
+    int mode,
+    int method,
+    CvCallback_0 callback
 ) {
     BEGIN_WRAP
     cv::findContours(CVDEREF(src), CVDEREF_P(out_contours), CVDEREF_P(out_hierarchy), mode, method);
@@ -1052,7 +1114,9 @@ CvStatus* cv_rectangle_1(
 
 CvStatus* cv_fillPoly(Mat img, VecVecPoint points, Scalar color, CvCallback_0 callback) {
     BEGIN_WRAP
-    cv::fillPoly(CVDEREF(img), CVDEREF(points), cv::Scalar(color.val1, color.val2, color.val3, color.val4));
+    cv::fillPoly(
+        CVDEREF(img), CVDEREF(points), cv::Scalar(color.val1, color.val2, color.val3, color.val4)
+    );
     if (callback != nullptr) {
         callback();
     }
