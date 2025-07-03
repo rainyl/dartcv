@@ -893,7 +893,7 @@ CvStatus* cv_minEnclosingCircle(
 );
 
 CvStatus* cv_minEnclosingCircle2f(
-    VecPoint pts, CvPoint2f* center, float* radius, CvCallback_0 callback
+    VecPoint2f pts, CvPoint2f* center, float* radius, CvCallback_0 callback
 );
 
 // Finds a triangle of minimum area enclosing a 2D point set and returns its area.
