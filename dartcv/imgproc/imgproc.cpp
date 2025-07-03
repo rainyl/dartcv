@@ -7,7 +7,6 @@
 */
 
 #include "dartcv/imgproc/imgproc.h"
-#include "dartcv/core/vec.hpp"
 #include <vector>
 
 CvStatus* cv_arcLength(VecPoint curve, bool is_closed, double* rval, CvCallback_0 callback) {
@@ -161,7 +160,27 @@ CvStatus* cv_convexHull(
     END_WRAP
 }
 
+CvStatus* cv_convexHull2f(
+    VecPoint2f points, CVD_OUT Mat hull, bool clockwise, bool returnPoints, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::convexHull(CVDEREF(points), CVDEREF(hull), clockwise, returnPoints);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_convexityDefects(VecPoint points, Mat hull, Mat result, CvCallback_0 callback) {
+    BEGIN_WRAP
+    cv::convexityDefects(CVDEREF(points), CVDEREF(hull), CVDEREF(result));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_convexityDefects2f(VecPoint2f points, Mat hull, Mat result, CvCallback_0 callback) {
     BEGIN_WRAP
     cv::convexityDefects(CVDEREF(points), CVDEREF(hull), CVDEREF(result));
     if (callback != nullptr) {
@@ -410,7 +429,26 @@ CvStatus* cv_contourArea(VecPoint pts, double* rval, CvCallback_0 callback) {
     END_WRAP
 }
 
+CvStatus* cv_contourArea2f(VecPoint2f pts, double* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    *rval = cv::contourArea(CVDEREF(pts));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_minAreaRect(VecPoint pts, RotatedRect* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    auto r = cv::minAreaRect(CVDEREF(pts));
+    *rval = {{r.center.x, r.center.y}, {r.size.width, r.size.height}, r.angle};
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_minAreaRect2f(VecPoint2f pts, RotatedRect* rval, CvCallback_0 callback) {
     BEGIN_WRAP
     auto r = cv::minAreaRect(CVDEREF(pts));
     *rval = {{r.center.x, r.center.y}, {r.size.width, r.size.height}, r.angle};
@@ -430,7 +468,32 @@ CvStatus* cv_fitEllipse(VecPoint pts, RotatedRect* rval, CvCallback_0 callback) 
     END_WRAP
 }
 
+CvStatus* cv_fitEllipse2f(VecPoint2f pts, RotatedRect* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    auto r = cv::fitEllipse(CVDEREF(pts));
+    *rval = {{r.center.x, r.center.y}, {r.size.width, r.size.height}, r.angle};
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_minEnclosingCircle(
+    VecPoint pts, CvPoint2f* center, float* radius, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::Point2f c;
+    float r;
+    cv::minEnclosingCircle(CVDEREF(pts), c, r);
+    *center = {c.x, c.y};
+    *radius = r;
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_minEnclosingCircle2f(
     VecPoint pts, CvPoint2f* center, float* radius, CvCallback_0 callback
 ) {
     BEGIN_WRAP
@@ -461,8 +524,36 @@ CvStatus* cv_findContours(
     END_WRAP
 }
 
+CvStatus* cv_findContours2f(
+    Mat src,
+    VecVecPoint2f* out_contours,
+    VecVec4i* out_hierarchy,
+    int mode,
+    int method,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::findContours(CVDEREF(src), CVDEREF_P(out_contours), CVDEREF_P(out_hierarchy), mode, method);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_pointPolygonTest(
     VecPoint pts, CvPoint2f pt, bool measureDist, double* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    double d = cv::pointPolygonTest(CVDEREF(pts), cv::Point2f(pt.x, pt.y), measureDist);
+    *rval = d;
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_pointPolygonTest2f(
+    VecPoint2f pts, CvPoint2f pt, bool measureDist, double* rval, CvCallback_0 callback
 ) {
     BEGIN_WRAP
     double d = cv::pointPolygonTest(CVDEREF(pts), cv::Point2f(pt.x, pt.y), measureDist);
@@ -1626,6 +1717,23 @@ CvStatus* cv_fitLine(
     END_WRAP
 }
 
+CvStatus* cv_fitLine2f(
+    VecPoint2f pts,
+    Mat line,
+    int distType,
+    double param,
+    double reps,
+    double aeps,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    cv::fitLine(CVDEREF(pts), CVDEREF(line), distType, param, reps, aeps);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 CvStatus* cv_linearPolar(
     Mat src, Mat dst, CvPoint2f center, double maxRadius, int flags, CvCallback_0 callback
 ) {
@@ -1649,6 +1757,10 @@ CvStatus* cv_intersectConvexConvex(
 }
 
 bool cv_isContourConvex(VecPoint contour) {
+    return cv::isContourConvex(CVDEREF(contour));
+}
+
+bool cv_isContourConvex2f(VecPoint2f contour) {
     return cv::isContourConvex(CVDEREF(contour));
 }
 
@@ -1693,6 +1805,7 @@ CvStatus* cv_CLAHE_create_1(double clipLimit, CvSize tileGridSize, CLAHE* rval) 
     )};
     END_WRAP
 }
+
 void cv_CLAHE_close(CLAHEPtr self) {
     self->ptr->reset();
     CVD_FREE(self);
@@ -1717,13 +1830,16 @@ CvStatus* cv_CLAHE_collectGarbage(CLAHE self, CvCallback_0 callback) {
 double cv_CLAHE_getClipLimit(CLAHE self) {
     return (CVDEREF(self))->getClipLimit();
 }
+
 void cv_CLAHE_setClipLimit(CLAHE self, double clipLimit) {
     (CVDEREF(self))->setClipLimit(clipLimit);
 }
+
 CvSize* cv_CLAHE_getTilesGridSize(CLAHE self) {
     cv::Size sz = (CVDEREF(self))->getTilesGridSize();
     return new CvSize{sz.width, sz.height};
 }
+
 void cv_CLAHE_setTilesGridSize(CLAHE self, CvSize size) {
     (CVDEREF(self))->setTilesGridSize(cv::Size(size.width, size.height));
 }
@@ -1739,6 +1855,7 @@ CvStatus* cv_Subdiv2D_create_1(CvRect rect, Subdiv2D* rval) {
     *rval = {new cv::Subdiv2D(cv::Rect(rect.x, rect.y, rect.width, rect.height))};
     END_WRAP
 }
+
 void cv_Subdiv2D_close(Subdiv2DPtr self) {
     CVD_FREE(self);
 }
