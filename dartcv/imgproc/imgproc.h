@@ -445,7 +445,7 @@ CvStatus* cv_drawContours_1(
     Scalar color,
     int thickness,
     int lineType,
-    Mat hierarchy,
+    VecVec4i hierarchy,
     int maxLevel,
     CvPoint offset,
     CvCallback_0 callback

@@ -533,7 +533,15 @@ CvStatus* cv_findContours2f(
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::findContours(CVDEREF(src), CVDEREF_P(out_contours), CVDEREF_P(out_hierarchy), mode, method);
+    std::vector<std::vector<cv::Point>> _out_contours;
+    cv::findContours(CVDEREF(src), _out_contours, CVDEREF_P(out_hierarchy), mode, method);
+    for (auto& c : _out_contours) {
+        std::vector<cv::Point2f> _row;
+        for (auto& p : c) {
+            _row.emplace_back(cv::Point2f(p.x, p.y));
+        }
+        (CVDEREF_P(out_contours)).emplace_back(_row);
+    }
     if (callback != nullptr) {
         callback();
     }
@@ -1555,7 +1563,7 @@ CvStatus* cv_drawContours_1(
     Scalar color,
     int thickness,
     int lineType,
-    Mat hierarchy,
+    VecVec4i hierarchy,
     int maxLevel,
     CvPoint offset,
     CvCallback_0 callback
