@@ -716,18 +716,30 @@ CvStatus* cv_approxPolyDP2f(
 // Approximates a polygon with a convex hull with a specified accuracy and number of sides.
 // void cv::approxPolyN (InputArray curve, OutputArray approxCurve, int nsides, float epsilon_percentage=-1.0, bool ensure_convex=true)
 CvStatus* cv_approxPolyN(
-    VecPoint curve, int nsides, float epsilon_percentage, bool ensure_convex, VecPoint* rval, CvCallback_0 callback
+    VecPoint curve,
+    int nsides,
+    float epsilon_percentage,
+    bool ensure_convex,
+    VecPoint* rval,
+    CvCallback_0 callback
 );
 
 CvStatus* cv_approxPolyN2f(
-    VecPoint2f curve, int nsides, float epsilon_percentage, bool ensure_convex, VecPoint2f* rval, CvCallback_0 callback
+    VecPoint2f curve,
+    int nsides,
+    float epsilon_percentage,
+    bool ensure_convex,
+    VecPoint2f* rval,
+    CvCallback_0 callback
 );
 
 // Calculates a contour perimeter or a curve length.
 // double cv::arcLength (InputArray curve, bool closed)
 CvStatus* cv_arcLength(VecPoint curve, bool is_closed, CVD_OUT double* rval, CvCallback_0 callback);
 
-CvStatus* cv_arcLength2f(VecPoint2f curve, bool is_closed, CVD_OUT double* rval, CvCallback_0 callback);
+CvStatus* cv_arcLength2f(
+    VecPoint2f curve, bool is_closed, CVD_OUT double* rval, CvCallback_0 callback
+);
 
 // Calculates the up-right bounding rectangle of a point set or non-zero pixels of gray-scale image.
 // CvRect cv::boundingRect (InputArray array)
@@ -764,16 +776,21 @@ CvStatus* cv_connectedComponents_1(
 // Calculates a contour area.
 // double cv::contourArea (InputArray contour, bool oriented=false)
 CvStatus* cv_contourArea(VecPoint pts, double* rval, CvCallback_0 callback);
+CvStatus* cv_contourArea2f(VecPoint2f pts, double* rval, CvCallback_0 callback);
 
 // Finds the convex hull of a point set.
 // void cv::convexHull (InputArray points, OutputArray hull, bool clockwise=false, bool returnPoints=true)
 CvStatus* cv_convexHull(
     VecPoint points, CVD_OUT Mat hull, bool clockwise, bool returnPoints, CvCallback_0 callback
 );
+CvStatus* cv_convexHull2f(
+    VecPoint2f points, CVD_OUT Mat hull, bool clockwise, bool returnPoints, CvCallback_0 callback
+);
 
 // Finds the convexity defects of a contour.
 // void cv::convexityDefects (InputArray contour, InputArray convexhull, OutputArray convexityDefects)
 CvStatus* cv_convexityDefects(VecPoint points, Mat hull, Mat result, CvCallback_0 callback);
+CvStatus* cv_convexityDefects2f(VecPoint2f points, Mat hull, Mat result, CvCallback_0 callback);
 
 // Creates a smart pointer to a cv::GeneralizedHoughBallard class and initializes it.
 // Ptr< GeneralizedHoughBallard > cv::createGeneralizedHoughBallard ()
@@ -785,7 +802,20 @@ CvStatus* cv_convexityDefects(VecPoint points, Mat hull, Mat result, CvCallback_
 // void cv::findContours (InputArray image, OutputArrayOfArrays contours, int mode, int method, CvPoint offset=CvPoint())
 // void cv::findContours (InputArray image, OutputArrayOfArrays contours, OutputArray hierarchy, int mode, int method, CvPoint offset=CvPoint())
 CvStatus* cv_findContours(
-    Mat src, VecVecPoint* out_contours, VecVec4i* out_hierarchy, int mode, int method, CvCallback_0 callback
+    Mat src,
+    VecVecPoint* out_contours,
+    VecVec4i* out_hierarchy,
+    int mode,
+    int method,
+    CvCallback_0 callback
+);
+CvStatus* cv_findContours2f(
+    Mat src,
+    VecVecPoint2f* out_contours,
+    VecVec4i* out_hierarchy,
+    int mode,
+    int method,
+    CvCallback_0 callback
 );
 
 // Find contours using link runs algorithm.
@@ -795,6 +825,7 @@ CvStatus* cv_findContours(
 // Fits an ellipse around a set of 2D points.
 // RotatedRect cv::fitEllipse (InputArray points)
 CvStatus* cv_fitEllipse(VecPoint pts, RotatedRect* rval, CvCallback_0 callback);
+CvStatus* cv_fitEllipse2f(VecPoint2f pts, RotatedRect* rval, CvCallback_0 callback);
 
 // Fits an ellipse around a set of 2D points.
 // RotatedRect cv::fitEllipseAMS (InputArray points)
@@ -814,17 +845,30 @@ CvStatus* cv_fitLine(
     CvCallback_0 callback
 );
 
+CvStatus* cv_fitLine2f(
+    VecPoint2f pts,
+    Mat line,
+    int distType,
+    double param,
+    double reps,
+    double aeps,
+    CvCallback_0 callback
+);
+
 // Calculates seven Hu invariants.
 // void cv::HuMoments (const cv_moments &m, OutputArray hu)
 // void cv::HuMoments (const cv_moments &moments, double hu[7])
 
 // Finds intersection of two convex polygons.
 // float cv::intersectConvexConvex (InputArray p1, InputArray p2, OutputArray p12, bool handleNested=true)
-CvStatus* cv_intersectConvexConvex(VecPoint p1, VecPoint p2, VecPoint* p12, bool handleNested, float *rval, CvCallback_0 callback);
+CvStatus* cv_intersectConvexConvex(
+    VecPoint p1, VecPoint p2, VecPoint* p12, bool handleNested, float* rval, CvCallback_0 callback
+);
 
 // Tests a contour convexity.
 // bool cv::isContourConvex (InputArray contour)
 bool cv_isContourConvex(VecPoint contour);
+bool cv_isContourConvex2f(VecPoint2f contour);
 
 // Compares two shapes.
 // double cv::matchShapes (InputArray contour1, InputArray contour2, int method, double parameter)
@@ -840,10 +884,15 @@ CvStatus* cv_matchShapes(
 // Finds a rotated rectangle of the minimum area enclosing the input 2D point set.
 // RotatedRect cv::minAreaRect (InputArray points)
 CvStatus* cv_minAreaRect(VecPoint pts, RotatedRect* rval, CvCallback_0 callback);
+CvStatus* cv_minAreaRect2f(VecPoint2f pts, RotatedRect* rval, CvCallback_0 callback);
 
 // Finds a circle of the minimum area enclosing a 2D point set.
 // void cv::minEnclosingCircle (InputArray points, CvPoint2f &center, float &radius)
 CvStatus* cv_minEnclosingCircle(
+    VecPoint pts, CvPoint2f* center, float* radius, CvCallback_0 callback
+);
+
+CvStatus* cv_minEnclosingCircle2f(
     VecPoint pts, CvPoint2f* center, float* radius, CvCallback_0 callback
 );
 
@@ -859,7 +908,9 @@ CvStatus* cv_moments(Mat src, bool binaryImage, Moment* rval, CvCallback_0 callb
 CvStatus* cv_pointPolygonTest(
     VecPoint pts, CvPoint2f pt, bool measureDist, double* rval, CvCallback_0 callback
 );
-
+CvStatus* cv_pointPolygonTest2f(
+    VecPoint2f pts, CvPoint2f pt, bool measureDist, double* rval, CvCallback_0 callback
+);
 // Finds out if there is any intersection between two rotated rectangles.
 // int cv::rotatedRectangleIntersection (const RotatedRect &rect1, const RotatedRect &rect2, OutputArray intersectingRegion)
 
