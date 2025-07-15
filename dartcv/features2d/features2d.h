@@ -28,6 +28,7 @@ CVD_TYPEDEF(cv::Ptr<cv::SimpleBlobDetector>, SimpleBlobDetector);
 CVD_TYPEDEF(cv::Ptr<cv::BFMatcher>, BFMatcher);
 CVD_TYPEDEF(cv::Ptr<cv::FlannBasedMatcher>, FlannBasedMatcher);
 CVD_TYPEDEF(cv::Ptr<cv::SIFT>, SIFT);
+CVD_TYPEDEF(cv::Ptr<cv::flann::IndexParams>, FlannIndexParams)
 #else
 CVD_TYPEDEF(void, AKAZE);
 CVD_TYPEDEF(void, AgastFeatureDetector);
@@ -41,6 +42,7 @@ CVD_TYPEDEF(void, SimpleBlobDetector);
 CVD_TYPEDEF(void, BFMatcher);
 CVD_TYPEDEF(void, FlannBasedMatcher);
 CVD_TYPEDEF(void, SIFT);
+CVD_TYPEDEF(void, FlannIndexParams);
 #endif
 
 // Wrapper for SimpleBlobDetectorParams aka SimpleBlobDetector::Params
@@ -65,6 +67,20 @@ typedef struct SimpleBlobDetectorParams {
     float minThreshold;
     float thresholdStep;
 } SimpleBlobDetectorParams;
+
+enum FlannIndexType {
+    FLANN_INDEX_TYPE_8U = CV_8U,
+    FLANN_INDEX_TYPE_8S = CV_8S,
+    FLANN_INDEX_TYPE_16U = CV_16U,
+    FLANN_INDEX_TYPE_16S = CV_16S,
+    FLANN_INDEX_TYPE_32S = CV_32S,
+    FLANN_INDEX_TYPE_32F = CV_32F,
+    FLANN_INDEX_TYPE_64F = CV_64F,
+    FLANN_INDEX_TYPE_STRING,
+    FLANN_INDEX_TYPE_BOOL,
+    FLANN_INDEX_TYPE_ALGORITHM,
+    LAST_VALUE_FLANN_INDEX_TYPE = FLANN_INDEX_TYPE_ALGORITHM
+};
 
 CvStatus* cv_AKAZE_create(AKAZE* rval);
 void cv_AKAZE_close(AKAZEPtr self);
@@ -128,7 +144,13 @@ CvStatus* cv_ORB_create_1(
 void cv_ORB_close(ORBPtr self);
 CvStatus* cv_ORB_detect(ORB self, Mat src, VecKeyPoint* rval, CvCallback_0 callback);
 CvStatus* cv_ORB_detectAndCompute(
-    ORB self, Mat src, Mat mask, VecKeyPoint* out_keypoints, Mat desc, bool useProvidedKeypoints, CvCallback_0 callback
+    ORB self,
+    Mat src,
+    Mat mask,
+    VecKeyPoint* out_keypoints,
+    Mat desc,
+    bool useProvidedKeypoints,
+    CvCallback_0 callback
 );
 
 CvStatus* cv_SimpleBlobDetector_create(SimpleBlobDetector* rval);
@@ -148,6 +170,26 @@ CvStatus* cv_BFMatcher_match(
 CvStatus* cv_BFMatcher_knnMatch(
     BFMatcher self, Mat query, Mat train, int k, VecVecDMatch* rval, CvCallback_0 callback
 );
+
+CvStatus* cv_flann_IndexParams_create(FlannIndexParams* rval);
+void cv_flann_IndexParams_close(FlannIndexParamsPtr self);
+void cv_flann_IndexParams_setString(FlannIndexParams self, const char* key, const char* value);
+void cv_flann_IndexParams_setInt(FlannIndexParams self, const char* key, int value);
+void cv_flann_IndexParams_setDouble(FlannIndexParams self, const char* key, double value);
+void cv_flann_IndexParams_setFloat(FlannIndexParams self, const char* key, float value);
+void cv_flann_IndexParams_setBool(FlannIndexParams self, const char* key, bool value);
+void cv_flann_IndexParams_setAlgorithm(FlannIndexParams self, int value);
+void cv_flann_IndexParams_getString(FlannIndexParams self, const char* key, char** rval);
+void cv_flann_IndexParams_getInt(FlannIndexParams self, const char* key, int* rval);
+void cv_flann_IndexParams_getDouble(FlannIndexParams self, const char* key, double* rval);
+void cv_flann_IndexParams_getAll(
+    FlannIndexParams self,
+    VecVecChar* names,
+    VecI32* types,
+    VecVecChar* strValues,
+    VecF64* numValues
+);
+void* cv_flann_IndexParams_params_ptr(FlannIndexParams self);
 
 CvStatus* cv_FlannBasedMatcher_create(FlannBasedMatcher* rval);
 void cv_FlannBasedMatcher_close(FlannBasedMatcherPtr self);
