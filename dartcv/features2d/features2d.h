@@ -179,9 +179,15 @@ void cv_flann_IndexParams_setDouble(FlannIndexParams self, const char* key, doub
 void cv_flann_IndexParams_setFloat(FlannIndexParams self, const char* key, float value);
 void cv_flann_IndexParams_setBool(FlannIndexParams self, const char* key, bool value);
 void cv_flann_IndexParams_setAlgorithm(FlannIndexParams self, int value);
-void cv_flann_IndexParams_getString(FlannIndexParams self, const char* key, char** rval);
-void cv_flann_IndexParams_getInt(FlannIndexParams self, const char* key, int* rval);
-void cv_flann_IndexParams_getDouble(FlannIndexParams self, const char* key, double* rval);
+void cv_flann_IndexParams_getString(
+    FlannIndexParams self, const char* key, const char* defaultValue, char** rval
+);
+void cv_flann_IndexParams_getInt(
+    FlannIndexParams self, const char* key, int defaultValue, int* rval
+);
+void cv_flann_IndexParams_getDouble(
+    FlannIndexParams self, const char* key, double defaultValue, double* rval
+);
 void cv_flann_IndexParams_getAll(
     FlannIndexParams self,
     VecVecChar* names,
