@@ -188,9 +188,9 @@ void cv_flann_IndexParams_getInt(
 void cv_flann_IndexParams_getDouble(
     FlannIndexParams self, const char* key, double defaultValue, double* rval
 );
-void cv_flann_IndexParams_getBool(
-    FlannIndexParams self, const char* key, bool defaultValue, bool* rval
-);
+// void cv_flann_IndexParams_getBool(
+//     FlannIndexParams self, const char* key, bool defaultValue, bool* rval
+// );
 void cv_flann_IndexParams_getAll(
     FlannIndexParams self,
     VecVecChar* names,

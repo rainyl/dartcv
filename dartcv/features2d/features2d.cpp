@@ -394,12 +394,12 @@ void cv_flann_IndexParams_getDouble(
     *rval = (CVDEREF(self))->getDouble(key, defaultValue);
 }
 
-void cv_flann_IndexParams_getBool(
-    FlannIndexParams self, const char* key, bool defaultValue, bool* rval
-) {
-    auto val = (CVDEREF(self))->getInt(key, defaultValue);
-    *rval = (val != 0);
-}
+// void cv_flann_IndexParams_getBool(
+//     FlannIndexParams self, const char* key, bool defaultValue, bool* rval
+// ){
+//     auto val = (CVDEREF(self))->getInt(key, defaultValue);
+//     *rval = (val != 0);
+// }
 
 void cv_flann_IndexParams_getAll(
     FlannIndexParams self,
