@@ -7,6 +7,8 @@
 */
 
 #include "dartcv/features2d/features2d.h"
+#include <opencv2/core/cvstd_wrapper.hpp>
+#include <opencv2/features2d.hpp>
 #include "dartcv/core/vec.hpp"
 #include "dartcv/features2d/utils.hpp"
 
@@ -392,6 +394,13 @@ void cv_flann_IndexParams_getDouble(
     *rval = (CVDEREF(self))->getDouble(key, defaultValue);
 }
 
+void cv_flann_IndexParams_getBool(
+    FlannIndexParams self, const char* key, bool defaultValue, bool* rval
+) {
+    auto val = (CVDEREF(self))->getInt(key, defaultValue);
+    *rval = (val != 0);
+}
+
 void cv_flann_IndexParams_getAll(
     FlannIndexParams self,
     VecVecChar* names,
@@ -421,6 +430,24 @@ void* cv_flann_IndexParams_params_ptr(FlannIndexParams self) {
 CvStatus* cv_FlannBasedMatcher_create(FlannBasedMatcher* rval) {
     BEGIN_WRAP
     rval->ptr = new cv::Ptr<cv::FlannBasedMatcher>(cv::FlannBasedMatcher::create());
+    END_WRAP
+}
+
+CvStatus* cv_FlannBasedMatcher_create_1(
+    FlannBasedMatcher* rval, FlannIndexParams indexParams, FlannIndexParams searchParams
+) {
+    BEGIN_WRAP
+    int checks = (CVDEREF(searchParams))->getInt("checks", 32);
+    float eps = (CVDEREF(searchParams))->getDouble("eps", 0.0);
+    bool sorted = (CVDEREF(searchParams))->getInt("sorted", true);
+    bool explore_all_trees = (CVDEREF(searchParams))->getInt("explore_all_trees", false);
+
+    auto _searchParams =
+        cv::makePtr<cv::flann::SearchParams>(checks, eps, sorted, explore_all_trees);
+
+    rval->ptr = new cv::Ptr<cv::FlannBasedMatcher>(
+        cv::makePtr<cv::FlannBasedMatcher>(CVDEREF(indexParams), _searchParams)
+    );
     END_WRAP
 }
 

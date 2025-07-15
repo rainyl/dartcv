@@ -188,6 +188,9 @@ void cv_flann_IndexParams_getInt(
 void cv_flann_IndexParams_getDouble(
     FlannIndexParams self, const char* key, double defaultValue, double* rval
 );
+void cv_flann_IndexParams_getBool(
+    FlannIndexParams self, const char* key, bool defaultValue, bool* rval
+);
 void cv_flann_IndexParams_getAll(
     FlannIndexParams self,
     VecVecChar* names,
@@ -198,6 +201,9 @@ void cv_flann_IndexParams_getAll(
 void* cv_flann_IndexParams_params_ptr(FlannIndexParams self);
 
 CvStatus* cv_FlannBasedMatcher_create(FlannBasedMatcher* rval);
+CvStatus* cv_FlannBasedMatcher_create_1(
+    FlannBasedMatcher* rval, FlannIndexParams indexParams, FlannIndexParams searchParams
+);
 void cv_FlannBasedMatcher_close(FlannBasedMatcherPtr self);
 CvStatus* cv_FlannBasedMatcher_knnMatch(
     FlannBasedMatcher self, Mat query, Mat train, int k, VecVecDMatch* rval, CvCallback_0 callback
