@@ -10,8 +10,6 @@
 #include "dartcv/core/vec.hpp"
 #include "dartcv/features2d/utils.hpp"
 
-#include <iostream>
-
 CvStatus* cv_AKAZE_create(AKAZE* rval) {
     BEGIN_WRAP
     rval->ptr = new cv::Ptr<cv::AKAZE>(cv::AKAZE::create());
@@ -318,6 +316,80 @@ CvStatus* cv_BFMatcher_knnMatch(
         callback();
     }
     END_WRAP
+}
+
+CvStatus* cv_flann_IndexParams_create(FlannIndexParams* rval){
+    BEGIN_WRAP
+    rval->ptr = new cv::Ptr<cv::flann::IndexParams>(new cv::flann::IndexParams());
+    END_WRAP
+}
+
+void cv_flann_IndexParams_close(FlannIndexParamsPtr self){
+    self->ptr->reset();
+    CVD_FREE(self);
+}
+
+void cv_flann_IndexParams_setString(FlannIndexParams self, const char* key, const char* value){
+    (CVDEREF(self))->setString(key, value);
+}
+
+void cv_flann_IndexParams_setInt(FlannIndexParams self, const char* key, int value){
+    (CVDEREF(self))->setInt(key, value);
+}
+
+void cv_flann_IndexParams_setDouble(FlannIndexParams self, const char* key, double value){
+    (CVDEREF(self))->setDouble(key, value);
+}
+
+void cv_flann_IndexParams_setFloat(FlannIndexParams self, const char* key, float value){
+    (CVDEREF(self))->setFloat(key, value);
+}
+
+void cv_flann_IndexParams_setBool(FlannIndexParams self, const char* key, bool value){
+    (CVDEREF(self))->setBool(key, value);
+}
+
+void cv_flann_IndexParams_setAlgorithm(FlannIndexParams self, int value){
+    (CVDEREF(self))->setAlgorithm(value);
+}
+
+void cv_flann_IndexParams_getString(FlannIndexParams self, const char* key, char** rval){
+    std::string rval_cpp = (CVDEREF(self))->getString(key);
+    *rval = strdup(rval_cpp.c_str());
+}
+
+void cv_flann_IndexParams_getInt(FlannIndexParams self, const char* key, int* rval){
+    *rval = (CVDEREF(self))->getInt(key);
+}
+
+void cv_flann_IndexParams_getDouble(FlannIndexParams self, const char* key, double* rval){
+    *rval = (CVDEREF(self))->getDouble(key);
+}
+
+void cv_flann_IndexParams_getAll(
+    FlannIndexParams self,
+    VecVecChar* names,
+    VecI32* types,
+    VecVecChar* strValues,
+    VecF64* numValues
+){
+    std::vector<cv::String> names_cpp;
+    std::vector<cv::flann::FlannIndexType> types_cpp;
+    std::vector<cv::String> strValues_cpp;
+    (CVDEREF(self))->getAll(names_cpp, types_cpp, strValues_cpp, CVDEREF_P(numValues));
+
+    names->ptr = vecstr_2_vecvecchar(names_cpp);
+    strValues->ptr = vecstr_2_vecvecchar(strValues_cpp);
+
+    types->ptr->clear();
+    types->ptr->reserve(types_cpp.size());
+    for (const auto& type : types_cpp) {
+        types->ptr->push_back(static_cast<int>(type));
+    }
+}
+
+void* cv_flann_IndexParams_params_ptr(FlannIndexParams self){
+    return (CVDEREF(self))->params;
 }
 
 CvStatus* cv_FlannBasedMatcher_create(FlannBasedMatcher* rval) {
