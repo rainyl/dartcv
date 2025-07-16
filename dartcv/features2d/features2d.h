@@ -82,6 +82,35 @@ enum FlannIndexType {
     LAST_VALUE_FLANN_INDEX_TYPE = FLANN_INDEX_TYPE_ALGORITHM
 };
 
+enum FlannAlgorithm {
+    FLANN_INDEX_LINEAR = 0,
+    FLANN_INDEX_KDTREE = 1,
+    FLANN_INDEX_KMEANS = 2,
+    FLANN_INDEX_COMPOSITE = 3,
+    FLANN_INDEX_KDTREE_SINGLE = 4,
+    FLANN_INDEX_HIERARCHICAL = 5,
+    FLANN_INDEX_LSH = 6,
+    FLANN_INDEX_SAVED = 254,
+    FLANN_INDEX_AUTOTUNED = 255
+};
+
+enum FlannDistance {
+    FLANN_DIST_EUCLIDEAN = 1,
+    FLANN_DIST_L2 = 1,
+    FLANN_DIST_MANHATTAN = 2,
+    FLANN_DIST_L1 = 2,
+    FLANN_DIST_MINKOWSKI = 3,
+    FLANN_DIST_MAX   = 4,
+    FLANN_DIST_HIST_INTERSECT   = 5,
+    FLANN_DIST_HELLINGER = 6,
+    FLANN_DIST_CHI_SQUARE = 7,
+    FLANN_DIST_CS         = 7,
+    FLANN_DIST_KULLBACK_LEIBLER  = 8,
+    FLANN_DIST_KL                = 8,
+    FLANN_DIST_HAMMING          = 9,
+    FLANN_DIST_DNAMMING          = 10
+};
+
 CvStatus* cv_AKAZE_create(AKAZE* rval);
 void cv_AKAZE_close(AKAZEPtr self);
 CvStatus* cv_AKAZE_detect(AKAZE self, Mat src, VecKeyPoint* rval, CvCallback_0 callback);
