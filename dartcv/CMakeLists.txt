@@ -30,7 +30,7 @@ endif ()
 # prepare files
 # ##############################################################################
 
-# core includes core, imgcodecs
+# core
 set(_cpp_files
         "core/core.cpp"
         "core/mat.cpp"
@@ -39,10 +39,9 @@ set(_cpp_files
         "core/svd.cpp"
         "core/utils.cpp"
         "core/version.cpp"
-        "imgcodecs/imgcodecs.cpp"
         "core/stdvec.cpp"
 )
-set(DARTCV_DEPS opencv_core opencv_imgcodecs)
+set(DARTCV_DEPS opencv_core)
 
 # calib3d
 if (DARTCV_WITH_CALIB3D OR DARTCV_WORLD)
@@ -87,6 +86,12 @@ endif ()
 if (DARTCV_WITH_HIGHGUI OR DARTCV_WORLD)
     set(_cpp_files ${_cpp_files} "highgui/highgui.cpp")
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_highgui ${FFMPEG_LIBRARIES})
+endif ()
+
+# imgcodecs
+if (DARTCV_WITH_IMGCODECS OR DARTCV_WORLD)
+    set(_cpp_files ${_cpp_files} "imgcodecs/imgcodecs.cpp")
+    set(DARTCV_DEPS ${DARTCV_DEPS} opencv_imgcodecs)
 endif ()
 
 # imgproc
