@@ -59,7 +59,8 @@ endif ()
 # ============ download and prepare OpenCV_DIR finished ==============
 find_package(OpenCV REQUIRED)
 
-if (DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD)
+# ffmpeg is not supported on iOS yet.
+if (NOT IOS AND (DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD))
   find_package(FFMPEG REQUIRED)
 endif ()
 
