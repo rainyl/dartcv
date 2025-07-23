@@ -5,6 +5,8 @@ elseif (APPLE AND IOS)
     set(PLATFORM_LIBS ${PLATFORM_LIBS}
             "-framework UIKit"
             "-framework AVFoundation"
+            "-framework CoreFoundation"
+            "-framework Foundation"
             "-framework CoreVideo"
             "-framework CoreGraphics"
             "-framework CoreMedia"
@@ -167,21 +169,6 @@ set_target_properties(${LIBRARY_NAME} PROPERTIES
         CXX_VISIBILITY_PRESET default
         C_VISIBILITY_PRESET default
 )
-
-if(UNIX AND NOT APPLE)
-    set_target_properties(${LIBRARY_NAME} PROPERTIES
-        BUILD_WITH_INSTALL_RPATH FALSE
-        BUILD_RPATH "\$ORIGIN"
-        INSTALL_RPATH "\$ORIGIN"
-    )
-elseif(APPLE)
-    set_target_properties(${LIBRARY_NAME} PROPERTIES
-        BUILD_WITH_INSTALL_RPATH FALSE
-        BUILD_RPATH "@loader_path"
-        INSTALL_RPATH "@loader_path"
-    )
-endif()
-
 target_link_libraries(${LIBRARY_NAME} PUBLIC ${DARTCV_DEPS} ${PLATFORM_LIBS})
 if(ANDROID)
     target_link_options(${LIBRARY_NAME} PRIVATE "-Wl,-z,max-page-size=16384")
