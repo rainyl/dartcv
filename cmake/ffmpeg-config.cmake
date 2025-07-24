@@ -224,10 +224,6 @@ macro(ffmpeg_find_component component)
       ffmpeg_find_dll()
     endif ()
 
-    if (FFMPEG_${component}_LIBRARY AND FFMPEG_${component}_INCLUDE_DIR)
-      ffmpeg_append_lib_path(${FFMPEG_${component}_LIBRARY})
-    endif ()
-
   elseif (CMAKE_SYSTEM_NAME MATCHES "Linux|Darwin")
     # desktop platforms support bundled and system-wide ffmpeg
     find_library(
@@ -266,6 +262,8 @@ macro(ffmpeg_find_component component)
     set(FFMPEG_${component}_INCLUDE_DIRS ${FFMPEG_${component}_INCLUDE_DIR})
     set(FFMPEG_${component}_DEFINITIONS ${PC_FFMPEG_${component}_CFLAGS_OTHER})
     mark_as_advanced(FFMPEG_${component}_LIBRARY FFMPEG_${component}_INCLUDE_DIR FFMPEG_${component}_IMPLIB)
+
+    ffmpeg_append_lib_path(${FFMPEG_${component}_LIBRARY})
   endif ()
 
   message(DEBUG "[FindFFMPEG]:  ${component_name}:")
