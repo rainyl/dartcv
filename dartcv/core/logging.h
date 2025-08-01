@@ -9,11 +9,16 @@ extern "C" {
 
 #include "dartcv/core/core.h"
 
-CvStatus *setLogLevel(int logLevel);
-CvStatus *getLogLevel(int *logLevel);
+typedef void (*LogCallbackEx)(
+    int logLevel, const char* tag, const char* file, int line, const char* func, const char* message
+);
+
+CvStatus* setLogLevel(int logLevel);
+CvStatus* getLogLevel(int* logLevel);
+CvStatus* replaceWriteLogMessageEx(LogCallbackEx);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif //_OPENCV3_LOGGING_H_
+#endif  //_OPENCV3_LOGGING_H_
