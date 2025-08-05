@@ -14,13 +14,43 @@ CvStatus* getLogLevel(int* logLevel) {
     END_WRAP
 }
 
-CvStatus* replaceWriteLogMessageEx(LogCallbackEx callback) {
-    BEGIN_WRAP
-    cv::utils::logging::internal::replaceWriteLogMessageEx(
-        reinterpret_cast<
-            void (*)(cv::utils::logging::LogLevel, const char*, const char*, int, const char*, const char*)>(
-            callback
-        )
+void setLogCallback(LogCallback callback) {
+    logCallback = callback;
+}
+LogCallback getLogCallback() {
+    return logCallback;
+}
+
+void LogCallbackExProxy(
+    cv::utils::logging::LogLevel logLevel,
+    const char* tag,
+    const char* file,
+    int line,
+    const char* func,
+    const char* message
+) {
+    logCallback(
+        static_cast<int>(logLevel),
+        strdup(tag),
+        strlen(tag),
+        strdup(file),
+        strlen(file),
+        line,
+        strdup(func),
+        strlen(func),
+        strdup(message),
+        strlen(message)
     );
+}
+
+CvStatus* replaceWriteLogMessageEx(LogCallback callback) {
+    BEGIN_WRAP
+    if (callback != nullptr) {
+        logCallback = callback;
+        cv::utils::logging::internal::replaceWriteLogMessageEx(LogCallbackExProxy);
+    } else {
+        logCallback = nullptr;
+        cv::utils::logging::internal::replaceWriteLogMessageEx(nullptr);
+    }
     END_WRAP
 }

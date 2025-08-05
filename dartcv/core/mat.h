@@ -197,6 +197,7 @@ CvStatus* cv_Mat_mean(Mat self, Scalar* rval, CvCallback_0 callback);
 CvStatus* cv_Mat_mean_1(Mat self, Mat mask, Scalar* rval, CvCallback_0 callback);
 CvStatus* cv_Mat_sqrt(Mat self, Mat rval, CvCallback_0 callback);
 CvStatus* cv_Mat_t(Mat self, Mat* rval, CvCallback_0 callback);
+CvStatus* cv_Mat_reinterpret(Mat self, int type, Mat* rval, CvCallback_0 callback);
 
 uchar* cv_Mat_ptr_uchar_1(Mat self, int i);
 uchar* cv_Mat_ptr_uchar_2(Mat self, int i, int j);

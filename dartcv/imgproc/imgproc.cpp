@@ -538,7 +538,7 @@ CvStatus* cv_findContours2f(
     for (auto& c : _out_contours) {
         std::vector<cv::Point2f> _row;
         for (auto& p : c) {
-            _row.emplace_back(cv::Point2f(p.x, p.y));
+            _row.emplace_back(p.x, p.y);
         }
         (CVDEREF_P(out_contours)).emplace_back(_row);
     }
@@ -992,6 +992,24 @@ CvStatus* cv_threshold(
 ) {
     BEGIN_WRAP
     *rval = cv::threshold(CVDEREF(src), CVDEREF(dst), thresh, maxvalue, typ);
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_thresholdWithMask(
+    Mat src,
+    Mat dst,
+    Mat mask,
+    double thresh,
+    double maxvalue,
+    int typ,
+    double* rval,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    *rval = cv::thresholdWithMask(CVDEREF(src), CVDEREF(dst), CVDEREF(mask), thresh, maxvalue, typ);
     if (callback != nullptr) {
         callback();
     }
@@ -1739,6 +1757,15 @@ CvStatus* cv_fitLine2f(
     if (callback != nullptr) {
         callback();
     }
+    END_WRAP
+}
+
+CvStatus * cv_getClosestEllipsePoints(RotatedRect ellipse_params, Mat points, MatOut closest_pts){
+    BEGIN_WRAP
+    auto center = cv::Point2f(ellipse_params.center.x, ellipse_params.center.y);
+    auto size = cv::Size2f(ellipse_params.size.width, ellipse_params.size.height);
+    auto rect = cv::RotatedRect(center, size, ellipse_params.angle);
+    cv::getClosestEllipsePoints(rect, CVDEREF(points), CVDEREF(closest_pts));
     END_WRAP
 }
 

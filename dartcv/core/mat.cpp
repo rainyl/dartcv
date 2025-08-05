@@ -547,6 +547,15 @@ CvStatus* cv_Mat_t(Mat self, Mat* rval, CvCallback_0 callback) {
     END_WRAP
 }
 
+CvStatus* cv_Mat_reinterpret(Mat self, int type, Mat* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Mat(self.ptr->reinterpret(type));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 uchar* cv_Mat_ptr_uchar_1(Mat self, int i) {
     return self.ptr->ptr(i);
 }

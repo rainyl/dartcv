@@ -390,6 +390,18 @@ CvStatus* cv_threshold(
     Mat src, Mat dst, double thresh, double maxvalue, int typ, double* rval, CvCallback_0 callback
 );
 
+// thresholdWithMask
+CvStatus* cv_thresholdWithMask(
+    Mat src,
+    Mat dst,
+    Mat mask,
+    double thresh,
+    double maxvalue,
+    int typ,
+    double* rval,
+    CvCallback_0 callback
+);
+
 // SECTION - Drawing Functions
 
 // Draws an arrow segment pointing from the first point to the second one.
@@ -854,6 +866,8 @@ CvStatus* cv_fitLine2f(
     double aeps,
     CvCallback_0 callback
 );
+
+CvStatus* cv_getClosestEllipsePoints(RotatedRect ellipse_params, Mat points, MatOut closest_pts);
 
 // Calculates seven Hu invariants.
 // void cv::HuMoments (const cv_moments &m, OutputArray hu)

@@ -9,13 +9,28 @@ extern "C" {
 
 #include "dartcv/core/core.h"
 
-typedef void (*LogCallbackEx)(
-    int logLevel, const char* tag, const char* file, int line, const char* func, const char* message
+typedef void (*LogCallback)(
+    int logLevel,
+    const char* tag,
+    size_t tagLen,
+    const char* file,
+    size_t fileLen,
+    int line,
+    const char* func,
+    size_t funcLen,
+    const char* message,
+    size_t msgLen
 );
+
+LogCallback logCallback = nullptr;
 
 CvStatus* setLogLevel(int logLevel);
 CvStatus* getLogLevel(int* logLevel);
-CvStatus* replaceWriteLogMessageEx(LogCallbackEx);
+
+void setLogCallback(LogCallback callback);
+LogCallback getLogCallback();
+
+CvStatus* replaceWriteLogMessageEx(LogCallback callback);
 
 #ifdef __cplusplus
 }
