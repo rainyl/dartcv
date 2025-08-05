@@ -22,7 +22,7 @@ typedef void (*LogCallback)(
     size_t msgLen
 );
 
-LogCallback logCallback = nullptr;
+LogCallback logCallback = NULL;
 
 CvStatus* setLogLevel(int logLevel);
 CvStatus* getLogLevel(int* logLevel);
