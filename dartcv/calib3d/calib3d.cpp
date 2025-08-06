@@ -219,10 +219,11 @@ CvStatus* cv_fisheye_solvePnPRansac(
     MatOut inliers,
     int flags,
     TermCriteria criteria,
+    bool* rval,
     CvCallback_0 callback
 ) {
     BEGIN_WRAP
-    cv::fisheye::solvePnPRansac(
+    *rval = cv::fisheye::solvePnPRansac(
         CVDEREF(objectPoints),
         CVDEREF(imagePoints),
         CVDEREF(cameraMatrix),
