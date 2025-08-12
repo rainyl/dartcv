@@ -123,8 +123,9 @@ void cv_StereoBM_setUniquenessRatio(StereoBM self, int uniquenessRatio) {
 
 // Computes disparity map for the specified stereo pair.
 // virtual void  compute (InputArray left, InputArray right, OutputArray disparity)=0
-void cv_StereoBM_compute(StereoBM self, MatIn left, MatIn right, MatOut disparity) {
-    (CVDEREF(self))->compute(CVDEREF(left), CVDEREF(right), CVDEREF(disparity));
+CvStatus* cv_StereoBM_compute(StereoBM self, MatIn left, MatIn right, MatOut disparity) {
+    BEGIN_WRAP(CVDEREF(self))->compute(CVDEREF(left), CVDEREF(right), CVDEREF(disparity));
+    END_WRAP
 }
 
 // virtual int  getBlockSize () const =0
@@ -280,8 +281,9 @@ void cv_StereoSGBM_setUniquenessRatio(StereoSGBM self, int uniquenessRatio) {
 
 // Computes disparity map for the specified stereo pair.
 // virtual void compute (InputArray left, InputArray right, OutputArray disparity)=0
-void cv_StereoSGBM_compute(StereoSGBM self, MatIn left, MatIn right, MatOut disparity) {
-    (CVDEREF(self))->compute(CVDEREF(left), CVDEREF(right), CVDEREF(disparity));
+CvStatus* cv_StereoSGBM_compute(StereoSGBM self, MatIn left, MatIn right, MatOut disparity) {
+    BEGIN_WRAP(CVDEREF(self))->compute(CVDEREF(left), CVDEREF(right), CVDEREF(disparity));
+    END_WRAP
 }
 
 // virtual int getBlockSize () const =0
