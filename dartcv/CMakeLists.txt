@@ -47,7 +47,10 @@ set(DARTCV_DEPS opencv_core)
 
 # calib3d
 if (DARTCV_WITH_CALIB3D OR DARTCV_WORLD)
-    set(_cpp_files ${_cpp_files} "calib3d/calib3d.cpp")
+    set(_cpp_files ${_cpp_files}
+            "calib3d/calib3d.cpp"
+            "calib3d/stereo.cpp"
+    )
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_calib3d)
 endif ()
 
