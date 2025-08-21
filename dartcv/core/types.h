@@ -113,8 +113,8 @@ extern "C" {
     value = nullptr
 #endif
 
-#define CVDEREF(value) *value.ptr
-#define CVDEREF_P(value) *value->ptr
+#define CVDEREF(value) (*value.ptr)
+#define CVDEREF_P(value) (*value->ptr)
 
 #define CVD_TYPEDEF(TYPE, NAME) \
     typedef TYPE* NAME##_CPP;   \
@@ -123,6 +123,7 @@ extern "C" {
     } NAME;                     \
     typedef NAME* NAME##Ptr;
 CVD_TYPEDEF(cv::Mat, Mat);
+CVD_TYPEDEF(cv::UMat, UMat);
 CVD_TYPEDEF(cv::_InputOutputArray, InputOutputArray);
 CVD_TYPEDEF(cv::RNG, RNG);
 #else
@@ -137,6 +138,7 @@ typedef unsigned char uchar;
 typedef unsigned short ushort;
 
 CVD_TYPEDEF(void, Mat);
+CVD_TYPEDEF(void, UMat);
 CVD_TYPEDEF(void, InputOutputArray);
 CVD_TYPEDEF(void, RNG);
 #endif
