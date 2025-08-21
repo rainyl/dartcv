@@ -198,6 +198,9 @@ CvStatus* cv_Mat_mean_1(Mat self, Mat mask, Scalar* rval, CvCallback_0 callback)
 CvStatus* cv_Mat_sqrt(Mat self, Mat rval, CvCallback_0 callback);
 CvStatus* cv_Mat_t(Mat self, Mat* rval, CvCallback_0 callback);
 CvStatus* cv_Mat_reinterpret(Mat self, int type, Mat* rval, CvCallback_0 callback);
+CvStatus* cv_Mat_getUMat(
+    Mat self, int accessFlags, int usageFlags, UMat* rval, CvCallback_0 callback
+);
 
 uchar* cv_Mat_ptr_uchar_1(Mat self, int i);
 uchar* cv_Mat_ptr_uchar_2(Mat self, int i, int j);
@@ -337,6 +340,132 @@ CvStatus* cv_Mat_op_div_f64(Mat self, double_t val);
  * element-wise
  */
 CvStatus* cv_Mat_mul(Mat self, Mat val, Mat* dst, double scale);
+
+/*
+ * UMat
+ */
+
+// UMat(UMatUsageFlags usageFlags = USAGE_DEFAULT) CV_NOEXCEPT;
+CvStatus* cv_UMat_create_1(int usageFlags, UMat* rval);
+
+// (_type is CV_8UC1, CV_64FC3, CV_32SC(12) etc.)
+// UMat(int rows, int cols, int type, UMatUsageFlags usageFlags = USAGE_DEFAULT);
+// UMat(Size size, int type, UMatUsageFlags usageFlags = USAGE_DEFAULT);
+CvStatus* cv_UMat_create_2(int rows, int cols, int type, int usageFlags, UMat* rval);
+
+//! constructs 2D matrix and fills it with the specified value _s.
+// UMat(int rows, int cols, int type, const Scalar& s, UMatUsageFlags usageFlags = USAGE_DEFAULT);
+// UMat(Size size, int type, const Scalar& s, UMatUsageFlags usageFlags = USAGE_DEFAULT);
+CvStatus* cv_UMat_create_3(int rows, int cols, int type, Scalar s, int usageFlags, UMat* rval);
+
+//! constructs n-dimensional matrix
+// UMat(int ndims, const int* sizes, int type, UMatUsageFlags usageFlags = USAGE_DEFAULT);
+// UMat(int ndims, const int* sizes, int type, const Scalar& s, UMatUsageFlags usageFlags = USAGE_DEFAULT);
+CvStatus* cv_UMat_create_4(int ndims, const int* sizes, int type, int usageFlags, UMat* rval);
+CvStatus* cv_UMat_create_5(
+    int ndims, const int* sizes, int type, Scalar value, int usageFlags, UMat* rval
+);
+
+//! copy constructor
+// UMat(const UMat& m);
+CvStatus* cv_UMat_create_6(UMat self, UMat* rval);
+
+//! creates a matrix header for a part of the bigger matrix
+// UMat(const UMat& m, const Range& rowRange, const Range& colRange=Range::all());
+CvStatus* cv_UMat_create_7(
+    UMat self, int rowStart, int rowEnd, int colStart, int colEnd, UMat* rval
+);
+// UMat(const UMat& m, const Rect& roi);
+CvStatus* cv_UMat_create_8(UMat self, int x, int y, int width, int height, UMat* rval);
+CvStatus* cv_UMat_create_9(UMat self, CvRect roi, UMat* rval);
+// UMat(const UMat& m, const Range* ranges);
+// UMat(const UMat& m, const std::vector<Range>& ranges);
+CvStatus* cv_UMat_create_zeros(int rows, int cols, int type, int usageFlags, UMat* rval);
+CvStatus* cv_UMat_create_zeros_1(int ndims, const int* sizes, int type, int usageFlags, UMat* rval);
+CvStatus* cv_UMat_create_ones(int rows, int cols, int type, int usageFlags, UMat* rval);
+CvStatus* cv_UMat_create_ones_1(int ndims, const int* sizes, int type, int usageFlags, UMat* rval);
+CvStatus* cv_UMat_create_eye(int rows, int cols, int type, int usageFlags, UMat* rval);
+CvStatus* cv_UMat_create_diag(UMat d, int usageFlags, UMat* rval);
+void cv_UMat_close(UMatPtr self);
+
+CvStatus* cv_UMat_getMat(UMat self, int accessFlags, Mat* rval, CvCallback_0 callback);
+
+CvStatus* cv_UMat_row(UMat self, int y, UMat* rval, CvCallback_0 callback);
+CvStatus* cv_UMat_col(UMat self, int x, UMat* rval, CvCallback_0 callback);
+
+CvStatus* cv_UMat_rowRange(UMat self, int startrow, int endrow, UMat* rval, CvCallback_0 callback);
+CvStatus* cv_UMat_colRange(UMat self, int startcol, int endcol, UMat* rval, CvCallback_0 callback);
+
+CvStatus* cv_UMat_diag(UMat self, int d, UMat* rval, CvCallback_0 callback);
+
+CvStatus* cv_UMat_clone(UMat self, UMat* rval, CvCallback_0 callback);
+CvStatus* cv_UMat_copyTo(UMat self, UMat dst, CvCallback_0 callback);
+CvStatus* cv_UMat_copyTo_2(UMat self, UMat mask, UMat dst, CvCallback_0 callback);
+CvStatus* cv_UMat_convertTo(
+    UMat self, int rtype, double alpha, double beta, UMat dst, CvCallback_0 callback
+);
+
+//! sets some of the matrix elements to s, according to the mask
+// UMat& setTo(InputArray value, InputArray mask=noArray());
+CvStatus* cv_UMat_setTo(UMat self, Scalar s, UMat mask, CvCallback_0 callback);
+
+//! creates alternative matrix header for the same data, with different
+// number of channels and/or different number of rows. see cvReshape.
+// UMat reshape(int cn, int rows=0) const;
+// UMat reshape(int cn, int newndims, const int* newsz) const;
+CvStatus* cv_UMat_reshape(UMat self, int cn, int rows, UMat* rval, CvCallback_0 callback);
+CvStatus* cv_UMat_reshape_2(
+    UMat self, int cn, int newndims, const int* newsz, UMat* rval, CvCallback_0 callback
+);
+
+//! matrix transposition by means of matrix expressions
+// UMat t() const;
+CvStatus* cv_UMat_t(UMat self, UMat* rval, CvCallback_0 callback);
+
+CvStatus* cv_UMat_inv(UMat self, int method, UMat* rval, CvCallback_0 callback);
+//! per-element matrix multiplication by means of matrix expressions
+// UMat mul(InputArray m, double scale=1) const;
+CvStatus* cv_UMat_mul(UMat self, UMat m, double scale, UMat* rval, CvCallback_0 callback);
+CvStatus* cv_UMat_dot(UMat self, UMat m, double* rval, CvCallback_0 callback);
+
+CvStatus* cv_UMat_createFunc(
+    UMat self, int rows, int cols, int type, int usageFlags, CvCallback_0 callback
+);
+CvStatus* cv_UMat_createFunc_2(
+    UMat self, int ndims, const int* sizes, int type, int usageFlags, CvCallback_0 callback
+);
+
+//! decreases reference counter;
+// deallocates the data when reference counter reaches 0.
+// void release();
+void cv_UMat_release(UMat self);
+
+// locates matrix header within a parent matrix. See below
+// void locateROI (Size &wholeSize, Point &ofs) const
+
+bool cv_UMat_isContinuous(UMat self);
+bool cv_UMat_isSubmatrix(UMat self);
+int cv_UMat_elemSize(UMat self);
+int cv_UMat_elemSize1(UMat self);
+int cv_UMat_type(UMat self);
+int cv_UMat_depth(UMat self);
+int cv_UMat_channels(UMat self);
+size_t cv_UMat_step1(UMat self, int i);
+bool cv_UMat_empty(UMat self);
+size_t cv_UMat_total(UMat self);
+int cv_UMat_checkVector(UMat self, int elemChannels, int depth, bool requireContinuous);
+int cv_UMat_flags(UMat self);
+int cv_UMat_dims(UMat self);
+int cv_UMat_rows(UMat self);
+int cv_UMat_cols(UMat self);
+int cv_UMat_usageFlags(UMat self);
+size_t cv_UMat_offset(UMat self);
+VecI32* cv_UMat_size(UMat self);
+MatStep cv_UMat_step(UMat self);
+
+void cv_UMat_deallocate(UMat self);
+void cv_UMat_addref(UMat self);
+void* cv_UMat_handle(UMat self, int accessFlags);
 
 #ifdef __cplusplus
 }

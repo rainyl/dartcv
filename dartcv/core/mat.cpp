@@ -556,6 +556,19 @@ CvStatus* cv_Mat_reinterpret(Mat self, int type, Mat* rval, CvCallback_0 callbac
     END_WRAP
 }
 
+CvStatus* cv_Mat_getUMat(
+    Mat self, int accessFlags, int usageFlags, UMat* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(self.ptr->getUMat(
+        static_cast<cv::AccessFlag>(accessFlags), static_cast<cv::UMatUsageFlags>(usageFlags)
+    ));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
 uchar* cv_Mat_ptr_uchar_1(Mat self, int i) {
     return self.ptr->ptr(i);
 }
@@ -1031,4 +1044,422 @@ CvStatus* cv_Mat_mul(Mat self, Mat value, Mat* dst, double scale) {
     BEGIN_WRAP
     dst->ptr = new cv::Mat((CVDEREF(self)).mul(CVDEREF(value), scale));
     END_WRAP
+}
+
+CvStatus* cv_UMat_create_1(int usageFlags, UMat* rval) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(static_cast<cv::UMatUsageFlags>(usageFlags));
+    END_WRAP
+}
+
+// (_type is CV_8UC1, CV_64FC3, CV_32SC(12) etc.)
+// UMat(int rows, int cols, int type, UMatUsageFlags usageFlags = USAGE_DEFAULT);
+// UMat(Size size, int type, UMatUsageFlags usageFlags = USAGE_DEFAULT);
+CvStatus* cv_UMat_create_2(int rows, int cols, int type, int usageFlags, UMat* rval) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(rows, cols, type, static_cast<cv::UMatUsageFlags>(usageFlags));
+    END_WRAP
+}
+
+//! constructs 2D matrix and fills it with the specified value _s.
+// UMat(int rows, int cols, int type, const Scalar& s, UMatUsageFlags usageFlags = USAGE_DEFAULT);
+// UMat(Size size, int type, const Scalar& s, UMatUsageFlags usageFlags = USAGE_DEFAULT);
+CvStatus* cv_UMat_create_3(int rows, int cols, int type, Scalar s, int usageFlags, UMat* rval) {
+    BEGIN_WRAP
+    const auto _s = cv::Scalar(s.val1, s.val2, s.val3, s.val4);
+    rval->ptr = new cv::UMat(rows, cols, type, _s, static_cast<cv::UMatUsageFlags>(usageFlags));
+    END_WRAP
+}
+
+//! constructs n-dimensional matrix
+// UMat(int ndims, const int* sizes, int type, UMatUsageFlags usageFlags = USAGE_DEFAULT);
+// UMat(int ndims, const int* sizes, int type, const Scalar& s, UMatUsageFlags usageFlags = USAGE_DEFAULT);
+CvStatus* cv_UMat_create_4(int ndims, const int* sizes, int type, int usageFlags, UMat* rval) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(ndims, sizes, type, static_cast<cv::UMatUsageFlags>(usageFlags));
+    END_WRAP
+}
+
+CvStatus* cv_UMat_create_5(
+    int ndims, const int* sizes, int type, Scalar value, int usageFlags, UMat* rval
+) {
+    BEGIN_WRAP
+    const auto _value = cv::Scalar(value.val1, value.val2, value.val3, value.val4);
+    rval->ptr =
+        new cv::UMat(ndims, sizes, type, _value, static_cast<cv::UMatUsageFlags>(usageFlags));
+    END_WRAP
+}
+
+//! copy constructor
+// UMat(const UMat& m);
+CvStatus* cv_UMat_create_6(UMat self, UMat* rval) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(CVDEREF(self));
+    END_WRAP
+}
+
+//! creates a matrix header for a part of the bigger matrix
+// UMat(const UMat& m, const Range& rowRange, const Range& colRange=Range::all());
+CvStatus* cv_UMat_create_7(
+    UMat self, int rowStart, int rowEnd, int colStart, int colEnd, UMat* rval
+) {
+    BEGIN_WRAP
+    rval->ptr =
+        new cv::UMat(CVDEREF(self), cv::Range(rowStart, rowEnd), cv::Range(colStart, colEnd));
+    END_WRAP
+}
+
+// UMat(const UMat& m, const Rect& roi);
+CvStatus* cv_UMat_create_8(UMat self, int x, int y, int width, int height, UMat* rval) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(CVDEREF(self), cv::Rect(x, y, width, height));
+    END_WRAP
+}
+
+CvStatus* cv_UMat_create_9(UMat self, CvRect roi, UMat* rval) {
+    BEGIN_WRAP
+    const auto _roi = cv::Rect(roi.x, roi.y, roi.width, roi.height);
+    rval->ptr = new cv::UMat(CVDEREF(self), _roi);
+    END_WRAP
+}
+
+// UMat(const UMat& m, const Range* ranges);
+// UMat(const UMat& m, const std::vector<Range>& ranges);
+CvStatus* cv_UMat_create_zeros(int rows, int cols, int type, int usageFlags, UMat* rval) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(
+        cv::UMat::zeros(rows, cols, type, static_cast<cv::UMatUsageFlags>(usageFlags))
+    );
+    END_WRAP
+}
+
+CvStatus* cv_UMat_create_zeros_1(
+    int ndims, const int* sizes, int type, int usageFlags, UMat* rval
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(
+        cv::UMat::zeros(ndims, sizes, type, static_cast<cv::UMatUsageFlags>(usageFlags))
+    );
+    END_WRAP
+}
+
+CvStatus* cv_UMat_create_ones(int rows, int cols, int type, int usageFlags, UMat* rval) {
+    BEGIN_WRAP
+    rval->ptr =
+        new cv::UMat(cv::UMat::ones(rows, cols, type, static_cast<cv::UMatUsageFlags>(usageFlags)));
+    END_WRAP
+}
+
+CvStatus* cv_UMat_create_ones_1(int ndims, const int* sizes, int type, int usageFlags, UMat* rval) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(
+        cv::UMat::ones(ndims, sizes, type, static_cast<cv::UMatUsageFlags>(usageFlags))
+    );
+    END_WRAP
+}
+
+CvStatus* cv_UMat_create_eye(int rows, int cols, int type, int usageFlags, UMat* rval) {
+    BEGIN_WRAP
+    rval->ptr =
+        new cv::UMat(cv::UMat::eye(rows, cols, type, static_cast<cv::UMatUsageFlags>(usageFlags)));
+    END_WRAP
+}
+
+CvStatus* cv_UMat_create_diag(UMat d, int usageFlags, UMat* rval) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(cv::UMat::diag(CVDEREF(d)));
+    END_WRAP
+}
+
+void cv_UMat_close(UMatPtr self) {
+    self->ptr->release();
+    CVD_FREE(self);
+}
+
+CvStatus* cv_UMat_getMat(UMat self, int accessFlags, Mat* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Mat(CVDEREF(self).getMat(static_cast<cv::AccessFlag>(accessFlags)));
+    if (callback) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_UMat_row(UMat self, int y, UMat* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(CVDEREF(self).row(y));
+    if (callback) {
+        callback();
+    }
+    END_WRAP
+}
+CvStatus* cv_UMat_col(UMat self, int x, UMat* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(CVDEREF(self).col(x));
+    if (callback) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_UMat_rowRange(UMat self, int startrow, int endrow, UMat* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(CVDEREF(self).rowRange(startrow, endrow));
+    if (callback) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_UMat_colRange(UMat self, int startcol, int endcol, UMat* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(CVDEREF(self).colRange(startcol, endcol));
+    if (callback) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_UMat_diag(UMat self, int d, UMat* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(CVDEREF(self).diag(d));
+    if (callback) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_UMat_clone(UMat self, UMat* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(CVDEREF(self).clone());
+    if (callback) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_UMat_copyTo(UMat self, UMat dst, CvCallback_0 callback) {
+    BEGIN_WRAP
+    CVDEREF(self).copyTo(CVDEREF(dst));
+    if (callback) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_UMat_copyTo_2(UMat self, UMat mask, UMat dst, CvCallback_0 callback) {
+    BEGIN_WRAP
+    CVDEREF(self).copyTo(CVDEREF(dst), CVDEREF(mask));
+    if (callback) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_UMat_convertTo(
+    UMat self, int rtype, double alpha, double beta, UMat dst, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    CVDEREF(self).convertTo(CVDEREF(dst), rtype, alpha, beta);
+    if (callback) {
+        callback();
+    }
+    END_WRAP
+}
+
+//! sets some of the matrix elements to s, according to the mask
+// UMat& setTo(InputArray value, InputArray mask=noArray());
+CvStatus* cv_UMat_setTo(UMat self, Scalar scalar, UMat mask, CvCallback_0 callback) {
+    BEGIN_WRAP
+    const auto _scalar = cv::Scalar(scalar.val1, scalar.val2, scalar.val3, scalar.val4);
+    CVDEREF(self).setTo(_scalar, CVDEREF(mask));
+    if (callback) {
+        callback();
+    }
+    END_WRAP
+}
+
+//! creates alternative matrix header for the same data, with different
+// number of channels and/or different number of rows. see cvReshape.
+// UMat reshape(int cn, int rows=0) const;
+// UMat reshape(int cn, int newndims, const int* newsz) const;
+CvStatus* cv_UMat_reshape(UMat self, int cn, int rows, UMat* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(CVDEREF(self).reshape(cn, rows));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_UMat_reshape_2(
+    UMat self, int cn, int newndims, const int* newsz, UMat* rval, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(CVDEREF(self).reshape(cn, newndims, newsz));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+//! matrix transposition by means of matrix expressions
+// UMat t() const;
+CvStatus* cv_UMat_t(UMat self, UMat* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(CVDEREF(self).t());
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_UMat_inv(UMat self, int method, UMat* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(CVDEREF(self).inv(method));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+//! per-element matrix multiplication by means of matrix expressions
+// UMat mul(InputArray m, double scale=1) const;
+CvStatus* cv_UMat_mul(UMat self, UMat m, double scale, UMat* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    rval->ptr = new cv::UMat(CVDEREF(self).mul(CVDEREF(m), scale));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_UMat_dot(UMat self, UMat m, double* rval, CvCallback_0 callback) {
+    BEGIN_WRAP
+    rval[0] = CVDEREF(self).dot(CVDEREF(m));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_UMat_createFunc(
+    UMat self, int rows, int cols, int type, int usageFlags, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    CVDEREF(self).create(rows, cols, type, static_cast<cv::UMatUsageFlags>(usageFlags));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+CvStatus* cv_UMat_createFunc_2(
+    UMat self, int ndims, const int* sizes, int type, int usageFlags, CvCallback_0 callback
+) {
+    BEGIN_WRAP
+    CVDEREF(self).create(ndims, sizes, type, static_cast<cv::UMatUsageFlags>(usageFlags));
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+//! decreases reference counter;
+// deallocates the data when reference counter reaches 0.
+// void release();
+void cv_UMat_release(UMat self) {
+    CVDEREF(self).release();
+}
+
+// locates matrix header within a parent matrix. See below
+// void locateROI (Size &wholeSize, Point &ofs) const
+
+bool cv_UMat_isContinuous(UMat self) {
+    return CVDEREF(self).isContinuous();
+}
+
+bool cv_UMat_isSubmatrix(UMat self) {
+    return CVDEREF(self).isSubmatrix();
+}
+
+int cv_UMat_elemSize(UMat self) {
+    return CVDEREF(self).elemSize();
+}
+
+int cv_UMat_elemSize1(UMat self) {
+    return CVDEREF(self).elemSize1();
+}
+
+int cv_UMat_type(UMat self) {
+    return CVDEREF(self).type();
+}
+
+int cv_UMat_depth(UMat self) {
+    return CVDEREF(self).depth();
+}
+
+int cv_UMat_channels(UMat self) {
+    return CVDEREF(self).channels();
+}
+
+size_t cv_UMat_step1(UMat self, int i) {
+    return CVDEREF(self).step1(i);
+}
+
+bool cv_UMat_empty(UMat self) {
+    return CVDEREF(self).empty();
+}
+
+size_t cv_UMat_total(UMat self) {
+    return CVDEREF(self).total();
+}
+
+int cv_UMat_checkVector(UMat self, int elemChannels, int depth, bool requireContinuous) {
+    return CVDEREF(self).checkVector(elemChannels, depth, requireContinuous);
+}
+
+int cv_UMat_flags(UMat self) {
+    return CVDEREF(self).flags;
+}
+
+int cv_UMat_dims(UMat self) {
+    return CVDEREF(self).dims;
+}
+
+int cv_UMat_rows(UMat self) {
+    return CVDEREF(self).rows;
+}
+
+int cv_UMat_cols(UMat self) {
+    return CVDEREF(self).cols;
+}
+
+int cv_UMat_usageFlags(UMat self) {
+    return CVDEREF(self).usageFlags;
+}
+
+size_t cv_UMat_offset(UMat self) {
+    return CVDEREF(self).offset;
+}
+
+VecI32* cv_UMat_size(UMat self) {
+    const auto size = CVDEREF(self).size;
+    return new VecI32{new std::vector<int32_t>(size.p, size.p + size.dims())};
+}
+
+MatStep cv_UMat_step(UMat self) {
+    const auto step = CVDEREF(self).step;
+    return {{step.p[0], step.p[1], step.p[2]}};
+}
+
+void cv_UMat_deallocate(UMat self) {
+    CVDEREF(self).deallocate();
+}
+
+void cv_UMat_addref(UMat self) {
+    CVDEREF(self).addref();
+}
+
+void* cv_UMat_handle(UMat self, int accessFlags) {
+    return CVDEREF(self).handle(static_cast<cv::AccessFlag>(accessFlags));
 }
