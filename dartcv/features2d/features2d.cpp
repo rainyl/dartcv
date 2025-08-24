@@ -981,7 +981,7 @@ bool cv_SimpleBlobDetector_empty(SimpleBlobDetector self) {
 }
 
 VecVecPoint* cv_SimpleBlobDetector_getBlobContours(SimpleBlobDetector self) {
-    return new VecVecPoint{new std::vector(CVDEREF(self)->getBlobContours())};
+    return new VecVecPoint{new std::vector<std::vector<cv::Point>>(CVDEREF(self)->getBlobContours())};
 }
 
 char* cv_SimpleBlobDetector_getDefaultName(SimpleBlobDetector self) {
