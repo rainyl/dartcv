@@ -63,7 +63,7 @@ extern "C" {
     }                                       \
     catch (...) {                           \
         CvStatus* s = new CvStatus{         \
-            .code = 1,                      \
+            .code = 2,                      \
             .msg = strdup("Unknown error"), \
             .err = strdup("Unknown error"), \
             .func = strdup(__FUNCTION__),   \

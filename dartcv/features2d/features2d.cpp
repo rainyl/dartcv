@@ -18,13 +18,38 @@ CvStatus* cv_AKAZE_create(AKAZE* rval) {
     END_WRAP
 }
 
+CvStatus* cv_AKAZE_create_1(
+    int descriptor_type,
+    int descriptor_size,
+    int descriptor_channels,
+    float threshold,
+    int nOctaves,
+    int nOctaveLayers,
+    int diffusivity,
+    int max_points,
+    AKAZE* rval
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Ptr<cv::AKAZE>(cv::AKAZE::create(
+        static_cast<cv::AKAZE::DescriptorType>(descriptor_type),
+        descriptor_size,
+        descriptor_channels,
+        threshold,
+        nOctaves,
+        nOctaveLayers,
+        static_cast<cv::KAZE::DiffusivityType>(diffusivity),
+        max_points
+    ));
+    END_WRAP
+}
+
 void cv_AKAZE_close(AKAZEPtr self) {
     self->ptr->reset();
     CVD_FREE(self);
 }
 
-CvStatus* cv_AKAZE_detect(AKAZE self, Mat src, VecKeyPoint* rval, CvCallback_0 callback) {
-    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
+CvStatus* cv_AKAZE_detect(AKAZE self, Mat src, VecKeyPoint* rval, Mat mask, CvCallback_0 callback) {
+    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval), CVDEREF(mask));
     if (callback != nullptr) {
         callback();
     }
@@ -32,10 +57,18 @@ CvStatus* cv_AKAZE_detect(AKAZE self, Mat src, VecKeyPoint* rval, CvCallback_0 c
 }
 
 CvStatus* cv_AKAZE_detectAndCompute(
-    AKAZE self, Mat src, Mat mask, Mat desc, VecKeyPoint* rval, CvCallback_0 callback
+    AKAZE self,
+    Mat src,
+    Mat mask,
+    Mat desc,
+    VecKeyPoint* rval,
+    bool useProvidedKeypoints,
+    CvCallback_0 callback
 ) {
     BEGIN_WRAP(CVDEREF(self))
-        ->detectAndCompute(CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc));
+        ->detectAndCompute(
+            CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc), useProvidedKeypoints
+        );
 
     if (callback != nullptr) {
         callback();
@@ -43,9 +76,91 @@ CvStatus* cv_AKAZE_detectAndCompute(
     END_WRAP
 }
 
+bool cv_AKAZE_empty(AKAZE self) {
+    return CVDEREF(self)->empty();
+}
+
+char* cv_AKAZE_getDefaultName(AKAZE self) {
+    return strdup(CVDEREF(self)->getDefaultName().c_str());
+}
+// virtual int 	getDescriptorChannels () const =0
+int cv_AKAZE_getDescriptorChannels(AKAZE self) {
+    return CVDEREF(self)->getDescriptorChannels();
+}
+// virtual int 	getDescriptorSize () const =0
+int cv_AKAZE_getDescriptorSize(AKAZE self) {
+    return CVDEREF(self)->getDescriptorSize();
+}
+// virtual AKAZE::DescriptorType 	getDescriptorType () const =0
+int cv_AKAZE_getDescriptorType(AKAZE self) {
+    return CVDEREF(self)->getDescriptorType();
+}
+// virtual KAZE::DiffusivityType 	getDiffusivity () const =0
+int cv_AKAZE_getDiffusivity(AKAZE self) {
+    return CVDEREF(self)->getDiffusivity();
+}
+// virtual int 	getMaxPoints () const =0
+int cv_AKAZE_getMaxPoints(AKAZE self) {
+    return CVDEREF(self)->getMaxPoints();
+}
+// virtual int 	getNOctaveLayers () const =0
+int cv_AKAZE_getNOctaveLayers(AKAZE self) {
+    return CVDEREF(self)->getNOctaveLayers();
+}
+// virtual int 	getNOctaves () const =0
+int cv_AKAZE_getNOctaves(AKAZE self) {
+    return CVDEREF(self)->getNOctaves();
+}
+// virtual double 	getThreshold () const =0
+double cv_AKAZE_getThreshold(AKAZE self) {
+    return CVDEREF(self)->getThreshold();
+}
+// virtual void 	setDescriptorChannels (int dch)=0
+void cv_AKAZE_setDescriptorChannels(AKAZE self, int dch) {
+    CVDEREF(self)->setDescriptorChannels(dch);
+}
+// virtual void 	setDescriptorSize (int dsize)=0
+void cv_AKAZE_setDescriptorSize(AKAZE self, int dsize) {
+    CVDEREF(self)->setDescriptorSize(dsize);
+}
+// virtual void 	setDescriptorType (AKAZE::DescriptorType dtype)=0
+void cv_AKAZE_setDescriptorType(AKAZE self, int dtype) {
+    CVDEREF(self)->setDescriptorType(static_cast<cv::AKAZE::DescriptorType>(dtype));
+}
+// virtual void 	setDiffusivity (KAZE::DiffusivityType diff)=0
+void cv_AKAZE_setDiffusivity(AKAZE self, int diff) {
+    CVDEREF(self)->setDiffusivity(static_cast<cv::KAZE::DiffusivityType>(diff));
+}
+// virtual void 	setMaxPoints (int max_points)=0
+void cv_AKAZE_setMaxPoints(AKAZE self, int max_points) {
+    CVDEREF(self)->setMaxPoints(max_points);
+}
+// virtual void 	setNOctaveLayers (int octaveLayers)=0
+void cv_AKAZE_setNOctaveLayers(AKAZE self, int octaveLayers) {
+    CVDEREF(self)->setNOctaveLayers(octaveLayers);
+}
+// virtual void 	setNOctaves (int octaves)=0
+void cv_AKAZE_setNOctaves(AKAZE self, int octaves) {
+    CVDEREF(self)->setNOctaves(octaves);
+}
+// virtual void 	setThreshold (double threshold)=0
+void cv_AKAZE_setThreshold(AKAZE self, double threshold) {
+    CVDEREF(self)->setThreshold(threshold);
+}
+
 CvStatus* cv_AgastFeatureDetector_create(AgastFeatureDetector* rval) {
     BEGIN_WRAP
     rval->ptr = new cv::Ptr<cv::AgastFeatureDetector>(cv::AgastFeatureDetector::create());
+    END_WRAP
+}
+
+CvStatus* cv_AgastFeatureDetector_create_1(
+    int threshold, bool nonmaxSuppression, int type, AgastFeatureDetector* rval
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Ptr<cv::AgastFeatureDetector>(cv::AgastFeatureDetector::create(
+        threshold, nonmaxSuppression, static_cast<cv::AgastFeatureDetector::DetectorType>(type)
+    ));
     END_WRAP
 }
 
@@ -55,13 +170,67 @@ void cv_AgastFeatureDetector_close(AgastFeatureDetectorPtr self) {
 }
 
 CvStatus* cv_AgastFeatureDetector_detect(
-    AgastFeatureDetector self, Mat src, VecKeyPoint* rval, CvCallback_0 callback
+    AgastFeatureDetector self, Mat src, VecKeyPoint* rval, Mat mask, CvCallback_0 callback
 ) {
-    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
+    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval), CVDEREF(mask));
     if (callback != nullptr) {
         callback();
     }
     END_WRAP
+}
+
+// detectAndCompute (InputArray image, InputArray mask, std::vector< KeyPoint > &keypoints, OutputArray descriptors, bool useProvidedKeypoints=false)
+CvStatus* cv_AgastFeatureDetector_detectAndCompute(
+    AgastFeatureDetector self,
+    Mat src,
+    Mat mask,
+    Mat desc,
+    VecKeyPoint* rval,
+    bool useProvidedKeypoints,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP(CVDEREF(self))
+        ->detectAndCompute(
+            CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc), useProvidedKeypoints
+        );
+
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+bool cv_AgastFeatureDetector_empty(AgastFeatureDetector self) {
+    return CVDEREF(self)->empty();
+}
+
+// virtual String 	getDefaultName () const CV_OVERRIDE
+char* cv_AgastFeatureDetector_getDefaultName(AgastFeatureDetector self) {
+    return strdup(CVDEREF(self)->getDefaultName().c_str());
+}
+// virtual bool 	getNonmaxSuppression () const =0
+bool cv_AgastFeatureDetector_getNonmaxSuppression(AgastFeatureDetector self) {
+    return CVDEREF(self)->getNonmaxSuppression();
+}
+// virtual int 	getThreshold () const =0
+int cv_AgastFeatureDetector_getThreshold(AgastFeatureDetector self) {
+    return CVDEREF(self)->getThreshold();
+}
+// virtual AgastFeatureDetector::DetectorType 	getType () const =0
+int cv_AgastFeatureDetector_getType(AgastFeatureDetector self) {
+    return CVDEREF(self)->getType();
+}
+// virtual void 	setNonmaxSuppression (bool f)=0
+void cv_AgastFeatureDetector_setNonmaxSuppression(AgastFeatureDetector self, bool f) {
+    CVDEREF(self)->setNonmaxSuppression(f);
+}
+// virtual void 	setThreshold (int threshold)=0
+void cv_AgastFeatureDetector_setThreshold(AgastFeatureDetector self, int threshold) {
+    CVDEREF(self)->setThreshold(threshold);
+}
+// virtual void 	setType (AgastFeatureDetector::DetectorType type)=0
+void cv_AgastFeatureDetector_setType(AgastFeatureDetector self, int type) {
+    CVDEREF(self)->setType(static_cast<cv::AgastFeatureDetector::DetectorType>(type));
 }
 
 CvStatus* cv_BRISK_create(BRISK* rval) {
@@ -70,13 +239,46 @@ CvStatus* cv_BRISK_create(BRISK* rval) {
     END_WRAP
 }
 
+CvStatus* cv_BRISK_create_1(
+    VecF32 radiusList, VecI32 numberList, float dMax, float dMin, VecI32 indexChange, BRISK* rval
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Ptr<cv::BRISK>(cv::BRISK::create(
+        CVDEREF(radiusList), CVDEREF(numberList), dMax, dMin, CVDEREF(indexChange)
+    ));
+    END_WRAP
+}
+
+CvStatus* cv_BRISK_create_2(
+    int thresh,
+    int octaves,
+    VecF32 radiusList,
+    VecI32 numberList,
+    float dMax,
+    float dMin,
+    VecI32 indexChange,
+    BRISK* rval
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Ptr<cv::BRISK>(cv::BRISK::create(
+        thresh, octaves, CVDEREF(radiusList), CVDEREF(numberList), dMax, dMin, CVDEREF(indexChange)
+    ));
+    END_WRAP
+}
+
+CvStatus* cv_BRISK_create_3(int thresh, int octaves, float patternScale, BRISK* rval) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Ptr<cv::BRISK>(cv::BRISK::create(thresh, octaves, patternScale));
+    END_WRAP
+}
+
 void cv_BRISK_close(BRISKPtr self) {
     self->ptr->reset();
     CVD_FREE(self);
 }
 
-CvStatus* cv_BRISK_detect(BRISK self, Mat src, VecKeyPoint* rval, CvCallback_0 callback) {
-    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
+CvStatus* cv_BRISK_detect(BRISK self, Mat src, VecKeyPoint* rval, Mat mask, CvCallback_0 callback) {
+    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval), CVDEREF(mask));
     if (callback != nullptr) {
         callback();
     }
@@ -84,14 +286,48 @@ CvStatus* cv_BRISK_detect(BRISK self, Mat src, VecKeyPoint* rval, CvCallback_0 c
 }
 
 CvStatus* cv_BRISK_detectAndCompute(
-    BRISK self, Mat src, Mat mask, Mat desc, VecKeyPoint* rval, CvCallback_0 callback
+    BRISK self,
+    Mat src,
+    Mat mask,
+    Mat desc,
+    VecKeyPoint* rval,
+    bool useProvidedKeypoints,
+    CvCallback_0 callback
 ) {
     BEGIN_WRAP(CVDEREF(self))
-        ->detectAndCompute(CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc));
+        ->detectAndCompute(
+            CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc), useProvidedKeypoints
+        );
     if (callback != nullptr) {
         callback();
     }
     END_WRAP
+}
+
+bool cv_BRISK_empty(BRISK self) {
+    return CVDEREF(self)->empty();
+}
+
+char* cv_BRISK_getDefaultName(BRISK self) {
+    return strdup(CVDEREF(self)->getDefaultName().c_str());
+}
+int cv_BRISK_getOctaves(BRISK self) {
+    return CVDEREF(self)->getOctaves();
+}
+float cv_BRISK_getPatternScale(BRISK self) {
+    return CVDEREF(self)->getPatternScale();
+}
+int cv_BRISK_getThreshold(BRISK self) {
+    return CVDEREF(self)->getThreshold();
+}
+void cv_BRISK_setOctaves(BRISK self, int octaves) {
+    CVDEREF(self)->setOctaves(octaves);
+}
+void cv_BRISK_setPatternScale(BRISK self, float patternScale) {
+    CVDEREF(self)->setPatternScale(patternScale);
+}
+void cv_BRISK_setThreshold(BRISK self, int threshold) {
+    CVDEREF(self)->setThreshold(threshold);
 }
 
 CvStatus* cv_FastFeatureDetector_create(FastFeatureDetector* rval) {
@@ -117,18 +353,102 @@ void cv_FastFeatureDetector_close(FastFeatureDetectorPtr self) {
 }
 
 CvStatus* cv_FastFeatureDetector_detect(
-    FastFeatureDetector self, Mat src, VecKeyPoint* rval, CvCallback_0 callback
+    FastFeatureDetector self, Mat src, VecKeyPoint* rval, Mat mask, CvCallback_0 callback
 ) {
-    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
+    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval), CVDEREF(mask));
     if (callback != nullptr) {
         callback();
     }
     END_WRAP
 }
 
+CvStatus* cv_FastFeatureDetector_detectAndCompute(
+    FastFeatureDetector self,
+    Mat src,
+    Mat mask,
+    Mat desc,
+    VecKeyPoint* rval,
+    bool useProvidedKeypoints,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP(CVDEREF(self))
+        ->detectAndCompute(
+            CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc), useProvidedKeypoints
+        );
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+bool cv_FastFeatureDetector_empty(FastFeatureDetector self) {
+    return CVDEREF(self)->empty();
+}
+
+char* cv_FastFeatureDetector_getDefaultName(FastFeatureDetector self) {
+    return strdup(CVDEREF(self)->getDefaultName().c_str());
+}
+
+bool cv_FastFeatureDetector_getNonmaxSuppression(FastFeatureDetector self) {
+    return CVDEREF(self)->getNonmaxSuppression();
+}
+
+int cv_FastFeatureDetector_getThreshold(FastFeatureDetector self) {
+    return CVDEREF(self)->getThreshold();
+}
+
+int cv_FastFeatureDetector_getType(FastFeatureDetector self) {
+    return CVDEREF(self)->getType();
+}
+
+void cv_FastFeatureDetector_setNonmaxSuppression(FastFeatureDetector self, bool f) {
+    CVDEREF(self)->setNonmaxSuppression(f);
+}
+
+void cv_FastFeatureDetector_setThreshold(FastFeatureDetector self, int threshold) {
+    CVDEREF(self)->setThreshold(threshold);
+}
+
+void cv_FastFeatureDetector_setType(FastFeatureDetector self, int type) {
+    CVDEREF(self)->setType(static_cast<cv::FastFeatureDetector::DetectorType>(type));
+}
+
 CvStatus* cv_GFTTDetector_create(GFTTDetector* rval) {
     BEGIN_WRAP
     rval->ptr = new cv::Ptr<cv::GFTTDetector>(cv::GFTTDetector::create());
+    END_WRAP
+}
+
+CvStatus* cv_GFTTDetector_create_1(
+    int maxCorners,
+    double qualityLevel,
+    double minDistance,
+    int blockSize,
+    int gradiantSize,
+    bool useHarrisDetector,
+    double k,
+    GFTTDetector* rval
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Ptr<cv::GFTTDetector>(cv::GFTTDetector::create(
+        maxCorners, qualityLevel, minDistance, blockSize, gradiantSize, useHarrisDetector, k
+    ));
+    END_WRAP
+}
+
+CvStatus* cv_GFTTDetector_create_2(
+    int maxCorners,
+    double qualityLevel,
+    double minDistance,
+    int blockSize,
+    bool useHarrisDetector,
+    double k,
+    GFTTDetector* rval
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Ptr<cv::GFTTDetector>(cv::GFTTDetector::create(
+        maxCorners, qualityLevel, minDistance, blockSize, useHarrisDetector, k
+    ));
     END_WRAP
 }
 
@@ -138,13 +458,82 @@ void cv_GFTTDetector_close(GFTTDetectorPtr self) {
 }
 
 CvStatus* cv_GFTTDetector_detect(
-    GFTTDetector self, Mat src, VecKeyPoint* rval, CvCallback_0 callback
+    GFTTDetector self, Mat src, VecKeyPoint* rval, Mat mask, CvCallback_0 callback
 ) {
-    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
+    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval), CVDEREF(mask));
     if (callback != nullptr) {
         callback();
     }
     END_WRAP
+}
+
+CvStatus* cv_GFTTDetector_detectAndCompute(
+    GFTTDetector self,
+    Mat src,
+    Mat mask,
+    Mat descriptors,
+    VecKeyPoint* rval,
+    bool useProvidedKeypoints,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP(CVDEREF(self))
+        ->detectAndCompute(
+            CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(descriptors), useProvidedKeypoints
+        );
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+bool cv_GFTTDetector_empty(GFTTDetector self) {
+    return CVDEREF(self)->empty();
+}
+
+int cv_GFTTDetector_getBlockSize(GFTTDetector self) {
+    return CVDEREF(self)->getBlockSize();
+}
+char* cv_GFTTDetector_getDefaultName(GFTTDetector self) {
+    return strdup(CVDEREF(self)->getDefaultName().c_str());
+}
+int cv_GFTTDetector_getGradientSize(GFTTDetector self) {
+    return CVDEREF(self)->getGradientSize();
+}
+bool cv_GFTTDetector_getHarrisDetector(GFTTDetector self) {
+    return CVDEREF(self)->getHarrisDetector();
+}
+double cv_GFTTDetector_getK(GFTTDetector self) {
+    return CVDEREF(self)->getK();
+}
+int cv_GFTTDetector_getMaxFeatures(GFTTDetector self) {
+    return CVDEREF(self)->getMaxFeatures();
+}
+double cv_GFTTDetector_getMinDistance(GFTTDetector self) {
+    return CVDEREF(self)->getMinDistance();
+}
+double cv_GFTTDetector_getQualityLevel(GFTTDetector self) {
+    return CVDEREF(self)->getQualityLevel();
+}
+void cv_GFTTDetector_setBlockSize(GFTTDetector self, int blockSize) {
+    CVDEREF(self)->setBlockSize(blockSize);
+}
+void cv_GFTTDetector_setGradientSize(GFTTDetector self, int gradientSize_) {
+    CVDEREF(self)->setGradientSize(gradientSize_);
+}
+void cv_GFTTDetector_setHarrisDetector(GFTTDetector self, bool val) {
+    CVDEREF(self)->setHarrisDetector(val);
+}
+void cv_GFTTDetector_setK(GFTTDetector self, double k) {
+    CVDEREF(self)->setK(k);
+}
+void cv_GFTTDetector_setMaxFeatures(GFTTDetector self, int maxFeatures) {
+    CVDEREF(self)->setMaxFeatures(maxFeatures);
+}
+void cv_GFTTDetector_setMinDistance(GFTTDetector self, double minDistance) {
+    CVDEREF(self)->setMinDistance(minDistance);
+}
+void cv_GFTTDetector_setQualityLevel(GFTTDetector self, double qlevel) {
+    CVDEREF(self)->setQualityLevel(qlevel);
 }
 
 CvStatus* cv_KAZE_create(KAZE* rval) {
@@ -153,13 +542,34 @@ CvStatus* cv_KAZE_create(KAZE* rval) {
     END_WRAP
 }
 
+CvStatus* cv_KAZE_create_1(
+    bool extended,
+    bool upright,
+    float threshold,
+    int nOctaves,
+    int nOctaveLayers,
+    int diffusivity,
+    KAZE* rval
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Ptr<cv::KAZE>(cv::KAZE::create(
+        extended,
+        upright,
+        threshold,
+        nOctaves,
+        nOctaveLayers,
+        static_cast<cv::KAZE::DiffusivityType>(diffusivity)
+    ));
+    END_WRAP
+}
+
 void cv_KAZE_close(KAZEPtr self) {
     self->ptr->reset();
     CVD_FREE(self);
 }
 
-CvStatus* cv_KAZE_detect(KAZE self, Mat src, VecKeyPoint* rval, CvCallback_0 callback) {
-    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
+CvStatus* cv_KAZE_detect(KAZE self, Mat src, VecKeyPoint* rval, Mat mask, CvCallback_0 callback) {
+    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval), CVDEREF(mask));
     if (callback != nullptr) {
         callback();
     }
@@ -167,14 +577,78 @@ CvStatus* cv_KAZE_detect(KAZE self, Mat src, VecKeyPoint* rval, CvCallback_0 cal
 }
 
 CvStatus* cv_KAZE_detectAndCompute(
-    KAZE self, Mat src, Mat mask, Mat desc, VecKeyPoint* rval, CvCallback_0 callback
+    KAZE self,
+    Mat src,
+    Mat mask,
+    Mat desc,
+    VecKeyPoint* rval,
+    bool useProvidedKeypoints,
+    CvCallback_0 callback
 ) {
     BEGIN_WRAP(CVDEREF(self))
-        ->detectAndCompute(CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc));
+        ->detectAndCompute(
+            CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc), useProvidedKeypoints
+        );
     if (callback != nullptr) {
         callback();
     }
     END_WRAP
+}
+
+bool cv_KAZE_empty(KAZE self) {
+    return CVDEREF(self)->empty();
+}
+
+char* cv_KAZE_getDefaultName(KAZE self) {
+    return strdup(CVDEREF(self)->getDefaultName().c_str());
+}
+
+int cv_KAZE_getDiffusivity(KAZE self) {
+    return CVDEREF(self)->getDiffusivity();
+}
+
+bool cv_KAZE_getExtended(KAZE self) {
+    return CVDEREF(self)->getExtended();
+}
+
+int cv_KAZE_getNOctaveLayers(KAZE self) {
+    return CVDEREF(self)->getNOctaveLayers();
+}
+
+int cv_KAZE_getNOctaves(KAZE self) {
+    return CVDEREF(self)->getNOctaves();
+}
+
+double cv_KAZE_getThreshold(KAZE self) {
+    return CVDEREF(self)->getThreshold();
+}
+
+bool cv_KAZE_getUpright(KAZE self) {
+    return CVDEREF(self)->getUpright();
+}
+
+void cv_KAZE_setDiffusivity(KAZE self, int diff) {
+    CVDEREF(self)->setDiffusivity(static_cast<cv::KAZE::DiffusivityType>(diff));
+}
+
+void cv_KAZE_setExtended(KAZE self, bool extended) {
+    CVDEREF(self)->setExtended(extended);
+}
+
+void cv_KAZE_setNOctaveLayers(KAZE self, int octaveLayers) {
+    CVDEREF(self)->setNOctaveLayers(octaveLayers);
+}
+
+void cv_KAZE_setNOctaves(KAZE self, int octaves) {
+    CVDEREF(self)->setNOctaves(octaves);
+}
+
+void cv_KAZE_setThreshold(KAZE self, double threshold) {
+    CVDEREF(self)->setThreshold(threshold);
+}
+
+void cv_KAZE_setUpright(KAZE self, bool upright) {
+    CVDEREF(self)->setUpright(upright);
 }
 
 CvStatus* cv_MSER_create(MSER* rval) {
@@ -183,17 +657,141 @@ CvStatus* cv_MSER_create(MSER* rval) {
     END_WRAP
 }
 
+CvStatus* cv_MSER_create_1(
+    int delta,
+    int min_area,
+    int max_area,
+    double max_variation,
+    double min_diversity,
+    int max_evolution,
+    double area_threshold,
+    double min_margin,
+    int edge_blur_size,
+    MSER* rval
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Ptr<cv::MSER>(cv::MSER::create(
+        delta,
+        min_area,
+        max_area,
+        max_variation,
+        min_diversity,
+        max_evolution,
+        area_threshold,
+        min_margin,
+        edge_blur_size
+    ));
+    END_WRAP
+}
+
 void cv_MSER_close(MSERPtr self) {
     self->ptr->reset();
     CVD_FREE(self);
 }
 
-CvStatus* cv_MSER_detect(MSER self, Mat src, VecKeyPoint* rval, CvCallback_0 callback) {
-    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
+CvStatus* cv_MSER_detect(MSER self, Mat src, VecKeyPoint* rval, Mat mask, CvCallback_0 callback) {
+    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval), CVDEREF(mask));
     if (callback != nullptr) {
         callback();
     }
     END_WRAP
+}
+
+CvStatus* cv_MSER_detectAndCompute(
+    MSER self,
+    Mat src,
+    Mat mask,
+    Mat desc,
+    VecKeyPoint* rval,
+    bool useProvidedKeypoints,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP(CVDEREF(self))
+        ->detectAndCompute(
+            CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc), useProvidedKeypoints
+        );
+    if (callback) {
+        callback();
+    }
+    END_WRAP
+}
+
+CvStatus* cv_MSER_detectRegions(
+    MSER self, Mat image, VecVecPoint* rval, VecRect* bboxes, CvCallback_0 callback
+) {
+    BEGIN_WRAP(CVDEREF(self))->detectRegions(CVDEREF(image), CVDEREF_P(rval), CVDEREF_P(bboxes));
+    if (callback) {
+        callback();
+    }
+    END_WRAP
+}
+
+bool cv_MSER_empty(MSER self) {
+    return CVDEREF(self)->empty();
+}
+
+double cv_MSER_getAreaThreshold(MSER self) {
+    return (CVDEREF(self))->getAreaThreshold();
+}
+char* cv_MSER_getDefaultName(MSER self) {
+    return strdup(CVDEREF(self)->getDefaultName().c_str());
+}
+int cv_MSER_getDelta(MSER self) {
+    return (CVDEREF(self))->getDelta();
+}
+int cv_MSER_getEdgeBlurSize(MSER self) {
+    return (CVDEREF(self))->getEdgeBlurSize();
+}
+int cv_MSER_getMaxArea(MSER self) {
+    return (CVDEREF(self))->getMaxArea();
+}
+int cv_MSER_getMaxEvolution(MSER self) {
+    return (CVDEREF(self))->getMaxEvolution();
+}
+double cv_MSER_getMaxVariation(MSER self) {
+    return (CVDEREF(self))->getMaxVariation();
+}
+int cv_MSER_getMinArea(MSER self) {
+    return (CVDEREF(self))->getMinArea();
+}
+double cv_MSER_getMinDiversity(MSER self) {
+    return (CVDEREF(self))->getMinDiversity();
+}
+double cv_MSER_getMinMargin(MSER self) {
+    return (CVDEREF(self))->getMinMargin();
+}
+bool cv_MSER_getPass2Only(MSER self) {
+    return (CVDEREF(self))->getPass2Only();
+}
+void cv_MSER_setAreaThreshold(MSER self, double areaThreshold) {
+    (CVDEREF(self))->setAreaThreshold(areaThreshold);
+}
+void cv_MSER_setDelta(MSER self, int delta) {
+    (CVDEREF(self))->setDelta(delta);
+}
+void cv_MSER_setEdgeBlurSize(MSER self, int edge_blur_size) {
+    (CVDEREF(self))->setEdgeBlurSize(edge_blur_size);
+}
+void cv_MSER_setMaxArea(MSER self, int maxArea) {
+    (CVDEREF(self))->setMaxArea(maxArea);
+}
+void cv_MSER_setMaxEvolution(MSER self, int maxEvolution) {
+    (CVDEREF(self))->setMaxEvolution(maxEvolution);
+}
+void cv_MSER_setMaxVariation(MSER self, double maxVariation) {
+    (CVDEREF(self))->setMaxVariation(maxVariation);
+}
+void cv_MSER_setMinArea(MSER self, int minArea) {
+    (CVDEREF(self))->setMinArea(minArea);
+}
+void cv_MSER_setMinDiversity(MSER self, double minDiversity) {
+    (CVDEREF(self))->setMinDiversity(minDiversity);
+}
+void cv_MSER_setMinMargin(MSER self, double min_margin) {
+    (CVDEREF(self))->setMinMargin(min_margin);
+}
+void cv_MSER_setPass2Only(MSER self, bool f) {
+    (CVDEREF(self))->setPass2Only(f);
 }
 
 CvStatus* cv_ORB_create(ORB* rval) {
@@ -235,8 +833,8 @@ void cv_ORB_close(ORBPtr self) {
     CVD_FREE(self);
 }
 
-CvStatus* cv_ORB_detect(ORB self, Mat src, VecKeyPoint* rval, CvCallback_0 callback) {
-    BEGIN_WRAP(*self.ptr)->detect(CVDEREF(src), CVDEREF_P(rval));
+CvStatus* cv_ORB_detect(ORB self, Mat src, VecKeyPoint* rval, Mat mask, CvCallback_0 callback) {
+    BEGIN_WRAP(*self.ptr)->detect(CVDEREF(src), CVDEREF_P(rval), CVDEREF(mask));
     if (callback != nullptr) {
         callback();
     }
@@ -247,8 +845,8 @@ CvStatus* cv_ORB_detectAndCompute(
     ORB self,
     Mat src,
     Mat mask,
-    VecKeyPoint* out_keypoints,
     Mat desc,
+    VecKeyPoint* out_keypoints,
     bool useProvidedKeypoints,
     CvCallback_0 callback
 ) {
@@ -264,6 +862,68 @@ CvStatus* cv_ORB_detectAndCompute(
         callback();
     }
     END_WRAP
+}
+
+bool cv_ORB_empty(ORB self) {
+    return CVDEREF(self)->empty();
+}
+
+char* cv_ORB_getDefaultName(ORB self) {
+    return strdup(CVDEREF(self)->getDefaultName().c_str());
+}
+int cv_ORB_getEdgeThreshold(ORB self) {
+    return CVDEREF(self)->getEdgeThreshold();
+}
+int cv_ORB_getFastThreshold(ORB self) {
+    return CVDEREF(self)->getFastThreshold();
+}
+int cv_ORB_getFirstLevel(ORB self) {
+    return CVDEREF(self)->getFirstLevel();
+}
+int cv_ORB_getMaxFeatures(ORB self) {
+    return CVDEREF(self)->getMaxFeatures();
+}
+int cv_ORB_getNLevels(ORB self) {
+    return CVDEREF(self)->getNLevels();
+}
+int cv_ORB_getPatchSize(ORB self) {
+    return CVDEREF(self)->getPatchSize();
+}
+double cv_ORB_getScaleFactor(ORB self) {
+    return CVDEREF(self)->getScaleFactor();
+}
+int cv_ORB_getScoreType(ORB self) {
+    return CVDEREF(self)->getScoreType();
+}
+int cv_ORB_getWTA_K(ORB self) {
+    return CVDEREF(self)->getWTA_K();
+}
+void cv_ORB_setEdgeThreshold(ORB self, int edgeThreshold) {
+    CVDEREF(self)->setEdgeThreshold(edgeThreshold);
+}
+void cv_ORB_setFastThreshold(ORB self, int fastThreshold) {
+    CVDEREF(self)->setFastThreshold(fastThreshold);
+}
+void cv_ORB_setFirstLevel(ORB self, int firstLevel) {
+    CVDEREF(self)->setFirstLevel(firstLevel);
+}
+void cv_ORB_setMaxFeatures(ORB self, int maxFeatures) {
+    CVDEREF(self)->setMaxFeatures(maxFeatures);
+}
+void cv_ORB_setNLevels(ORB self, int nlevels) {
+    CVDEREF(self)->setNLevels(nlevels);
+}
+void cv_ORB_setPatchSize(ORB self, int patchSize) {
+    CVDEREF(self)->setPatchSize(patchSize);
+}
+void cv_ORB_setScaleFactor(ORB self, double scaleFactor) {
+    CVDEREF(self)->setScaleFactor(scaleFactor);
+}
+void cv_ORB_setScoreType(ORB self, int scoreType) {
+    CVDEREF(self)->setScoreType(static_cast<cv::ORB::ScoreType>(scoreType));
+}
+void cv_ORB_setWTA_K(ORB self, int wta_k) {
+    CVDEREF(self)->setWTA_K(wta_k);
 }
 
 CvStatus* cv_SimpleBlobDetector_create(SimpleBlobDetector* rval) {
@@ -288,13 +948,53 @@ void cv_SimpleBlobDetector_close(SimpleBlobDetectorPtr self) {
 }
 
 CvStatus* cv_SimpleBlobDetector_detect(
-    SimpleBlobDetector self, Mat src, VecKeyPoint* rval, CvCallback_0 callback
+    SimpleBlobDetector self, Mat src, VecKeyPoint* rval, Mat mask, CvCallback_0 callback
 ) {
-    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
+    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval), CVDEREF(mask));
     if (callback != nullptr) {
         callback();
     }
     END_WRAP
+}
+
+CvStatus* cv_SimpleBlobDetector_detectAndCompute(
+    SimpleBlobDetector self,
+    Mat src,
+    Mat mask,
+    Mat desc,
+    VecKeyPoint* rval,
+    bool useProvidedKeypoints,
+    CvCallback_0 callback
+) {
+    BEGIN_WRAP(CVDEREF(self))
+        ->detectAndCompute(
+            CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc), useProvidedKeypoints
+        );
+    if (callback != nullptr) {
+        callback();
+    }
+    END_WRAP
+}
+
+bool cv_SimpleBlobDetector_empty(SimpleBlobDetector self) {
+    return CVDEREF(self)->empty();
+}
+
+VecVecPoint* cv_SimpleBlobDetector_getBlobContours(SimpleBlobDetector self) {
+    return new VecVecPoint{new std::vector<std::vector<cv::Point>>(CVDEREF(self)->getBlobContours())};
+}
+
+char* cv_SimpleBlobDetector_getDefaultName(SimpleBlobDetector self) {
+    return strdup(CVDEREF(self)->getDefaultName().c_str());
+}
+
+SimpleBlobDetectorParams* cv_SimpleBlobDetector_getParams(SimpleBlobDetector self) {
+    auto params = CVDEREF(self)->getParams();
+    return new SimpleBlobDetectorParams{SimpleBlobDetectorParams_cpp2c(params)};
+}
+
+void cv_SimpleBlobDetector_setParams(SimpleBlobDetector self, SimpleBlobDetectorParams params) {
+    CVDEREF(self)->setParams(SimpleBlobDetectorParams_c2cpp(params));
 }
 
 CvStatus* cv_SimpleBlobDetectorParams_create(SimpleBlobDetectorParams* rval) {
@@ -486,13 +1186,52 @@ CvStatus* cv_SIFT_create(SIFT* rval) {
     END_WRAP
 }
 
+CvStatus* cv_SIFT_create_1(
+    int nfeatures,
+    int nOctaveLayers,
+    double contrastThreshold,
+    double edgeThreshold,
+    double sigma,
+    int descriptorType,
+    bool enable_precise_upscale,
+    SIFT* rval
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Ptr<cv::SIFT>(cv::SIFT::create(
+        nfeatures,
+        nOctaveLayers,
+        contrastThreshold,
+        edgeThreshold,
+        sigma,
+        descriptorType,
+        enable_precise_upscale
+    ));
+    END_WRAP
+}
+
+CvStatus* cv_SIFT_create_2(
+    int nfeatures,
+    int nOctaveLayers,
+    double contrastThreshold,
+    double edgeThreshold,
+    double sigma,
+    bool enable_precise_upscale,
+    SIFT* rval
+) {
+    BEGIN_WRAP
+    rval->ptr = new cv::Ptr<cv::SIFT>(cv::SIFT::create(
+        nfeatures, nOctaveLayers, contrastThreshold, edgeThreshold, sigma, enable_precise_upscale
+    ));
+    END_WRAP
+}
+
 void cv_SIFT_close(SIFTPtr self) {
     self->ptr->reset();
     CVD_FREE(self);
 }
 
-CvStatus* cv_SIFT_detect(SIFT self, Mat src, VecKeyPoint* rval, CvCallback_0 callback) {
-    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval));
+CvStatus* cv_SIFT_detect(SIFT self, Mat src, VecKeyPoint* rval, Mat mask, CvCallback_0 callback) {
+    BEGIN_WRAP(CVDEREF(self))->detect(CVDEREF(src), CVDEREF_P(rval), CVDEREF(mask));
     if (callback != nullptr) {
         callback();
     }
@@ -500,14 +1239,59 @@ CvStatus* cv_SIFT_detect(SIFT self, Mat src, VecKeyPoint* rval, CvCallback_0 cal
 }
 
 CvStatus* cv_SIFT_detectAndCompute(
-    SIFT self, Mat src, Mat mask, Mat desc, VecKeyPoint* rval, CvCallback_0 callback
+    SIFT self,
+    Mat src,
+    Mat mask,
+    Mat desc,
+    VecKeyPoint* rval,
+    bool useProvidedKeypoints,
+    CvCallback_0 callback
 ) {
     BEGIN_WRAP(CVDEREF(self))
-        ->detectAndCompute(CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc));
+        ->detectAndCompute(
+            CVDEREF(src), CVDEREF(mask), CVDEREF_P(rval), CVDEREF(desc), useProvidedKeypoints
+        );
     if (callback != nullptr) {
         callback();
     }
     END_WRAP
+}
+
+double cv_SIFT_getContrastThreshold(SIFT self) {
+    return CVDEREF(self)->getContrastThreshold();
+}
+char* cv_SIFT_getDefaultName(SIFT self) {
+    return strdup(CVDEREF(self)->getDefaultName().c_str());
+}
+double cv_SIFT_getEdgeThreshold(SIFT self) {
+    return CVDEREF(self)->getEdgeThreshold();
+}
+int cv_SIFT_getNFeatures(SIFT self) {
+    return CVDEREF(self)->getNFeatures();
+}
+int cv_SIFT_getNOctaveLayers(SIFT self) {
+    return CVDEREF(self)->getNOctaveLayers();
+}
+double cv_SIFT_getSigma(SIFT self) {
+    return CVDEREF(self)->getSigma();
+}
+void cv_SIFT_setContrastThreshold(SIFT self, double contrastThreshold) {
+    CVDEREF(self)->setContrastThreshold(contrastThreshold);
+}
+void cv_SIFT_setEdgeThreshold(SIFT self, double edgeThreshold) {
+    CVDEREF(self)->setEdgeThreshold(edgeThreshold);
+}
+void cv_SIFT_setNFeatures(SIFT self, int maxFeatures) {
+    CVDEREF(self)->setNFeatures(maxFeatures);
+}
+void cv_SIFT_setNOctaveLayers(SIFT self, int nOctaveLayers) {
+    CVDEREF(self)->setNOctaveLayers(nOctaveLayers);
+}
+void cv_SIFT_setSigma(SIFT self, double sigma) {
+    CVDEREF(self)->setSigma(sigma);
+}
+bool cv_SIFT_empty(SIFT self) {
+    return CVDEREF(self)->empty();
 }
 
 CvStatus* cv_drawMatches(
