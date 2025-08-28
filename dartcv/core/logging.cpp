@@ -14,6 +14,27 @@ CvStatus* getLogLevel(int* logLevel) {
     END_WRAP
 }
 
+void writeLogMessage(int logLevel, const char* message) {
+    cv::utils::logging::internal::writeLogMessage(
+        static_cast<cv::utils::logging::LogLevel>(logLevel), message
+    );
+}
+
+void writeLogMessageEx(
+    int logLevel, const char* tag, const char* file, int line, const char* func, const char* message
+) {
+    cv::utils::logging::internal::writeLogMessageEx(
+        static_cast<cv::utils::logging::LogLevel>(logLevel), tag, file, line, func, message
+    );
+}
+
+void setLogCallbackEx(LogCallbackEx callback) {
+    logCallbackEx = callback;
+}
+LogCallbackEx getLogCallbackEx() {
+    return logCallbackEx;
+}
+
 void setLogCallback(LogCallback callback) {
     logCallback = callback;
 }
@@ -29,7 +50,7 @@ void LogCallbackExProxy(
     const char* func,
     const char* message
 ) {
-    logCallback(
+    logCallbackEx(
         static_cast<int>(logLevel),
         strdup(tag),
         strlen(tag),
@@ -43,14 +64,30 @@ void LogCallbackExProxy(
     );
 }
 
-CvStatus* replaceWriteLogMessageEx(LogCallback callback) {
+CvStatus* replaceWriteLogMessageEx(LogCallbackEx callback) {
+    BEGIN_WRAP
+    if (callback != nullptr) {
+        logCallbackEx = callback;
+        cv::utils::logging::internal::replaceWriteLogMessageEx(LogCallbackExProxy);
+    } else {
+        logCallbackEx = nullptr;
+        cv::utils::logging::internal::replaceWriteLogMessageEx(nullptr);
+    }
+    END_WRAP
+}
+
+void logCallbackProxy(cv::utils::logging::LogLevel logLevel, const char* message) {
+    logCallback(logLevel, strdup(message), strlen(message));
+}
+
+CvStatus* replaceWriteLogMessage(LogCallback callback) {
     BEGIN_WRAP
     if (callback != nullptr) {
         logCallback = callback;
-        cv::utils::logging::internal::replaceWriteLogMessageEx(LogCallbackExProxy);
+        cv::utils::logging::internal::replaceWriteLogMessage(logCallbackProxy);
     } else {
         logCallback = nullptr;
-        cv::utils::logging::internal::replaceWriteLogMessageEx(nullptr);
+        cv::utils::logging::internal::replaceWriteLogMessage(nullptr);
     }
     END_WRAP
 }
