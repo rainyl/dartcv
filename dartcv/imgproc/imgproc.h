@@ -5,9 +5,9 @@
     Modified by Rainyl.
     Licensed: Apache 2.0 license. Copyright (c) 2024 Rainyl.
 */
-
 #ifndef CVD_IMGPROC_H_
 #define CVD_IMGPROC_H_
+#pragma warning(disable : 4996)
 
 #include "dartcv/core/types.h"
 #include <stdbool.h>
