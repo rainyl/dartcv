@@ -91,7 +91,7 @@ if (DARTCV_WITH_FREETYPE)
           GIT_REPOSITORY https://github.com/freetype/freetype.git
           GIT_TAG VER-2-13-3
   )
-  FetchContent_MakeAvailable(libharfbuzz libfreetype)
+  FetchContent_MakeAvailable(libfreetype libharfbuzz)
 
 #  find_package(harfbuzz REQUIRED NO_DEFAULT_PATH)
 #  find_package(Freetype REQUIRED NO_DEFAULT_PATH)
