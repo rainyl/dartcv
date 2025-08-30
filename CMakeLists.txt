@@ -76,6 +76,10 @@ if (DARTCV_WITH_FREETYPE)
   set(HB_BUILD_SUBSET OFF CACHE BOOL "")
   set(HB_HAVE_FREETYPE ON CACHE BOOL "")
 
+  if(MSVC)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+  endif()
+
   include(FetchContent)
   FetchContent_Declare(
           libharfbuzz
@@ -87,7 +91,7 @@ if (DARTCV_WITH_FREETYPE)
           GIT_REPOSITORY https://github.com/freetype/freetype.git
           GIT_TAG VER-2-13-3
   )
-  FetchContent_MakeAvailable(libfreetype libharfbuzz)
+  FetchContent_MakeAvailable(libharfbuzz libfreetype)
 
 #  find_package(harfbuzz REQUIRED NO_DEFAULT_PATH)
 #  find_package(Freetype REQUIRED NO_DEFAULT_PATH)
