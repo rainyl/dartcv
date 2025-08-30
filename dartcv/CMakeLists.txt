@@ -81,6 +81,15 @@ if (DARTCV_WITH_FEATURES2D OR DARTCV_WORLD)
     set(DARTCV_DEPS ${DARTCV_DEPS} opencv_features2d)
 endif ()
 
+# freetype
+if (DARTCV_WITH_FREETYPE OR DARTCV_WORLD)
+  set(_cpp_files ${_cpp_files}
+          "freetype/freetype.cpp"
+          "freetype/freetype.h"
+  )
+  set(DARTCV_DEPS ${DARTCV_DEPS} opencv_imgproc harfbuzz freetype)
+endif ()
+
 # gapi
 if (DARTCV_WITH_GAPI OR DARTCV_WORLD)
     set(_cpp_files ${_cpp_files} "gapi/gapi.cpp")
@@ -165,6 +174,8 @@ target_include_directories(${LIBRARY_NAME} SYSTEM PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${DARTCV_INCLUDE_DIRS}
         ${OpenCV_INCLUDE_DIRS}
+        ${FREETYPE_INCLUDE_DIRS}
+        ${HARFBUZZ_INCLUDE_DIRS}
 )
 message(STATUS "Added library: ${LIBRARY_NAME}")
 set_target_properties(${LIBRARY_NAME} PROPERTIES
@@ -187,6 +198,8 @@ elseif(APPLE)
     )
 endif()
 
+LIST(REMOVE_DUPLICATES DARTCV_DEPS)
+message(STATUS "DARTCV_DEPS: ${DARTCV_DEPS}")
 target_link_libraries(${LIBRARY_NAME} PUBLIC ${DARTCV_DEPS} ${PLATFORM_LIBS})
 if(ANDROID)
     target_link_options(${LIBRARY_NAME} PRIVATE "-Wl,-z,max-page-size=16384")
