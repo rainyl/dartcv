@@ -537,8 +537,8 @@ CvStatus* cv_findContours2f(
     cv::findContours(CVDEREF(src), _out_contours, CVDEREF_P(out_hierarchy), mode, method);
     for (auto& c : _out_contours) {
         std::vector<cv::Point2f> _row;
-        for (auto& p : c) {
-            _row.emplace_back(p.x, p.y);
+        for (const auto& p : c) {
+            _row.emplace_back(static_cast<float>(p.x), static_cast<float>(p.y));
         }
         (CVDEREF_P(out_contours)).emplace_back(_row);
     }
