@@ -15,6 +15,7 @@ option(DARTCV_WITH_CALIB3D "Include calib3d module of opencv" ON)
 option(DARTCV_WITH_CONTRIB "Include contrib module of opencv" ON)
 option(DARTCV_WITH_DNN "Include dnn module of opencv" ON)
 option(DARTCV_WITH_FEATURES2D "Include features2d module of opencv" ON)
+option(DARTCV_WITH_FREETYPE "Include freetype" ON)
 option(DARTCV_WITH_HIGHGUI "Include highgui module of opencv" OFF)
 option(DARTCV_WITH_IMGCODECS "Include imgcodecs module of opencv" ON)
 option(DARTCV_WITH_IMGPROC "Include imgproc module of opencv" ON)
@@ -65,6 +66,33 @@ if (NOT IOS AND (DARTCV_WITH_HIGHGUI OR DARTCV_WITH_VIDEOIO OR DARTCV_WORLD))
 endif ()
 
 set(DARTCV_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "DARTCV_INCLUDE_DIRS")
+
+if (DARTCV_WITH_FREETYPE)
+  set(FT_DISABLE_ZLIB ON CACHE BOOL "")
+  set(FT_DISABLE_BZIP2 ON CACHE BOOL "")
+  set(FT_DISABLE_HARFBUZZ ON CACHE BOOL "")
+  set(FT_DISABLE_PNG ON CACHE BOOL "")
+  set(FT_DISABLE_BROTLI ON CACHE BOOL "")
+  set(HB_BUILD_SUBSET OFF CACHE BOOL "")
+  set(HB_HAVE_FREETYPE ON CACHE BOOL "")
+
+  include(FetchContent)
+  FetchContent_Declare(
+          libharfbuzz
+          GIT_REPOSITORY https://github.com/harfbuzz/harfbuzz.git
+          GIT_TAG 11.2.1
+  )
+  FetchContent_Declare(
+          libfreetype
+          GIT_REPOSITORY https://github.com/freetype/freetype.git
+          GIT_TAG VER-2-13-3
+  )
+  FetchContent_MakeAvailable(libharfbuzz libfreetype)
+
+#  find_package(harfbuzz REQUIRED NO_DEFAULT_PATH)
+#  find_package(Freetype REQUIRED NO_DEFAULT_PATH)
+
+endif ()
 
 add_subdirectory(dartcv)
 
