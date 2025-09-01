@@ -24,6 +24,9 @@ jobs:
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
+      - name: setup
+        run: |
+          brew install meson ninja
       - name: build
         run: |
           cd ${{ github.workspace }}
