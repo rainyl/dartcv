@@ -12,7 +12,7 @@ test/data
 *.log
 .cache
 ffmpeg*/
-Frameworks/
+Frameworks*/
 
 # Prerequisites
 *.d

@@ -62,6 +62,17 @@ Pod::Spec.new do |s|
     else
       echo "found libopencv.a, continue...";
     fi
+
+    if [ ! -d Frameworks/FreeType.xcframework ] || [ ! -d Frameworks/HarfBuzz.xcframework ]; then
+        echo "Frameworks not found, downloading...";
+        curl -L "https://github.com/rainyl/dartcv/releases/download/3rd_lib/libdartcv-3rd_lib-apple.zip" > Frameworks.zip;
+        echo "extracting...";
+        unzip -q -o Frameworks.zip;
+        echo "cleaning...";
+        rm -f Frameworks.zip;
+      else
+        echo "found Frameworks, continue...";
+      fi
   CMD
 
   s.default_subspec = [

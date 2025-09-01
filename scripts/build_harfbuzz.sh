@@ -188,7 +188,7 @@ Cflags: -I\"\${includedir}\"
   # cp module.modulemap $BUILD_DIR/$config_name/install/include/harfbuzz/HarfBuzz-Module/module.modulemap
   echo \
   "module HarfBuzz {
-    header "../hb.h"
+    header \"../hb.h\"
 
     export *
 }" > $BUILD_DIR/$config_name/install/include/harfbuzz/HarfBuzz-Module/module.modulemap
@@ -218,7 +218,7 @@ build_library iPhoneSimulator  x86_64 ios12-simulator
 
 create_framework() {
   # Remove previously created framework if exists
-  rm -rf $BUILD_DIR/HarfBuzz.xcframework
+  rm -rf $FRAMEWORK_OUTPUT_DIR/HarfBuzz.xcframework
   exit_if_error
 
   # Merge macOS arm and x86 binaries
@@ -276,7 +276,7 @@ create_framework() {
   exit_if_error
 
   # And sign the framework
-  # codesign --timestamp -s $identity $BUILD_DIR/HarfBuzz.xcframework
+  # codesign --timestamp -s $identity $FRAMEWORK_OUTPUT_DIR/HarfBuzz.xcframework
   # exit_if_error
 }
 create_framework

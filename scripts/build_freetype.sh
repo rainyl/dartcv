@@ -132,7 +132,7 @@ endian = 'little'" \
   mkdir -p $BUILD_DIR/$config_name/install/include/freetype2/FreeType-Module
   echo \
   "module FreeType {
-    header "../libfreetype.h"
+    header \"../libfreetype.h\"
 
     export *
 }" > $BUILD_DIR/$config_name/install/include/freetype2/FreeType-Module/module.modulemap
@@ -156,7 +156,7 @@ build_library iPhoneSimulator x86_64 ios12-simulator
 
 create_framework() {
   # Remove previously created framework if exists
-  rm -rf $BUILD_DIR/FreeType.xcframework
+  rm -rf $FRAMEWORK_OUTPUT_DIR/FreeType.xcframework
   exit_if_error
 
   # Merge macOS arm and x86 binaries
@@ -214,7 +214,7 @@ create_framework() {
   exit_if_error
 
   # And sign the framework
-  #codesign --timestamp -s $signing_identity $BUILD_DIR/FreeType.xcframework
+  #codesign --timestamp -s $signing_identity $FRAMEWORK_OUTPUT_DIR/FreeType.xcframework
   #exit_if_error
 }
 create_framework

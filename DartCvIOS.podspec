@@ -67,6 +67,17 @@ Pod::Spec.new do |s|
     else
       echo "found libopencv.a, continue...";
     fi
+
+    if [ ! -d Frameworks/FreeType.xcframework ] || [ ! -d Frameworks/HarfBuzz.xcframework ]; then
+        echo "Frameworks not found, downloading...";
+        curl -L "https://github.com/rainyl/dartcv/releases/download/3rd_lib/libdartcv-3rd_lib-apple.zip" > Frameworks.zip;
+        echo "extracting...";
+        unzip -q -o Frameworks.zip;
+        echo "cleaning...";
+        rm -f Frameworks.zip;
+      else
+        echo "found Frameworks, continue...";
+      fi
   CMD
 
   s.default_subspec = [
@@ -109,8 +120,6 @@ Pod::Spec.new do |s|
     ss.header_mappings_dir = '.'
     ss.source_files = 'dartcv/freetype/*.{h,c,cpp}'
     ss.dependency "DartCvIOS/core"
-    # FreeType.xcframework and HarfBuzz.xcframework are built by media-kit
-    # https://github.com/media-kit/libmpv-darwin-build/releases/tag/v0.6.2
     ss.vendored_frameworks = 'Frameworks/FreeType.xcframework', 'Frameworks/HarfBuzz.xcframework'
     # Make xcframework headers available to the compiler (ft2build.h etc.)
     ss.pod_target_xcconfig = {
