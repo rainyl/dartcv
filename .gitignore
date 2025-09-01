@@ -1,4 +1,4 @@
-build*
+build*/
 .idea
 libopencv*
 cmake-build*
@@ -12,6 +12,7 @@ test/data
 *.log
 .cache
 ffmpeg*/
+Frameworks/
 
 # Prerequisites
 *.d

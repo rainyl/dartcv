@@ -101,6 +101,20 @@ Pod::Spec.new do |s|
     ss.dependency "DartCvMacOS/core"
   end
 
+  s.subspec 'freetype' do |ss|
+    ss.header_mappings_dir = '.'
+    ss.source_files = 'dartcv/freetype/*.{h,c,cpp}'
+    ss.preserve_paths = 'dartcv/**', 'libopencv/{include,lib,share}'
+    ss.dependency "DartCvMacOS/core"
+    ss.vendored_frameworks = 'Frameworks/FreeType.xcframework', 'Frameworks/HarfBuzz.xcframework'
+    # Make xcframework headers available to the compiler (ft2build.h etc.).
+    # Use explicit macOS slice paths so lint/xcodebuild can see them.
+    ss.pod_target_xcconfig = {
+      'HEADER_SEARCH_PATHS' => '"$(inherited)" "${PODS_TARGET_SRCROOT}/Frameworks/FreeType.xcframework/macos-arm64_x86_64/Headers" "${PODS_TARGET_SRCROOT}/Frameworks/HarfBuzz.xcframework/macos-arm64_x86_64/Headers"',
+      'USER_HEADER_SEARCH_PATHS' => '"$(inherited)" "${PODS_TARGET_SRCROOT}/Frameworks/FreeType.xcframework/macos-arm64_x86_64/Headers" "${PODS_TARGET_SRCROOT}/Frameworks/HarfBuzz.xcframework/macos-arm64_x86_64/Headers"'
+    }
+  end
+
   # s.subspec 'gapi' do |ss|
   #   ss.header_mappings_dir = '.'
   #   ss.source_files = 'dartcv/gapi/*.{h,c,cpp}'

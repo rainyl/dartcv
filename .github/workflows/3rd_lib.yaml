@@ -1,0 +1,51 @@
+name: 3rd party libraries
+
+on:
+  push:
+    tags:
+      - "3rd_lib-*"
+    branches: ["main"]
+    paths-ignore:
+      - "**.md"
+      - "LICENSE"
+  pull_request:
+    branches: ["main"]
+    paths-ignore:
+      - "**.md"
+      - "LICENSE"
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_15.2.app/Contents/Developer
+  PACKAGE_NAME: libdartcv-3rd_lib-${{ github.ref_name }}
+
+jobs:
+  freetype_harfbuzz:
+    name: freetype_harfbuzz
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: build
+        run: |
+          cd ${{ github.workspace }}
+          ./scripts/build_freetype.sh
+          ./scripts/build_harfbuzz.sh
+      - uses: actions/upload-artifact@v4
+        name: upload
+        with:
+          path: Frameworks
+          name: Frameworks
+      - name: package
+        run: |
+          zip -r -9 ${{ env.PACKAGE_NAME }}.zip Frameworks
+      - name: release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          prerelease: false
+          files: |
+            ${{ env.PACKAGE_NAME }}.zip
+      - name: macos
+        run: |
+          pod lib lint DartCvMacOS.podspec --allow-warnings
+          pod lib lint DartCvIOS.podspec --allow-warnings

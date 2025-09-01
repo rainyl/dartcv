@@ -105,6 +105,20 @@ Pod::Spec.new do |s|
     ss.dependency "DartCvIOS/core"
   end
 
+  s.subspec 'freetype' do |ss|
+    ss.header_mappings_dir = '.'
+    ss.source_files = 'dartcv/freetype/*.{h,c,cpp}'
+    ss.dependency "DartCvIOS/core"
+    # FreeType.xcframework and HarfBuzz.xcframework are built by media-kit
+    # https://github.com/media-kit/libmpv-darwin-build/releases/tag/v0.6.2
+    ss.vendored_frameworks = 'Frameworks/FreeType.xcframework', 'Frameworks/HarfBuzz.xcframework'
+    # Make xcframework headers available to the compiler (ft2build.h etc.)
+    ss.pod_target_xcconfig = {
+      'HEADER_SEARCH_PATHS' => '"$(inherited)" "${PODS_TARGET_SRCROOT}/Frameworks/FreeType.xcframework/ios-arm64/Headers" "${PODS_TARGET_SRCROOT}/Frameworks/FreeType.xcframework/ios-arm64_x86_64-simulator/Headers" "${PODS_TARGET_SRCROOT}/Frameworks/HarfBuzz.xcframework/ios-arm64/Headers" "${PODS_TARGET_SRCROOT}/Frameworks/HarfBuzz.xcframework/ios-arm64_x86_64-simulator/Headers"',
+      'USER_HEADER_SEARCH_PATHS' => '"$(inherited)" "${PODS_TARGET_SRCROOT}/Frameworks/FreeType.xcframework/ios-arm64/Headers" "${PODS_TARGET_SRCROOT}/Frameworks/FreeType.xcframework/ios-arm64_x86_64-simulator/Headers" "${PODS_TARGET_SRCROOT}/Frameworks/HarfBuzz.xcframework/ios-arm64/Headers" "${PODS_TARGET_SRCROOT}/Frameworks/HarfBuzz.xcframework/ios-arm64_x86_64-simulator/Headers"'
+    }
+  end
+
   # s.subspec 'gapi' do |ss|
   #   ss.header_mappings_dir = '.'
   #   ss.source_files = 'dartcv/gapi/*.{h,c,cpp}'
