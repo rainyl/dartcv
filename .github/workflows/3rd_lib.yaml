@@ -3,7 +3,7 @@ name: 3rd party libraries
 on:
   push:
     tags:
-      - "3rd_lib-*"
+      - "3rd_lib"
     branches: ["main"]
     paths-ignore:
       - "**.md"
@@ -14,9 +14,13 @@ on:
       - "**.md"
       - "LICENSE"
 
+permissions:
+  contents: read
+  pull-requests: write
+
 env:
   DEVELOPER_DIR: /Applications/Xcode_15.2.app/Contents/Developer
-  PACKAGE_NAME: libdartcv-3rd_lib-${{ github.ref_name }}
+  PACKAGE_NAME: libdartcv-3rd_lib-apple
 
 jobs:
   freetype_harfbuzz:
