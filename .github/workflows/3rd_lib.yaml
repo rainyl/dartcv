@@ -54,4 +54,5 @@ jobs:
       - name: macos
         run: |
           pod lib lint DartCvMacOS.podspec --allow-warnings
+          rm -rf libopencv
           pod lib lint DartCvIOS.podspec --allow-warnings
