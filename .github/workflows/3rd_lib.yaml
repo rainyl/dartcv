@@ -46,6 +46,7 @@ jobs:
       - name: release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: "3rd_lib"
           draft: true
           prerelease: false
           files: |
