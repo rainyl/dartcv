@@ -129,14 +129,14 @@ endian = 'little'" \
   # https://clang.llvm.org/docs/Modules.html
   # Without module.modulemap FreeType is not exposed to Swift
   # Copy the module map into the directory with installed header files
-  mkdir -p $BUILD_DIR/$config_name/install/include/freetype2/FreeType-Module
-  echo \
-  "module FreeType {
-    header \"../libfreetype.h\"
+#   mkdir -p $BUILD_DIR/$config_name/install/include/freetype2/FreeType-Module
+#   echo \
+#   "module FreeType {
+#     header \"../libfreetype.h\"
 
-    export *
-}" > $BUILD_DIR/$config_name/install/include/freetype2/FreeType-Module/module.modulemap
-  exit_if_error
+#     export *
+# }" > $BUILD_DIR/$config_name/install/include/freetype2/FreeType-Module/module.modulemap
+#   exit_if_error
 }
 
 build_library MacOSX arm64 macos11

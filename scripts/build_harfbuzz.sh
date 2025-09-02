@@ -184,15 +184,15 @@ Cflags: -I\"\${includedir}\"
   # https://clang.llvm.org/docs/Modules.html
   # Without module.modulemap HarfBuzz is not exposed to Swift
   # Copy the module map into the directory with installed header files
-  mkdir -p $BUILD_DIR/$config_name/install/include/harfbuzz/HarfBuzz-Module
-  # cp module.modulemap $BUILD_DIR/$config_name/install/include/harfbuzz/HarfBuzz-Module/module.modulemap
-  echo \
-  "module HarfBuzz {
-    header \"../hb.h\"
+#   mkdir -p $BUILD_DIR/$config_name/install/include/harfbuzz/HarfBuzz-Module
+#   # cp module.modulemap $BUILD_DIR/$config_name/install/include/harfbuzz/HarfBuzz-Module/module.modulemap
+#   echo \
+#   "module HarfBuzz {
+#     header \"../hb.h\"
 
-    export *
-}" > $BUILD_DIR/$config_name/install/include/harfbuzz/HarfBuzz-Module/module.modulemap
-  exit_if_error
+#     export *
+# }" > $BUILD_DIR/$config_name/install/include/harfbuzz/HarfBuzz-Module/module.modulemap
+#   exit_if_error
 
   # Strip installed library
   strip -S $BUILD_DIR/$config_name/install/lib/libharfbuzz.a
