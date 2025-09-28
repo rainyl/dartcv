@@ -1124,6 +1124,8 @@ CvStatus* cv_watershed(Mat image, Mat markers, CvCallback_0 callback);
 
 // SECTION - Hardware Acceleration Layer
 
+CvStatus* cv_stackBlur(Mat src, MatOut dst, CvSize ksize, CvCallback_0 callback);
+
 #ifdef __cplusplus
 }
 #endif
