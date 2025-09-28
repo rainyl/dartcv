@@ -2212,3 +2212,12 @@ CvStatus* cv_floodFill(
     }
     END_WRAP
 }
+
+CvStatus* cv_stackBlur(Mat src, MatOut dst, CvSize ksize, CvCallback_0 callback) {
+  BEGIN_WRAP
+  cv::stackBlur(CVDEREF(src), CVDEREF(dst), cv::Size(ksize.width, ksize.height));
+  if (callback != nullptr) {
+    callback();
+  }
+  END_WRAP
+}
