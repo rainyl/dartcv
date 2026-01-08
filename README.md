@@ -1,3 +1,14 @@
+> [!NOTE]
+> This project has been retired.
+> 
+> This project was developed for [opencv_dart](https://github.com/rainyl/opencv_dart) when `Native-Assets` is not officially published, now we no longer need it.
+> 
+> However, since the C wrappers are complete, it's still valuable for other projects that only supports C interfaces to interact with OpenCV.
+>
+> Feel free to use it in your project but remember to cite this repo.
+>
+> Have fun~
+
 # dartcv
 
 C wrappers for opencv, used for [opencv_dart](https://github.com/rainyl/opencv_dart)
